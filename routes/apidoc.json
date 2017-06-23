@@ -1,0 +1,9 @@
+{
+      "name": "CET Developers",
+      "version": "1.0.0",
+      "description": "Documentation for CET APIs",
+      "apidoc": {
+        "title": "CET Developers API",
+        "url" : "https://localhost:3000/apidoc/index.html"
+      }
+}

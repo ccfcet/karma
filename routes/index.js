@@ -1,7 +1,20 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/**
+ * @api {get} / Test
+ * @apiName Index
+ * @apiGroup Public 
+ * @apiSuccessExample {json} Test Success
+{
+  "success":true
+}
+ *
+ * @apiErrorExample {json} error
+{
+   
+}
+ */
 router.get('/', function(req, res, next) {
   res.send({'success':true});
 });
