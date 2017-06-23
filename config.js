@@ -1,9 +1,12 @@
 var config = {
     'development': {
         mysql: {
-            database: 'dcms',
+            database: 'cet',
             username: 'root',
             password: ''
+        },
+        firebase: {
+            databaseURL: "url"
         }
     },
     'production': {
