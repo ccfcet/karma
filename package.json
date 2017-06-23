@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=* nodemon ./bin/www"
+    "start": "DEBUG=cet:server,app, nodemon ./bin/www"
   },
   "dependencies": {
         "bluebird": "^3.4.7",

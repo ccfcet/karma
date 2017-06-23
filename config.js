@@ -3,7 +3,7 @@ var config = {
         mysql: {
             database: 'cet',
             username: 'root',
-            password: ''
+            password: 'linux4amrc'
         },
         firebase: {
             databaseURL: "url"
