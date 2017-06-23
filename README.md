@@ -12,6 +12,8 @@ Content Management System for CET Website
 1. Setting up the database,tables and relations 
 2. Fill database with basic static information
 3. Make the apis, Public apis first and then admin apis
-
+# Using the apidoc
+1. Run ```gulp doc``` and an ```apidoc/``` folder will be created
+2. Go to that folder and open ```index.html``` and access the apidoc
 
 
