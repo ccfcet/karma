@@ -2,15 +2,24 @@
 
 module.exports = function(sequelize, DataTypes) {
     var Streams = sequelize.define("streams", {
-        pid: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        pname: {
-            type: DataTypes.STRING(100),
-            unique: true,
-            allowNull: false
+            sid: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
+            },
+            sname: {
+                type: DataTypes.STRING(100),
+                unique: true,
+                allowNull: false
+            }
+        }, {
+            classMethods: {
+                associate: function(models) {
+                    models.streams.belongsTo(models.programmes, { foreignKey: 'pid', targetKey: 'pid' }); //Admin is the target model--automatically created a foreign key
+                    models.streams.belongsTo(models.entities, { foreignKey: 'eid', targetKey: 'eid' }); //Admin is the target model--automatically created a foreign key
+                }
+            }
+
         }
         // EIDs
         // ------------
@@ -18,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
         //1 -cse
         //2- ece
 
-    });
+    );
 
     return Streams;
 }
