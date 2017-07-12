@@ -16,7 +16,8 @@ var router = express.Router();
 }
  */
 router.get('/', function(req, res, next) {
-  res.send({'success':true});
+    res.send({ 'success': true });
 });
+router.use('/private', require('./private'))
 
 module.exports = router;
