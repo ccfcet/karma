@@ -13,18 +13,17 @@ module.exports = function(sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function(models) {
-                    models.information.belongsTo(models.entities, { foreignKey: 'eid', targetKey: 'eid' }); //Admin is the target model--automatically created a foreign key
-                    models.information.belongsTo(models.slugs, { foreignKey: 'slugId', targetKey: 'slugId' }); //Admin is the target model--automatically created a foreign key
-                }
+                    models.information.belongsTo(models.entities, { foreignKey: 'entityEid' });
+                    models.information.belongsTo(models.slugs, { foreignKey: 'slugSlugId' });
             }
         }
+      });
+
         // EIDs
         // ------------
         // 0 - college
-        //1 -cse
-        //2- ece
-
-    );
+        // 1 - cse
+        // 2 - ece
 
     return Information;
 }

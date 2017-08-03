@@ -18,6 +18,14 @@ module.exports = function(sequelize, DataTypes) {
         //1 -cse
         //2- ece
 
+    }, {
+        classMethods: {
+            associate: function(models) {
+                // models.entities.hasMany(models.information, { foreignKey: 'eid', targetKey: 'eid' }); //Admin is the target model--automatically created a foreign key
+                  models.slugs.hasMany(models.information);
+                  // models.entities.hasMany(models.information);
+            }
+        }
     });
 
     return Slugs;

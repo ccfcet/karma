@@ -1,40 +1,41 @@
 {
-  "name": "cet-server",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "start": "DEBUG=cet:server,app, nodemon ./bin/www"
-  },
-  "dependencies": {
-        "bluebird": "^3.4.7",
-        "body-parser": "~1.15.2",
-        "cookie-parser": "~1.4.3",
-        "cors": "^2.8.1",
-        "debug": "^2.2.0",
-        "express": "~4.14.0",
-        "fcm-node": "^1.0.16",
-        "firebase-admin": "^4.1.0",
-        "helmet": "^3.4.0",
-        "md5": "^2.2.1",
-        "morgan": "~1.7.0",
-        "mysql": "^2.13.0",
-        "pug": "~2.0.0-beta6",
-        "sequelize": "^3.30.0",
-        "serve-favicon": "~2.3.0",
-        "underscore": "^1.8.3"
-  },
-  "devDependencies": {
-        "apidoc": "^0.17.5",
-        "assert": "^1.4.1",
-        "expect": "^1.20.2",
-        "gulp": "^3.9.1",
-        "gulp-apidoc": "^0.2.5",
-        "gulp-foreach": "^0.1.0",
-        "gulp-mocha": "^3.0.1",
-        "gulp-open": "^2.0.0",
-        "gulp-replace": "^0.5.4",
-        "gulp-replace-task": "^0.11.0",
-        "should": "^11.2.0",
-        "supertest": "^3.0.0"
-    }
+      "name": "cet-server",
+      "version": "1.0.0",
+      "private": true,
+      "scripts": {
+            "start": "DEBUG=cet:server,app, nodemon ./bin/www"
+      },
+      "dependencies": {
+            "bluebird": "^3.4.7",
+            "body-parser": "~1.15.2",
+            "cookie-parser": "~1.4.3",
+            "cors": "^2.8.1",
+            "debug": "^2.2.0",
+            "express": "~4.14.0",
+            "fcm-node": "^1.0.16",
+            "firebase-admin": "^4.1.0",
+            "helmet": "^3.4.0",
+            "md5": "^2.2.1",
+            "morgan": "~1.7.0",
+            "mysql": "^2.13.0",
+            "pug": "~2.0.0-beta6",
+            "sequelize": "^3.30.0",
+            "sequelize-cli": "^2.7.0",
+            "serve-favicon": "~2.3.0",
+            "underscore": "^1.8.3"
+      },
+      "devDependencies": {
+            "apidoc": "^0.17.5",
+            "assert": "^1.4.1",
+            "expect": "^1.20.2",
+            "gulp": "^3.9.1",
+            "gulp-apidoc": "^0.2.5",
+            "gulp-foreach": "^0.1.0",
+            "gulp-mocha": "^3.0.1",
+            "gulp-open": "^2.0.0",
+            "gulp-replace": "^0.5.4",
+            "gulp-replace-task": "^0.11.0",
+            "should": "^11.2.0",
+            "supertest": "^3.0.0"
+      }
 }

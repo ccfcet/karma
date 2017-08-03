@@ -4,7 +4,7 @@ var router = express.Router();
 /**
  * @api {get} / Test
  * @apiName Index
- * @apiGroup Public 
+ * @apiGroup Public
  * @apiSuccessExample {json} Test Success
 {
   "success":true
@@ -12,12 +12,13 @@ var router = express.Router();
  *
  * @apiErrorExample {json} error
 {
-   
+
 }
  */
-router.get('/', function(req, res, next) {
-    res.send({ 'success': true });
-});
+// router.get('/', function(req, res, next) {
+//     res.send({ 'success': true });
+// });
+router.use('/public', require('./public'))
 router.use('/private', require('./private'))
 
 module.exports = router;
