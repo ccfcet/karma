@@ -1,13 +1,18 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var Entities = sequelize.define("entities", {
-        eid: {
+    var People = sequelize.define("people", {
+        pid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        ename: {
+        pname: {
+            type: DataTypes.STRING(100),
+            unique: true,
+            allowNull: false
+        },
+        pslugname: {
             type: DataTypes.STRING(100),
             unique: true,
             allowNull: false
@@ -22,11 +27,11 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 // models.entities.hasMany(models.information, { foreignKey: 'eid', targetKey: 'eid' }); //Admin is the target model--automatically created a foreign key
-                  // models.slugs.hasMany(models.information);
-                  models.entities.hasMany(models.entityInformation);
+                  models.people.hasMany(models.peopleInformation);
+                  models.people.hasMany(models.positionsCurrentData);
             }
-        }
-    });
+          }
+        });
 
-    return Entities;
+    return People;
 }

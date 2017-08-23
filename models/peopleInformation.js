@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var Information = sequelize.define("information", {
+    var PeopleInformation = sequelize.define("peopleInformation", {
             iid: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
@@ -13,8 +13,8 @@ module.exports = function(sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function(models) {
-                    models.information.belongsTo(models.entities, { foreignKey: 'entityEid' });
-                    models.information.belongsTo(models.slugs, { foreignKey: 'slugSlugId' });
+                    models.peopleInformation.belongsTo(models.people, { foreignKey: 'personPid' });
+                    models.peopleInformation.belongsTo(models.peopleSlugs, { foreignKey: 'peopleSlugSlugId' });
             }
         }
       });
@@ -25,5 +25,5 @@ module.exports = function(sequelize, DataTypes) {
         // 1 - cse
         // 2 - ece
 
-    return Information;
+    return PeopleInformation;
 }

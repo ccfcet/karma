@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var Slugs = sequelize.define("slugs", {
+    var EntitySlugs = sequelize.define("entitySlugs", {
         slugId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -22,11 +22,11 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 // models.entities.hasMany(models.information, { foreignKey: 'eid', targetKey: 'eid' }); //Admin is the target model--automatically created a foreign key
-                  models.slugs.hasMany(models.information);
+                  models.entitySlugs.hasMany(models.entityInformation);
                   // models.entities.hasMany(models.information);
             }
         }
     });
 
-    return Slugs;
+    return EntitySlugs;
 }
