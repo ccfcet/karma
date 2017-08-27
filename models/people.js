@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
             associate: function(models) {
                 // models.entities.hasMany(models.information, { foreignKey: 'eid', targetKey: 'eid' }); //Admin is the target model--automatically created a foreign key
                   models.people.hasMany(models.peopleInformation);
-                  models.people.hasMany(models.positionsCurrentData);
+                  // models.people.hasMany(models.positionsCurrentData);
             }
           }
         });

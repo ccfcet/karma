@@ -5,10 +5,9 @@ var debug = require('debug')('admin');
 var _ = require('underscore');
 var superAdminStatus = 10;
 
-router.use('/test', require('./test'));
-router.get('/', (req, res, next) => {
-    debug(req.query);
-    res.send({ "success": true, "api": "admin" }).status(200);
+router.get('/', function(req, res, next)
+{
+    res.send({ 'status': 200 });
 });
 
 module.exports = router;

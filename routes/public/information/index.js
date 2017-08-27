@@ -5,6 +5,11 @@ var debug = require('debug')('admin');
 var _ = require('underscore');
 var superAdminStatus = 10;
 
+router.get('/', function(req, res, next)
+{
+    res.send({ 'status': 200 });
+});
+
 router.get('/:slug/:entity', function(req, res) {
   models.entityInformation.findAll({
     include: [{ model: models.entities, attributes: [`ename`], where: { ename: req.params.entity }}, { model: models.entitySlugs, attributes: [`slugName`], where: { slugName: req.params.slug } }],
@@ -33,10 +38,6 @@ router.get('/:slug/:position/:name', function(req, res) {
     // handle error;
     res.json({ "success": "false" });
   });
-});
-
-router.get('/', (req, res, next) => {
-  res.json({ "success": "true" });
 });
 
 module.exports = router;
