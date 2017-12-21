@@ -27,4 +27,6 @@ router.get('/', function(req, res, next)
 
 router.use('/information', require('./information'));
 
+router.use('/menu', require('./menu'));
+
 module.exports = router;
