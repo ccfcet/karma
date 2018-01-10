@@ -13,63 +13,151 @@ router.get('/', function(req, res, next)
 router.get('/:entity/:menuType', function(req, res)
 {
   // returnObject
-  var returnObject;
+  var returnObject = [];
 
-  function checkIfChild(elementID)
-  {
-    models.menuParentChild.findAll({
-      // include: [{ model: models.entities, attributes: [], where: { ename: req.params.entity }}],
-      // where: { childID: elementID },
-      // attributes: ['id', 'parentID', 'childID']
-    }).then(function(result) {
-      // console.log(result);
-      // if(result.length==0)
-      // {
-      //   // console.log("");
-      // }
-      // else
-      // {
-      //   return result.length;
-      // }
-    }).catch(function (err) {
-      // handle error;
-      console.log(err);
-      res.json({ "success": "false" });
-    });
-  }
+  // entity variable
+  var entityVar = req.params.entity;
 
-  function resultElementRoutine(element, entity, menuType)
-  {
-    var checkIfChildFlag = checkIfChild(element.id);
-
-    res.json(checkIfChildFlag);
-  }
+  // menuType variable
+  var menuTypeVar = req.params.menuType;
 
   // obtain results from menuData matching entity and menuType
   models.menuData.findAll({
-    include: [{ model: models.entities, attributes: [], where: { ename: req.params.entity }}],
-    where: { menuType: req.params.menuType },
+    include: [{ model: models.entities, attributes: [], where: { ename: entityVar }}],
+    where: { menuType: menuTypeVar },
     attributes: ['id', 'itemName', 'itemUrl', 'position']
   }).then(function(result)
   {
-
-    _.each(result, function(element, index, list)
-    {
-      resultElementRoutine(element, entity, menuType);
-      // console.log(element);
-      res.json(element);
-    });
-
-    // res.json(result);
-    // return result;
-  }).catch(function (err)
+    // store result for further use
+    menuDataResult = result;
+  }).catch(function(err)
   {
-    // handle error;
-    res.json({ "success": "false" });
+    // handle error
+    console.log("Error occurred in obtaining results from menuData matching entity and menuType.");
   });
 
-  // return returnObject
-  // res.json(returnObject);
+  // obtain results from menuParentChildren matching entity and menuType
+  models.menuParentChild.findAll({
+    attributes: ['id', 'parentID', 'childID']
+  }).then(function(result)
+  {
+    // store result for further use
+    menuParentChildResult = result;
+  }).catch(function(err)
+  {
+    // handle error
+    console.log("Error occurred in obtaining results from menuParentChildren.");
+  });
+
+  function getChildren(elementID)
+  {
+    var returnArray = [];
+
+    _.each(menuParentChildResult, function(element, index, list)
+    {
+      if(element.parentID === elementID)
+      {
+        returnArray.push(element.childID);
+      }
+    });
+
+    return returnArray;
+  }
+
+  function getParent(elementID)
+  {
+    var parentID = null;
+
+    _.each(menuParentChildResult, function(element, index, list)
+    {
+      if(element.childID === elementID)
+      {
+        if(parentID == null)
+        {
+          parentID = element.parentID;
+        }
+        else
+        {
+          console.log("Warning: Inconsistent data obtained from database. Multiple parents found for same menu element.");
+        }
+      }
+    });
+
+    return parentID;
+  }
+
+  function addAsParent(element, childArray, addedFlag)
+  {
+    return addedFlag;
+  }
+
+  function addAsChild(childElement, parentID, addedFlag)
+  {
+    _.each(returnObject, function(element, index, list)
+    {
+      if(element.id == parentID)
+      {
+        if(_.isArray(element.children))
+        {
+          // children array already exists
+          element.children.push(childElement.toJSON());
+
+          // return successful addition
+          addedFlag = 1;
+        }
+        else
+        {
+          element.children = [];
+          element.children.push(childElement.toJSON());
+
+          // return successful addition
+          addedFlag = 1;
+        }
+      }
+    });
+
+    // return addedFlag without change
+    return addedFlag;
+  }
+
+  function addElement(element)
+  {
+    returnObject.push(element.toJSON());
+  }
+
+  _.each(menuDataResult, function(element, index, list)
+  {
+    var addedFlag = 0;
+
+    // check if element is a parent
+    var getChildrenReturnArray = getChildren(element.id);
+
+    if(getChildrenReturnArray.length != 0)
+    {
+      // console.log(getChildrenReturnArray.toString());
+      // console.log("addedFlag before addAsParent is:"+addedFlag);
+      addedFlag = addAsParent(element, getChildrenReturnArray, addedFlag);
+      // console.log("addedFlag after addAsParent is:"+addedFlag);
+    }
+
+    // check if element is a child
+    var getParentReturn = getParent(element.id);
+
+    if(getParentReturn != null)
+    {
+      // console.log("addedFlag before addAsChild is:"+addedFlag);
+      addedFlag = addAsChild(element, getParentReturn, addedFlag);
+      // console.log("addedFlag after addAsChild is:"+addedFlag);
+    }
+
+    if(addedFlag == 0)
+    {
+      // no parent child relationship
+      addElement(element);
+    }
+  });
+
+  res.json(returnObject);
 });
 
 module.exports = router;
