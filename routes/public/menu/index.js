@@ -21,34 +21,6 @@ router.get('/:entity/:menuType', function(req, res)
   // menuType variable
   var menuTypeVar = req.params.menuType;
 
-  // obtain results from menuData matching entity and menuType
-  models.menuData.findAll({
-    include: [{ model: models.entities, attributes: [], where: { ename: entityVar }}],
-    where: { menuType: menuTypeVar },
-    attributes: ['id', 'itemName', 'itemUrl', 'position']
-  }).then(function(result)
-  {
-    // store result for further use
-    menuDataResult = result;
-  }).catch(function(err)
-  {
-    // handle error
-    console.log("Error occurred in obtaining results from menuData matching entity and menuType.");
-  });
-
-  // obtain results from menuParentChildren matching entity and menuType
-  models.menuParentChild.findAll({
-    attributes: ['id', 'parentID', 'childID']
-  }).then(function(result)
-  {
-    // store result for further use
-    menuParentChildResult = result;
-  }).catch(function(err)
-  {
-    // handle error
-    console.log("Error occurred in obtaining results from menuParentChildren.");
-  });
-
   function getChildren(elementID)
   {
     var returnArray = [];
@@ -125,39 +97,68 @@ router.get('/:entity/:menuType', function(req, res)
     returnObject.push(element.toJSON());
   }
 
-  _.each(menuDataResult, function(element, index, list)
+  // obtain results from menuData matching entity and menuType
+  models.menuData.findAll({
+    include: [{ model: models.entities, attributes: [], where: { ename: entityVar }}],
+    where: { menuType: menuTypeVar },
+    attributes: ['id', 'itemName', 'itemUrl', 'position']
+  }).then(function(result)
   {
-    var addedFlag = 0;
+    // store result for further use
+    menuDataResult = result;
 
-    // check if element is a parent
-    var getChildrenReturnArray = getChildren(element.id);
-
-    if(getChildrenReturnArray.length != 0)
+    // obtain results from menuParentChildren matching entity and menuType
+    models.menuParentChild.findAll({
+      attributes: ['id', 'parentID', 'childID']
+    }).then(function(result)
     {
-      // console.log(getChildrenReturnArray.toString());
-      // console.log("addedFlag before addAsParent is:"+addedFlag);
-      addedFlag = addAsParent(element, getChildrenReturnArray, addedFlag);
-      // console.log("addedFlag after addAsParent is:"+addedFlag);
-    }
+      // store result for further use
+      menuParentChildResult = result;
+      
+      _.each(menuDataResult, function(element, index, list)
+      {
+        var addedFlag = 0;
 
-    // check if element is a child
-    var getParentReturn = getParent(element.id);
+        // check if element is a parent
+        var getChildrenReturnArray = getChildren(element.id);
 
-    if(getParentReturn != null)
+        if(getChildrenReturnArray.length != 0)
+        {
+          // console.log(getChildrenReturnArray.toString());
+          // console.log("addedFlag before addAsParent is:"+addedFlag);
+          addedFlag = addAsParent(element, getChildrenReturnArray, addedFlag);
+          // console.log("addedFlag after addAsParent is:"+addedFlag);
+        }
+
+        // check if element is a child
+        var getParentReturn = getParent(element.id);
+
+        if(getParentReturn != null)
+        {
+          // console.log("addedFlag before addAsChild is:"+addedFlag);
+          addedFlag = addAsChild(element, getParentReturn, addedFlag);
+          // console.log("addedFlag after addAsChild is:"+addedFlag);
+        }
+
+        if(addedFlag == 0)
+        {
+          // no parent child relationship
+          addElement(element);
+        }
+      });
+
+      res.json(returnObject);
+    }).catch(function(err)
     {
-      // console.log("addedFlag before addAsChild is:"+addedFlag);
-      addedFlag = addAsChild(element, getParentReturn, addedFlag);
-      // console.log("addedFlag after addAsChild is:"+addedFlag);
-    }
+      // handle error
+      console.log("Error occurred in obtaining results from menuParentChildren.");
+    });
 
-    if(addedFlag == 0)
-    {
-      // no parent child relationship
-      addElement(element);
-    }
+  }).catch(function(err)
+  {
+    // handle error
+    console.log("Error occurred in obtaining results from menuData matching entity and menuType.");
   });
-
-  res.json(returnObject);
 });
 
 module.exports = router;
