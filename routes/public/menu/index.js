@@ -114,7 +114,7 @@ router.get('/:entity/:menuType', function(req, res)
     {
       // store result for further use
       menuParentChildResult = result;
-      
+
       _.each(menuDataResult, function(element, index, list)
       {
         var addedFlag = 0;
@@ -147,11 +147,30 @@ router.get('/:entity/:menuType', function(req, res)
         }
       });
 
-      res.json(returnObject);
+      if(returnObject.length == 0)
+      {
+        res.json({
+          "state": "failure",
+          "state_description": "failure-menu-data"
+        });
+      }
+      else
+      {
+        res.json({
+          "state": "success",
+          "state_description": "success-menu-data",
+          "data": returnObject
+        });
+      }
     }).catch(function(err)
     {
       // handle error
       console.log("Error occurred in obtaining results from menuParentChildren.");
+
+      res.json({
+        "state": "error",
+        "state_description": "error-menu-data"
+      });
     });
 
   }).catch(function(err)

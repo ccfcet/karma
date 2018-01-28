@@ -1,27 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-/**
- * @api {get} /
- * @apiName API Success Test
- * @apiGroup Public
- * @apiSuccessExample {json} Test Success
-{
-  "success":true
-}
- *
- * @apiErrorExample {json} error
-{
-
-}
- */
-
 router.get('/', function(req, res, next)
 {
-    res.send({ 'status': 200 });
+    res.json({
+      "name": "College of Engineering Trivandrum Information API",
+      "version": "1.0.0-alpha-1"
+    });
 });
 
-router.use('/public', require('./public'))
-router.use('/private', require('./private'))
+router.use('/public', require('./public'));
+router.use('/private', require('./private'));
 
 module.exports = router;
