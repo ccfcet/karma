@@ -1,46 +1,41 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var EntityInformation = sequelize.define("entityInformation", {
+  var MenuParentChildAssociation = sequelize.define("menuParentChildAssociation", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    entity_id: {
+    parent_element_id: {
       type: DataTypes.INTEGER,
       unique: 'compositeIndex',
       allowNull: false
     },
-    entity_slug_id: {
+    child_element_id: {
       type: DataTypes.INTEGER,
       unique: 'compositeIndex',
-      allowNull: false
-    },
-    data: {
-      type: DataTypes.TEXT('medium'),
-      unique: false,
       allowNull: false
     }
   });
 
-  EntityInformation.associate = function (models) {
-    models.entityInformation.belongsTo(models.entities, {
+  MenuParentChildAssociation.associate = function (models) {
+    models.menuParentChildAssociation.belongsTo(models.menuData, {
       onDelete: "CASCADE",
       foreignKey: {
-        name: "entity_id"
+        name: "parent_element_id"
         // allowNull: false -- already defined
       }
     });
 
-    models.entityInformation.belongsTo(models.entitySlugs, {
+    models.menuParentChildAssociation.belongsTo(models.menuData, {
       onDelete: "CASCADE",
       foreignKey: {
-        name: "entity_slug_id"
+        name: "child_element_id"
         // allowNull: false -- already defined
       }
     });
   };
 
-  return EntityInformation;
+  return MenuParentChildAssociation;
 }

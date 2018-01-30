@@ -40,4 +40,8 @@ router.get('/:slug/:position/:name', function(req, res) {
   });
 });
 
+router.get('/faculties', function(req, res) {
+  res.json({ "value": "hello" });
+});
+
 module.exports = router;

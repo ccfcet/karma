@@ -1,37 +1,28 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var People = sequelize.define("people", {
-        pid: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        pname: {
-            type: DataTypes.STRING(100),
-            unique: true,
-            allowNull: false
-        },
-        pslugname: {
-            type: DataTypes.STRING(100),
-            unique: true,
-            allowNull: false
-        }
-        // EIDs
-        // ------------
-        // 0 - college
-        //1 -cse
-        //2- ece
+  var People = sequelize.define("people", {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    first_name: {
+      type: DataTypes.STRING(64),
+      unique: true,
+      allowNull: false
+    },
+    second_name: {
+      type: DataTypes.STRING(64),
+      unique: true,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING(255),
+      unique: true,
+      allowNull: false
+    }
+  });
 
-    }, {
-        classMethods: {
-            associate: function(models) {
-                // models.entities.hasMany(models.information, { foreignKey: 'eid', targetKey: 'eid' }); //Admin is the target model--automatically created a foreign key
-                  models.people.hasMany(models.peopleInformation);
-                  // models.people.hasMany(models.positionsCurrentData);
-            }
-          }
-        });
-
-    return People;
+  return People;
 }

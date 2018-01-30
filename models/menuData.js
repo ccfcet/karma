@@ -7,36 +7,27 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    menuType: {
+    entity_id: {
       type: DataTypes.INTEGER,
+      unique: false,
       allowNull: false
     },
-    itemName: {
-      type: DataTypes.STRING(100),
-      unique: true,
-      allowNull: false
-    },
-    itemUrl: {
-      type: DataTypes.STRING(320),
-      unique: true,
-      allowNull: false
-    },
-    position: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    menu_title: {
+      type: DataTypes.STRING(255),
+      unique: false,
+      allowNull: true
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        models.menuData.belongsTo(models.entities, { foreignKey: {
-          name: 'entityEid',
-          allowNull: false
-        } });
+  });
+
+  MenuData.associate = function (models) {
+    models.menuData.belongsTo(models.entities, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        name: "entity_id"
+        // allowNull: false -- already defined
       }
-    }
+    });
+  });
 
-  }
-);
-
-return MenuData;
+  return MenuData;
 }

@@ -1,29 +1,46 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-    var PeopleInformation = sequelize.define("peopleInformation", {
-            iid: {
-                type: DataTypes.INTEGER,
-                primaryKey: true,
-                autoIncrement: true
-            },
-            data: {
-                type: DataTypes.TEXT
-            }
-        }, {
-            classMethods: {
-                associate: function(models) {
-                    models.peopleInformation.belongsTo(models.people, { foreignKey: 'personPid' });
-                    models.peopleInformation.belongsTo(models.peopleSlugs, { foreignKey: 'peopleSlugSlugId' });
-            }
-        }
-      });
+  var PeopleInformation = sequelize.define("peopleInformation", {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    person_id: {
+      type: DataTypes.INTEGER,
+      unique: 'compositeIndex',
+      allowNull: false
+    },
+    person_slug_id: {
+      type: DataTypes.INTEGER,
+      unique: 'compositeIndex',
+      allowNull: false
+    },
+    data: {
+      type: DataTypes.TEXT('medium'),
+      unique: false,
+      allowNull: false
+    }
+  });
 
-        // EIDs
-        // ------------
-        // 0 - college
-        // 1 - cse
-        // 2 - ece
+  PeopleInformation.associate = function (models) {
+    models.peopleInformation.belongsTo(models.people, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        name: "person_id"
+        // allowNull: false -- already defined
+      }
+    });
 
-    return PeopleInformation;
+    models.peopleInformation.belongsTo(models.peopleSlugs, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        name: "person_slug_id"
+        // allowNull: false -- already defined
+      }
+    });
+  };
+
+  return PeopleInformation;
 }
