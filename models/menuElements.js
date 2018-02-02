@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       unique: 'compositeIndex',
       allowNull: false
-    }
+    },
     position: {
       type: DataTypes.INTEGER,
       unique: false,
@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
         // allowNull: false -- already defined
       }
     });
-  });
+  }
 
   return MenuElements;
 }
