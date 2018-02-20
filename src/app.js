@@ -17,7 +17,6 @@ var cors = require('cors');
 //Router
 var router = require('./routes/index');
 
-var config = require('./config')()
 var debug = require('debug')('app');
 var app = express();
 

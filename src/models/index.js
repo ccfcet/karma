@@ -3,8 +3,12 @@
 var fs = require("fs");
 var path = require("path");
 var Sequelize = require("sequelize");
-var config = require('../config')()
-var sequelize = new Sequelize(config.mysql.database, config.mysql.username, config.mysql.password);
+var basename = path.basename(__filename);
+var env = process.env.NODE_ENV || 'development';
+var config = require(__dirname + '/../config/config.json')[env];
+var db = {};
+
+var sequelize;
 
 // initialize for walker
 var walk = require('walk');
@@ -12,8 +16,9 @@ var fs = require('fs');
 var walker;
 
 var Promise = require("bluebird");
+var _ = require('lodash');
 
-var db = {};
+var promisesArray = [];
 
 function processDirectory(dirname)
 {
@@ -35,13 +40,11 @@ function processDirectory(dirname)
 
     walker.on("file", function(root, fileStats, next) {
       // filter files
-      if ((fileStats.name.indexOf(".") !== 0) && (fileStats.name !== "index.js"))
+      if((fileStats.name.indexOf('.') !== 0) && (fileStats.name !== basename) && (fileStats.name.slice(-3) === '.js'))
       {
-        fs.readFile(fileStats.name, function () {
-          var model = sequelize.import(path.join(dirname, fileStats.name));
-          db[model.name] = model;
-          next();
-        });
+        var model = sequelize['import'](path.join(dirname, fileStats.name));
+        db[model.name] = model;
+        next();
       }
       else
       {
@@ -60,21 +63,52 @@ function processDirectory(dirname)
   });
 }
 
-module.exports = new Promise(function(resolve, reject){
-  // returns a Promise rather than the db object
-  processDirectory(__dirname).then(function(){
+function associate(modelName){
+  return new Promise(function(resolve, reject){
+    if(db[modelName].associate) {
+      db[modelName].associate(db);
+    }
 
-    Object.keys(db).forEach(function(modelName) {
-      if ("associate" in db[modelName]) {
-        db[modelName].associate(db);
-      }
-    });
+    resolve();
+  });
+}
 
+function dbComplete(){
+  return new Promise(function(resolve, reject){
     db.sequelize = sequelize;
     db.Sequelize = Sequelize;
-    resolve(db);
+
+    module.exports = db;
+
+    resolve();
+  });
+}
+
+function init()
+{
+  if (config.use_env_variable) {
+    sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  } else {
+    sequelize = new Sequelize(config.database, config.username, config.password, config);
+  }
+
+  processDirectory(__dirname).then(function(){
+    Object.keys(db).forEach(function(modelName) {
+      promisesArray.push(associate(modelName));
+    });
+
+    Promise.all(promisesArray).then(function(){
+      dbComplete().then(function(){
+        if (config.use_env_variable) {
+          db.sequelize.sync();
+        } else {
+          db.sequelize.sync();
+        }
+      });
+    });
   }).catch(function(err){
     console.log(err);
-    reject(err);
   });
-});
+}
+
+init();
