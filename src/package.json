@@ -6,7 +6,7 @@
             "start": "DEBUG=cet:server,app, nodemon ./bin/www"
       },
       "dependencies": {
-            "bluebird": "^3.4.7",
+            "bluebird": "^3.5.1",
             "body-parser": "~1.15.2",
             "cookie-parser": "~1.4.3",
             "cors": "^2.8.1",
@@ -22,7 +22,8 @@
             "sequelize": "^3.30.0",
             "sequelize-cli": "^2.7.0",
             "serve-favicon": "~2.3.0",
-            "underscore": "^1.8.3"
+            "underscore": "^1.8.3",
+            "walk": "^2.3.9"
       },
       "devDependencies": {
             "apidoc": "^0.17.5",
