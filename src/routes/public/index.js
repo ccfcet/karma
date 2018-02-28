@@ -1,9 +1,5 @@
-var express = require('express');
-var router = express.Router();
-var models = require('../../models');
-var debug = require('debug')('admin');
-var _ = require('underscore');
-var superAdminStatus = 10;
+var express = require('express')
+var router = express.Router()
 
 /**
 * @api {get} / public
@@ -20,13 +16,12 @@ var superAdminStatus = 10;
 }
 */
 
-router.get('/', function(req, res, next)
-{
-  res.send({ 'status': 200 });
-});
+router.get('/', function (req, res, next) {
+  res.send({ 'status': 200 })
+})
 
-router.use('/information', require('./information'));
+router.use('/information', require('./information'))
 
-router.use('/menu', require('./menu'));
+router.use('/menu', require('./menu'))
 
-module.exports = router;
+module.exports = router

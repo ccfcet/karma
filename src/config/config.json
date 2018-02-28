@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "cet",
+    "database": "karma",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": "Sequelize.Op"
@@ -10,7 +10,7 @@
   "test": {
     "username": "root",
     "password": "password",
-    "database": "database_test",
+    "database": "karma",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": "Sequelize.Op"
@@ -18,7 +18,7 @@
   "production": {
     "username": "root",
     "password": "password",
-    "database": "database_production",
+    "database": "karma",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": "Sequelize.Op"

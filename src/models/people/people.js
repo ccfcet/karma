@@ -1,18 +1,18 @@
-"use strict";
+'use strict'
 
-module.exports = function(sequelize, DataTypes) {
-  var EntityInformation = sequelize.define("entityInformation", {
+module.exports = function (sequelize, DataTypes) {
+  var People = sequelize.define('people', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    entity_id: {
+    person_id: {
       type: DataTypes.INTEGER,
       unique: 'compositeIndex',
       allowNull: false
     },
-    entity_slug_id: {
+    person_slug_id: {
       type: DataTypes.INTEGER,
       unique: 'compositeIndex',
       allowNull: false
@@ -22,25 +22,29 @@ module.exports = function(sequelize, DataTypes) {
       unique: false,
       allowNull: false
     }
-  });
+  }, {
+    indexes: [
+      { fields: ['key1', 'key2'], unique: true }
+    ]
+  })
 
-  EntityInformation.associate = function (models) {
-    models.entityInformation.belongsTo(models.entities, {
-      onDelete: "CASCADE",
+  People.associate = function (models) {
+    models.peopleInformation.belongsTo(models.people, {
+      onDelete: 'CASCADE',
       foreignKey: {
-        name: "entity_id"
+        name: 'person_id'
         // allowNull: false -- already defined
       }
-    });
+    })
 
-    models.entityInformation.belongsTo(models.entitySlugs, {
-      onDelete: "CASCADE",
+    models.peopleInformation.belongsTo(models.peopleSlugs, {
+      onDelete: 'CASCADE',
       foreignKey: {
-        name: "entity_slug_id"
+        name: 'person_slug_id'
         // allowNull: false -- already defined
       }
-    });
-  };
+    })
+  }
 
-  return EntityInformation;
+  return People
 }

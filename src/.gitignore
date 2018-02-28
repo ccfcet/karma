@@ -29,8 +29,8 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
-#config file
-config.js
+# config file
+config/config.json
 
-#apidoc
+# apidoc
 apidoc
