@@ -12,7 +12,7 @@ npm run start-dev
 ```
 
 # Setting up the server
-1. Clone the repository ```git clone https://github.com/amrithm98/cet-backend/```
+1. Clone the repository ```git clone https://github.com/ccfcet/karma.git```
 2. Install npm
 3. Run ```npm install```
 5. After install, Create a config.js file with the following content
