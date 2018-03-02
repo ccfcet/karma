@@ -1,5 +1,5 @@
 # Karma
-Back-end APIs software framework for colleges.
+Back-end API framework for colleges.
 
 ## Design
 Design details available in ./design folder.

@@ -5,7 +5,7 @@ var path = require('path')
 var Sequelize = require('sequelize')
 var basename = path.basename(__filename)
 var env = process.env.NODE_ENV || 'development'
-var config = require(__dirname + '/../config/config.json')[env]
+var config = require(path.join(__dirname, '/../config/config.json'))[env]
 var db = {}
 
 var sequelize
@@ -36,13 +36,15 @@ function processDirectory (dirname) {
     })
 
     walker.on('file', function (root, fileStats, next) {
-      // filter files
-      if ((fileStats.name.indexOf('.') !== 0) && (fileStats.name !== basename) && (fileStats.name.slice(-3) === '.js')) {
-        var model = sequelize['import'](path.join(dirname, fileStats.name))
-        db[model.name] = model
-        next()
-      } else {
-        next()
+      if (root === dirname) {
+        // filter files
+        if ((fileStats.name.indexOf('.') !== 0) && (fileStats.name !== basename) && (fileStats.name.slice(-3) === '.js')) {
+          var model = sequelize['import'](path.join(dirname, fileStats.name))
+          db[model.name] = model
+        }
+        process.nextTick(function () {
+          next()
+        })
       }
     })
 
