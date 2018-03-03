@@ -18,6 +18,26 @@ var Promise = require('bluebird')
 
 var promisesArray = []
 
+var _ = require('lodash')
+
+var addBreadTrail = function (object, breadTrail, value) {
+  return new Promise(function (resolve, reject) {
+    // create an object following the breadTrail
+    var breadTrailObject = {}
+    while (breadTrail.length !== 0) {
+      var breadCrumb = breadTrail.pop()
+      breadTrailObject[breadCrumb] = value
+      value = breadTrailObject
+      breadTrailObject = {}
+    }
+    breadTrailObject = value
+    // merging with object
+    _.merge(object, breadTrailObject)
+    resolve(object)
+  })
+}
+
+// function to process a directory
 function processDirectory (dirname) {
   return new Promise(function (resolve, reject) {
     // resolve() when success
@@ -26,7 +46,7 @@ function processDirectory (dirname) {
 
     walker.on('directory', function (root, directoryStats, next) {
       fs.readFile(directoryStats.name, function () {
-        processDirectory(dirname + '/' + directoryStats.name).then(function () {
+        processDirectory(path.join(dirname, directoryStats.name)).then(function () {
           next()
         }).catch(function (err) {
           console.log(err)
@@ -40,8 +60,32 @@ function processDirectory (dirname) {
         // filter files
         if ((fileStats.name.indexOf('.') !== 0) && (fileStats.name !== basename) && (fileStats.name.slice(-3) === '.js')) {
           var model = sequelize['import'](path.join(dirname, fileStats.name))
-          db[model.name] = model
+          var relativeSubtractPath = path.relative(__dirname, dirname)
+
+          var breadTrail = relativeSubtractPath.split('/')
+          if (breadTrail.length === 1) {
+            if (breadTrail[0] === '') {
+              breadTrail.pop()
+            }
+          }
+
+          process.nextTick(function () {
+            breadTrail.push(model.name)
+
+            // db[path.relative(__dirname, dirname) + '.' + model.name] = model
+            addBreadTrail(db, breadTrail, model).then(function (object) {
+              db = object
+              next()
+            }).catch(function (err) {
+              console.log('Error in addBreadTrail' + err)
+            })
+          })
+        } else {
+          next()
         }
+      } else {
+        console.log('\nError skipped in walk implementation. Fix soon.')
+        console.log('{\n  root: ' + root + '\n  dirname: ' + dirname + '\n  fileStats.name: ' + fileStats.name + '\n}\n')
         process.nextTick(function () {
           next()
         })
@@ -59,13 +103,22 @@ function processDirectory (dirname) {
   })
 }
 
-function associate (modelName) {
+function associate (object) {
   return new Promise(function (resolve, reject) {
-    if (db[modelName].associate) {
-      db[modelName].associate(db)
+    if (object instanceof Function) {
+      if (object.associate) {
+        object.associate(db)
+      }
+      setImmediate(function () {
+        resolve()
+      })
+    } else {
+      _.forEach(object, function (key) {
+        associate(key).then(function () {
+          resolve()
+        })
+      })
     }
-
-    resolve()
   })
 }
 
@@ -80,7 +133,7 @@ function dbComplete () {
   })
 }
 
-function init () {
+var init = function () {
   if (config.use_env_variable) {
     sequelize = new Sequelize(process.env[config.use_env_variable], config)
   } else {
@@ -88,9 +141,7 @@ function init () {
   }
 
   processDirectory(__dirname).then(function () {
-    Object.keys(db).forEach(function (modelName) {
-      promisesArray.push(associate(modelName))
-    })
+    promisesArray.push(associate(db))
 
     Promise.all(promisesArray).then(function () {
       dbComplete().then(function () {
