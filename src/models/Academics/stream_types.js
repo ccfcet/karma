@@ -7,8 +7,12 @@ module.exports = function (sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    stream_type: {
-      type: DataTypes.STRING(45),
+    stream_type_long: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    stream_type_short: {
+      type: DataTypes.STRING(63),
       allowNull: false
     },
     start_date: {

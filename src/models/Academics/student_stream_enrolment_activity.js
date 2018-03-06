@@ -34,7 +34,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     })
 
-    models.Academics.student_stream_enrolment_activity.belongsTo(models.Academics.stream_offered, {
+    models.Academics.student_stream_enrolment_activity.belongsTo(models.Academics.streams_offered, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'stream_id'

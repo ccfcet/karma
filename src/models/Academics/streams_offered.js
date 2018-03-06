@@ -1,25 +1,21 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var CoursesOffered = sequelize.define('courses_offered', {
+  var StreamsOffered = sequelize.define('streams_offered', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
       autoIncrement: true
     },
-    official_course_id: {
-      type: DataTypes.STRING(31),
+    stream_type_id: {
+      type: DataTypes.INTEGER(),
       allowNull: false
     },
-    name: {
+    stream_name: {
       type: DataTypes.STRING(63),
       allowNull: false
     },
     department_id: {
-      type: DataTypes.INTEGER(),
-      allowNull: false
-    },
-    credits: {
       type: DataTypes.INTEGER(),
       allowNull: false
     },
@@ -30,22 +26,26 @@ module.exports = function (sequelize, DataTypes) {
     valid_end_date: {
       type: DataTypes.DATE(),
       allowNull: false
-    },
-    duration_in_days: {
-      type: DataTypes.INTEGER(),
-      allowNull: false
     }
   })
 
-  CoursesOffered.associate = function (models) {
-    models.Academics.courses_offered.belongsTo(models.Entities.entities, {
+  StreamsOffered.associate = function (models) {
+    models.Academics.streams_offered.belongsTo(models.Academics.stream_types, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'stream_type_id'
+        // allowNull: false -- already defined
+      }
+    })
+
+    models.Academics.streams_offered.belongsTo(models.Entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'department_id'
-        // allowNull: false -- already defined
+      // allowNull: false -- already defined
       }
     })
   }
 
-  return CoursesOffered
+  return StreamsOffered
 }

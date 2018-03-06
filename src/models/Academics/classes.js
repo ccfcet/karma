@@ -19,7 +19,6 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATE(),
       allowNull: false
     }
-
   })
 
   return Classes

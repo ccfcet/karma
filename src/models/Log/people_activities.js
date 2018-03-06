@@ -9,10 +9,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     activity_name: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     activity_slug: {
       type: DataTypes.STRING(63),
+      allowNull: false,
+      unique: true
+    },
+    activity_description: {
+      type: DataTypes.STRING(2047),
       allowNull: false
     }
   })
