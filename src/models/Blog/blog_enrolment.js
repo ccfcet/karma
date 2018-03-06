@@ -1,0 +1,31 @@
+'use strict'
+
+module.exports = function (sequelize, DataTypes) {
+  var BlogEnrollment = sequelize.define('blog_enrollment', {
+    id: {
+      type: DataTypes.INTEGER(),
+      primaryKey: true,
+      autoIncrement: true
+    },
+    blog_id: {
+      type: DataTypes.INTEGER(),
+      allowNull: false
+    },
+    activity: {
+      type: DataTypes.CHAR(1),
+      allowNull: false
+    }
+  })
+
+  BlogEnrollment.associate = function (models) {
+    models.Blog.blog_enrollment.belongsTo(models.Blog.blogs, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'blog_id'
+        // allowNull: false -- already defined
+      }
+    })
+  }
+
+  return BlogEnrollment
+}
