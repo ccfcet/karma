@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var PeopleInformation = sequelize.define('people_information', {
+  var PeopleActivityLog = sequelize.define('people_activity_log', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
@@ -9,22 +9,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     people_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false,
-      unique: 'compositeIndex'
+      allowNull: false
     },
-    slug_id: {
+    people_activity_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false,
-      unique: 'compositeIndex'
-    },
-    json: {
-      type: DataTypes.JSON(),
       allowNull: false
     }
   })
 
-  PeopleInformation.associate = function (models) {
-    models.People.people_information.belongsTo(models.People.people, {
+  PeopleActivityLog.associate = function (models) {
+    models.Log.people_activity_log.belongsTo(models.People.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_id'
@@ -32,14 +26,14 @@ module.exports = function (sequelize, DataTypes) {
       }
     })
 
-    models.People.people_information.belongsTo(models.People.people_information_slugs, {
+    models.Log.people_activity_log.belongsTo(models.Log.people_activities, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'slug_id'
+        name: 'people_activity_id'
         // allowNull: false -- already defined
       }
     })
   }
 
-  return PeopleInformation
+  return PeopleActivityLog
 }

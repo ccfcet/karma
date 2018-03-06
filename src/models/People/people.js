@@ -8,14 +8,14 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true
     },
     first_name: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(63),
       allowNull: false
     },
     middle_name: {
-      type: DataTypes.STRING(45)
+      type: DataTypes.STRING(63)
     },
     last_name: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(63),
       allowNull: false
     },
     gender: {
@@ -27,7 +27,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     nationality: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING(63),
       allowNull: false
     }
   })
