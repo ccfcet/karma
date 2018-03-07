@@ -46,7 +46,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     })
 
-    models.Student.student_course_grades.belongsTo(models.Academics.student_course_grading_standards, {
+    models.Student.student_course_grades.belongsTo(models.Student.student_course_grading_standards, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'grading_standard_id'

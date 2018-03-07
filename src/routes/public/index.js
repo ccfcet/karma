@@ -2,19 +2,19 @@ var express = require('express')
 var router = express.Router()
 
 /**
-* @api {get} / public
-* @apiName API Success Test
-* @apiGroup Public
-* @apiSuccessExample {json} Test Success
-{
-"success":true
-}
-*
-* @apiErrorExample {json} error
-{
-
-}
-*/
+ * @api {get} /public Karma Entry Gate - Public
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName KarmaEntryGatePublic
+ * @apiGroup Karma
+ *
+ * @apiSuccess {Number} status 200
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       'status': 200
+ *     }
+ */
 
 router.get('/', function (req, res, next) {
   res.send({ 'status': 200 })

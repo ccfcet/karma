@@ -8,29 +8,29 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true
     },
     entity_id: {
-      type: DataTypes.INTEGER()
+      type: DataTypes.INTEGER(),
+      allowNull: false
     },
     status: {
       type: DataTypes.CHAR(1),
       allowNull: false
     },
     position_name: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(63),
       allowNull: false
     },
     position_slug: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(63),
       allowNull: false
     },
     position_description: {
-      type: DataTypes.TEXT(),
-      allowNull: false
+      type: DataTypes.TEXT('medium'),
+      allowNull: true
     }
-
   })
 
   EntityPositionAssociation.associate = function (models) {
-    models.Entities.entity_position_association.belongsTo(models.Entities.entitie, {
+    models.Entities.entity_position_association.belongsTo(models.Entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'entity_id'

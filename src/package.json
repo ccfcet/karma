@@ -1,6 +1,14 @@
 {
-  "name": "cet-server",
-  "version": "1.0.0",
+  "name": "Karma",
+  "version": "1.0.0-alpha-1",
+  "description": "Back-end API framework for colleges.",
+  "apidoc": {
+    "title": "Karma Documentation",
+    "order": [
+      "KarmaEntryGate",
+      "KarmaEntryGatePublic"
+    ]
+  },
   "private": true,
   "scripts": {
     "dev": "DEBUG=cet:server,app, nodemon ./bin/www",

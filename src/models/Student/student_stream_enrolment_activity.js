@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var StudentClassEnrolmentActivity = sequelize.define('student_class_enrolment_activity', {
+  var StudentStreamEnrolmentActivity = sequelize.define('student_stream_enrolment_activity', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
@@ -11,7 +11,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER(),
       allowNull: false
     },
-    class_id: {
+    stream_id: {
       type: DataTypes.INTEGER(),
       allowNull: false
     },
@@ -25,8 +25,8 @@ module.exports = function (sequelize, DataTypes) {
     }
   })
 
-  StudentClassEnrolmentActivity.associate = function (models) {
-    models.Academics.student_class_enrolment_activity.belongsTo(models.People.people, {
+  StudentStreamEnrolmentActivity.associate = function (models) {
+    models.Student.student_stream_enrolment_activity.belongsTo(models.People.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_id'
@@ -34,14 +34,14 @@ module.exports = function (sequelize, DataTypes) {
       }
     })
 
-    models.Academics.student_class_enrolment_activity.belongsTo(models.Academics.classes, {
+    models.Student.student_stream_enrolment_activity.belongsTo(models.Academics.streams_offered, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'class_id'
+        name: 'stream_id'
         // allowNull: false -- already defined
       }
     })
   }
 
-  return StudentClassEnrolmentActivity
+  return StudentStreamEnrolmentActivity
 }

@@ -1,18 +1,22 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var EntityPeoplePositionEnrollment = sequelize.define('entity_people_position_enrolment', {
+  var EntityPeopleEnrollment = sequelize.define('entity_people_enrollment', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
       autoIncrement: true
     },
-    entity_position_association_id: {
+    entity_id: {
       type: DataTypes.INTEGER(),
       allowNull: false
     },
     people_id: {
       type: DataTypes.INTEGER(),
+      allowNull: false
+    },
+    date_time: {
+      type: DataTypes.DATE(),
       allowNull: false
     },
     activity: {
@@ -21,16 +25,16 @@ module.exports = function (sequelize, DataTypes) {
     }
   })
 
-  EntityPeoplePositionEnrollment.associate = function (models) {
-    models.Entities.entity_people_position_enrolment.belongsTo(models.Entities.entity_position_association, {
+  EntityPeopleEnrollment.associate = function (models) {
+    models.Entities.entity_people_enrollment.belongsTo(models.Entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'entity_position_association_id'
+        name: 'entity_id'
         // allowNull: false -- already defined
       }
     })
 
-    models.Entities.entity_people_position_enrolment.belongsTo(models.People.people, {
+    models.Entities.entity_people_enrollment.belongsTo(models.People.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_id'
@@ -39,5 +43,5 @@ module.exports = function (sequelize, DataTypes) {
     })
   }
 
-  return EntityPeoplePositionEnrollment
+  return EntityPeopleEnrollment
 }

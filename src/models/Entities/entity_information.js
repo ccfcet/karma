@@ -1,41 +1,45 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var EntityParentChildAssociation = sequelize.define('entity_parent_child_association', {
+  var EntityInformation = sequelize.define('entity_information', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
       autoIncrement: true
     },
-    parent_id: {
+    entity_id: {
       type: DataTypes.INTEGER(),
       allowNull: false,
       unique: 'compositeIndex'
     },
-    child_id: {
+    slug_id: {
       type: DataTypes.INTEGER(),
       allowNull: false,
       unique: 'compositeIndex'
+    },
+    data: {
+      type: DataTypes.JSON(),
+      allowNull: false
     }
   })
 
-  EntityParentChildAssociation.associate = function (models) {
-    models.Entities.entity_parent_child_association.belongsTo(models.Entities.entities, {
+  EntityInformation.associate = function (models) {
+    models.Entities.entity_information.belongsTo(models.Entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'parent_id'
+        name: 'entity_id'
         // allowNull: false -- already defined
       }
     })
 
-    models.Entities.entity_parent_child_association.belongsTo(models.Entities.entities, {
+    models.Entities.entity_information.belongsTo(models.Entities.entity_information_slugs, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'child_id'
+        name: 'slug_id'
         // allowNull: false -- already defined
       }
     })
   }
 
-  return EntityParentChildAssociation
+  return EntityInformation
 }

@@ -8,10 +8,13 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true
     },
     entity_type: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(63),
+      allowNull: false
+    },
+    entity_type_slug: {
+      type: DataTypes.STRING(63),
       allowNull: false
     }
-
   })
 
   return EntityTypes
