@@ -30,7 +30,7 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   PostData.associate = function (models) {
-    models.Blog.Posts.PostData.belongsTo(models.Blog.Posts.posts, {
+    models.Blog.Posts.post_data.belongsTo(models.Blog.Posts.posts, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'post_id'
@@ -38,7 +38,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     })
 
-    models.Blog.Posts.PostData.belongsTo(models.People.people, {
+    models.Blog.Posts.post_data.belongsTo(models.People.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'author_id'
