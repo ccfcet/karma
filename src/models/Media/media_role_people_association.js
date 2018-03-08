@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var media_role_people_association = sequelize.define('media_role_people_association', {
+  var mediaRolePeopleAssociation = sequelize.define('media_role_people_association', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
@@ -32,15 +32,29 @@ module.exports = function (sequelize, DataTypes) {
 
   })
 
-  media_role_people_association.associate = function (models) {
-    models.Entities.entities.belongsTo(models.Entities.entity_types, {
+  mediaRolePeopleAssociation.associate = function (models) {
+    models.Media.media_role_people_association.belongsTo(models.Media.media_roles, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'entity_type_id'
+        name: 'role_id'
+        // allowNull: false -- already defined
+      }
+    })
+    models.Media.media_role_people_association.belongsTo(models.Media.media, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'media_id'
+        // allowNull: false -- already defined
+      }
+    })
+    models.Media.media_role_people_association.belongsTo(models.Media.faculty_academic_enrolment_activity, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'people_id'
         // allowNull: false -- already defined
       }
     })
   }
 
-  return Entities
+  return mediaRolePeopleAssociation
 }
