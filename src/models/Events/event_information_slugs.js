@@ -16,5 +16,5 @@ module.exports = function (sequelize, DataTypes) {
 
 
 
-  return FacultyAcademicEnrolmentActivity
+  return eventInformationSlugs
 }
