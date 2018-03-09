@@ -9,15 +9,17 @@ module.exports = function (sequelize, DataTypes) {
     },
     entity_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: 'compositeIndex'
     },
     menu_type: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: 'compositeIndex'
     },
     menu_title: {
       type: DataTypes.STRING(45),
-      allowNull: false
+      allowNull: true
     }
   })
   MenuData.associate = function (models) {

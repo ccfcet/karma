@@ -8,12 +8,10 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true
     },
     event_name: {
-      type: DataTypes.VARCHAR(255),
+      type: DataTypes.STRING(255),
       allowNull: false
     }
   })
-
-
 
   return events
 }

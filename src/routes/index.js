@@ -2,15 +2,15 @@ var express = require('express')
 var router = express.Router()
 
 /**
- * @api {get} / Karma Entry Gate
+ * @api {get} / Main Entry Gate
  * @apiVersion 1.0.0-alpha-1
- * @apiName KarmaEntryGate
- * @apiGroup Karma
+ * @apiName EntryGateMain
+ * @apiGroup EntryGates
  *
  * @apiSuccess {String} name Karma API.
  * @apiSuccess {String} version Current version of Karma.
  *
- * @apiSuccessExample Success-Response:
+ * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
  *     {
  *       'name': 'Karma API',

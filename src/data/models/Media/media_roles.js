@@ -8,29 +8,18 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true
     },
     role_name: {
-      type: DataTypes.VARCHAR(255),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     role_slug: {
-      type: DataTypes.VARCHAR(45),
+      type: DataTypes.STRING(63),
       allowNull: false
     },
     role_description: {
-      type: DataTypes.VARCHAR(2048),
+      type: DataTypes.STRING(2047),
       allowNull: false
-    },
-    created_at {
-      type: DataTypes.TIME(),
-      allowNull: false
-    },
-    updated_at {
-      type: DataTypes.TIME(),
-      allowNull: false
-    },
-
+    }
   })
-
-  
 
   return mediaRoles
 }

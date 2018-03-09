@@ -3,11 +3,7 @@
   "version": "1.0.0-alpha-1",
   "description": "Back-end API framework for colleges.",
   "apidoc": {
-    "title": "Karma Documentation",
-    "order": [
-      "KarmaEntryGate",
-      "KarmaEntryGatePublic"
-    ]
+    "title": "Karma Documentation"
   },
   "private": true,
   "scripts": {

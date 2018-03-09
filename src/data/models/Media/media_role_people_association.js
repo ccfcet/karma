@@ -20,15 +20,14 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER(),
       allowNull: false
     },
-    created_at:{
+    created_at: {
       type: DataTypes.TIME(),
       allowNull: false
     },
-    updated_at:{
+    updated_at: {
       type: DataTypes.TIME(),
       allowNull: false
     }
-
 
   })
 

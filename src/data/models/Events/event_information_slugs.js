@@ -7,14 +7,11 @@ module.exports = function (sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-
     slug_name: {
-      type: DataTypes.VARCHAR(45),
+      type: DataTypes.STRING(63),
       allowNull: false
     }
   })
-
-
 
   return eventInformationSlugs
 }

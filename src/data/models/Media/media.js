@@ -8,23 +8,19 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true
     },
     media_title: {
-      type: DataTypes.VARCHAR(45),
+      type: DataTypes.STRING(63),
       allowNull: false,
       unique: true
     },
     media_file_name: {
-      type: DataTypes.VARCHAR(2048),
+      type: DataTypes.STRING(2047),
       allowNull: false
     },
     media_location: {
-      type: DataTypes.VARCHAR(2048),
+      type: DataTypes.STRING(2047),
       allowNull: false
     }
-
-
   })
-
-
 
   return Media
 }

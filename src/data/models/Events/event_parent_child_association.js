@@ -18,7 +18,7 @@ module.exports = function (sequelize, DataTypes) {
 
   })
 
-/*no completed because parent child relation is not defined
+  /* no completed because parent child relation is not defined
 */
   return eventParentChildAssociation
 }

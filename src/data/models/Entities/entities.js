@@ -12,6 +12,11 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       unique: true
     },
+    entity_slug: {
+      type: DataTypes.STRING(63),
+      allowNull: false,
+      unique: true
+    },
     entity_type_id: {
       type: DataTypes.INTEGER(),
       allowNull: false

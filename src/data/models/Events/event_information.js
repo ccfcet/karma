@@ -1,37 +1,42 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var MenuParentChildAssociation = sequelize.define('menu_parent_child_association', {
+  var EventInformation = sequelize.define('event_information', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
       autoIncrement: true
     },
-    parent_id: {
+    event_id: {
       type: DataTypes.INTEGER(),
       allowNull: false
     },
-    child_id: {
+    slug_id: {
       type: DataTypes.INTEGER(),
+      allowNull: false
+    },
+    data: {
+      type: DataTypes.JSON(),
       allowNull: false
     }
   })
-  MenuParentChildAssociation.associate = function (models) {
-    models.Menu.menu_parent_child_association.belongsTo(models.Menu.menu_elements, {
+
+  EventInformation.associate = function (models) {
+    models.Events.event_information.belongsTo(models.Events.event_information_slugs, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'parent_id'
+        name: 'slug_id'
         // allowNull: false -- already defined
       }
     })
-    models.Menu.menu_parent_child_association.belongsTo(models.Menu.menu_elements, {
+    models.Events.event_information.belongsTo(models.Events.events, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'child_id'
+        name: 'event_id'
         // allowNull: false -- already defined
       }
     })
   }
 
-  return MenuParentChildAssociation
+  return EventInformation
 }
