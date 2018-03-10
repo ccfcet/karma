@@ -28,93 +28,72 @@ router.get('/', function (req, res, next) {
  * @apiName Menu
  * @apiGroup Public
  *
- * @apiSuccess {Number} status 200
+ * @apiSuccess {String} title Title of the menu
+ * @apiSuccess {JSON} data JSON data of the menu
  *
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       'status': 200
+ *       'title': null,
+ *       'data': [
+ *         {
+ *           'item_name': 'About',
+ *           'item_url': 'about',
+ *           'children': [
+ *             {
+ *               'item_name': 'Leadership and Administration',
+ *               'item_url': 'administration'
+ *             },
+ *             {
+ *               'item_name': 'Visitor Information',
+ *               'item_url': 'visitor_information'
+ *             }
+ *           ]
+ *         },
+ *         {
+ *           'item_name': 'Admissions',
+ *           'item_url': 'admissions',
+ *           'children': [
+ *             {
+ *               'item_name': 'Undergraduate Admissions',
+ *               'item_url': 'undergraduate_admissions'
+ *             },
+ *             {
+ *               'item_name': 'Graduate Admissions',
+ *               'item_url': 'graduate_admissions'
+ *             }
+ *           ]
+ *         }
+ *       ]
  *     }
  *
  * @apiError (501 - Menu Empty) {String} success false
- * @apiError (501 - Menu Empty) {String} response-code menu-empty
+ * @apiError (501 - Menu Empty) {String} code menu-empty
  *
- * @apiErrorExample {json} Error-Response:
+ * @apiErrorExample {json} Error-Response 501 - Menu Empty:
  *     HTTP/1.1 501 Not Implemented
  *     {
  *       'success': 'false',
- *       'response-code': 'menu-empty'
+ *       'code': 'menu-empty'
+ *     }
+ *
+ * @apiError (500 - Error Processing Menu) {String} success false
+ * @apiError (500 - Error Processing Menu) {String} code menu-error
+ *
+ * @apiErrorExample {json} Error-Response 500 - Error Processing Menu:
+ *     HTTP/1.1 500 Internal Server Error
+ *     {
+ *       'success': 'false',
+ *       'code': 'menu-error'
  *     }
  */
 
 router.get('/:entity/:menuType', function (req, res) {
-  // returnObject
-  // var returnObject = []
-
   // entity variable
   var entityVar = req.params.entity
 
   // menuType variable
   var menuTypeVar = req.params.menuType
-
-  // var getChildren = function (elementID, menuParentChildResult) {
-  //   var returnArray = []
-  //
-  //   _.each(menuParentChildResult, function (element, index, list) {
-  //     if (element.parentID === elementID) {
-  //       returnArray.push(element.childID)
-  //     }
-  //   })
-  //
-  //   return returnArray
-  // }
-
-  // var getParent = function (elementID, menuParentChildResult) {
-  //   var parentID = null
-  //
-  //   _.each(menuParentChildResult, function (element, index, list) {
-  //     if (element.childID === elementID) {
-  //       if (parentID == null) {
-  //         parentID = element.parentID
-  //       } else {
-  //         console.log('Warning: Inconsistent data obtained from database. Multiple parents found for same menu element.')
-  //       }
-  //     }
-  //   })
-  //
-  //   return parentID
-  // }
-
-  // var addAsParent = function (element, childArray, addedFlag) {
-  //   return addedFlag
-  // }
-
-  // var addAsChild = function (childElement, parentID, addedFlag) {
-  //   _.each(returnObject, function (element, index, list) {
-  //     if (element.id === parentID) {
-  //       if (_.isArray(element.children)) {
-  //         // children array already exists
-  //         element.children.push(childElement.toJSON())
-  //
-  //         // return successful addition
-  //         addedFlag = 1
-  //       } else {
-  //         element.children = []
-  //         element.children.push(childElement.toJSON())
-  //
-  //         // return successful addition
-  //         addedFlag = 1
-  //       }
-  //     }
-  //   })
-  //
-  //   // return addedFlag without change
-  //   return addedFlag
-  // }
-
-  // var addElement = function (element) {
-  //   returnObject.push(element.toJSON())
-  // }
 
   methods.Menu.obtainMenu(entityVar, menuTypeVar).then(function (result) {
     if (!_.isEmpty(result)) {

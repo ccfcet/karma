@@ -9,11 +9,13 @@ module.exports = function (sequelize, DataTypes) {
     },
     entity_type: {
       type: DataTypes.STRING(63),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     entity_type_slug: {
       type: DataTypes.STRING(63),
-      allowNull: false
+      allowNull: false,
+      unique: true
     }
   })
 
