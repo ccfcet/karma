@@ -1,4 +1,6 @@
-var models = require('../../models')
+var Promise = require('bluebird')
+
+var models = require('../../../models')
 
 // function to obtain rows from the table menu_elements matching menu_id
 var menuElementsFind = function (menuId) {

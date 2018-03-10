@@ -1,4 +1,6 @@
-var models = require('../../models')
+var Promise = require('bluebird')
+
+var models = require('../../../models')
 
 // function to obtain first row from the table menu_data matching entitySlug and
 // menuType
