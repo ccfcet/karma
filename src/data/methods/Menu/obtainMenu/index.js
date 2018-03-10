@@ -16,10 +16,9 @@ var obtainMenu = function (entitySlug, menuType) {
           .then(function (menuParentChildAssociations) {
             generateMenu(menuElements, menuParentChildAssociations)
               .then(function (combinedMenu) {
-              // return the combinedMenu
-                resolve({ 'title': menuTitle,
-                  'data': combinedMenu
-                })
+              // resolve menuTitle and combinedMenu
+                resolve({'title': menuTitle,
+                  'data': combinedMenu})
               }).catch(function (err) {
                 console.log(err)
                 reject(err)

@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var _ = require('lodash')
+
 var methods = require('../../../data/methods')
 
 /**
@@ -18,7 +19,7 @@ var methods = require('../../../data/methods')
  *     }
  */
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   res.send({ 'status': 200 })
 })
 
@@ -29,7 +30,7 @@ router.get('/', function (req, res, next) {
  * @apiGroup Public
  *
  * @apiSuccess {String} title Title of the menu
- * @apiSuccess {JSON} data JSON data of the menu
+ * @apiSuccess {json} data json data of the menu
  *
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
@@ -96,8 +97,10 @@ router.get('/:entity/:menuType', function (req, res) {
   var menuTypeVar = req.params.menuType
 
   methods.Menu.obtainMenu(entityVar, menuTypeVar).then(function (result) {
-    if (!_.isEmpty(result)) {
-      res.json(result)
+    if (!_.isEmpty(result.data)) {
+      res.json({ 'title': result.title,
+        'data': result.data
+      })
     } else {
       res.status(501).json({
         'success': 'false',

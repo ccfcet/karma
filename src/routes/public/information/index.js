@@ -1,34 +1,90 @@
 var express = require('express')
 var router = express.Router()
+var _ = require('lodash')
 
-router.get('/', function (req, res, next) {
+var methods = require('../../../data/methods')
+
+/**
+* @api {get} /public/information Public Information Entry Gate
+* @apiVersion 1.0.0-alpha-1
+* @apiName EntryGatePublicInformation
+* @apiGroup EntryGates
+*
+* @apiSuccess {Number} status 200
+*
+* @apiSuccessExample {json} Success-Response:
+*     HTTP/1.1 200 OK
+*     {
+*       'status': 200
+*     }
+*/
+
+router.get('/', function (req, res) {
   res.send({ 'status': 200 })
 })
 
-router.get('/:slug/:entity', function (req, res) {
-  // models.entityInformation.findAll({
-  //   include:
-  //   [
-  //     {
-  //       model: models.entities,
-  //       attributes: [`ename`],
-  //       where: { ename: req.params.entity }
-  //     },
-  //     { model: models.entitySlugs,
-  //       attributes: [`slugName`],
-  //       where: { slugName: req.params.slug } }
-  //   ],
-  //   // where: { ename: req.params.entity },
-  //   attributes: ['data']
-  // }).then(function (result) {
-  //   result = result[0].data
-  //   res.json({ 'value': result })
-  //   // return result;
-  // }).catch(function (err) {
-  //   // handle error;
-  //   console.log(err)
-  //   res.json({ 'success': 'false' })
-  // })
+/**
+* @api {get} /public/information/:entityInformationSlug/:entitySlug Information
+* @apiVersion 1.0.0-alpha-1
+* @apiName Information
+* @apiGroup Public
+*
+* @apiSuccess {json} data json data matching the request
+*
+* @apiSuccessExample {json} Success-Response:
+*     HTTP/1.1 200 OK
+*     {
+*       "data": {
+*         "title": "Karma",
+*         "description": "Back-end API framework for colleges."
+*        }
+*     }
+*
+* @apiError (501 - Information Empty) {String} success false
+* @apiError (501 - Information Empty) {String} code information-empty
+*
+* @apiErrorExample {json} Error-Response 501 - Information Empty:
+*     HTTP/1.1 501 Not Implemented
+*     {
+*       'success': 'false',
+*       'code': 'information-empty'
+*     }
+*
+* @apiError (500 - Error Retrieving Information) {String} success false
+* @apiError (500 - Error Retrieving Information) {String} code information-error
+*
+* @apiErrorExample {json} Error-Response 500 - Error Retrieving Information:
+*     HTTP/1.1 500 Internal Server Error
+*     {
+*       'success': 'false',
+*       'code': 'information-error'
+*     }
+*/
+
+router.get('/:entityInformationSlug/:entitySlug', function (req, res) {
+  // entityInformationSlug variable
+  var entityInformationSlug = req.params.entityInformationSlug
+
+  // entitySlug
+  var entitySlug = req.params.entitySlug
+
+  methods.Entities.obtainInformation(entitySlug, entityInformationSlug)
+    .then(function (result) {
+      if (!_.isEmpty(result)) {
+        res.json({'data': result})
+      } else {
+        res.status(501).json({
+          'success': 'false',
+          'code': 'information-empty'
+        })
+      }
+    }).catch(function (err) {
+      console.log(err)
+      res.status(500).json({
+        'success': 'false',
+        'code': 'information-error'
+      })
+    })
 })
 
 router.get('/:slug/:position/:name', function (req, res) {
@@ -59,7 +115,7 @@ router.get('/:slug/:position/:name', function (req, res) {
 })
 
 router.get('/faculties', function (req, res) {
-  res.json({ 'value': 'hello' })
+  res.json({ 'status': 200 })
 })
 
 module.exports = router
