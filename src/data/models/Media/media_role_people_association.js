@@ -1,44 +1,32 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var mediaRolePeopleAssociation = sequelize.define('media_role_people_association', {
+  var MediaRolePeopleAssociation = sequelize.define('media_role_people_association', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
       autoIncrement: true
     },
     media_id: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.INTEGER(),
       allowNull: false,
-      unique: true
+      unique: 'compositeIndex'
     },
     role_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: 'compositeIndex'
     },
     people_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
-    },
-    created_at: {
-      type: DataTypes.TIME(),
-      allowNull: false
-    },
-    updated_at: {
-      type: DataTypes.TIME(),
-      allowNull: false
+      allowNull: false,
+      unique: 'compositeIndex'
     }
-
+    // implement [index6 specified in db design] compositeIndex when sequelize supports it.
+    // https://github.com/sequelize/sequelize/issues/8148
   })
 
-  mediaRolePeopleAssociation.associate = function (models) {
-    models.Media.media_role_people_association.belongsTo(models.Media.media_roles, {
-      onDelete: 'CASCADE',
-      foreignKey: {
-        name: 'role_id'
-        // allowNull: false -- already defined
-      }
-    })
+  MediaRolePeopleAssociation.associate = function (models) {
     models.Media.media_role_people_association.belongsTo(models.Media.media, {
       onDelete: 'CASCADE',
       foreignKey: {
@@ -46,7 +34,14 @@ module.exports = function (sequelize, DataTypes) {
         // allowNull: false -- already defined
       }
     })
-    models.Media.media_role_people_association.belongsTo(models.Media.faculty_academic_enrolment_activity, {
+    models.Media.media_role_people_association.belongsTo(models.Media.media_roles, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'role_id'
+        // allowNull: false -- already defined
+      }
+    })
+    models.Media.media_role_people_association.belongsTo(models.People.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_id'
@@ -55,5 +50,5 @@ module.exports = function (sequelize, DataTypes) {
     })
   }
 
-  return mediaRolePeopleAssociation
+  return MediaRolePeopleAssociation
 }

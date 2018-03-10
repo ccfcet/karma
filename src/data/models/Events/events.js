@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var events = sequelize.define('events', {
+  var Events = sequelize.define('events', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
@@ -13,5 +13,5 @@ module.exports = function (sequelize, DataTypes) {
     }
   })
 
-  return events
+  return Events
 }

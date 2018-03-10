@@ -9,16 +9,21 @@ module.exports = function (sequelize, DataTypes) {
     },
     media_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: 'compositeIndex'
     },
     role_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: 'compositeIndex'
     },
     entity_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: 'compositeIndex'
     }
+    // implement [index6 specified in db design] compositeIndex when sequelize supports it.
+    // https://github.com/sequelize/sequelize/issues/8148
   })
 
   MediaRoleEntityAssociation.associate = function (models) {
@@ -29,7 +34,6 @@ module.exports = function (sequelize, DataTypes) {
         // allowNull: false -- already defined
       }
     })
-
     models.Media.media_role_entity_association.belongsTo(models.Media.media_roles, {
       onDelete: 'CASCADE',
       foreignKey: {

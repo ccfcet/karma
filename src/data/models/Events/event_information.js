@@ -9,11 +9,13 @@ module.exports = function (sequelize, DataTypes) {
     },
     event_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     slug_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     data: {
       type: DataTypes.JSON(),
@@ -22,17 +24,17 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   EventInformation.associate = function (models) {
-    models.Events.event_information.belongsTo(models.Events.event_information_slugs, {
-      onDelete: 'CASCADE',
-      foreignKey: {
-        name: 'slug_id'
-        // allowNull: false -- already defined
-      }
-    })
     models.Events.event_information.belongsTo(models.Events.events, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'event_id'
+        // allowNull: false -- already defined
+      }
+    })
+    models.Events.event_information.belongsTo(models.Events.event_information_slugs, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'slug_id'
         // allowNull: false -- already defined
       }
     })

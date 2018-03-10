@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var eventInformationSlugs = sequelize.define('event_information_slugs', {
+  var EventInformationSlugs = sequelize.define('event_information_slugs', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
@@ -9,9 +9,10 @@ module.exports = function (sequelize, DataTypes) {
     },
     slug_name: {
       type: DataTypes.STRING(63),
-      allowNull: false
+      allowNull: false,
+      unique: true
     }
   })
 
-  return eventInformationSlugs
+  return EventInformationSlugs
 }

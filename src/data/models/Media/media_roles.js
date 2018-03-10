@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var mediaRoles = sequelize.define('media_roles', {
+  var MediaRoles = sequelize.define('media_roles', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
@@ -9,17 +9,19 @@ module.exports = function (sequelize, DataTypes) {
     },
     role_name: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     role_slug: {
       type: DataTypes.STRING(63),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     role_description: {
       type: DataTypes.STRING(2047),
-      allowNull: false
+      allowNull: true
     }
   })
 
-  return mediaRoles
+  return MediaRoles
 }

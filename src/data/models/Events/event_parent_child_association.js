@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var eventParentChildAssociation = sequelize.define('event_parent_child_association', {
+  var EventParentChildAssociation = sequelize.define('event_parent_child_association', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
@@ -9,16 +9,32 @@ module.exports = function (sequelize, DataTypes) {
     },
     parent_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: 'compositeIndex'
     },
     child_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
+      unique: 'compositeIndex'
     }
-
   })
 
-  /* no completed because parent child relation is not defined
-*/
-  return eventParentChildAssociation
+  EventParentChildAssociation.associate = function (models) {
+    models.Events.event_parent_child_association.belongsTo(models.Events.events, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'parent_id'
+        // allowNull: false -- already defined
+      }
+    })
+    models.Events.event_parent_child_association.belongsTo(models.Events.events, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'child_id'
+        // allowNull: false -- already defined
+      }
+    })
+  }
+
+  return EventParentChildAssociation
 }

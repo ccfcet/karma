@@ -9,8 +9,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     media_title: {
       type: DataTypes.STRING(63),
-      allowNull: false,
-      unique: true
+      allowNull: true
     },
     media_file_name: {
       type: DataTypes.STRING(2047),
