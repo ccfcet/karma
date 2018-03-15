@@ -34,10 +34,8 @@ router.get('/', function (req, res) {
 * @apiSuccessExample {json} Success-Response:
 *     HTTP/1.1 200 OK
 *     {
-*       "data": {
-*         "title": "Karma",
-*         "description": "Back-end API framework for colleges."
-*        }
+*       "data": "Back-end API framework for colleges.",
+*       "title": "Karma"
 *     }
 *
 * @apiError (501 - Information Empty) {String} success false
@@ -71,7 +69,7 @@ router.get('/:entityInformationSlug/:entitySlug', function (req, res) {
   methods.Entities.obtainInformation(entitySlug, entityInformationSlug)
     .then(function (result) {
       if (!_.isEmpty(result)) {
-        res.json({'data': result})
+        res.json(result)
       } else {
         res.status(501).json({
           'success': 'false',
