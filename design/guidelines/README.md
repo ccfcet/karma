@@ -22,7 +22,8 @@ The guidelines provided below is aimed to support the developers in attaining th
 ## Coding Standards
 
 ### JavaScript
-The code should strictly follow the guidelines of standardJS.
-Refer https://standardjs.com/
+* The code should strictly follow the guidelines of standardJS. Refer https://standardjs.com/.
 
-The developers may use packages to enforce the same.
+  The developers may use packages to enforce the same.
+
+* The code should strictly follow the Eighty Column Rule. Refer https://www.emacswiki.org/emacs/EightyColumnRule.
