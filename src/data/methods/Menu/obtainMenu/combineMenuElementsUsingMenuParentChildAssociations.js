@@ -7,7 +7,7 @@ var combineMenuElementsUsingMenuParentChildAssociations = function (
   menuElements, menuParentChildAssociations) {
   return new Promise(function (resolve, reject) {
     _.forEach(menuParentChildAssociations, async function
-      (menuParentChildAssociation) {
+    (menuParentChildAssociation) {
       await reflectParentChildAssociation(menuElements,
         menuParentChildAssociation.parent_id,
         menuParentChildAssociation.child_id)
