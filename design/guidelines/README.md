@@ -16,8 +16,9 @@ The guidelines provided below is aimed to support the developers in attaining th
 ## Priorities
 1. Security
 2. Reliability
-3. Maintainability
-4. Usability
+3. Performance
+4. Maintainability
+5. Usability
 
 ## Coding Standards
 
