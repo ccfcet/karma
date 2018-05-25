@@ -1,3 +1,4 @@
+'use strict'
 /* eslint-env node, mocha */
 
 // tests for routes/public/information/index.js
@@ -5,6 +6,10 @@ var mocha = require('mocha')
 var chai = require('chai')
 var chaiHttp = require('chai-http')
 var app = require('../app.js')
+// var entities = require('../data/models/Entities/entities')
+// var entity_types = require('../data/models/Entities/entity_types')
+// var entity_information_slugs = require('../data/models/Entities/entity_information_slugs')
+var models = require('../data/models/')
 
 // var assert = chai.assert
 var should = chai.should()
@@ -118,6 +123,13 @@ it('GET /public/information', (done) => {
 })
 
 describe('Public-Informtion', function () {
+  before(async function () {
+    await console.log('Entities' + JSON.stringify(models))
+    // models.Entities.entity_types.create({entity_type: 'department', entity_type_slug: 'department'})
+    // entities.create({ entity_name: 'cse', entity_slug: 'cse', entity_type_id: entity_type.id })
+    // entity_information_slug = entity_information_slugs.create({slug_name: 'cse'})
+  })
+
   it('GET /public/information/:entityInformationSlug/:entitySlug', function () {
     chai.request(app)
       .get('/public/information/about/cse')
