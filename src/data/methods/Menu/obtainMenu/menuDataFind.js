@@ -15,7 +15,8 @@ var menuDataFind = function (entitySlug, menuType) {
           where: { entity_slug: entitySlug }
         }
       ],
-      where: { menu_type: menuType }
+      where: { menu_type: menuType },
+      rejectOnEmpty: true
     }).then(function (result) {
       resolve(result)
     }).catch(function (err) {

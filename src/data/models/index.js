@@ -7,34 +7,26 @@ var env = process.env.NODE_ENV || 'development'
 var config = require(path.join(__dirname, '/../../config/config.json'))[env]
 var db = {}
 
-var sequelize
-
 // initialize for walker
 var walk = require('walk')
-var walker
-var walkerOptions
-
-walkerOptions = {
-  followLinks: false
-}
 
 var Promise = require('bluebird')
 
-var promisesArray = []
-
 var _ = require('lodash')
 
+// function to create an object following the breadTrail
 var addBreadTrail = function (object, breadTrail, value) {
   return new Promise(function (resolve, reject) {
-    // create an object following the breadTrail
     var breadTrailObject = {}
+
     while (breadTrail.length !== 0) {
-      var breadCrumb = breadTrail.pop()
+      let breadCrumb = breadTrail.pop()
       breadTrailObject[breadCrumb] = value
       value = breadTrailObject
       breadTrailObject = {}
     }
     breadTrailObject = value
+
     // merging with object
     _.merge(object, breadTrailObject)
     resolve(object)
@@ -42,33 +34,60 @@ var addBreadTrail = function (object, breadTrail, value) {
 }
 
 // function to process a directory
-function processDirectory (dirname) {
+function processDirectory (dirname, sequelize, modelsObject) {
   return new Promise(function (resolve, reject) {
-    walker = walk.walk(dirname, walkerOptions)
+    // uses the npm package walk to recursively traverse the directory and to
+    // import models
 
+    // walkerOptions
+    var walkerOptions = {
+      followLinks: false
+    }
+
+    // initialize walker
+    var walker = walk.walk(dirname, walkerOptions)
+
+    // listen for file event on walker
     walker.on('file', function (root, fileStats, next) {
-      if ((fileStats.name.indexOf('.') !== 0) && (fileStats.name !== basename) && (fileStats.name.slice(-3) === '.js')) {
+      // filtering of files
+      // 1) - hidden files
+      // 2) - samefile(index.js)
+      // 3) - all files with extension other than .js
+      if ((fileStats.name.indexOf('.') !== 0) &&
+      (fileStats.name !== basename) && (fileStats.name.slice(-3) === '.js')) {
+        // case of allowed file
+
+        // import model using sequelize['import']
+        // console.log({dirname: dirname, root: root, name: fileStats.name})
+        // console.log({pathJoin: path.join(root, fileStats.name)})
         var model = sequelize['import'](path.join(root, fileStats.name))
+
+        // console.log(model)
+
         var relativeSubtractPath = path.relative(__dirname, root)
+        // console.log(relativeSubtractPath)
 
         var breadTrail = relativeSubtractPath.split('/')
-        if (breadTrail.length === 1) {
-          if (breadTrail[0] === '') {
-            breadTrail.pop()
-          }
-        }
 
-        setImmediate(function () {
+        // if (breadTrail.length === 1) {
+        //   if (breadTrail[0] === '') {
+        //     breadTrail.pop()
+        //   }
+        // }
+
+        process.nextTick(function () {
           breadTrail.push(model.name)
 
-          addBreadTrail(db, breadTrail, model).then(function (object) {
-            db = object
+          console.log(breadTrail)
+          addBreadTrail(modelsObject, breadTrail, model).then(function (object) {
+            modelsObject = object
             next()
           }).catch(function (err) {
             console.log('Error in addBreadTrail' + err)
           })
         })
       } else {
+        // case of rejected file
         next()
       }
     })
@@ -78,24 +97,26 @@ function processDirectory (dirname) {
     })
 
     walker.on('end', function () {
-      // all elements in the current directory processed
-      resolve()
+      // all elements in the directory processed
+      resolve(modelsObject)
     })
   })
 }
 
-function associate (object) {
+function associate (modelsObject, object) {
   return new Promise(function (resolve, reject) {
     if (object instanceof Function) {
       if (object.associate) {
-        object.associate(db)
+        object.associate(modelsObject)
       }
-      setImmediate(function () {
+      process.nextTick(function () {
         resolve()
       })
     } else {
+      console.log('gets here first')
       _.forEach(object, function (key) {
-        associate(key).then(function () {
+        associate(modelsObject, key).then(function () {
+          console.log('gets here too')
           resolve()
         })
       })
@@ -103,43 +124,56 @@ function associate (object) {
   })
 }
 
-function dbComplete () {
+function finish (sequelize, modelsObject) {
   return new Promise(function (resolve, reject) {
-    db.sequelize = sequelize
-    db.Sequelize = Sequelize
+    modelsObject.sequelize = sequelize
+    modelsObject.Sequelize = Sequelize
 
-    resolve()
+    resolve(modelsObject)
   })
 }
 
-var init = function () {
-  if (config.use_env_variable) {
-    sequelize = new Sequelize(process.env[config.use_env_variable], config)
-  } else {
-    sequelize = new Sequelize(config.database, config.username, config.password, config)
-  }
-
-  processDirectory(__dirname).then(function () {
-    if (!_.isEmpty(db)) {
-      promisesArray.push(associate(db))
-
-      Promise.all(promisesArray).then(function () {
-        dbComplete().then(function () {
-          if (config.use_env_variable) {
-            db.sequelize.sync()
-          } else {
-            db.sequelize.sync()
-          }
-        })
-      })
+// function to initialize loading of models
+var init = function (modelsObject) {
+  return new Promise(function (resolve, reject) {
+  // initialize Sequelize()
+    var sequelize
+    if (config.use_env_variable) {
+      sequelize = new Sequelize(process.env[config.use_env_variable], config)
     } else {
-      console.log('Hello! No models found to load using sequelize. Just informing. :)')
+      sequelize = new Sequelize(config.database, config.username, config.password, config)
     }
-  }).catch(function (err) {
-    console.log(err)
+
+    processDirectory(__dirname, sequelize, modelsObject).then(function (modelsObject) {
+      console.log({modelsObject: modelsObject})
+      if (!_.isEmpty(modelsObject)) {
+        associate(modelsObject, modelsObject).then(function () {
+          finish(sequelize, modelsObject).then(function (finalObject) {
+            console.log('gets here anyway')
+            resolve(finalObject)
+          })
+        })
+      } else {
+        console.log('Hello there! No models found to load using sequelize. Just informing. :)')
+      }
+    }).catch(function (err) {
+      console.log(err)
+    })
   })
 }
 
-init()
+// initialize loading of models
+console.log('initializing models')
+console.log({dbInital: db})
+init(db).then(function (finalObject) {
+  console.log('gets here')
+  db = finalObject
+  console.log({dbFinal: db})
+  // db.sequelize.sync()
+  if (typeof db.callback === 'function') {
+    db.callback()
+  }
+})
 
+db.callback = null
 module.exports = db

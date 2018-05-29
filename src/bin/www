@@ -22,12 +22,18 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-/**
-* Listen on provided port, on all network interfaces.
-*/
-server.on('error', onError);
-server.on('listening', onListening);
-server.listen(port);
+modelCallback = function() {
+  models.sequelize.sync().then(function() {
+    /**
+    * Listen on provided port, on all network interfaces.
+    */
+    server.on('error', onError);
+    server.on('listening', onListening);
+    server.listen(port);
+  });
+}
+
+models.callback = modelCallback
 
 /**
 * Normalize a port into a number, string, or false.
