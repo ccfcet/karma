@@ -1,4 +1,7 @@
 # Karma
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ee425b15d0f9488b8a324cd170b6ff1a)](https://app.codacy.com/app/jilvin/karma?utm_source=github.com&utm_medium=referral&utm_content=ccfcet/karma&utm_campaign=badger)
+
 Back-end API framework for colleges.
 
 ## Design
