@@ -20,7 +20,8 @@ var obtainInformation = function (entitySlug, entityInformationSlug) {
           attributes: []
         }
       ],
-      attributes: ['data']
+      attributes: ['data'],
+      rejectOnEmpty: true
     }).then(function (result) {
       resolve(result.data)
     }).catch(function (err) {

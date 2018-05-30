@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 var _ = require('lodash')
 
-var methods = require('../../../data/methods')
+var methods = require('../../../lib/data/methods')
 
 /**
  * @api {get} /public/menu Public Menu Entry Gate

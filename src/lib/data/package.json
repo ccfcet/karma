@@ -1,0 +1,22 @@
+{
+  "name": "data",
+  "version": "1.0.0",
+  "description": "Contains the sequelize models and associated methods",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --recursive"
+  },
+  "keywords": [
+    "models",
+    "data",
+    "methods"
+  ],
+  "author": "ccfcet",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.10",
+    "walk": "^2.3.13"
+  }
+}
