@@ -12,7 +12,6 @@ chai.use(chaiHttp)
 
 // For testing entry gates - refer api documentation
 describe('Test the Entry Gates', function () {
-
   it('GET /', function (done) {
     chai.request(app)
       .get('/')
@@ -68,7 +67,6 @@ describe('Test the Entry Gates', function () {
 })
 
 describe('Public-Informtion', function () {
-
   it('GET /public/information/:entityInformationSlug/:entitySlug', function () {
     chai.request(app)
       .get('/public/information/about/cse')
@@ -110,7 +108,6 @@ describe('Public - Menu', function () {
         if (err) {
           console.log(err)
         }
-
       })
   })
 })
