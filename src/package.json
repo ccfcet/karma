@@ -41,5 +41,7 @@
     "gulp": "^3.9.1",
     "gulp-apidoc": "^0.2.7",
     "mocha": "^5.2.0"
-  }
+  },
+  "author": "CCF CET",
+  "license": "AGPLv3"
 }

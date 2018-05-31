@@ -1,0 +1,11 @@
+{
+  "name": "authentication",
+  "version": "1.0.0-alpha-1",
+  "description": "Module to handle authentication.",
+  "main": "index.js",
+  "author": "ccfcet",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "argon2": "^0.19.2"
+  }
+}
