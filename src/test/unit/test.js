@@ -1,13 +1,14 @@
 // tests for routes/public/information/index.js
 
-var mocha = require('mocha')
+require('mocha')
 var chai = require('chai')
 var chaiHttp = require('chai-http')
 
 var app = require('../../app.js')
-var models = require('../../data/models/')
+// var models = require('../../data/models/')
 
 var should = chai.should()
+var expect = chai.expect
 chai.use(chaiHttp)
 
 // For testing entry gates - refer api documentation
@@ -17,11 +18,14 @@ describe('Test the Entry Gates', function () {
       .get('/')
       .end((err, res) => {
         res.should.have.status(200)
-        res.should.be.json
-        res.body.should.have.property('name')
-        res.body.name.should.equal('Karma API')
-        res.body.should.have.property('version')
-        res.body.version.should.equal('1.0.0-alpha-1')
+        // res.should.be.json
+        expect(res.body).to.be.a('json')
+        // expect(res.body).to.have.property('name')
+        expect('res').to.be.equal('{"name":"Karma API", "version":"1.0.0-alpha-1"}')
+        // res.body.should.have.property('name')
+        // res.body.name.should.equal('Karma API')
+        // res.body.should.have.property('version')
+        // res.body.version.should.equal('1.0.0-alpha-1')
         done()
         if (err) {
           console.log(err)
@@ -91,7 +95,7 @@ describe('Public-Informtion', function () {
           console.log(err)
         }
         res.should.have.status(501)
-        res.should.be.json
+        expect(res).to.be.json
         res.body.should.have.property('data')
         res.body.data.should.be.json
         res.body.data.success.should.equal('success')
