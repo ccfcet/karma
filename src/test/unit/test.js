@@ -7,7 +7,7 @@ var chaiHttp = require('chai-http')
 var app = require('../../app.js')
 // var models = require('../../data/models/')
 
-var should = chai.should()
+// var should = chai.should()
 var expect = chai.expect
 chai.use(chaiHttp)
 
@@ -17,15 +17,13 @@ describe('Test the Entry Gates', function () {
     chai.request(app)
       .get('/')
       .end((err, res) => {
-        res.should.have.status(200)
-        // res.should.be.json
-        expect(res.body).to.be.a('json')
-        // expect(res.body).to.have.property('name')
-        expect('res').to.be.equal('{"name":"Karma API", "version":"1.0.0-alpha-1"}')
-        // res.body.should.have.property('name')
-        // res.body.name.should.equal('Karma API')
-        // res.body.should.have.property('version')
-        // res.body.version.should.equal('1.0.0-alpha-1')
+        expect(res).to.have.status(200)
+        expect(res.body).to.be.an('Object')
+        console.log(res.body)
+        expect(res.body).to.have.property('name')
+        expect(res.body.name).to.have.equal('Karma API')
+        expect(res.body).to.have.property('version')
+        expect(res.body.version).to.equal('1.0.0-alpha-1')
         done()
         if (err) {
           console.log(err)
@@ -37,7 +35,7 @@ describe('Test the Entry Gates', function () {
     chai.request(app)
       .get('/public')
       .end((err, res) => {
-        res.should.have.status(200)
+        expect(res).to.have.status(200)
         done()
         if (err) {
           console.log(err)
@@ -49,7 +47,7 @@ describe('Test the Entry Gates', function () {
     chai.request(app)
       .get('/public/menu')
       .end((err, res) => {
-        res.should.have.status(200)
+        expect(res).to.have.status(200)
         done()
         if (err) {
           console.log(err)
@@ -61,7 +59,7 @@ describe('Test the Entry Gates', function () {
     chai.request(app)
       .get('/public/information')
       .end((err, res) => {
-        res.should.have.status(200)
+        expect(res).to.have.status(200)
         done()
         if (err) {
           console.log(err)
@@ -78,12 +76,12 @@ describe('Public-Informtion', function () {
         if (err) {
           console.log(err)
         }
-        res.should.have.status(200)
-        res.should.be.json
-        res.body.should.have.property('data')
-        res.body.data.should.be.json
-        res.body.data.data.should.equal('Back-end API framework for colleges.')
-        res.body.data.title.should.equal('Karma')
+        expect(res).to.have.status(200)
+        expect(res.body).to.be.a('json')
+        expect(res.body).to.have.property('data')
+        expect(res.body.data).to.have.equal('Back-end API framework for colleges.')
+        expect(res.body).to.have.property('title')
+        expect(res.body.title).to.equal('Karma')
       })
   })
 
@@ -94,12 +92,12 @@ describe('Public-Informtion', function () {
         if (err) {
           console.log(err)
         }
-        res.should.have.status(501)
-        expect(res).to.be.json
-        res.body.should.have.property('data')
-        res.body.data.should.be.json
-        res.body.data.success.should.equal('success')
-        res.body.data.code.should.equal('information-empty')
+        expect(res).to.have.status(501)
+        expect(res.body).to.be.a('Object')
+        expect(res.body).to.have.property('data')
+        expect(res.body.data).to.be.a('json')
+        expect(res.body.data.success).to.equal('success')
+        expect(res.body.data.code).to.equal('information-empty')
       })
   })
 })
