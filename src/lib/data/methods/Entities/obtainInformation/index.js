@@ -1,6 +1,6 @@
 var Promise = require('bluebird')
 
-var models = require('../../../models')
+var models = require('_/data/models')
 
 // function to obtain information from table entity_information joining table
 // entities and table entity_information_slugs using entitySlug and

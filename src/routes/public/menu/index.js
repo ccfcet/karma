@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 var _ = require('lodash')
 
-var methods = require('../../../lib/data/methods')
+var methods = require('_/data/methods')
 
 /**
  * @api {get} /public/menu Public Menu Entry Gate
@@ -90,6 +90,8 @@ router.get('/', function (req, res) {
  */
 
 router.get('/:entity/:menuType', function (req, res) {
+  console.log('inside menu/index.js')
+
   // entity variable
   var entityVar = req.params.entity
 
@@ -97,6 +99,8 @@ router.get('/:entity/:menuType', function (req, res) {
   var menuTypeVar = req.params.menuType
 
   methods.Menu.obtainMenu(entityVar, menuTypeVar).then(function (result) {
+    console.log('inside methods.Menu.obtainMenu')
+
     if (!_.isEmpty(result.data)) {
       res.json({ 'title': result.title,
         'data': result.data

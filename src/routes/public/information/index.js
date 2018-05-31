@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 var _ = require('lodash')
 
-var methods = require('../../../lib/data/methods')
+var methods = require('_')
 
 /**
 * @api {get} /public/information Public Information Entry Gate

@@ -7,6 +7,8 @@
   },
   "private": true,
   "scripts": {
+    "preinstall": "rm -rf ./node_modules/_",
+    "postinstall": "./link-modules.sh",
     "dev": "DEBUG=cet:server,app, nodemon ./bin/www",
     "start": "NODE_ENV=production node ./bin/www",
     "lint": "./node_modules/.bin/eslint ./ --report-unused-disable-directives --format 'node_modules/eslint-friendly-formatter'",
@@ -21,6 +23,7 @@
     "debug": "^3.1.0",
     "express": "~4.16.3",
     "helmet": "^3.12.1",
+    "karma": "file:lib",
     "lodash": "^4.17.10",
     "morgan": "~1.9.0"
   },
