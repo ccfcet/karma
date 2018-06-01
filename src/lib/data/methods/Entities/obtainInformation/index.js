@@ -9,17 +9,18 @@ var obtainInformation = function (entitySlug, entityInformationSlug) {
   return new Promise(function (resolve, reject) {
     models.Entities.entity_information.findOne({
       include:
-      [
-        {
-          model: models.Entities.entities,
-          where: { entity_slug: entitySlug },
-          attributes: []
-        },
-        { model: models.Entities.entity_information_slugs,
-          where: { slug_name: entityInformationSlug },
-          attributes: []
-        }
-      ],
+        [
+          {
+            model: models.Entities.entities,
+            where: { entity_slug: entitySlug },
+            attributes: []
+          },
+          {
+            model: models.Entities.entity_information_slugs,
+            where: { slug_name: entityInformationSlug },
+            attributes: []
+          }
+        ],
       attributes: ['data'],
       rejectOnEmpty: true
     }).then(function (result) {

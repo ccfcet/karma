@@ -1,10 +1,11 @@
 var express = require('express')
 var router = express.Router()
+// var methods = require('_/data/methods')
 
 /**
- * @api {get} /public Public Entry Gate
+ * @api {get} /private Private Entry Gate
  * @apiVersion 1.0.0-alpha-1
- * @apiName EntryGatePublic
+ * @apiName EntryGatePrivate
  * @apiGroup EntryGates
  *
  * @apiSuccess {Number} status 200
@@ -20,8 +21,8 @@ router.get('/', function (req, res) {
   res.send({ 'status': 200 })
 })
 
-router.use('/information', require('./information'))
+router.use('/people', require('./people'))
 
-router.use('/menu', require('./menu'))
+// router.use('/menu', require('./menu'))
 
 module.exports = router
