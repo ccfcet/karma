@@ -32,5 +32,15 @@ module.exports = function (sequelize, DataTypes) {
     }
   })
 
+  People.associate = function (models) {
+    models.People.people.hasMany(models.People.people_information, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'people_id'
+        // allowNull: false -- already defined
+      }
+    })
+  }
+
   return People
 }
