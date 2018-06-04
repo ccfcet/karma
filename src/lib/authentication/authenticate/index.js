@@ -1,5 +1,5 @@
-let authenticate = function (userID, password) {
-  console.log(userID, password)
-}
+let returnObject = {}
 
-module.exports = authenticate
+returnObject.karma = require('./karma')
+
+module.exports = returnObject
