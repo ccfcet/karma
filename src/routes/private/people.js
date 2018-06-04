@@ -1,11 +1,7 @@
 var express = require('express')
 var router = express.Router()
-<<<<<<< HEAD
 var methods = require('_/data/methods')
-=======
-// var methods = require('_/data/methods')
 
->>>>>>> 16a34c5b00b6a43479c4ec50a8a21c4f9968982b
 /**
  * @api {get} /private Private Entry Gate
  * @apiVersion 1.0.0-alpha-1
@@ -21,12 +17,7 @@ var methods = require('_/data/methods')
  *     }
  */
 
-router.get('/', function (req, res) {
-  res.send({ 'status': 200 })
-})
-
-<<<<<<< HEAD
-router.post('/people', function (req, res) {
+router.post('/', function (req, res) {
   var info = {}
   info.first_name = req.body.firstName
   info.middle_name = req.body.middleName
@@ -47,12 +38,5 @@ router.post('/people', function (req, res) {
       })
     })
 })
-
-// router.use('/information', require('./information'))
-=======
-router.use('/people', require('./people'))
->>>>>>> 16a34c5b00b6a43479c4ec50a8a21c4f9968982b
-
-// router.use('/menu', require('./menu'))
 
 module.exports = router
