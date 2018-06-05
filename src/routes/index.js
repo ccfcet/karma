@@ -25,6 +25,8 @@ router.get('/', function (req, res, next) {
   })
 })
 
+router.use('/authentication', require('./authentication'))
 router.use('/public', require('./public'))
+router.use('/private', require('./private'))
 
 module.exports = router

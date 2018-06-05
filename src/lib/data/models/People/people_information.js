@@ -17,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       unique: 'compositeIndex'
     },
-    json: {
+    data: {
       type: DataTypes.JSON(),
       allowNull: false
     }
