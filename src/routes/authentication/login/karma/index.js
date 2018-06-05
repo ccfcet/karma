@@ -19,7 +19,7 @@ router.post('/', function (req, res, next) {
 
         // verify the email password combo
         authenticationAuthenticateKarma.emailPassword(
-          req.body.hasOwnProperty('email'), req.body.hasOwnProperty('password'))
+          req.body.email, req.body.password)
           .then(function (token) {
             res.json({
               'token': token
@@ -33,8 +33,8 @@ router.post('/', function (req, res, next) {
       } else if (!req.body.hasOwnProperty('email') &&
       req.body.hasOwnProperty('mobileNumber')) {
         // assumption: user has a mobileNumber
-        res.json({
-          'status': 200
+        res.status(501).json({
+          'status': 501
         })
       } else {
         res.status(400).json({
