@@ -114,16 +114,28 @@ router.get('/:id', function (req, res) {
 })
 
 router.post('/:informationSlug/:peopleId', (req, res) => {
-  var informtionSlug = req.params.informtionSlug
+  var informationSlug = req.params.informationSlug
   var peopleId = req.params.peopleId
   methods.People.insertSlug(informationSlug, peopleId)
+    .then((slug) => {
+      res.send({
+        status: 'success',
+        slug
+      })
+    })
+    .catch((err) => {
+      res.send({
+        status: 'error',
+        error: err
+      })
+    })
 })
-router.get('/:informtionSlug/:peopleId', (req, res) => {
-  var informtionSlug = req.params.informtionSlug
+router.get('/:informationSlug/:peopleId', (req, res) => {
+  var informationSlug = req.params.informationSlug
   var peopleId = req.params.peopleId
-  console.log(informtionSlug)
+  console.log(informationSlug)
   console.log(peopleId)
-  methods.People.getInforamationUsingSlug(peopleId, informtionSlug)
+  methods.People.getInformationUsingSlug(peopleId, informationSlug)
     .then((info) => {
       res.send({
         status: 'success',
