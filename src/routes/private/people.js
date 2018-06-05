@@ -3,17 +3,40 @@ var router = express.Router()
 var methods = require('_/data/methods')
 
 /**
- * @api {get} /private Private Entry Gate
+ * @api {post} /private/people AddPeople
  * @apiVersion 1.0.0-alpha-1
- * @apiName EntryGatePrivate
- * @apiGroup EntryGates
+ * @apiName AddPeople
+ * @apiGroup People
  *
- * @apiSuccess {Number} status 200
+ * @apiSuccess {id} id People ID of the user
+ * @apiSuccess {String} first_name First Name of the user
+ * @apiSuccess {String} middle_name Middle Name of the user
+ * @apiSuccess {String} last_name Last Name of the user
+ * @apiSuccess {Char} gender Gender
+ * @apiSuccess {Date} date_of_birth Date of birth of the user
+ * @apiSuccess {String} nationality Nationality of the user
+ * @apiSuccess {Date} createdAt createdAt
+ * @apiSuccess {Date} updatedAt updatedAt
+ *
+ * @apiParam {String} first_name First Name of the user
+ * @apiParam {String} middle_name Middle Name of the user
+ * @apiParam {String} last_name Last Name of the user
+ * @apiParam {Char} gender Gender
+ * @apiParam {Date} date_of_birth Date of birth of the user
+ * @apiParam {String} nationality Nationality of the user
  *
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       'status': 200
+ *       "id": 7,
+ *       "first_name": "John",
+ *       "middle_name": "",
+ *       "last_name": "Doe",
+ *       "gender": "M",
+ *       "date_of_birth": "1997-09-19",
+ *       "nationality": "Indian",
+ *       "updatedAt": "2018-06-04T05:05:37.992Z",
+ *       "createdAt": "2018-06-04T05:05:37.992Z"
  *     }
  */
 
@@ -35,6 +58,82 @@ router.post('/', function (req, res) {
       res.send({
         'status': 'error',
         'error': err
+      })
+    })
+})
+
+/**
+ * @api {get} /private/people/:id GetPeopleById
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName GetPeopleById
+ * @apiGroup People
+ *
+ * @apiSuccess {id} id People ID of the user
+ * @apiSuccess {Stirng} first_name First Name of the user
+ * @apiSuccess {String} middle_name Middle Name of the user
+ * @apiSuccess {String} last_name Last Name of the user
+ * @apiSuccess {Char} gender Gender
+ * @apiSuccess {Date} date_of_birth Date of birth of the user
+ * @apiSuccess {String} nationality Nationality of the user
+ * @apiSuccess {Date} createdAt createdAt
+ * @apiSuccess {Date} updatedAt updatedAt
+ *
+ * @apiParam {Number} id peopleID of the user
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *    HTTP/1.1 200 OK
+ *     {
+ *      "data": {
+ *          "id": 7,
+ *          "first_name": "John",
+ *          "middle_name": "",
+ *          "last_name": "Doe",
+ *          "gender": "M",
+ *          "date_of_birth": "1987-01-01",
+ *          "nationality": "Indian",
+ *          "createdAt": "2018-06-04T08:56:51.000Z",
+ *          "updatedAt": "2018-06-04T08:56:51.000Z"
+ *      }
+ *     }
+ */
+
+router.get('/:id', function (req, res) {
+  var peopleId = req.params.id
+  methods.People.findPeopleById(peopleId)
+    .then((people) => {
+      res.send({
+        data: people.dataValues
+      })
+    })
+    .catch((err) => {
+      res.send({
+        'status': 'error',
+        'error': err
+      })
+    })
+})
+
+router.post('/:informationSlug/:peopleId', (req, res) => {
+  var informtionSlug = req.params.informtionSlug
+  var peopleId = req.params.peopleId
+  methods.People.insertSlug(informationSlug, peopleId)
+})
+router.get('/:informtionSlug/:peopleId', (req, res) => {
+  var informtionSlug = req.params.informtionSlug
+  var peopleId = req.params.peopleId
+  console.log(informtionSlug)
+  console.log(peopleId)
+  methods.People.getInforamationUsingSlug(peopleId, informtionSlug)
+    .then((info) => {
+      res.send({
+        status: 'success',
+        information: info
+      })
+    })
+    .catch((err) => {
+      res.send({
+        status: 'error',
+        error: err
       })
     })
 })
