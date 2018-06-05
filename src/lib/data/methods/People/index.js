@@ -61,16 +61,24 @@ peopleMethods.getInforamationUsingSlug = (peopleId, informationSlug) => {
 }
 
 peopleMethods.insertSlug = (slugName, peopleId) => {
+  console.log(slugName)
   return new Promise((resolve, reject) => {
     models.People.people_information_slugs.findOrCreate({
       where: { slug_name: slugName }
     })
-    .then( (arr) => 
-    .spread((slug, created) => {
-      if(!created) {
-
-      }
-    })
+      .then((arr) => {
+        if (!arr[1]) {
+          console.log('Slug already exists.')
+          reject(new Error('Slug already exists.'))
+        } else {
+          console.log('success')
+          resolve(arr[0])
+        }
+      })
+      .catch((err) => {
+        console.log('Error')
+        reject(err)
+      })
   })
 }
 module.exports = peopleMethods
