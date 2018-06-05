@@ -113,10 +113,9 @@ router.get('/:id', function (req, res) {
     })
 })
 
-router.post('/:informationSlug/:peopleId', (req, res) => {
-  var informationSlug = req.params.informationSlug
-  var peopleId = req.params.peopleId
-  methods.People.insertSlug(informationSlug, peopleId)
+router.put('/:slugName', (req, res) => {
+  var slugName = req.params.slugName
+  methods.People.insertSlug(slugName)
     .then((slug) => {
       res.send({
         status: 'success',
@@ -130,12 +129,32 @@ router.post('/:informationSlug/:peopleId', (req, res) => {
       })
     })
 })
-router.get('/:informationSlug/:peopleId', (req, res) => {
-  var informationSlug = req.params.informationSlug
+
+router.put('/:peopleId/:slugName', (req, res) => {
+  var slugName = req.params.slugName
   var peopleId = req.params.peopleId
-  console.log(informationSlug)
+  var slugValue = req.body.value
+  methods.People.putInformationUsingSlug(peopleId, slugName, slugValue)
+    .then((info) => {
+      res.send({
+        status: 'success',
+        information: info
+      })
+    })
+    .catch((err) => {
+      res.send({
+        status: 'error',
+        error: err
+      })
+    })
+})
+
+router.get('/:peopleId/:slugName', (req, res) => {
+  var slugName = req.params.slugName
+  var peopleId = req.params.peopleId
+  console.log(slugName)
   console.log(peopleId)
-  methods.People.getInformationUsingSlug(peopleId, informationSlug)
+  methods.People.getInformationUsingSlug(peopleId, slugName)
     .then((info) => {
       res.send({
         status: 'success',
