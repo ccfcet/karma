@@ -18,11 +18,11 @@ var methods = require('_/data/methods')
  * @apiSuccess {Date} createdAt createdAt
  * @apiSuccess {Date} updatedAt updatedAt
  *
- * @apiParam {String} first_name First Name of the user
- * @apiParam {String} middle_name Middle Name of the user
- * @apiParam {String} last_name Last Name of the user
+ * @apiParam {String} firstName First Name of the user
+ * @apiParam {String} middleName Middle Name of the user
+ * @apiParam {String} lastName Last Name of the user
  * @apiParam {Char} gender Gender
- * @apiParam {Date} date_of_birth Date of birth of the user
+ * @apiParam {Date} dateOfBirth Date of birth of the user
  * @apiParam {String} nationality Nationality of the user
  *
  * @apiSuccessExample {json} Success-Response:
@@ -42,24 +42,29 @@ var methods = require('_/data/methods')
 
 router.post('/', function (req, res) {
   var info = {}
-  info.first_name = req.body.firstName
-  info.middle_name = req.body.middleName
-  info.last_name = req.body.lastName
-  info.gender = req.body.gender
-  info.date_of_birth = req.body.dateOfBirth
-  info.nationality = req.body.nationality
-  info.email = req.body.email
-  info.phone_number = req.body.phoneNumber
-  methods.People.addPeople(info)
-    .then((model) => {
-      res.send(model)
-    })
-    .catch((err) => {
-      res.send({
-        'status': 'error',
-        'error': err
+  if (req.body.hasOwnProperty('firstName') && req.body.hasOwnProperty('middleName') &&
+    req.body.hasOwnProperty('lastName') && req.body.hasOwnProperty('gender') &&
+    req.body.hasOwnProperty('dateOfBirth') && req.body.hasOwnProperty('nationality') &&
+    req.body.hasOwnProperty('email') && req.body.hasOwnProperty('phoneNumber')) {
+    info.first_name = req.body.firstName
+    info.middle_name = req.body.middleName
+    info.last_name = req.body.lastName
+    info.gender = req.body.gender
+    info.date_of_birth = req.body.dateOfBirth
+    info.nationality = req.body.nationality
+    info.email = req.body.email
+    info.phone_number = req.body.phoneNumber
+    methods.people.addPeople(info)
+      .then((model) => {
+        res.send(model)
       })
-    })
+      .catch((err) => {
+        res.send({
+          'status': 'error',
+          'error': err
+        })
+      })
+  }
 })
 
 /**
