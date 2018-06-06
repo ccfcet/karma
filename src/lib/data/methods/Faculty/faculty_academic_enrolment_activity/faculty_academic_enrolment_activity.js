@@ -6,7 +6,7 @@ facultyMethods.addFacultyAcademicEnrolmentActivity = (info) => {
   console.log('inside adding faculty enrolment')
 
   return new Promise((resolve, reject) => {
-    models.Faculty.faculty_academic_enrolment_activity.faculty_academic_enrolment_activity.create(info)
+    models.Faculty.faculty_academic_enrolment_activity.create(info)
 
     resolve(model)
   })
