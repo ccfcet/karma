@@ -4,9 +4,7 @@ var methods = require('_/data/methods')
 
 router.post('/', function (req, res) {
   var info = {}
-
   info.day = req.body.day
-
   methods.Academics.addClassesTimeTables(info)
     .then((model) => {
       res.send(model)

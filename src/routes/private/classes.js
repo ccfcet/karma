@@ -7,7 +7,6 @@ router.post('/', function (req, res) {
   info.class_slug = req.body.slug
   info.start_date = req.body.start_date
   info.end_date = req.body.datetime
-
   methods.Academics.addClasses(info)
     .then((model) => {
       res.send(model)

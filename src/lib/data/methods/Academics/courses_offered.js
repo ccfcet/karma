@@ -3,17 +3,15 @@ var Promise = require('bluebird')
 var models = require('_/data/models')
 var coursesOfferedMethods = {}
 coursesOfferedMethods.addCoursesOffered = (info) => {
-  console.log('inside adding offered courses')
-
   return new Promise((resolve, reject) => {
     models.Academics.courses_offered.create(info)
-
-    resolve(model)
+      .then((newCourseOffered) => {
+        resolve(newCourseOffered)
+      })
+      .catch((err) => {
+        reject(err)
+      })
   })
-    .catch((err) => {
-      console.log(err)
-      reject(err)
-    })
 }
 
 module.exports = coursesOfferedMethods

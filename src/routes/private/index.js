@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 
-var methods = require('_/data/methods')
+require('_/data/methods')
 
 // var methods = require('_/data/methods')
 
