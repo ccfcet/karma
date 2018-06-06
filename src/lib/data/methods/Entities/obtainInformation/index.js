@@ -2,10 +2,13 @@ var Promise = require('bluebird')
 
 var models = require('_/data/models')
 
+var returnObject = {}
+returnObject.addEntity = require('./entitymethods')
 // function to obtain information from table entity_information joining table
 // entities and table entity_information_slugs using entitySlug and
 // entityInformationSlug respectively
-var obtainInformation = function (entitySlug, entityInformationSlug) {
+
+returnObject.obtainInformation = function (entitySlug, entityInformationSlug) {
   return new Promise(function (resolve, reject) {
     models.Entities.entity_information.findOne({
       include:
@@ -33,4 +36,4 @@ var obtainInformation = function (entitySlug, entityInformationSlug) {
   })
 }
 
-module.exports = obtainInformation
+module.exports = returnObject

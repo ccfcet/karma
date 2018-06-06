@@ -49,6 +49,7 @@ router.get('/', function (req, res) {
 // router.use('/information', require('./information'))
 
 router.use('/people', require('./people'))
+router.use('/entity', require('./entity'))
 
 // router.use('/menu', require('./menu'))
 
