@@ -50,7 +50,7 @@ router.post('/', function (req, res) {
   info.nationality = req.body.nationality
   info.email = req.body.email
   info.phone_number = req.body.phoneNumber
-  methods.People.addPeople(info)
+  methods.people.addPeople(info)
     .then((model) => {
       res.send(model)
     })
@@ -99,7 +99,7 @@ router.post('/', function (req, res) {
 
 router.get('/:id', function (req, res) {
   var peopleId = req.params.id
-  methods.People.findPeopleById(peopleId)
+  methods.people.findPeopleById(peopleId)
     .then((people) => {
       res.send({
         data: people.dataValues
@@ -115,7 +115,7 @@ router.get('/:id', function (req, res) {
 
 router.put('/:slugName', (req, res) => {
   var slugName = req.params.slugName
-  methods.People.insertSlug(slugName)
+  methods.people.insertSlug(slugName)
     .then((slug) => {
       res.send({
         status: 'success',
@@ -134,7 +134,7 @@ router.put('/:peopleId/:slugName', (req, res) => {
   var slugName = req.params.slugName
   var peopleId = req.params.peopleId
   var slugValue = req.body.value
-  methods.People.putInformationUsingSlug(peopleId, slugName, slugValue)
+  methods.people.putInformationUsingSlug(peopleId, slugName, slugValue)
     .then((info) => {
       res.send({
         status: 'success',
@@ -154,7 +154,7 @@ router.get('/:peopleId/:slugName', (req, res) => {
   var peopleId = req.params.peopleId
   console.log(slugName)
   console.log(peopleId)
-  methods.People.getInformationUsingSlug(peopleId, slugName)
+  methods.people.getInformationUsingSlug(peopleId, slugName)
     .then((info) => {
       res.send({
         status: 'success',
