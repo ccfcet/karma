@@ -9,6 +9,7 @@ let emailPassword = function (email, password) {
   return new Promise(function (resolve, reject) {
     // find id of user associated with the email
     methodsPeople.getUserIdUsingEmail(email).then(function (userId) {
+      console.log(userId)
       methodsAuthentication.getPasswordHashIfExists(userId).then(function
       (passwordHash) {
         // verify the password

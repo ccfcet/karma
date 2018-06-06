@@ -8,10 +8,11 @@ let getPasswordHashIfExists = function (userId) {
       where: {
         people_id: userId
       },
+      raw: true,
       attributes: ['password_hash']
     }).then(function (passwordHash) {
       if (passwordHash) {
-        resolve(passwordHash)
+        resolve(passwordHash['password_hash'])
       } else {
         reject(new Error("password hash doesn't exist"))
       }
