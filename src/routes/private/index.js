@@ -50,6 +50,7 @@ router.get('/', function (req, res) {
 
 router.use('/people', require('./people'))
 router.use('/entity', require('./entity'))
+router.use('/courses_offered', require('./courses_offered'))
 
 // router.use('/menu', require('./menu'))
 
