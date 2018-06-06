@@ -19,5 +19,7 @@ router.post('/', function (req, res) {
       })
     })
 })
-
+router.get('/', function (req, res) {
+  res.json({success: true})
+})
 module.exports = router
