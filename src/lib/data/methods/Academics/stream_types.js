@@ -1,12 +1,12 @@
 var Promise = require('bluebird')
 
 var models = require('_/data/models')
-var peopleMethods = {}
-peopleMethods.addPeople = (info) => {
-  console.log('inside addPeople')
+var streamTypesMethods = {}
+streamTypesMethods.addStreamTypes = (info) => {
+  console.log('inside adding stream types')
 
   return new Promise((resolve, reject) => {
-    models.People.people.create(info)
+    models.Academics.stream_types.create(info)
 
     resolve(model)
   })
@@ -16,4 +16,4 @@ peopleMethods.addPeople = (info) => {
     })
 }
 
-module.exports = peopleMethods
+module.exports = streamTypesMethods
