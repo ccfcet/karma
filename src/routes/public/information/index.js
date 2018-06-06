@@ -3,6 +3,7 @@ var router = express.Router()
 var _ = require('lodash')
 
 var methodsEntitites = require('_/data/methods/Entities')
+var methods = require('_/data/methods')
 
 /**
 * @api {get} /public/information Public Information Entry Gate
@@ -113,7 +114,25 @@ router.get('/:slug/:position/:name', function (req, res) {
 })
 
 router.get('/faculties', function (req, res) {
-  res.json({ 'status': 200 })
+  // res.json({ 'status': 200 })
+  methods.Faculty.obtainInformation()
+    .then((result) => {
+      if (!_.isEmpty(result)) {
+        res.json(result)
+      } else {
+        res.status(501).json({
+          'success': 'false',
+          'code': 'information-empty'
+        })
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).json({
+        'success': 'false',
+        'code': 'information-error'
+      })
+    })
 })
 
 module.exports = router
