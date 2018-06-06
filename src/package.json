@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "ajv": "^6.5.0",
-    "bluebird": "^3.5.1",
     "body-parser": "~1.18.3",
     "cors": "^2.8.4",
     "debug": "^3.1.0",
@@ -41,5 +40,7 @@
     "gulp": "^3.9.1",
     "gulp-apidoc": "^0.2.7",
     "mocha": "^5.2.0"
-  }
+  },
+  "author": "CCF CET",
+  "license": "AGPLv3"
 }

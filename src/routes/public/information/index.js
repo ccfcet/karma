@@ -2,7 +2,8 @@ var express = require('express')
 var router = express.Router()
 var _ = require('lodash')
 
-var methods = require('_')
+var methodsEntitites = require('_/data/methods/Entities')
+var methods = require('_/data/methods')
 
 /**
 * @api {get} /public/information Public Information Entry Gate
@@ -66,7 +67,7 @@ router.get('/:entityInformationSlug/:entitySlug', function (req, res) {
   // entitySlug
   var entitySlug = req.params.entitySlug
 
-  methods.Entities.obtainInformation(entitySlug, entityInformationSlug)
+  methodsEntitites.obtainInformation(entitySlug, entityInformationSlug)
     .then(function (result) {
       if (!_.isEmpty(result)) {
         res.json(result)
