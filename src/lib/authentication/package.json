@@ -6,7 +6,8 @@
   "author": "ccfcet",
   "license": "AGPL-3.0",
   "dependencies": {
-    "argon2": "^0.19.2",
-    "bluebird": "^3.5.1"
+    "argon2": "^0.19.3",
+    "bluebird": "^3.5.1",
+    "jsonwebtoken": "^8.2.2"
   }
 }
