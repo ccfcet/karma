@@ -37,4 +37,18 @@ coursesOfferedMethods.updateCourses = (info, data) => {
   })
 }
 
+coursesOfferedMethods.deleteCourses = (info) => {
+  return new Promise((resolve, reject) => {
+    models.Academics.courses_offered.destroy({
+      where: {
+        department_id: info.department_id,
+        official_course_id: info.official_course_id
+      }
+    }).then((deleted) => {
+      resolve(deleted)
+    }).catch((notDeleted) => {
+      reject(notDeleted)
+    })
+  })
+}
 module.exports = coursesOfferedMethods
