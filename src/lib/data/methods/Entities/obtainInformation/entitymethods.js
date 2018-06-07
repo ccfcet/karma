@@ -21,14 +21,14 @@ entityMethods.updateEntityTypes = (info) => {
   return new Promise((resolve, reject) => {
     console.log(info)
     models.Entities.entity_types.update(info)
+      .spread((entity, created) => {
+        if (created) {
+          resolve(entity)
+        } else {
+          reject(new Error('Entity_type already exist'))
+        }
+      })
   })
-    .spread((entity, created) => {
-      if (created) {
-        resolve(entity)
-      } else {
-        reject(new Error('Entity_type already exist'))
-      }
-    })
 }
 
 module.exports = entityMethods
