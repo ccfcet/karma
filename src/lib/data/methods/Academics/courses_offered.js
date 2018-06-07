@@ -16,9 +16,6 @@ coursesOfferedMethods.addCoursesOffered = (info) => {
   })
 }
 coursesOfferedMethods.updateCourses = (info, data) => {
-  console.log(data)
-  column = data.column
-  value = data.value
   return new Promise((resolve, reject) => {
     models.Academics.courses_offered.update(data, {
       where: {
