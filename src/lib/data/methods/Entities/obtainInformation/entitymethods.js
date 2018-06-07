@@ -16,17 +16,25 @@ entityMethods.addEntity = (info) => {
       })
   })
 }
-entityMethods.updateEntityTypes = (info) => {
-  console.log(info)
+entityMethods.updateEntityTypes = (info, data) => {
+  console.log('inside method')
   return new Promise((resolve, reject) => {
-    console.log(info)
-    models.Entities.entity_types.update(info)
-      .spread((entity, created) => {
-        if (created) {
-          resolve(entity)
+    console.log('inside promise')
+    models.Entities.entity_types.update(data, {
+      where: {entity_type: info.entity_type,
+        entity_type_slug: info.entity_type_slug}
+    })
+      .then((updated) => {
+        if (updated > 0) {
+          console.log('updated')
+          resolve(updated)
         } else {
-          reject(new Error('Entity_type already exist'))
+          reject(new Error('not updated'))
         }
+      })
+      .catch((err) => {
+        console.log(err)
+        reject(err)
       })
   })
 }

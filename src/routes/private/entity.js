@@ -25,19 +25,27 @@ router.post('/', function (req, res) {
 })
 
 router.put('/:entityType/:entityTypeSlug', function (req, res) {
+  var data = {}
   var info = {}
   info.entity_type = req.params.entityType
   info.entity_type_slug = req.params.entityTypeSlug
-  console.log(req.params.entityType)
-  methods.Entites.obtainInformation.entityMethod.updateEntityTypes(info)
+  if (req.body.hasOwnProperty('entityType') && req.body.hasOwnProperty('entityTypeSlug')) {
+    data.entity_type = req.body.entityType
+    data.entity_type_slug = req.body.entityTypeSlug
+  }
+  methods.Entities.obtainInformation.entityMethod.updateEntityTypes(info, data)
     .then((model) => {
       console.log(model)
-      res.json(model)
+      res.json({
+        'status': 'updated',
+        'data': model
+      })
     })
     .catch((err) => {
       res.status(200).json({
-        'status': 'error',
+        'status': 'not updated',
         'error': err
+
       })
     })
 })
