@@ -3,7 +3,8 @@ var Promise = require('bluebird')
 var models = require('_/data/models')
 
 var returnObject = {}
-returnObject.addEntity = require('./entitymethods')
+returnObject.entityMethod = require('./entitymethods')
+
 // function to obtain information from table entity_information joining table
 // entities and table entity_information_slugs using entitySlug and
 // entityInformationSlug respectively

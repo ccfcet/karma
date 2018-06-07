@@ -25,4 +25,61 @@ router.post('/', function (req, res) {
     })
 })
 
+router.put('/:departmentId/:officialCourseId', (req, res) => {
+  var info = {}
+  var data = {}
+
+  info.official_course_id = req.params.officialCourseId // key values for
+  info.department_id = req.params.departmentId // finding row
+
+  if (req.body.hasOwnProperty('name')) {
+    data.name = req.body.name
+  }
+  if (req.body.hasOwnProperty('credits')) {
+    data.credits = req.body.credits
+  }
+  if (req.body.hasOwnProperty('validStartDate')) {
+    data.valid_start_date = req.body.validStartDate
+  }
+  if (req.body.hasOwnProperty('validEndDate')) {
+    data.valid_end_date = req.body.validEndDate
+  }
+  if (req.body.hasOwnProperty('durationInDays')) {
+    data.duration_in_days = req.body.durationInDays
+  }
+
+  methods.Academics.courses_offered.updateCourses(info, data)
+    .then((model) => {
+      res.status(200).json({
+        'status': 'updated',
+        'data': model
+      })
+    })
+    .catch((error) => {
+      res.send({
+        'status': 'Not able to update.Row maynot exist'
+      })
+    })
+})
+
+router.delete('/', (req, res) => {
+  var info = {}
+
+  info.department_id = req.body.departmentId
+  info.official_course_id = req.body.officialCourseId
+
+  methods.Academics.courses_offered.deleteCourses(info)
+    .then((model) => {
+      res.status(200).json({
+        'status': 'Course deleted',
+        'data': model
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({
+        'status': 'Not able to delete.The row may not exist.'
+      })
+    })
+})
+
 module.exports = router
