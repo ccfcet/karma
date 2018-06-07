@@ -25,4 +25,29 @@ router.post('/', function (req, res) {
     })
 })
 
+router.put('/', (req, res) => {
+  var info = {}
+
+  info.official_course_id = req.body.officialCourseId
+  info.department_id = req.body.departmentId
+  info.name = req.body.name
+  info.credits = req.body.credits
+  info.valid_start_date = req.body.validStartDate
+  info.valid_end_date = req.body.validEndDate
+  info.duration_in_days = req.body.durationInDays
+
+  methods.Academics.courses_offered.updateCourses(info)
+    .then((model) => {
+      res.send({
+        'status': '201 updated',
+        'data': model
+      })
+    })
+    .catch((err) => {
+      res.send({
+        'status': err
+      })
+    })
+})
+
 module.exports = router
