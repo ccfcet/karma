@@ -43,9 +43,9 @@ router.put('/', (req, res) => {
         'data': model
       })
     })
-    .catch((err) => {
+    .catch((error) => {
       res.send({
-        'status': err
+        'status': error
       })
     })
 })

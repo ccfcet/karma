@@ -20,10 +20,12 @@ coursesOfferedMethods.updateCourses = (info) => {
     models.Academics.courses_offered.update(info,
       {where: {department_id: info.department_id}})
       .then((updated) => {
-        if (updated) {
+        if (updated > 0) {
           resolve(updated)
+          console.log('updated')
         } else {
-          reject(resolve)
+          reject('error')
+          console.log('not updated')
         }
       }).catch((error) => {
         reject(error)
