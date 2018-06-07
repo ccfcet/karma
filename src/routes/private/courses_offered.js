@@ -57,7 +57,8 @@ router.put('/:departmentId/:officialCourseId', (req, res) => {
     })
     .catch((error) => {
       res.send({
-        'status': 'Not able to update.Row maynot exist'
+        'status': 'Not able to update.Row maynot exist',
+        error: error
       })
     })
 })
@@ -77,7 +78,8 @@ router.delete('/', (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        'status': 'Not able to delete.The row may not exist.'
+        'status': 'Not able to delete.The row may not exist.',
+        'error': err
       })
     })
 })

@@ -28,7 +28,7 @@ coursesOfferedMethods.updateCourses = (info, data) => {
           resolve(updated)
         } else {
           reject(new Error())
-          throw ('err')
+          // throw ('err')
         }
       }).catch((error) => {
         reject(error)
@@ -44,7 +44,7 @@ coursesOfferedMethods.deleteCourses = (info) => {
         official_course_id: info.official_course_id
       }
     }).then((deleted) => {
-      if (deleted == 0) {
+      if (deleted === 0) {
         console.log('error tg')
         reject(new Error())
       } else {
