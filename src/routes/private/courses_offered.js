@@ -50,14 +50,14 @@ router.put('/:departmentId/:officialCourseId', (req, res) => {
 
   methods.Academics.courses_offered.updateCourses(info, data)
     .then((model) => {
-      res.send({
-        'status': '201 updated',
+      res.status(200).json({
+        'status': 'updated',
         'data': model
       })
     })
     .catch((error) => {
       res.send({
-        'status': error
+        'status': 'Not able to update.Row maynot exist'
       })
     })
 })
@@ -77,8 +77,7 @@ router.delete('/', (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        'status': 'Unable to delete',
-        'error': err
+        'status': 'Not able to delete.The row may not exist.'
       })
     })
 })

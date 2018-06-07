@@ -26,10 +26,9 @@ coursesOfferedMethods.updateCourses = (info, data) => {
       .then((updated) => {
         if (updated > 0) {
           resolve(updated)
-          console.log('updated')
         } else {
-          reject(new Error('Error'))
-          console.log('not updated')
+          reject(new Error())
+          throw ('err')
         }
       }).catch((error) => {
         reject(error)
@@ -45,9 +44,14 @@ coursesOfferedMethods.deleteCourses = (info) => {
         official_course_id: info.official_course_id
       }
     }).then((deleted) => {
-      resolve(deleted)
-    }).catch((notDeleted) => {
-      reject(notDeleted)
+      if (deleted == 0) {
+        console.log('error tg')
+        reject(new Error())
+      } else {
+        resolve(deleted)
+      }
+    }).catch((err) => {
+      reject(err)
     })
   })
 }
