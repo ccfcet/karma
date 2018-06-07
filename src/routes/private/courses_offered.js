@@ -62,4 +62,25 @@ router.put('/:departmentId/:officialCourseId', (req, res) => {
     })
 })
 
+router.delete('/', (req, res) => {
+  var info = {}
+
+  info.department_id = req.body.departmentId
+  info.official_course_id = req.body.officialCourseId
+
+  methods.Academics.courses_offered.deleteCourses(info)
+    .then((model) => {
+      res.status(200).json({
+        'status': 'Course deleted',
+        'data': model
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({
+        'status': 'Unable to delete',
+        'error': err
+      })
+    })
+})
+
 module.exports = router
