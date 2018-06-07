@@ -15,5 +15,16 @@ coursesOfferedMethods.addCoursesOffered = (info) => {
       })
   })
 }
+coursesOfferedMethods.updateCourses = (info) => {
+  return new Promise((resolve, reject) => {
+    models.Academics.courses_offered.update(info,
+      {where: {department_id: info.department_id}})
+      .then((updated) => {
+        resolve(updated)
+      }).catch((error) => {
+        reject(error)
+      })
+  })
+}
 
 module.exports = coursesOfferedMethods
