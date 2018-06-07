@@ -28,7 +28,7 @@ coursesOfferedMethods.updateCourses = (info, data) => {
           resolve(updated)
           console.log('updated')
         } else {
-          reject('error')
+          reject(new Error('Error'))
           console.log('not updated')
         }
       }).catch((error) => {
