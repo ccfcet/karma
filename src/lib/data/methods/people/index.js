@@ -84,42 +84,54 @@ peopleMethods.putInformationUsingSlug = (peopleId, slugName, slugValue) => {
             // The value which the user asked to insert to database should be
             // converted to an array as the function JSON_MERGE_PRESERVE
             // provided by MySQL takes two arrays as input.
+
+            // Remove escape charector '\n' if it is present in slugValue before
+            // pushing it to the array
+            var slugValueTrimmed = slugValue.replace(/^\s+|\s+$/g, '')
+
             var newData = []
-            newData.push(slugValue.replace(/^\s+|\s+$/g, ''))
-            console.log(results)
+            newData.push(slugValueTrimmed)
+
+            // if the slugValue given by the user is already present in the database,
+            // it should not be added again. [Array].indexOF('key') returns -1 if
+            // the element is not present in the array and the index of the key otherwise.
+            var indexOfSlugValueInExistingData = results.json.indexOf(slugValueTrimmed)
+            if ((indexOfSlugValueInExistingData !== -1)) {
+              reject(new Error('The value for the slug given is already present in the database'))
+            }
             if (results) {
               // A value for the slug exists
-
-              // console.log('A value for the slug exists')
 
               existingData = results.json
               models.sequelize.query('insert into people_informations (people_id, slug_id, json, createdAt, updatedAt) values (' + peopleId + ', ' + slug.id + ', JSON_MERGE_PRESERVE(\'' + JSON.stringify(existingData) + '\',\'' + JSON.stringify(newData) + '\'), NOW(), NOW()) ON DUPLICATE KEY UPDATE json = JSON_MERGE_PRESERVE(\'' + JSON.stringify(existingData) + '\',\'' + JSON.stringify(newData) + '\')')
                 .spread((results, metadata) => {
-                  console.log(results)
+                  resolve(results)
                 })
                 .catch((err) => {
                   console.log(err)
+                  reject(err)
                 })
             } else {
               // No values for the slug exist.
-
               // console.log('No values for the slug exist.')
 
               models.sequelize.query('insert into people_informations (people_id, slug_id, json, createdAt, updatedAt) values (' + peopleId + ', ' + slug.id + ', \'' + JSON.stringify(newData) + '\', NOW(), NOW())')
                 .spread((results, metadata) => {
-                  console.log(results)
+                  // console.log(results)
+                  resolve(results)
                 })
                 .catch((err) => {
-                  console.log(err)
+                  reject(err)
                 })
             }
           })
           .catch((err) => {
-            console.log(err)
+            // console.log(err)
+            reject(err)
           })
       })
       .catch((err) => {
-        console.log(err)
+        // console.log(err)
         reject(err)
       })
   })

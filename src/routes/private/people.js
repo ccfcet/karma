@@ -74,11 +74,11 @@ router.post('/', function (req, res) {
  * @apiGroup People
  *
  * @apiSuccess {id} id People ID of the user
- * @apiSuccess {Stirng} first_name First Name of the user
- * @apiSuccess {String} middle_name Middle Name of the user
- * @apiSuccess {String} last_name Last Name of the user
+ * @apiSuccess {Stirng} firstName First Name of the user
+ * @apiSuccess {String} middleName Middle Name of the user
+ * @apiSuccess {String} lastName Last Name of the user
  * @apiSuccess {Char} gender Gender
- * @apiSuccess {Date} date_of_birth Date of birth of the user
+ * @apiSuccess {Date} dateOfBirth Date of birth of the user
  * @apiSuccess {String} nationality Nationality of the user
  * @apiSuccess {Date} createdAt createdAt
  * @apiSuccess {Date} updatedAt updatedAt
