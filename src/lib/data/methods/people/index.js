@@ -38,6 +38,7 @@ peopleMethods.insertSlug = (slugName) => {
       if (created) {
         resolve(slug)
       } else {
+        console.log('Slug already exists')
         reject(new Error('Slug already exists.'))
       }
     }).catch((err) => {
@@ -64,6 +65,7 @@ peopleMethods.getInformationUsingSlug = (peopleId, slugName) => {
         resolve(peopleInfomation)
       })
       .catch((err) => {
+        console.log('Error in searching the database')
         reject(err)
       })
   })
@@ -95,13 +97,13 @@ peopleMethods.putInformationUsingSlug = (peopleId, slugName, slugValue) => {
             // if the slugValue given by the user is already present in the database,
             // it should not be added again. [Array].indexOF('key') returns -1 if
             // the element is not present in the array and the index of the key otherwise.
-            var indexOfSlugValueInExistingData = results.json.indexOf(slugValueTrimmed)
-            if ((indexOfSlugValueInExistingData !== -1)) {
-              reject(new Error('The value for the slug given is already present in the database'))
-            }
+
             if (results) {
               // A value for the slug exists
-
+              var indexOfSlugValueInExistingData = results.json.indexOf(slugValueTrimmed)
+              if ((indexOfSlugValueInExistingData !== -1)) {
+                reject(new Error('The value for the slug given is already present in the database'))
+              }
               existingData = results.json
               models.sequelize.query('insert into people_informations (people_id, slug_id, json, createdAt, updatedAt) values (' + peopleId + ', ' + slug.id + ', JSON_MERGE_PRESERVE(\'' + JSON.stringify(existingData) + '\',\'' + JSON.stringify(newData) + '\'), NOW(), NOW()) ON DUPLICATE KEY UPDATE json = JSON_MERGE_PRESERVE(\'' + JSON.stringify(existingData) + '\',\'' + JSON.stringify(newData) + '\')')
                 .spread((results, metadata) => {
@@ -121,17 +123,18 @@ peopleMethods.putInformationUsingSlug = (peopleId, slugName, slugValue) => {
                   resolve(results)
                 })
                 .catch((err) => {
+                  console.log(err)
                   reject(err)
                 })
             }
           })
           .catch((err) => {
-            // console.log(err)
+            console.log(err)
             reject(err)
           })
       })
       .catch((err) => {
-        // console.log(err)
+        console.log(err)
         reject(err)
       })
   })
