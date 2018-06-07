@@ -15,10 +15,17 @@ coursesOfferedMethods.addCoursesOffered = (info) => {
       })
   })
 }
-coursesOfferedMethods.updateCourses = (info) => {
+coursesOfferedMethods.updateCourses = (info, data) => {
+  console.log(data)
+  column = data.column
+  value = data.value
   return new Promise((resolve, reject) => {
-    models.Academics.courses_offered.update(info,
-      {where: {department_id: info.department_id}})
+    models.Academics.courses_offered.update(data, {
+      where: {
+        department_id: info.department_id,
+        official_course_id: info.official_course_id
+      }
+    })
       .then((updated) => {
         if (updated > 0) {
           resolve(updated)
