@@ -1,4 +1,4 @@
-// tests for routes/public/information/index.js
+// Contains tests for all the entry gates.
 
 require('mocha')
 var chai = require('chai')
@@ -7,7 +7,6 @@ var chaiHttp = require('chai-http')
 var app = require('../../app.js')
 // var models = require('../../data/models/')
 
-// var should = chai.should()
 var expect = chai.expect
 chai.use(chaiHttp)
 
