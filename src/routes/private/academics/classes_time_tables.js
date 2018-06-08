@@ -2,6 +2,10 @@ var express = require('express')
 var router = express.Router()
 var methods = require('_/data/methods')
 
+router.get('/', function (req, res) {
+  res.send({ 'status': 200 })
+})
+
 router.post('/', function (req, res) {
   var info = {}
   info.day = req.body.day
