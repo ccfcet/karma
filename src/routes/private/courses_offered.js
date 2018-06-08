@@ -55,10 +55,10 @@ router.put('/:departmentId/:officialCourseId', (req, res) => {
         'data': model
       })
     })
-    .catch((error) => {
+    .catch((err) => {
       res.send({
         'status': 'Not able to update.Row maynot exist',
-        error: error
+        'error': err
       })
     })
 })

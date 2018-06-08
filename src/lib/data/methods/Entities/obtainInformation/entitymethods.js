@@ -17,7 +17,6 @@ entityMethods.addEntity = (info) => {
   })
 }
 entityMethods.updateEntityTypes = (info, data) => {
-  console.log('inside method')
   return new Promise((resolve, reject) => {
     console.log('inside promise')
     models.Entities.entity_types.update(data, {
@@ -30,6 +29,24 @@ entityMethods.updateEntityTypes = (info, data) => {
           resolve(updated)
         } else {
           reject(new Error('not updated'))
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+entityMethods.deleteEntityTypes = (info) => {
+  return new Promise((resolve, reject) => {
+    models.Entities.entity_types.destroy({
+      where: {entity_type: info.entity_type}
+    })
+      .then((deleted) => {
+        if (deleted === 0) {
+          reject(new Error())
+        } else {
+          resolve(deleted)
         }
       })
       .catch((err) => {
