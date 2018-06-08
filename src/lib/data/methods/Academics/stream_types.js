@@ -1,19 +1,19 @@
 var Promise = require('bluebird')
 
 var models = require('_/data/models')
-var streamTypesMethods = {}
-streamTypesMethods.addStreamTypes = (info) => {
-  console.log('inside adding stream types')
 
+var streamTypesMethods = {}
+
+streamTypesMethods.addStreamType = (info) => {
   return new Promise((resolve, reject) => {
     models.Academics.stream_types.create(info)
-
-    resolve(model)
+      .then((newStreamType) => {
+        resolve(newStreamType)
+      })
+      .catch((err) => {
+        reject(err)
+      })
   })
-    .catch((err) => {
-      console.log(err)
-      reject(err)
-    })
 }
 
 module.exports = streamTypesMethods

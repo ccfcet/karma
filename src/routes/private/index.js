@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 
-var methods = require('_/data/methods')
+require('_/data/methods')
 
 // var methods = require('_/data/methods')
 
@@ -49,7 +49,10 @@ router.get('/', function (req, res) {
 // router.use('/information', require('./information'))
 
 router.use('/people', require('./people'))
+
 router.use('/classes', require('./classes'))
+
+router.use('/entity', require('./entity'))
 
 // router.use('/menu', require('./menu'))
 

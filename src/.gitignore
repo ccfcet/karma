@@ -30,7 +30,7 @@ node_modules
 npm-debug.log
 
 # config file
-config/config.json
+config.json
 
 # apidoc
 apidoc

@@ -1,10 +1,8 @@
 var Promise = require('bluebird')
 var models = require('_/data/models')
-
 var peopleMethods = {}
 
-peopleMethods.getUserIdUsingEmail = require('./get_user_id_using_email')
-
+// Method to add people to the database
 peopleMethods.addPeople = (info) => {
   return new Promise((resolve, reject) => {
     models.People.people.create(info)
@@ -18,6 +16,7 @@ peopleMethods.addPeople = (info) => {
   })
 }
 
+// Method to find people given their people_id
 peopleMethods.findPeopleById = (peopleId) => {
   return new Promise((resolve, reject) => {
     models.People.people.findById(peopleId)
@@ -30,6 +29,7 @@ peopleMethods.findPeopleById = (peopleId) => {
   })
 }
 
+// Method to insert a new slug
 peopleMethods.insertSlug = (slugName) => {
   return new Promise((resolve, reject) => {
     models.People.people_information_slugs.findOrCreate({
@@ -47,6 +47,7 @@ peopleMethods.insertSlug = (slugName) => {
   })
 }
 
+// Method to get information using slug
 peopleMethods.getInformationUsingSlug = (peopleId, slugName) => {
   return new Promise((resolve, reject) => {
     models.People.people.findOne({
@@ -68,39 +69,53 @@ peopleMethods.getInformationUsingSlug = (peopleId, slugName) => {
   })
 }
 
+// Method to put information using slug
 peopleMethods.putInformationUsingSlug = (peopleId, slugName, slugValue) => {
   return new Promise((resolve, reject) => {
     models.People.people_information_slugs.findOne({
       where: { slug_name: slugName }
     })
       .then((slug) => {
-        // models.People.people_information.create({
-        //   people_id: peopleId,
-        //   slug_id: slug.id,
-        // })
-        //   .then((details) => {
-        //     resolve(details)
-        //   })
-        //   .catch((err) => {
-        //     console.log(err)
-        //     reject(err)
-        //   })
-        var sqlQuery = 'update people_informations set json = \'["' +
-        slugValue + '"]\' where people_id = ' + peopleId + ' and slug_id = ' +
-        slug.id + ' ;'
-        var sqlQueryNew = 'insert into people_informations (people_id, slug_id, json) ' +
-        'VALUES (' + peopleId + ', ' + slug.id + ', \'["' + slugValue + '"]\') ON DUPLICATE KEY UPDATE json = \'["' + slugValue +
-        '"]\''
-        console.log(sqlQuery)
-        console.log(sqlQueryNew)
-        models.sequelize.query('update people_informations set json = \'["' +
-          slugValue + '"]\' where people_id = ' + peopleId + ' and slug_id = ' +
-          slug.id + ' ;')
+        var existingData
+        var existingDataSql = 'select json from people_informations where people_id = ' + peopleId + ' and slug_id = ' + slug.id
+
+        models.sequelize.query(existingDataSql, { type: models.sequelize.QueryTypes.SELECT })
           .spread((results, metadata) => {
-            resolve(results)
+            // The value which the user asked to insert to database should be
+            // converted to an array as the function JSON_MERGE_PRESERVE
+            // provided by MySQL takes two arrays as input.
+            var newData = []
+            newData.push(slugValue.replace(/^\s+|\s+$/g, ''))
+            console.log(results)
+            if (results) {
+              // A value for the slug exists
+
+              // console.log('A value for the slug exists')
+
+              existingData = results.json
+              models.sequelize.query('insert into people_informations (people_id, slug_id, json, createdAt, updatedAt) values (' + peopleId + ', ' + slug.id + ', JSON_MERGE_PRESERVE(\'' + JSON.stringify(existingData) + '\',\'' + JSON.stringify(newData) + '\'), NOW(), NOW()) ON DUPLICATE KEY UPDATE json = JSON_MERGE_PRESERVE(\'' + JSON.stringify(existingData) + '\',\'' + JSON.stringify(newData) + '\')')
+                .spread((results, metadata) => {
+                  console.log(results)
+                })
+                .catch((err) => {
+                  console.log(err)
+                })
+            } else {
+              // No values for the slug exist.
+
+              // console.log('No values for the slug exist.')
+
+              models.sequelize.query('insert into people_informations (people_id, slug_id, json, createdAt, updatedAt) values (' + peopleId + ', ' + slug.id + ', \'' + JSON.stringify(newData) + '\', NOW(), NOW())')
+                .spread((results, metadata) => {
+                  console.log(results)
+                })
+                .catch((err) => {
+                  console.log(err)
+                })
+            }
           })
           .catch((err) => {
-            reject(err)
+            console.log(err)
           })
       })
       .catch((err) => {
@@ -109,34 +124,6 @@ peopleMethods.putInformationUsingSlug = (peopleId, slugName, slugValue) => {
       })
   })
 }
-
-// peopleMethods.putInformationUsingSlug = (peopleId, slugName, slugValue) => {
-//   return new Promise((resolve, reject) => {
-//     models.People.people_information_slugs.findOne({
-//       where: { slug_name: slugName }
-//     })
-//       .then((slug) => {
-//         models.People.people_information.findOrCreate({
-//           where: {
-//             people_id: peopleId,
-//             slug_id: slug.id
-//           }
-//         })
-//           .then((arr) => {
-//             if (!arr[1]) {
-//               reject(new Error('Value for this slug already exists!'))
-//             }
-//             resolve(arr[1])
-//           })
-//           .catch((err) => {
-//             reject(err)
-//           })
-//       })
-//       .catch((err) => {
-//         reject(err)
-//       })
-//   })
-// }
 
 peopleMethods.getUserIdUsingEmail = require('./get_user_id_using_email')
 
