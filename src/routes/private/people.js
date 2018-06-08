@@ -45,6 +45,7 @@ router.post('/', function (req, res) {
   if (req.body.hasOwnProperty('firstName') && req.body.hasOwnProperty('middleName') &&
     req.body.hasOwnProperty('lastName') && req.body.hasOwnProperty('gender') &&
     req.body.hasOwnProperty('dateOfBirth') && req.body.hasOwnProperty('nationality')) {
+    // Add another check after resolution of issue #14
     // req.body.hasOwnProperty('email') && req.body.hasOwnProperty('phoneNumber')) {
     info.first_name = req.body.firstName
     info.middle_name = req.body.middleName
@@ -56,10 +57,10 @@ router.post('/', function (req, res) {
     info.phone_number = req.body.phoneNumber
     methods.people.addPeople(info)
       .then((model) => {
-        res.send(model)
+        res.json(model)
       })
       .catch((err) => {
-        res.send({
+        res.status(500).json({
           'status': 'error',
           'error': err.message
         })
@@ -103,25 +104,27 @@ router.post('/', function (req, res) {
  */
 
 router.get('/:id', function (req, res) {
-  var peopleId = req.params.id
-  methods.people.findPeopleById(peopleId)
-    .then((people) => {
-      res.send({
-        data: people.dataValues
+  if (typeof (req.params.id) !== 'number') {
+    var peopleId = req.params.id
+    methods.people.findPeopleById(peopleId)
+      .then((people) => {
+        res.json({
+          data: people.dataValues
+        })
       })
-    })
-    .catch((err) => {
-      res.send({
-        'status': 'error',
-        'error': err.message
+      .catch((err) => {
+        res.status(500).json({
+          'status': 'error',
+          'error': err.message
+        })
       })
-    })
+  }
 })
 
 /**
- * @api {put} /private/people/:slugName AddPeopleInformationSlug
+ * @api {put} /private/people/:slugName GetAllSlugs
  * @apiVersion 1.0.0-alpha-1
- * @apiName AddPeopleInformationSlug
+ * @apiName GetAllSlugs
  * @apiGroup People
  *
  * @apiSuccess {String} status Status of the reponse
@@ -149,19 +152,62 @@ router.put('/:slugName', (req, res) => {
   var slugName = req.params.slugName
   methods.people.insertSlug(slugName)
     .then((slug) => {
-      res.send({
+      res.json({
         status: 'success',
         slug
       })
     })
     .catch((err) => {
-      res.send({
+      res.status(500).json({
         status: 'error',
         error: err.message
       })
     })
 })
 
+/**
+ * @api {get} /private/people/slugs AddPeopleInformationSlug
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName AddPeopleInformationSlug
+ * @apiGroup People
+ *
+ * @apiSuccess {String} status Status of the reponse
+ * @apiSuccess {Object} slug The newly created slug
+ * @apiSuccess {Number} id The id of the slug
+ * @apiSuccess {String} slug_name Name of the slug
+ * @apiSuccess {Date} createdAt createdAt
+ * @apiSuccess {Date} updatedAt updatedAt
+ *
+ * @apiParam {String} slugName Name of the slug
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *    {
+ *      "status": "success",
+ *      "slug": {
+ *        "id": 8,
+ *        "slug_name": "mobilephone1",
+ *        "updatedAt": "2018-06-07T05:03:15.846Z",
+ *        "createdAt": "2018-06-07T05:03:15.846Z"
+ *      }
+ *    }
+ */
+
+router.get('/slugs', (req, res) => {
+  var slugName = req.params.slugName
+  methods.people.getSlugs(slugName)
+    .then((slug) => {
+      res.json({
+        status: 'success',
+        slug
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message
+      })
+    })
+})
 /**
  * @api {put} /private/people/:peopleId/:slugName AddInformationUsingSlug
  * @apiVersion 1.0.0-alpha-1
@@ -183,7 +229,7 @@ router.put('/:slugName', (req, res) => {
  *      "status": "success",
  *      "slug": {
  *        "id": 8,
- *        "slug_name": "mobilephone1",
+ *        "slug_name": "mobilephone",
  *        "updatedAt": "2018-06-07T05:03:15.846Z",
  *        "createdAt": "2018-06-07T05:03:15.846Z"
  *      }
@@ -197,14 +243,14 @@ router.put('/:peopleId/:slugName', (req, res) => {
   var slugValue = req.body.value
   methods.people.putInformationUsingSlug(peopleId, slugName, slugValue)
     .then((info) => {
-      res.send({
+      res.json({
         status: 'success',
         information: info
       })
     })
     .catch((err) => {
       console.log(err)
-      res.status(500).send({
+      res.status(500).json({
         status: 'error',
         error: err.message
       })
@@ -248,13 +294,13 @@ router.get('/:peopleId/:slugName', (req, res) => {
   var peopleId = req.params.peopleId
   methods.people.getInformationUsingSlug(peopleId, slugName)
     .then((info) => {
-      res.send({
+      res.json({
         status: 'success',
         information: info
       })
     })
     .catch((err) => {
-      res.send({
+      res.status(500).json({
         status: 'error',
         error: err.message
       })

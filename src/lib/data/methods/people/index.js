@@ -52,6 +52,24 @@ peopleMethods.insertSlug = (slugName) => {
   })
 }
 
+// Method to get all slugs in the database
+peopleMethods.getSlugs = () => {
+  return new Promise((resolve, reject) => {
+    models.People.people_information_slugs.findAll()
+      .then((slugs) => {
+        if (slugs !== null) {
+          resolve(slugs)
+        } else {
+          reject(new Error('No slugs are present'))
+        }
+      })
+      .catch((err) => {
+        console.log('Error')
+        reject(err)
+      })
+  })
+}
+
 // Method to get information using slug
 peopleMethods.getInformationUsingSlug = (peopleId, slugName) => {
   return new Promise((resolve, reject) => {
