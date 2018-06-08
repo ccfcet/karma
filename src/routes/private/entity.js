@@ -49,4 +49,22 @@ router.put('/:entityType/:entityTypeSlug', function (req, res) {
       })
     })
 })
+router.delete('/', function (req, res) {
+  var info = {}
+  info.entity_type = req.body.entityType
+  methods.Entities.obtainInformation.entityMethod.deleteEntityTypes(info)
+    .then((model) => {
+      console.log(model)
+      res.json({
+        'status': 'deleted',
+        'data': model
+      })
+        .catch((err) => {
+          res.status(500).json({
+            'status': 'the row does not exist',
+            'error': err
+          })
+        })
+    })
+})
 module.exports = router
