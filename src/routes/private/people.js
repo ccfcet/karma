@@ -166,33 +166,33 @@ router.put('/:slugName', (req, res) => {
 })
 
 /**
- * @api {get} /private/people/slugs AddPeopleInformationSlug
+ * @api {put} /private/people/:slugName InsertNewSlug
  * @apiVersion 1.0.0-alpha-1
- * @apiName AddPeopleInformationSlug
+ * @apiName InsertNewSlug
  * @apiGroup People
  *
- * @apiSuccess {String} status Status of the reponse
- * @apiSuccess {Object} slug The newly created slug
- * @apiSuccess {Number} id The id of the slug
+ * @apiSuccess {Stirng} success Success message
+ * @apiSuccess {Object} slug Newly inserted object
+ * @apiSuccess {id} id
  * @apiSuccess {String} slug_name Name of the slug
  * @apiSuccess {Date} createdAt createdAt
  * @apiSuccess {Date} updatedAt updatedAt
  *
  * @apiParam {String} slugName Name of the slug
+ *
  * @apiSuccessExample {json} Success-Response:
- *     HTTP/1.1 200 OK
- *    {
+ *    HTTP/1.1 200 OK
+ *     {
  *      "status": "success",
  *      "slug": {
- *        "id": 8,
- *        "slug_name": "mobilephone1",
- *        "updatedAt": "2018-06-07T05:03:15.846Z",
- *        "createdAt": "2018-06-07T05:03:15.846Z"
- *      }
- *    }
+ *        "id": 3,
+ *        "slug_name": "telephone",
+ *        "updatedAt": "2018-06-08T01:33:42.134Z",
+ *        "createdAt": "2018-06-08T01:33:42.134Z"
+ *     }
  */
 
-router.get('/slugs', (req, res) => {
+router.put('/:slugName', (req, res) => {
   var slugName = req.params.slugName
   methods.people.getSlugs(slugName)
     .then((slug) => {
