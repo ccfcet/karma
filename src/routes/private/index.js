@@ -51,7 +51,7 @@ router.get('/', function (req, res) {
 router.use('/people', require('./people'))
 router.use('/entity', require('./entity'))
 router.use('/academics', require('./academics'))
-
+router.use('/student', require('./student'))
 // router.use('/menu', require('./menu'))
 
 module.exports = router
