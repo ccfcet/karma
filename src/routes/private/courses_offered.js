@@ -52,7 +52,7 @@ router.put('/:departmentId/:officialCourseId', (req, res) => {
     .then((model) => {
       res.status(200).json({
         'status': 'updated',
-        'data': model
+        'state': model[0]
       })
     })
     .catch((err) => {
