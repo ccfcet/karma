@@ -67,7 +67,7 @@ router.delete('/', (req, res) => {
   methods.Academics.classesTimeTablesMethods.deleteClassesTimeTables(info)
     .then((model) => {
       res.status(200).json({
-        'status': 'Course deleted',
+        'status': 'Time table deleted',
         'state': model
       })
     })

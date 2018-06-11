@@ -2,9 +2,9 @@ var Promise = require('bluebird')
 
 var models = require('_/data/models')
 
-var streamTypesMethods = {}
+var streamsOfferedMethods = {}
 
-streamTypesMethods.addStreamType = (info) => {
+streamsOfferedMethods.addStreamType = (info) => {
   console.log(info)
   return new Promise((resolve, reject) => {
     models.Academics.stream_types.create(info)
@@ -17,7 +17,7 @@ streamTypesMethods.addStreamType = (info) => {
   })
 }
 
-streamTypesMethods.updateStreamTypes = (info, data) => {
+streamsOfferedMethods.updateStreamTypes = (info, data) => {
   return new Promise((resolve, reject) => {
     models.Academics.stream_types.update(data, {
       where: {
@@ -37,7 +37,7 @@ streamTypesMethods.updateStreamTypes = (info, data) => {
   })
 }
 
-streamTypesMethods.deleteStreamTypes = (info) => {
+streamsOfferedMethods.deleteStreamTypes = (info) => {
   return new Promise((resolve, reject) => {
     models.Academics.stream_types.destroy({
       where: {
@@ -57,4 +57,4 @@ streamTypesMethods.deleteStreamTypes = (info) => {
   })
 }
 
-module.exports = streamTypesMethods
+module.exports = streamsOfferedMethods
