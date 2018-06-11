@@ -30,6 +30,43 @@ router.post('/', function (req, res) {
     })
 })
 
+router.put('/:classId', (req, res) => {
+  var info = {}
+  var data = {}
+
+  info.id = req.params.classId // key values for finding row
+
+  if (req.body.hasOwnProperty('streamId')) {
+    data.stream_id = req.body.streamId
+  }
+  if (req.body.hasOwnProperty('division')) {
+    data.division = req.body.division
+  }
+  if (req.body.hasOwnProperty('currentClass')) {
+    data.current_class_slug = req.body.currentClass
+  }
+  if (req.body.hasOwnProperty('startDate')) {
+    data.start_date = req.body.startDate
+  }
+  if (req.body.hasOwnProperty('endDate')) {
+    data.end_date = req.body.endDate
+  }
+
+  methods.Academics.classesMethods.updateClasses(info, data)
+    .then((model) => {
+      res.status(200).json({
+        'status': 'updated',
+        'state': model[0]
+      })
+    })
+    .catch((err) => {
+      res.send({
+        'status': 'Not able to update.Row maynot exist',
+        'state': err
+      })
+    })
+})
+
 router.delete('/', (req, res) => {
   var info = {}
 
