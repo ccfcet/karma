@@ -29,7 +29,7 @@ router.post('/', function (req, res) {
   info.start_date = req.body.startDate
   info.end_date = req.body.endDate
   console.log(info)
-  methods.Academics.streamTypesMethods.addStreamType(info)
+  methods.Academics.streamTypesMethods.addTimeSlots(info)
     .then((model) => {
       res.send(model)
     })
@@ -60,7 +60,7 @@ router.put('/:streamId', (req, res) => {
     data.end_date = req.body.endDate
   }
 
-  methods.Academics.streamTypesMethods.updateStreamTypes(info, data)
+  methods.Academics.streamTypesMethods.updateTimeSlots(info, data)
     .then((model) => {
       res.status(200).json({
         'status': 'updated stream type',
@@ -80,7 +80,7 @@ router.delete('/', (req, res) => {
 
   info.id = req.body.streamId
 
-  methods.Academics.streamTypesMethods.deleteStreamTypes(info)
+  methods.Academics.streamTypesMethods.deleteTimeSlots(info)
     .then((model) => {
       res.status(200).json({
         'status': 'stream Type deleted',

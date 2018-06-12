@@ -13,8 +13,8 @@ returnObject.obtainInformation = function (streamId, className, division) {
             model: models.Academics.classes,
             where: {
               stream_id: streamId,
-            	current_class_slug: className,
-            	division: division
+              current_class_slug: className,
+              division: division
             }
             // attributes: []
           }
