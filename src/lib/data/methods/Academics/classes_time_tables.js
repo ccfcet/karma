@@ -17,7 +17,7 @@ classesTimeTablesMethods.addClassesTimeTables = (info) => {
       })
   })
 }
-classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
+classesTimeTablesMethods.updateClassesTimeTablesWithClassNameAndDivision = (info, data) => {
   return new Promise((resolve, reject) => {
     obtainInformation.obtainInformation(info.streamId, info.className, info.division).then(classesTimeTables => {
       models.Academics.classes_time_tables.update(data, {
@@ -42,7 +42,7 @@ classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
   })
 }
 
-/* classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
+classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
   console.log(info, data)
   return new Promise((resolve, reject) => {
     models.Academics.classes_time_tables.update(data, {
@@ -61,7 +61,7 @@ classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
         reject(error)
       })
   })
-} */
+}
 
 classesTimeTablesMethods.deleteClassesTimeTables = (info) => {
   return new Promise((resolve, reject) => {
