@@ -7,11 +7,10 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
   var info = {}
   if (req.body.hasOwnProperty('entityType') && req.body.hasOwnProperty('entityTypeSlug')) {
-    info.id = req.body['Id']
     info.entity_type = req.body['entityType']
     console.log(req.body['entityType'])
     info.entity_type_slug = req.body['entityTypeSlug']
-    methods.Entities.obtainInformation.addEntity(info)
+    methods.Entities.obtainInformation.entityMethod.addEntity(info)
       .then((model) => {
         console.log(model)
         res.json(model)
@@ -25,4 +24,47 @@ router.post('/', function (req, res) {
   }
 })
 
+router.put('/:entityType/:entityTypeSlug', function (req, res) {
+  var data = {}
+  var info = {}
+  info.entity_type = req.params.entityType
+  info.entity_type_slug = req.params.entityTypeSlug
+  if (req.body.hasOwnProperty('entityType') && req.body.hasOwnProperty('entityTypeSlug')) {
+    data.entity_type = req.body.entityType
+    data.entity_type_slug = req.body.entityTypeSlug
+  }
+  methods.Entities.obtainInformation.entityMethod.updateEntityTypes(info, data)
+    .then((model) => {
+      console.log(model)
+      res.json({
+        'status': 'updated',
+        'data': model
+      })
+    })
+    .catch((err) => {
+      res.status(200).json({
+        'status': 'not updated',
+        'error': err
+
+      })
+    })
+})
+router.delete('/', function (req, res) {
+  var info = {}
+  info.entity_type = req.body.entityType
+  methods.Entities.obtainInformation.entityMethod.deleteEntityTypes(info)
+    .then((model) => {
+      console.log(model)
+      res.json({
+        'status': 'deleted',
+        'data': model
+      })
+        .catch((err) => {
+          res.status(500).json({
+            'status': 'the row does not exist',
+            'error': err
+          })
+        })
+    })
+})
 module.exports = router
