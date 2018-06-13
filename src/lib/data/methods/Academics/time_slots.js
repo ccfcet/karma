@@ -1,26 +1,27 @@
 var Promise = require('bluebird')
 
 var models = require('_/data/models')
-var coursesOfferedMethods = {}
-coursesOfferedMethods.addCoursesOffered = (info) => {
+
+var timeSlotsMethods = {}
+
+timeSlotsMethods.addTimeSlots = (info) => {
+  console.log(info)
   return new Promise((resolve, reject) => {
-    models.Academics.courses_offered.create(info)
-      .then((newCourseOffered) => {
-        console.log('inside then')
-        resolve(newCourseOffered)
+    models.Academics.time_slots.create(info)
+      .then((newTimeSlot) => {
+        resolve(newTimeSlot)
       })
       .catch((err) => {
-        console.log(err)
         reject(err)
       })
   })
 }
-coursesOfferedMethods.updateCourses = (info, data) => {
+
+timeSlotsMethods.updateTimeSlots = (info, data) => {
   return new Promise((resolve, reject) => {
-    models.Academics.courses_offered.update(data, {
+    models.Academics.time_slots.update(data, {
       where: {
-        department_id: info.department_id,
-        official_course_id: info.official_course_id
+        id: info.id
       }
     })
       .then((updated) => {
@@ -36,12 +37,12 @@ coursesOfferedMethods.updateCourses = (info, data) => {
   })
 }
 
-coursesOfferedMethods.deleteCourses = (info) => {
+timeSlotsMethods.deleteTimeSlots = (info) => {
   return new Promise((resolve, reject) => {
-    models.Academics.courses_offered.destroy({
+    models.Academics.time_slots.destroy({
       where: {
-        department_id: info.department_id,
-        official_course_id: info.official_course_id
+        id: info.id
+
       }
     }).then((deleted) => {
       if (deleted === 0) {
@@ -55,4 +56,5 @@ coursesOfferedMethods.deleteCourses = (info) => {
     })
   })
 }
-module.exports = coursesOfferedMethods
+
+module.exports = timeSlotsMethods

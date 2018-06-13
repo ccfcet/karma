@@ -1,9 +1,9 @@
 var Promise = require('bluebird')
 
 var models = require('_/data/models')
-// var entityMethods = {}
+var entityMethods = {}
 
-let addEntity = (info) => {
+entityMethods.addEntity = (info) => {
   return new Promise((resolve, reject) => {
     models.Entities.entity_types.create(info)
       .then((model) => {
@@ -16,4 +16,44 @@ let addEntity = (info) => {
       })
   })
 }
-module.exports = addEntity
+entityMethods.updateEntityTypes = (info, data) => {
+  return new Promise((resolve, reject) => {
+    console.log('inside promise')
+    models.Entities.entity_types.update(data, {
+      where: {entity_type: info.entity_type,
+        entity_type_slug: info.entity_type_slug}
+    })
+      .then((updated) => {
+        if (updated > 0) {
+          console.log('updated')
+          resolve(updated)
+        } else {
+          reject(new Error('not updated'))
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+entityMethods.deleteEntityTypes = (info) => {
+  return new Promise((resolve, reject) => {
+    models.Entities.entity_types.destroy({
+      where: {entity_type: info.entity_type}
+    })
+      .then((deleted) => {
+        if (deleted === 0) {
+          reject(new Error())
+        } else {
+          resolve(deleted)
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+
+module.exports = entityMethods

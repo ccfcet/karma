@@ -1,0 +1,56 @@
+var Promise = require('bluebird')
+var models = require('_/data/models')
+
+var studentCourseGradesMethods = {}
+
+studentCourseGradesMethods.addStudentGrade = (info) => {
+  return new Promise((resolve, reject) => {
+    models.Student.student_course_grades.create(info)
+      .then((created) => {
+        resolve(created)
+      }).catch((err) => {
+        reject(err)
+      })
+  })
+}
+
+studentCourseGradesMethods.updateStudentGrade = (info, data) => {
+  return new Promise((resolve, reject) => {
+    console.log('Hello')
+    console.log(info.people_id)
+    models.Student.student_course_grades.update(data, {
+      where: {
+        people_id: info.people_id,
+        course_id: info.course_id
+      }
+    }).then((updated) => {
+      if (updated === 0) {
+        reject(new Error())
+      } else {
+        resolve(updated)
+      }
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
+
+studentCourseGradesMethods.deleteStudentGrade = (info) => {
+  return new Promise((resolve, reject) => {
+    models.Student.student_course_grades.destroy({
+      where: {
+        people_id: info.people_id,
+        course_id: info.course_id
+      }
+    }).then((deleted) => {
+      if (deleted === 0) {
+        reject(new Error())
+      } else {
+        resolve(deleted)
+      }
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
+module.exports = studentCourseGradesMethods

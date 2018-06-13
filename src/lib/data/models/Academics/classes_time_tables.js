@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER(),
       allowNull: false
     },
-    course_id: {
+    faculty_id: {
       type: DataTypes.INTEGER(),
       allowNull: false
     }
@@ -42,10 +42,10 @@ module.exports = function (sequelize, DataTypes) {
       }
     })
 
-    models.Academics.classes_time_tables.belongsTo(models.Academics.courses_offered, {
+    models.Academics.classes_time_tables.belongsTo(models.Faculty.faculty_academic_enrolment_activity, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'course_id'
+        name: 'faculty_id'
         // allowNull: false -- already defined
       }
     })

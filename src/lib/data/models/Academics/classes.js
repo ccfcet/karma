@@ -7,8 +7,17 @@ module.exports = function (sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
+    stream_id: {
+      type: DataTypes.INTEGER(),
+      unique: 'compositeIndex'
+    },
+    division: {
+      type: DataTypes.INTEGER(),
+      unique: 'compositeIndex'
+    },
     current_class_slug: {
       type: DataTypes.STRING(20),
+      unique: 'compositeIndex',
       allowNull: false
     },
     start_date: {
@@ -20,6 +29,16 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     }
   })
+
+  Classes.associate = function (models) {
+    models.Academics.classes.belongsTo(models.Academics.streams_offered, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        name: 'stream_id'
+        // allowNull: false -- already defined
+      }
+    })
+  }
 
   return Classes
 }
