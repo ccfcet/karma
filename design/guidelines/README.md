@@ -31,10 +31,13 @@ Strictly follow all the guidelines provided by OWASP(https://www.owasp.org/
   dated before May 25 2018 12:28 PM IST).
 
 ### JavaScript
-* The code should strictly follow the guidelines of standardJS. Refer
-https://standardjs.com/.
+#### The code should strictly follow the guidelines of standardJS.
+Refer https://standardjs.com/.
 
   The developers may use packages to enforce the same.
 
-* The code should strictly follow the Eighty Column Rule. Refer
-https://www.emacswiki.org/emacs/EightyColumnRule.
+#### The code should strictly follow the Eighty Column Rule.
+Refer https://www.emacswiki.org/emacs/EightyColumnRule.
+
+Allowed Exceptions:
+1. JSON

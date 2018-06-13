@@ -3,22 +3,25 @@ Back-end API framework for colleges.
 
 ### Setup
 1. Clone the repository
-```
+```bash
 git clone https://github.com/ccfcet/karma
 ```
-2. Install npm
+2. Install node, npm and nodemon globally.
 3. Run
-```
+```bash
 npm install
 ```
-4. Rename ```config.json.example``` file inside ```src/lib/data/config/``` to ```config.json``` and fill the database information. 
+4. Rename ```config.json.example``` file inside ```./lib/data/config/``` to ```config.json``` and fill the database information.
 
 ### Usage
-``` bash
-# install dependencies
+```bash
+# install dependencies (development)
 npm install
 
-# serve with hot reload at localhost:3000
+# install dependencies (production)
+npm install --production
+
+# serve with live reload at localhost:3000 (development)
 # includes nodemon and eslint
 npm run dev
 

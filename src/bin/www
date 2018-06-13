@@ -5,8 +5,9 @@
 */
 
 var app = require('../app');
-var debug = require('debug')('cet:server');
+var debug = require('debug')('karma');
 var http = require('http');
+
 var models = require('../lib/data/models');
 
 /**
