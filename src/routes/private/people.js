@@ -65,6 +65,11 @@ router.post('/', function (req, res) {
           'error': err.message
         })
       })
+  } else {
+    res.status(500).json({
+      'status': 'error',
+      'error': 'One or more of the parameters are incorrect!'
+    })
   }
 })
 
@@ -103,8 +108,8 @@ router.post('/', function (req, res) {
  *     }
  */
 
-router.get('/:id', function (req, res) {
-  if (typeof (req.params.id) !== 'number') {
+router.get('/:id', function (req, res, next) {
+  if (typeof (req.params.id) === 'number') {
     var peopleId = req.params.id
     methods.people.findPeopleById(peopleId)
       .then((people) => {
@@ -118,6 +123,8 @@ router.get('/:id', function (req, res) {
           'error': err.message
         })
       })
+  } else {
+    next()
   }
 })
 
@@ -192,7 +199,7 @@ router.put('/:slugName', (req, res) => {
  *     }
  */
 
-router.put('/:slugName', (req, res) => {
+router.get('/:slugName', (req, res) => {
   var slugName = req.params.slugName
   methods.people.getSlugs(slugName)
     .then((slug) => {

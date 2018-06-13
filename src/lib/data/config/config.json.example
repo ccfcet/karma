@@ -2,7 +2,7 @@
   "sequelize":{
     "development": {
       "username": "root",
-      "password": "Chithra@1998",
+      "password": "password",
       "database": "karma",
       "host": "127.0.0.1",
       "dialect": "mysql",
@@ -10,7 +10,7 @@
     },
     "test": {
       "username": "root",
-      "password": "Chithra@1998",
+      "password": "password",
       "database": "karmatest",
       "host": "127.0.0.1",
       "dialect": "mysql",
@@ -18,7 +18,7 @@
     },
     "production": {
       "username": "root",
-      "password": "Chithra@1998",
+      "password": "password",
       "database": "karma",
       "host": "127.0.0.1",
       "dialect": "mysql",
