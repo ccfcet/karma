@@ -2,14 +2,14 @@ var Promise = require('bluebird')
 
 var models = require('_/data/models')
 
-var streamTypesMethods = {}
+var timeSlotsMethods = {}
 
-streamTypesMethods.addStreamType = (info) => {
+timeSlotsMethods.addTimeSlots = (info) => {
   console.log(info)
   return new Promise((resolve, reject) => {
-    models.Academics.stream_types.create(info)
-      .then((newStreamType) => {
-        resolve(newStreamType)
+    models.Academics.time_slots.create(info)
+      .then((newTimeSlot) => {
+        resolve(newTimeSlot)
       })
       .catch((err) => {
         reject(err)
@@ -17,9 +17,9 @@ streamTypesMethods.addStreamType = (info) => {
   })
 }
 
-streamTypesMethods.updateStreamTypes = (info, data) => {
+timeSlotsMethods.updateTimeSlots = (info, data) => {
   return new Promise((resolve, reject) => {
-    models.Academics.stream_types.update(data, {
+    models.Academics.time_slots.update(data, {
       where: {
         id: info.id
       }
@@ -37,9 +37,9 @@ streamTypesMethods.updateStreamTypes = (info, data) => {
   })
 }
 
-streamTypesMethods.deleteStreamTypes = (info) => {
+timeSlotsMethods.deleteTimeSlots = (info) => {
   return new Promise((resolve, reject) => {
-    models.Academics.stream_types.destroy({
+    models.Academics.time_slots.destroy({
       where: {
         id: info.id
 
@@ -57,4 +57,4 @@ streamTypesMethods.deleteStreamTypes = (info) => {
   })
 }
 
-module.exports = streamTypesMethods
+module.exports = timeSlotsMethods

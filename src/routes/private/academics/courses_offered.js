@@ -2,6 +2,10 @@ var express = require('express')
 var router = express.Router()
 var methods = require('_/data/methods')
 
+router.get('/', function (req, res) {
+  res.send({ 'status': 200 })
+})
+
 router.post('/', function (req, res) {
   var info = {}
 
@@ -52,13 +56,13 @@ router.put('/:departmentId/:officialCourseId', (req, res) => {
     .then((model) => {
       res.status(200).json({
         'status': 'updated',
-        'data': model
+        'state': model[0]
       })
     })
     .catch((err) => {
       res.send({
         'status': 'Not able to update.Row maynot exist',
-        'error': err
+        'state': err
       })
     })
 })
@@ -73,13 +77,13 @@ router.delete('/', (req, res) => {
     .then((model) => {
       res.status(200).json({
         'status': 'Course deleted',
-        'data': model
+        'state': model
       })
     })
     .catch((err) => {
       res.status(500).json({
         'status': 'Not able to delete.The row may not exist.',
-        'error': err
+        'state': err
       })
     })
 })
