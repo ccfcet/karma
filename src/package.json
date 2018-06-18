@@ -4,13 +4,13 @@
   "private": true,
   "description": "Back-end API framework for colleges.",
   "homepage": "https://github.com/ccfcet/karma",
-  "repository" :
-  { "type" : "git"
-    , "url" : "https://github.com/ccfcet/karma"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ccfcet/karma"
   },
   "bugs": {
-    "url" : "https://github.com/ccfcet/karma/issues",
-    "email" : "ccf@cet.ac.in"
+    "url": "https://github.com/ccfcet/karma/issues",
+    "email": "ccf@cet.ac.in"
   },
   "scripts": {
     "preinstall": "rm -rf ./node_modules/_",
@@ -26,30 +26,14 @@
     "cors": "^2.8.4",
     "debug": "^3.1.0",
     "express": "~4.16.3",
-    "http-errors": "~1.6.2",
     "helmet": "^3.12.1",
+    "http-errors": "~1.6.2",
     "lodash": "^4.17.10",
     "morgan": "~1.9.0"
   },
   "devDependencies": {
-    "apidoc": "^0.17.6",
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-friendly-formatter": "^4.0.1",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-mocha": "^5.0.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.1.0",
-    "gulp": "^4.0.0",
-    "gulp-apidoc": "^0.2.7",
-    "mocha": "^5.2.0"
+    "eslint": "^4.19.1"
   },
   "author": "Central Computing Facility, College of Engineering Trivandrum",
-  "license": "AGPL-3.0-or-later",
-  "apidoc": {
-    "title": "Karma Documentation"
-  }
+  "license": "AGPL-3.0-or-later"
 }

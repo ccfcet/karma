@@ -1,13 +1,8 @@
 {
-    "root": true,
-    "extends": "standard",
-    "env": {
-        "mocha": true
-    },
-    "plugins": [
-        "mocha"
-    ],
-    "rules": {
-        "mocha/no-exclusive-tests": "error"
-    }
+  "root": true,
+  "extends": "standard",
+  "env": {
+    "node": true,
+    "mocha": true
+  }
 }
