@@ -1,22 +1,25 @@
-var express = require('express')
-var router = express.Router()
-var methods = require('_/data/methods')
+const express = require('express');
 
-router.post('/', function (req, res) {
-  var info = {}
+const router = express.Router();
+const methods = require('data/methods');
 
-  info.activity = req.body.activity
-  info.date_time = req.body.datetime
+router.post('/', (req, res) => {
+  const info = {};
 
-  methods.Faculty.faculty_academic_enrolment_activity.addFacultyAcademicEnrolmentActivity(info)
+  info.activity = req.body.activity;
+  info.date_time = req.body.datetime;
+
+  methods.Faculty.faculty_academic_enrolment_activity
+    .addFacultyAcademicEnrolmentActivity(info)
     .then((model) => {
-      res.send(model)
+      res.json(model);
     })
     .catch((err) => {
-      res.send({
-        'status': 'error',
-        'error': err
-      })
-    })
-})
-module.exports = router
+      res.json({
+        status: 'error',
+        error: err,
+      });
+    });
+});
+
+module.exports = router;

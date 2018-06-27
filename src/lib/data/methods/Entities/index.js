@@ -1,5 +1,5 @@
-var Entities = {}
+const Entities = {};
 
-Entities.obtainInformation = require('./obtainInformation')
+Entities.obtainInformation = require('./obtainInformation');
 
-module.exports = Entities
+module.exports = Entities;

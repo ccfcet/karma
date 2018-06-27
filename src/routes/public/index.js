@@ -1,5 +1,6 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express');
+
+const router = express.Router();
 
 /**
  * @api {get} /public Public Entry Gate
@@ -16,12 +17,12 @@ var router = express.Router()
  *     }
  */
 
-router.get('/', function (req, res) {
-  res.send({ 'status': 200 })
-})
+router.get('/', (req, res) => {
+  res.send({ status: 200 });
+});
 
-router.use('/information', require('./information'))
+router.use('/information', require('./information'));
 
-router.use('/menu', require('./menu'))
+router.use('/menu', require('./menu'));
 
-module.exports = router
+module.exports = router;

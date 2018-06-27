@@ -1,21 +1,21 @@
-var Promise = require('bluebird')
-const argon2 = require('argon2')
+const Promise = require('bluebird');
+const argon2 = require('argon2');
 
-let passwordVerifier = function (password, passwordHash) {
-  return new Promise(function (resolve, reject) {
-    argon2.verify(passwordHash, password).then(function (match) {
+const passwordVerifier = function (password, passwordHash) {
+  return new Promise(((resolve, reject) => {
+    argon2.verify(passwordHash, password).then((match) => {
       if (match) {
         // password match
-        resolve(true)
+        resolve(true);
       } else {
         // password did not match
-        resolve(false)
+        resolve(false);
       }
-    }).catch(function (err) {
-      console.log(err)
-      reject(err)
-    })
-  })
-}
+    }).catch((err) => {
+      console.log(err);
+      reject(err);
+    });
+  }));
+};
 
-module.exports = passwordVerifier
+module.exports = passwordVerifier;

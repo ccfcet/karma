@@ -1,9 +1,9 @@
-var Promise = require('bluebird')
+const Promise = require('bluebird');
 
-var correctMenuElementPositions = function (combinedMenu) {
-  return new Promise(function (resolve, reject) {
-    resolve(combinedMenu)
-  })
-}
+const correctMenuElementPositions = function (combinedMenu) {
+  return new Promise(((resolve) => {
+    resolve(combinedMenu);
+  }));
+};
 
-module.exports = correctMenuElementPositions
+module.exports = correctMenuElementPositions;

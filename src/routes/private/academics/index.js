@@ -1,17 +1,16 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express');
 
-require('_/data/methods')
+const router = express.Router();
 
-router.get('/', function (req, res) {
-  res.send({ 'status': 200 })
-})
+router.get('/', (req, res) => {
+  res.send({ status: 200 });
+});
 
-router.use('/courses_offered', require('./courses_offered'))
-router.use('/classes', require('./classes'))
-router.use('/classes_time_tables', require('./classes_time_tables'))
-router.use('/stream_types', require('./stream_types'))
-router.use('/streams_offered', require('./streams_offered'))
-router.use('/time_slots', require('./time_slots'))
+router.use('/courses_offered', require('./courses_offered'));
+router.use('/classes', require('./classes'));
+router.use('/classes_time_tables', require('./classes_time_tables'));
+router.use('/stream_types', require('./stream_types'));
+router.use('/streams_offered', require('./streams_offered'));
+router.use('/time_slots', require('./time_slots'));
 
-module.exports = router
+module.exports = router;

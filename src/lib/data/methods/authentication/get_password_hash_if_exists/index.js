@@ -1,26 +1,26 @@
-let Promise = require('bluebird')
+const Promise = require('bluebird');
 
-let models = require('_/data/models')
+const models = require('../../../models');
 
-let getPasswordHashIfExists = function (userId) {
-  return new Promise(function (resolve, reject) {
+const getPasswordHashIfExists = function (userId) {
+  return new Promise(((resolve, reject) => {
     models.authentication.authentication_information_local.findOne({
       where: {
-        people_id: userId
+        people_id: userId,
       },
       raw: true,
-      attributes: ['password_hash']
-    }).then(function (passwordHash) {
+      attributes: ['password_hash'],
+    }).then((passwordHash) => {
       if (passwordHash) {
-        resolve(passwordHash['password_hash'])
+        resolve(passwordHash.password_hash);
       } else {
-        reject(new Error("password hash doesn't exist"))
+        reject(new Error("password hash doesn't exist"));
       }
-    }).catch(function (err) {
-      console.log(err)
-      reject(err)
-    })
-  })
-}
+    }).catch((err) => {
+      console.log(err);
+      reject(err);
+    });
+  }));
+};
 
-module.exports = getPasswordHashIfExists
+module.exports = getPasswordHashIfExists;

@@ -1,46 +1,46 @@
-'use strict'
+
 
 module.exports = function (sequelize, DataTypes) {
-  var People = sequelize.define('people', {
+  const People = sequelize.define('people', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     first_name: {
       type: DataTypes.STRING(63),
-      allowNull: false
+      allowNull: false,
     },
     middle_name: {
-      type: DataTypes.STRING(63)
+      type: DataTypes.STRING(63),
     },
     last_name: {
       type: DataTypes.STRING(63),
-      allowNull: false
+      allowNull: false,
     },
     gender: {
       type: DataTypes.CHAR(1),
-      allowNull: false
+      allowNull: false,
     },
     date_of_birth: {
       type: DataTypes.DATEONLY(),
-      allowNull: false
+      allowNull: false,
     },
     nationality: {
       type: DataTypes.STRING(63),
-      allowNull: false
-    }
-  })
+      allowNull: false,
+    },
+  });
 
   People.associate = function (models) {
     models.People.people.hasMany(models.People.people_information, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'people_id'
+        name: 'people_id',
         // allowNull: false -- already defined
-      }
-    })
-  }
+      },
+    });
+  };
 
-  return People
-}
+  return People;
+};

@@ -1,5 +1,5 @@
-var Menu = {}
+const Menu = {};
 
-Menu.obtainMenu = require('./obtainMenu')
+Menu.obtainMenu = require('./obtainMenu');
 
-module.exports = Menu
+module.exports = Menu;

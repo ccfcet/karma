@@ -1,6 +1,7 @@
-var express = require('express')
-var router = express.Router()
-var methods = require('_/data/methods')
+const express = require('express');
+
+const router = express.Router();
+const methods = require('data/methods');
 
 /**
  * @api {post} /private/people AddPeople
@@ -40,38 +41,42 @@ var methods = require('_/data/methods')
  *     }
  */
 
-router.post('/', function (req, res) {
-  var info = {}
-  if (req.body.hasOwnProperty('firstName') && req.body.hasOwnProperty('middleName') &&
-    req.body.hasOwnProperty('lastName') && req.body.hasOwnProperty('gender') &&
-    req.body.hasOwnProperty('dateOfBirth') && req.body.hasOwnProperty('nationality')) {
+router.post('/', (req, res) => {
+  const info = {};
+  if (Object.prototype.hasOwnProperty.call(req.body, 'firstName') && Object
+    .prototype.hasOwnProperty.call(req.body, 'lastName') && Object.prototype
+    .hasOwnProperty.call(req.body, 'middleName') && Object.prototype
+    .hasOwnProperty.call(req.body, 'gender') && Object.prototype.hasOwnProperty
+    .call(req.body, 'dateOfBirth') && Object.prototype.hasOwnProperty
+    .call(req.body, 'nationality')) {
     // Add another check after resolution of issue #14
-    // req.body.hasOwnProperty('email') && req.body.hasOwnProperty('phoneNumber')) {
-    info.first_name = req.body.firstName
-    info.middle_name = req.body.middleName
-    info.last_name = req.body.lastName
-    info.gender = req.body.gender
-    info.date_of_birth = req.body.dateOfBirth
-    info.nationality = req.body.nationality
-    info.email = req.body.email
-    info.phone_number = req.body.phoneNumber
+    // req.body.hasOwnProperty('email') && req.body
+    // .hasOwnProperty('phoneNumber')) {
+    info.first_name = req.body.firstName;
+    info.middle_name = req.body.middleName;
+    info.last_name = req.body.lastName;
+    info.gender = req.body.gender;
+    info.date_of_birth = req.body.dateOfBirth;
+    info.nationality = req.body.nationality;
+    info.email = req.body.email;
+    info.phone_number = req.body.phoneNumber;
     methods.people.addPeople(info)
       .then((model) => {
-        res.json(model)
+        res.json(model);
       })
       .catch((err) => {
         res.status(500).json({
-          'status': 'error',
-          'error': err.message
-        })
-      })
+          status: 'error',
+          error: err.message,
+        });
+      });
   } else {
     res.status(500).json({
-      'status': 'error',
-      'error': 'One or more of the parameters are incorrect!'
-    })
+      status: 'error',
+      error: 'One or more of the parameters are incorrect!',
+    });
   }
-})
+});
 
 /**
  * @api {get} /private/people/:id GetPeopleById
@@ -108,25 +113,25 @@ router.post('/', function (req, res) {
  *     }
  */
 
-router.get('/:id', function (req, res, next) {
+router.get('/:id', (req, res, next) => {
   if (typeof (req.params.id) === 'number') {
-    var peopleId = req.params.id
+    const peopleId = req.params.id;
     methods.people.findPeopleById(peopleId)
       .then((people) => {
         res.json({
-          data: people.dataValues
-        })
+          data: people.dataValues,
+        });
       })
       .catch((err) => {
         res.status(500).json({
-          'status': 'error',
-          'error': err.message
-        })
-      })
+          status: 'error',
+          error: err.message,
+        });
+      });
   } else {
-    next()
+    next();
   }
-})
+});
 
 /**
  * @api {put} /private/people/:slugName GetAllSlugs
@@ -156,21 +161,22 @@ router.get('/:id', function (req, res, next) {
  */
 
 router.put('/:slugName', (req, res) => {
-  var slugName = req.params.slugName
+  const { slugName } = req.params;
+
   methods.people.insertSlug(slugName)
     .then((slug) => {
       res.json({
         status: 'success',
-        slug
-      })
+        slug,
+      });
     })
     .catch((err) => {
       res.status(500).json({
         status: 'error',
-        error: err.message
-      })
-    })
-})
+        error: err.message,
+      });
+    });
+});
 
 /**
  * @api {put} /private/people/:slugName InsertNewSlug
@@ -200,21 +206,22 @@ router.put('/:slugName', (req, res) => {
  */
 
 router.get('/:slugName', (req, res) => {
-  var slugName = req.params.slugName
+  const { slugName } = req.params;
+
   methods.people.getSlugs(slugName)
     .then((slug) => {
       res.json({
         status: 'success',
-        slug
-      })
+        slug,
+      });
     })
     .catch((err) => {
       res.status(500).json({
         status: 'error',
-        error: err.message
-      })
-    })
-})
+        error: err.message,
+      });
+    });
+});
 /**
  * @api {put} /private/people/:peopleId/:slugName AddInformationUsingSlug
  * @apiVersion 1.0.0-alpha-1
@@ -245,24 +252,26 @@ router.get('/:slugName', (req, res) => {
  */
 
 router.put('/:peopleId/:slugName', (req, res) => {
-  var slugName = req.params.slugName
-  var peopleId = req.params.peopleId
-  var slugValue = req.body.value
+  const { slugName } = req.params;
+  const { peopleId } = req.params;
+
+  // implement check here
+  const slugValue = req.body.value;
   methods.people.putInformationUsingSlug(peopleId, slugName, slugValue)
     .then((info) => {
       res.json({
         status: 'success',
-        information: info
-      })
+        information: info,
+      });
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
         status: 'error',
-        error: err.message
-      })
-    })
-})
+        error: err.message,
+      });
+    });
+});
 
 /**
  * @api {get} /private/people/:peopleId/:slugName GetInformationUsingSlug
@@ -297,21 +306,22 @@ router.put('/:peopleId/:slugName', (req, res) => {
  */
 
 router.get('/:peopleId/:slugName', (req, res) => {
-  var slugName = req.params.slugName
-  var peopleId = req.params.peopleId
+  const { slugName } = req.params;
+  const { peopleId } = req.params;
+
   methods.people.getInformationUsingSlug(peopleId, slugName)
     .then((info) => {
       res.json({
         status: 'success',
-        information: info
-      })
+        information: info,
+      });
     })
     .catch((err) => {
       res.status(500).json({
         status: 'error',
-        error: err.message
-      })
-    })
-})
+        error: err.message,
+      });
+    });
+});
 
-module.exports = router
+module.exports = router;

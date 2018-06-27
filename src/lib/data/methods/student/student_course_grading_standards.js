@@ -1,16 +1,16 @@
-var Promise = require('bluebird')
-var models = require('_/data/models')
+const Promise = require('bluebird');
+const models = require('../../models');
 
-var studentCourseGradingStandards = {}
+const studentCourseGradingStandards = {};
 
-studentCourseGradingStandards.createStandard = (info) => {
-  return new Promise((resolve, reject) => {
+studentCourseGradingStandards
+  .createStandard = info => new Promise((resolve, reject) => {
     models.Student.student_course_grading_standards.create(info)
       .then((created) => {
-        resolve(created)
+        resolve(created);
       }).catch((err) => {
-        reject(err)
-      })
-  })
-}
-module.exports = studentCourseGradingStandards
+        reject(err);
+      });
+  });
+
+module.exports = studentCourseGradingStandards;

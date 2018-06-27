@@ -1,56 +1,53 @@
-var Promise = require('bluebird')
-var models = require('_/data/models')
+const Promise = require('bluebird');
+const models = require('../../models');
 
-var studentCourseGradesMethods = {}
+const studentCourseGradesMethods = {};
 
-studentCourseGradesMethods.addStudentGrade = (info) => {
-  return new Promise((resolve, reject) => {
+studentCourseGradesMethods
+  .addStudentGrade = info => new Promise((resolve, reject) => {
     models.Student.student_course_grades.create(info)
       .then((created) => {
-        resolve(created)
+        resolve(created);
       }).catch((err) => {
-        reject(err)
-      })
-  })
-}
+        reject(err);
+      });
+  });
 
-studentCourseGradesMethods.updateStudentGrade = (info, data) => {
-  return new Promise((resolve, reject) => {
-    console.log('Hello')
-    console.log(info.people_id)
+studentCourseGradesMethods
+  .updateStudentGrade = (info, data) => new Promise((resolve, reject) => {
+    console.log('Hello');
+    console.log(info.people_id);
     models.Student.student_course_grades.update(data, {
       where: {
         people_id: info.people_id,
-        course_id: info.course_id
-      }
+        course_id: info.course_id,
+      },
     }).then((updated) => {
       if (updated === 0) {
-        reject(new Error())
+        reject(new Error());
       } else {
-        resolve(updated)
+        resolve(updated);
       }
     }).catch((err) => {
-      reject(err)
-    })
-  })
-}
+      reject(err);
+    });
+  });
 
-studentCourseGradesMethods.deleteStudentGrade = (info) => {
-  return new Promise((resolve, reject) => {
+studentCourseGradesMethods
+  .deleteStudentGrade = info => new Promise((resolve, reject) => {
     models.Student.student_course_grades.destroy({
       where: {
         people_id: info.people_id,
-        course_id: info.course_id
-      }
+        course_id: info.course_id,
+      },
     }).then((deleted) => {
       if (deleted === 0) {
-        reject(new Error())
+        reject(new Error());
       } else {
-        resolve(deleted)
+        resolve(deleted);
       }
     }).catch((err) => {
-      reject(err)
-    })
-  })
-}
-module.exports = studentCourseGradesMethods
+      reject(err);
+    });
+  });
+module.exports = studentCourseGradesMethods;

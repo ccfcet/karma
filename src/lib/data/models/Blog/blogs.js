@@ -1,21 +1,21 @@
-'use strict'
+
 
 module.exports = function (sequelize, DataTypes) {
-  var Blogs = sequelize.define('blogs', {
+  const Blogs = sequelize.define('blogs', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     blog_name: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     blog_alias_name: {
       type: DataTypes.STRING(255),
-      allowNull: false
-    }
-  })
+      allowNull: false,
+    },
+  });
 
-  return Blogs
-}
+  return Blogs;
+};

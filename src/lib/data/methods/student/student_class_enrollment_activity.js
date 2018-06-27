@@ -1,46 +1,49 @@
-var Promise = require('bluebird')
-var models = require('_/data/models')
-var classEnrollmentActivity = {}
+const Promise = require('bluebird');
+const models = require('../../models');
 
-classEnrollmentActivity.createActivity = (info) => {
-  return new Promise((resolve, reject) => {
-    models.Student.student_course_enrolment_activity.create(info).then((created) => {
-      resolve(created)
-    }).catch((err) => {
-      reject(err)
-    })
-  })
-}
+const classEnrollmentActivity = {};
 
-classEnrollmentActivity.updateActivity = (info, data) => {
-  return new Promise((resolve, reject) => {
+classEnrollmentActivity
+  .createActivity = info => new Promise((resolve, reject) => {
+    models.Student.student_course_enrolment_activity.create(info)
+      .then((created) => {
+        resolve(created);
+      }).catch((err) => {
+        reject(err);
+      });
+  });
+
+classEnrollmentActivity
+  .updateActivity = (info, data) => new Promise((resolve, reject) => {
     models.Student.student_course_enrolment_activity.update(info, {
       where: {
         people_id: data.people_id,
-        course_id: data.course_id
-      }
+        course_id: data.course_id,
+      },
     }).then((updated) => {
       if (updated > 0) {
-        resolve(updated)
+        resolve(updated);
       } else {
-        reject(updated)
+        reject(updated);
       }
     }).catch((err) => {
-      reject(err)
-    })
-  })
-}
+      reject(err);
+    });
+  });
 
-classEnrollmentActivity.deleteActivity = (info) => {
-  return new Promise((resolve, reject) => {
+classEnrollmentActivity
+  .deleteActivity = info => new Promise((resolve, reject) => {
     models.Student.student_course_enrolment_activity.destroy({
-      where: info
+      where: info,
     }).then((deleted) => {
-      if (deleted > 0) { resolve(deleted) } else { reject(deleted) }
+      if (deleted > 0) {
+        resolve(deleted);
+      } else {
+        reject(deleted);
+      }
     }).catch((err) => {
-      reject(err)
-    })
-  })
-}
+      reject(err);
+    });
+  });
 
-module.exports = classEnrollmentActivity
+module.exports = classEnrollmentActivity;

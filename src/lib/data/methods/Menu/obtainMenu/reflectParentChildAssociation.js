@@ -1,20 +1,32 @@
-var Promise = require('bluebird')
-var _ = require('lodash')
+const Promise = require('bluebird');
+const _ = require('lodash');
 
-var reflectParentChildAssociation = function (menuElements, parentId, childId) {
-  return new Promise(function (resolve, reject) {
-    var childElements = _.remove(menuElements, function (menuElement) {
-      return menuElement.id === childId
-    })
-    var childElement = childElements[0]
-    var parentElement = _.find(menuElements, function (menuElement) { return menuElement.id === parentId })
-    if (parentElement.children) {
-      parentElement.children.push(childElement)
-    } else {
-      parentElement.children = [childElement]
+const reflectParentChildAssociation = function (
+  menuElements,
+  parentId,
+  childId,
+) {
+  return new Promise((resolve, reject) => {
+    try {
+      const childElements = _.remove(
+        menuElements,
+        menuElement => menuElement.id === childId,
+      );
+      const childElement = childElements[0];
+      const parentElement = _.find(
+        menuElements,
+        menuElement => menuElement.id === parentId,
+      );
+      if (parentElement.children) {
+        parentElement.children.push(childElement);
+      } else {
+        parentElement.children = [childElement];
+      }
+      resolve(menuElements);
+    } catch (err) {
+      reject(err);
     }
-    resolve(menuElements)
-  })
-}
+  });
+};
 
-module.exports = reflectParentChildAssociation
+module.exports = reflectParentChildAssociation;

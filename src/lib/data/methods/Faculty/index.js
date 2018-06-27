@@ -1,5 +1,5 @@
-var Faculty = {}
+const Faculty = {};
 
-Faculty.obtainInformation = require('./obtainInformation')
+Faculty.obtainInformation = require('./obtainInformation');
 
-module.exports = Faculty
+module.exports = Faculty;

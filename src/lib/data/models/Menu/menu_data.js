@@ -1,36 +1,36 @@
-'use strict'
+
 
 module.exports = function (sequelize, DataTypes) {
-  var MenuData = sequelize.define('menu_data', {
+  const MenuData = sequelize.define('menu_data', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     entity_id: {
       type: DataTypes.INTEGER(),
       allowNull: false,
-      unique: 'compositeIndex'
+      unique: 'compositeIndex',
     },
     menu_type: {
       type: DataTypes.INTEGER(),
       allowNull: false,
-      unique: 'compositeIndex'
+      unique: 'compositeIndex',
     },
     menu_title: {
       type: DataTypes.STRING(45),
-      allowNull: true
-    }
-  })
+      allowNull: true,
+    },
+  });
   MenuData.associate = function (models) {
     models.Menu.menu_data.belongsTo(models.Entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'entity_id'
+        name: 'entity_id',
         // allowNull: false -- already defined
-      }
-    })
-  }
+      },
+    });
+  };
 
-  return MenuData
-}
+  return MenuData;
+};

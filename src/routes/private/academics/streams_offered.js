@@ -1,6 +1,7 @@
-var express = require('express')
-var router = express.Router()
-var methods = require('_/data/methods')
+const express = require('express');
+
+const router = express.Router();
+const methods = require('data/methods');
 
 /**
  * @api {get} /private Private Entry Gate
@@ -18,81 +19,78 @@ var methods = require('_/data/methods')
  */
 router.get('/', (req, res) => {
   res.send({
-    'status': 'functional'
-  })
-})
+    status: 'functional',
+  });
+});
 
-router.post('/', function (req, res) {
-  var info = {}
-  info.stream_type_long = req.body.streamType
-  info.stream_type_short = req.body.streamTypeShort
-  info.start_date = req.body.startDate
-  info.end_date = req.body.endDate
-  console.log(info)
+router.post('/', (req, res) => {
+  const info = {};
+  info.stream_type_long = req.body.streamType;
+  info.stream_type_short = req.body.streamTypeShort;
+  info.start_date = req.body.startDate;
+  info.end_date = req.body.endDate;
+  console.log(info);
   methods.Academics.streamTypesMethods.addStreamType(info)
     .then((model) => {
-      res.send(model)
+      res.send(model);
     })
     .catch((err) => {
       res.send({
-        'status': 'error',
-        'error': err
-      })
-    })
-})
+        status: 'error',
+        error: err,
+      });
+    });
+});
 
 router.put('/:streamId', (req, res) => {
-  var info = {}
-  var data = {}
+  const info = {};
+  const data = {};
 
-  info.id = req.params.streamId // key values for finding row
+  info.id = req.params.streamId; // key values for finding row
 
-  if (req.body.hasOwnProperty('streamType')) {
-    data.stream_type_long = req.body.streamType
-  }
-  if (req.body.hasOwnProperty('streamTypeShort')) {
-    data.stream_type_short = req.body.streamTypeShort
-  }
-  if (req.body.hasOwnProperty('startDate')) {
-    data.start_date = req.body.startDate
-  }
-  if (req.body.hasOwnProperty('endDate')) {
-    data.end_date = req.body.endDate
+  if (Object.prototype.hasOwnProperty.call(req.body, 'streamType') && Object
+    .prototype.hasOwnProperty.call(req.body, 'streamTypeShort') && Object
+    .prototype.hasOwnProperty.call(req.body, 'startDate') && Object.prototype
+    .hasOwnProperty.call(req.body, 'endDate')) {
+    data.stream_type_long = req.body.streamType;
+    data.stream_type_short = req.body.streamTypeShort;
+    data.start_date = req.body.startDate;
+    data.end_date = req.body.endDate;
   }
 
   methods.Academics.streamTypesMethods.updateStreamTypes(info, data)
     .then((model) => {
       res.status(200).json({
-        'status': 'updated stream type',
-        'state': model[0]
-      })
+        status: 'updated stream type',
+        state: model[0],
+      });
     })
     .catch((err) => {
       res.send({
-        'status': 'Not able to update.Row may not exist',
-        'state': err
-      })
-    })
-})
+        status: 'Not able to update.Row may not exist',
+        state: err,
+      });
+    });
+});
 
 router.delete('/', (req, res) => {
-  var info = {}
+  const info = {};
 
-  info.id = req.body.streamId
+  info.id = req.body.streamId;
 
   methods.Academics.streamTypesMethods.deleteStreamTypes(info)
     .then((model) => {
       res.status(200).json({
-        'status': 'stream Type deleted',
-        'state': model
-      })
+        status: 'stream Type deleted',
+        state: model,
+      });
     })
     .catch((err) => {
       res.status(500).json({
-        'status': 'Not able to delete.The row may not exist.',
-        'state': err
-      })
-    })
-})
+        status: 'Not able to delete.The row may not exist.',
+        state: err,
+      });
+    });
+});
 
-module.exports = router
+module.exports = router;

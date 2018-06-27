@@ -1,35 +1,28 @@
-var Promise = require('bluebird')
-var _ = require('lodash')
+const Promise = require('bluebird');
+const _ = require('lodash');
+const processMenuElement = require('./processMenuElement');
 
-var processMenuElement = function (menuElement, index, menuElements, iteratee) {
-  return new Promise(function (resolve, reject) {
-    if (menuElement.children != null) {
-      loopThroughMenuItems(menuElement.children, iteratee).then(function (result) {
-        menuElement.children = result
-        menuElement = iteratee(menuElement)
-        menuElements[index] = menuElement
-        resolve(menuElements)
-      })
-    } else {
-      menuElement = iteratee(menuElement)
-      menuElements[index] = menuElement
-      resolve(menuElements)
-    }
-  })
-}
+const loopThroughMenuItems = function (menuElements, iteratee) {
+  return new Promise(((resolve, reject) => {
+    const promisesArray = [];
 
-var loopThroughMenuItems = function (menuElements, iteratee) {
-  return new Promise(function (resolve, reject) {
-    var promisesArray = []
+    // eslint-disable-next-line no-shadow
+    _.forEach(menuElements, (menuElement, index, menuElements) => {
+      promisesArray.push(processMenuElement(
+        menuElement,
+        index,
+        menuElements,
+        iteratee,
+      ));
+    });
 
-    _.forEach(menuElements, function (menuElement, index, menuElements) {
-      promisesArray.push(processMenuElement(menuElement, index, menuElements, iteratee))
-    })
+    Promise.all(promisesArray).then(() => {
+      resolve(menuElements);
+    }).catch((err) => {
+      // does it really throw here?
+      reject(err);
+    });
+  }));
+};
 
-    Promise.all(promisesArray).then(function () {
-      resolve(menuElements)
-    })
-  })
-}
-
-module.exports = loopThroughMenuItems
+module.exports = loopThroughMenuItems;

@@ -1,5 +1,6 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express');
+
+const router = express.Router();
 
 /**
  * @api {get} / Main Entry Gate
@@ -18,15 +19,15 @@ var router = express.Router()
  *     }
  */
 
-router.get('/', function (req, res, next) {
+router.get('/', (req, res) => {
   res.json({
-    'name': 'Karma API',
-    'version': '1.0.0-alpha-1'
-  })
-})
+    name: 'Karma API',
+    version: '1.0.0-alpha-1',
+  });
+});
 
-router.use('/authentication', require('./authentication'))
-router.use('/public', require('./public'))
-router.use('/private', require('./private'))
+router.use('/authentication', require('./authentication'));
+router.use('/public', require('./public'));
+router.use('/private', require('./private'));
 
-module.exports = router
+module.exports = router;

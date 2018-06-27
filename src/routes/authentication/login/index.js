@@ -1,12 +1,13 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express');
 
-router.get('/', function (req, res, next) {
+const router = express.Router();
+
+router.get('/', (req, res) => {
   res.json({
-    'status': 200
-  })
-})
+    status: 200,
+  });
+});
 
-router.use('/karma', require('./karma'))
+router.use('/karma', require('./karma'));
 
-module.exports = router
+module.exports = router;

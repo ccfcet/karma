@@ -1,21 +1,21 @@
-var Promise = require('bluebird')
+const Promise = require('bluebird');
 
-var models = require('../../../models')
+const models = require('../../../models');
 
 // function to obtain rows from the table menu_elements matching menu_id
-var menuElementsFind = function (menuId) {
-  return new Promise(function (resolve, reject) {
+const menuElementsFind = function (menuId) {
+  return new Promise(((resolve, reject) => {
     models.Menu.menu_elements.findAll({
       raw: true,
-      where: { menu_id: menuId }
-    }).then(function (result) {
-      resolve(result)
-    }).catch(function (err) {
+      where: { menu_id: menuId },
+    }).then((result) => {
+      resolve(result);
+    }).catch((err) => {
       // handle error
-      console.log(err)
-      reject(err)
-    })
-  })
-}
+      console.log(err);
+      reject(err);
+    });
+  }));
+};
 
-module.exports = menuElementsFind
+module.exports = menuElementsFind;

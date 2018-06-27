@@ -1,7 +1,8 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express');
 
-require('_/data/methods')
+const router = express.Router();
+
+require('data/methods');
 
 // var methods = require('_/data/methods')
 
@@ -20,9 +21,9 @@ require('_/data/methods')
  *     }
  */
 
-router.get('/', function (req, res) {
-  res.send({ 'status': 200 })
-})
+router.get('/', (req, res) => {
+  res.send({ status: 200 });
+});
 
 /* router.post('/people', function (req, res) {
   var info = {}
@@ -48,11 +49,11 @@ router.get('/', function (req, res) {
 
 // router.use('/information', require('./information'))
 
-router.use('/people', require('./people'))
+router.use('/people', require('./people'));
 
-router.use('/entity', require('./entity'))
-router.use('/academics', require('./academics'))
-router.use('/student', require('./student'))
+router.use('/entity', require('./entity'));
+router.use('/academics', require('./academics'));
+router.use('/student', require('./student'));
 // router.use('/menu', require('./menu'))
 
-module.exports = router
+module.exports = router;

@@ -1,51 +1,51 @@
-'use strict'
+
 
 module.exports = function (sequelize, DataTypes) {
-  var StreamsOffered = sequelize.define('streams_offered', {
+  const StreamsOffered = sequelize.define('streams_offered', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     stream_type_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
     },
     stream_name: {
       type: DataTypes.STRING(63),
-      allowNull: false
+      allowNull: false,
     },
     department_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
     },
     valid_start_date: {
       type: DataTypes.DATE(),
-      allowNull: false
+      allowNull: false,
     },
     valid_end_date: {
       type: DataTypes.DATE(),
-      allowNull: false
-    }
-  })
+      allowNull: false,
+    },
+  });
 
   StreamsOffered.associate = function (models) {
     models.Academics.streams_offered.belongsTo(models.Academics.stream_types, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'stream_type_id'
+        name: 'stream_type_id',
         // allowNull: false -- already defined
-      }
-    })
+      },
+    });
 
     models.Academics.streams_offered.belongsTo(models.Entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'department_id'
+        name: 'department_id',
       // allowNull: false -- already defined
-      }
-    })
-  }
+      },
+    });
+  };
 
-  return StreamsOffered
-}
+  return StreamsOffered;
+};

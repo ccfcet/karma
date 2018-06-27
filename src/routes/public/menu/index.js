@@ -1,8 +1,9 @@
-var express = require('express')
-var router = express.Router()
-var _ = require('lodash')
+const express = require('express');
 
-var methods = require('_/data/methods')
+const router = express.Router();
+const _ = require('lodash');
+
+const methods = require('data/methods');
 
 /**
  * @api {get} /public/menu Public Menu Entry Gate
@@ -19,9 +20,9 @@ var methods = require('_/data/methods')
  *     }
  */
 
-router.get('/', function (req, res) {
-  res.send({ 'status': 200 })
-})
+router.get('/', (req, res) => {
+  res.send({ status: 200 });
+});
 
 /**
  * @api {get} /public/menu/:entity/:menuType Menu
@@ -89,35 +90,36 @@ router.get('/', function (req, res) {
  *     }
  */
 
-router.get('/:entity/:menuType', function (req, res) {
-  console.log('inside menu/index.js')
+router.get('/:entity/:menuType', (req, res) => {
+  console.log('inside menu/index.js');
 
   // entity variable
-  var entityVar = req.params.entity
+  const entityVar = req.params.entity;
 
   // menuType variable
-  var menuTypeVar = req.params.menuType
+  const menuTypeVar = req.params.menuType;
 
-  methods.Menu.obtainMenu(entityVar, menuTypeVar).then(function (result) {
-    console.log('inside methods.Menu.obtainMenu')
+  methods.Menu.obtainMenu(entityVar, menuTypeVar).then((result) => {
+    console.log('inside methods.Menu.obtainMenu');
 
     if (!_.isEmpty(result.data)) {
-      res.json({ 'title': result.title,
-        'data': result.data
-      })
+      res.json({
+        title: result.title,
+        data: result.data,
+      });
     } else {
       res.status(501).json({
-        'success': 'false',
-        'code': 'menu-empty'
-      })
+        success: 'false',
+        code: 'menu-empty',
+      });
     }
-  }).catch(function (err) {
-    console.log(err)
+  }).catch((err) => {
+    console.log(err);
     res.status(500).json({
-      'success': 'false',
-      'code': 'menu-error'
-    })
-  })
-})
+      success: 'false',
+      code: 'menu-error',
+    });
+  });
+});
 
-module.exports = router
+module.exports = router;

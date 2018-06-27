@@ -1,38 +1,38 @@
-'use strict'
+
 
 module.exports = function (sequelize, DataTypes) {
-  var MenuElements = sequelize.define('menu_elements', {
+  const MenuElements = sequelize.define('menu_elements', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     menu_id: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
     },
     position: {
       type: DataTypes.INTEGER(),
-      allowNull: false
+      allowNull: false,
     },
     item_name: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     item_url: {
       type: DataTypes.STRING(1023),
-      allowNull: false
-    }
-  })
+      allowNull: false,
+    },
+  });
   MenuElements.associate = function (models) {
     models.Menu.menu_elements.belongsTo(models.Menu.menu_data, {
       onDelete: 'CASCADE',
       foreignKey: {
-        name: 'menu_id'
+        name: 'menu_id',
         // allowNull: false -- already defined
-      }
-    })
-  }
+      },
+    });
+  };
 
-  return MenuElements
-}
+  return MenuElements;
+};

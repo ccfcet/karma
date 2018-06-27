@@ -1,19 +1,26 @@
-var Promise = require('bluebird')
-var _ = require('lodash')
+const Promise = require('bluebird');
+const _ = require('lodash');
 
-var reflectParentChildAssociation = require('./reflectParentChildAssociation')
+const reflectParentChildAssociation = require(
+  './reflectParentChildAssociation',
+);
 
-var combineMenuElementsUsingMenuParentChildAssociations = function (
-  menuElements, menuParentChildAssociations) {
-  return new Promise(function (resolve, reject) {
-    _.forEach(menuParentChildAssociations, async function
-    (menuParentChildAssociation) {
-      await reflectParentChildAssociation(menuElements,
-        menuParentChildAssociation.parent_id,
-        menuParentChildAssociation.child_id)
-    })
-    resolve(menuElements)
-  })
-}
+const combineMenuElementsUsingMenuParentChildAssociations = function (
+  menuElements, menuParentChildAssociations,
+) {
+  return new Promise(((resolve, reject) => {
+    try {
+      _.forEach(menuParentChildAssociations,
+        async (menuParentChildAssociation) => {
+          await reflectParentChildAssociation(menuElements,
+            menuParentChildAssociation.parent_id,
+            menuParentChildAssociation.child_id);
+        });
+      resolve(menuElements);
+    } catch (err) {
+      reject(err);
+    }
+  }));
+};
 
-module.exports = combineMenuElementsUsingMenuParentChildAssociations
+module.exports = combineMenuElementsUsingMenuParentChildAssociations;

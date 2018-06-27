@@ -1,56 +1,60 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express');
 
-let authenticationAuthenticateKarma = require('_/authentication/authenticate/karma')
+const router = express.Router();
 
-router.get('/', function (req, res, next) {
+const authenticationAuthenticateKarma = require(
+  'authentication/authenticate/karma',
+);
+
+router.get('/', (req, res) => {
   res.json({
-    'status': 200
-  })
-})
+    status: 200,
+  });
+});
 
-router.post('/', function (req, res, next) {
+router.post('/', (req, res) => {
   if (req.headers['content-type'] === 'application/json') {
-    if (req.body.hasOwnProperty('password')) {
+    if (Object.prototype.hasOwnProperty.call(req.body, 'password')) {
       // is https really secure?
-      if (req.body.hasOwnProperty('email') &&
-      !req.body.hasOwnProperty('mobileNumber')) {
+      if (Object.prototype.hasOwnProperty.call(req.body, 'email') && !Object
+        .prototype.hasOwnProperty.call(req.body, 'mobileNumber')) {
         // assumption: user has an email
 
         // verify the email password combo
         authenticationAuthenticateKarma.emailPassword(
-          req.body.email, req.body.password)
-          .then(function (token) {
+          req.body.email, req.body.password,
+        )
+          .then((token) => {
             res.json({
-              'token': token
-            })
-          }).catch(function (err) {
-            console.error(err)
+              token,
+            });
+          }).catch((err) => {
+            console.error(err);
             res.status(500).json({
-              'status': 500
-            })
-          })
-      } else if (!req.body.hasOwnProperty('email') &&
-      req.body.hasOwnProperty('mobileNumber')) {
+              status: 500,
+            });
+          });
+      } else if (!Object.prototype.hasOwnProperty.call(req.body, 'email')
+      && Object.prototype.hasOwnProperty.call(req.body, 'mobileNumber')) {
         // assumption: user has a mobileNumber
         res.status(501).json({
-          'status': 501
-        })
+          status: 501,
+        });
       } else {
         res.status(400).json({
-          'status': 400
-        })
+          status: 400,
+        });
       }
     } else {
       res.status(400).json({
-        'status': 400
-      })
+        status: 400,
+      });
     }
   } else {
     res.status(400).json({
-      'status': 400
-    })
+      status: 400,
+    });
   }
-})
+});
 
-module.exports = router
+module.exports = router;

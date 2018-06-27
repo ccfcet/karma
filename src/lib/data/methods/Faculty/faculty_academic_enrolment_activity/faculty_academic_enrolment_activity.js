@@ -1,18 +1,19 @@
-var Promise = require('bluebird')
+const Promise = require('bluebird');
 
-var models = require('_/data/models')
-var facultyMethods = {}
+const models = require('../../../models');
+
+const facultyMethods = {};
 facultyMethods.addFacultyAcademicEnrolmentActivity = (info) => {
-  console.log('inside adding faculty enrolment')
+  console.log('inside adding faculty enrolment');
   return new Promise((resolve, reject) => {
     models.Faculty.faculty_academic_enrolment_activity.create(info)
       .then((newfacultyAcademicEnrolemntActivity) => {
-        resolve(newfacultyAcademicEnrolemntActivity)
+        resolve(newfacultyAcademicEnrolemntActivity);
       })
       .catch((err) => {
-        reject(err)
-      })
-  })
-}
+        reject(err);
+      });
+  });
+};
 
-module.exports = facultyMethods
+module.exports = facultyMethods;

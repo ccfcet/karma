@@ -1,9 +1,10 @@
-var express = require('express')
-var router = express.Router()
-var _ = require('lodash')
+const express = require('express');
 
-var methodsEntitites = require('_/data/methods/Entities')
-var methods = require('_/data/methods')
+const router = express.Router();
+const _ = require('lodash');
+
+const methodsEntitites = require('data/methods/Entities');
+const methodsFaculty = require('data/methods/Faculty');
 
 /**
 * @api {get} /public/information Public Information Entry Gate
@@ -20,9 +21,9 @@ var methods = require('_/data/methods')
 *     }
 */
 
-router.get('/', function (req, res) {
-  res.send({ 'status': 200 })
-})
+router.get('/', (req, res) => {
+  res.send({ status: 200 });
+});
 
 /**
 * @api {get} /public/information/:entityInformationSlug/:entitySlug Information
@@ -60,79 +61,79 @@ router.get('/', function (req, res) {
 *     }
 */
 
-router.get('/:entityInformationSlug/:entitySlug', function (req, res) {
+router.get('/:entityInformationSlug/:entitySlug', (req, res) => {
   // entityInformationSlug variable
-  var entityInformationSlug = req.params.entityInformationSlug
+  const { entityInformationSlug } = req.params;
 
   // entitySlug
-  var entitySlug = req.params.entitySlug
+  const { entitySlug } = req.params;
 
   methodsEntitites.obtainInformation(entitySlug, entityInformationSlug)
-    .then(function (result) {
-      if (!_.isEmpty(result)) {
-        res.json(result)
-      } else {
-        res.status(501).json({
-          'success': 'false',
-          'code': 'information-empty'
-        })
-      }
-    }).catch(function (err) {
-      console.log(err)
-      res.status(500).json({
-        'success': 'false',
-        'code': 'information-error'
-      })
-    })
-})
-
-router.get('/:slug/:position/:name', function (req, res) {
-  // models.peopleInformation.findAll({
-  //   include: [
-  //     {
-  //       model: models.people,
-  //       attributes: [`pslugname`],
-  //       where: { pslugname: req.params.name }
-  //     },
-  //     {
-  //       model: models.peopleSlugs,
-  //       attributes: [`slugName`],
-  //       where: { slugName: req.params.slug }
-  //     }
-  //   ],
-  //   // where: { ename: req.params.entity },
-  //   attributes: ['data']
-  // }).then(function (result) {
-  //   result = result[0].data
-  //   res.json({ 'value': result })
-  //   // return result;
-  // }).catch(function (err) {
-  //   // handle error;
-  //   console.log(err)
-  //   res.json({ 'success': 'false' })
-  // })
-})
-
-router.get('/faculties', function (req, res) {
-  // res.json({ 'status': 200 })
-  methods.Faculty.obtainInformation()
     .then((result) => {
       if (!_.isEmpty(result)) {
-        res.json(result)
+        res.json(result);
       } else {
         res.status(501).json({
-          'success': 'false',
-          'code': 'information-empty'
-        })
+          success: 'false',
+          code: 'information-empty',
+        });
+      }
+    }).catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: 'false',
+        code: 'information-error',
+      });
+    });
+});
+
+// router.get('/:slug/:position/:name', (req, res) => {
+// models.peopleInformation.findAll({
+//   include: [
+//     {
+//       model: models.people,
+//       attributes: [`pslugname`],
+//       where: { pslugname: req.params.name }
+//     },
+//     {
+//       model: models.peopleSlugs,
+//       attributes: [`slugName`],
+//       where: { slugName: req.params.slug }
+//     }
+//   ],
+//   // where: { ename: req.params.entity },
+//   attributes: ['data']
+// }).then(function (result) {
+//   result = result[0].data
+//   res.json({ 'value': result })
+//   // return result;
+// }).catch(function (err) {
+//   // handle error;
+//   console.log(err)
+//   res.json({ 'success': 'false' })
+// })
+// });
+
+router.get('/faculties', (req, res) => {
+  // res.json({ 'status': 200 })
+  methodsFaculty.obtainInformation()
+    .then((result) => {
+      if (!_.isEmpty(result)) {
+        res.json(result);
+      } else {
+        res.status(501).json({
+          success: 'false',
+          code: 'information-empty',
+        });
       }
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
-        'success': 'false',
-        'code': 'information-error'
-      })
-    })
-})
+        success: 'false',
+        code: 'information-error',
+      });
+    });
+});
 
-module.exports = router
+module.exports = router;

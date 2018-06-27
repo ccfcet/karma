@@ -1,5 +1,5 @@
-let returnObject = {}
+const returnObject = {};
 
-returnObject.karma = require('./karma')
+returnObject.karma = require('./karma');
 
-module.exports = returnObject
+module.exports = returnObject;

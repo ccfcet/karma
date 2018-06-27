@@ -1,27 +1,27 @@
-var Promise = require('bluebird')
+const Promise = require('bluebird');
 
-var models = require('_/data/models')
+const models = require('../../../models');
 
-var obtainInformation = function () {
-  return new Promise(function (resolve, reject) {
+const obtainInformation = function () {
+  return new Promise(((resolve, reject) => {
     models.Faculty.faculty_academic_enrolment_activity.findAll({
       include: [
         {
-          model: models.People.people
+          model: models.People.people,
           // where: { id: id }
-        }
+        },
       ],
       attributes: ['data'],
-      rejectOnEmpty: true
+      rejectOnEmpty: true,
     })
       .then((result) => {
-        resolve(result.data)
+        resolve(result.data);
       })
       .catch((err) => {
-        console.log(err)
-        reject(err)
-      })
-  })
-}
+        console.log(err);
+        reject(err);
+      });
+  }));
+};
 
-module.exports = obtainInformation
+module.exports = obtainInformation;
