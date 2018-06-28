@@ -13,6 +13,7 @@
     "email": "ccf@cet.ac.in"
   },
   "scripts": {
+    "docs": "apidoc -i src/ -o apidoc/",
     "dev": "DEBUG=karma nodemon ./bin/www",
     "start": "NODE_ENV=production node ./bin/www",
     "lint": "./node_modules/.bin/eslint ./ --report-unused-disable-directives --format 'node_modules/eslint-friendly-formatter'",
@@ -32,6 +33,7 @@
     "morgan": "~1.9.0"
   },
   "devDependencies": {
+    "apidoc": "^0.17.6",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "eslint": "^4.19.1",

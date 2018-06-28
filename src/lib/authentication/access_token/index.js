@@ -1,7 +1,8 @@
-const accessTokenHandlers = {};
-const secretKey = require('./secrets.json').secretKey;
-
 const jwt = require('jsonwebtoken');
+
+const accessTokenHandlers = {};
+
+const { secretKey } = require('./secrets.json');
 
 accessTokenHandlers.generateAccessToken = function (userId) {
   return new Promise(((resolve, reject) => {
@@ -11,7 +12,8 @@ accessTokenHandlers.generateAccessToken = function (userId) {
           console.log(token);
           resolve(token);
         } else {
-          reject(new Error('Unexpected error at accessTokenHandlers.generateAccessToken'));
+          reject(new Error('Unexpected error at accessTokenHandlers'
+          + '.generateAccessToken'));
         }
       } else {
         console.log(err);

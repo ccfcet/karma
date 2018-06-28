@@ -8,6 +8,7 @@
   "dependencies": {
     "argon2": "^0.19.3",
     "bluebird": "^3.5.1",
+    "data": "file:../data",
     "jsonwebtoken": "^8.2.2"
   }
 }
