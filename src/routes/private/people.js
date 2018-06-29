@@ -43,13 +43,13 @@ const methods = require('data/methods');
 
 router.post('/', (req, res) => {
   const info = {};
-  if (Object.prototype.hasOwnProperty.call(req.body, 'firstName') && Object
-    .prototype.hasOwnProperty.call(req.body, 'lastName') && Object.prototype
-    .hasOwnProperty.call(req.body, 'middleName') && Object.prototype
-    .hasOwnProperty.call(req.body, 'gender') && Object.prototype.hasOwnProperty
-    .call(req.body, 'dateOfBirth') && Object.prototype.hasOwnProperty
-    .call(req.body, 'nationality')) {
-    // Add another check after resolution of issue #14
+  if (Object.prototype.hasOwnProperty.call(req.body, 'firstName')
+    && Object.prototype.hasOwnProperty.call(req.body, 'lastName')
+    && Object.prototype.hasOwnProperty.call(req.body, 'middleName')
+    && Object.prototype.hasOwnProperty.call(req.body, 'gender')
+    && Object.prototype.hasOwnProperty.call(req.body, 'dateOfBirth')
+    && Object.prototype.hasOwnProperty.call(req.body, 'nationality')) {
+    // TODO: Add another check after resolution of issue #14
     // req.body.hasOwnProperty('email') && req.body
     // .hasOwnProperty('phoneNumber')) {
     info.first_name = req.body.firstName;
@@ -114,9 +114,10 @@ router.post('/', (req, res) => {
  */
 
 router.get('/:id', (req, res, next) => {
+  const { id } = req.params;
   if (typeof (req.params.id) === 'number') {
-    const peopleId = req.params.id;
-    methods.people.findPeopleById(peopleId)
+    // const peopleId = req.params.id;
+    methods.people.findPeopleById(id)
       .then((people) => {
         res.json({
           data: people.dataValues,
@@ -205,7 +206,7 @@ router.put('/:slugName', (req, res) => {
  *     }
  */
 
-router.get('/:slugName', (req, res) => {
+router.get('/slug/:slugName', (req, res) => {
   const { slugName } = req.params;
 
   methods.people.getSlugs(slugName)
@@ -222,6 +223,7 @@ router.get('/:slugName', (req, res) => {
       });
     });
 });
+
 /**
  * @api {put} /private/people/:peopleId/:slugName AddInformationUsingSlug
  * @apiVersion 1.0.0-alpha-1
@@ -251,26 +253,30 @@ router.get('/:slugName', (req, res) => {
  *
  */
 
-router.put('/:peopleId/:slugName', (req, res) => {
+router.put('/:peopleId/:slugName', (req, res, next) => {
   const { slugName } = req.params;
   const { peopleId } = req.params;
 
   // implement check here
-  const slugValue = req.body.value;
-  methods.people.putInformationUsingSlug(peopleId, slugName, slugValue)
-    .then((info) => {
-      res.json({
-        status: 'success',
-        information: info,
+  if ((typeof (peopleId) === 'number') && (typeof (slugName) === 'string')) {
+    const slugValue = req.body.value;
+    methods.people.putInformationUsingSlug(peopleId, slugName, slugValue)
+      .then((info) => {
+        res.json({
+          status: 'success',
+          information: info,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          status: 'error',
+          error: err.message,
+        });
       });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        status: 'error',
-        error: err.message,
-      });
-    });
+  } else {
+    next();
+  }
 });
 
 /**
@@ -309,6 +315,7 @@ router.get('/:peopleId/:slugName', (req, res) => {
   const { slugName } = req.params;
   const { peopleId } = req.params;
 
+  // if ((typeof (peopleId) === 'string') && (typeof (slugName) === 'string')) {
   methods.people.getInformationUsingSlug(peopleId, slugName)
     .then((info) => {
       res.json({
@@ -322,6 +329,12 @@ router.get('/:peopleId/:slugName', (req, res) => {
         error: err.message,
       });
     });
+  // } else {
+  //   res.status(500).json({
+  //     status: 'error',
+  //     error: 'Types of passed parameters differ from what is required!',
+  //   });
+  // }
 });
 
 module.exports = router;
