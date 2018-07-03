@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 const models = require('../../../models');
 
 const returnObject = {};
-returnObject.entityMethod = require('./entitymethods');
+// returnObject.entityMethod = require('../entitytypemethods');
 
 // function to obtain information from table entity_information joining table
 // entities and table entity_information_slugs using entitySlug and

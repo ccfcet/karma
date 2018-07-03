@@ -48,8 +48,8 @@ router.get('/', (req, res) => {
 }) */
 
 router.use('/people', require('./people/people'));
-
 router.use('/entity', require('./entitiy/entity'));
+router.use('/entity/entity_type', require('./entitiy/entity_type'));
 router.use('/academics', require('./academics'));
 router.use('/student', require('./student'));
 

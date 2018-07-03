@@ -1,10 +1,10 @@
 const Promise = require('bluebird');
 
-const models = require('../../../models');
+const models = require('../../models');
 
-const entityMethods = {};
+const entityTypeMethods = {};
 
-entityMethods.addEntity = info => new Promise((resolve, reject) => {
+entityTypeMethods.addEntityType = info => new Promise((resolve, reject) => {
   models.Entities.entity_types.create(info)
     .then((model) => {
       resolve(model);
@@ -15,7 +15,7 @@ entityMethods.addEntity = info => new Promise((resolve, reject) => {
     });
 });
 
-entityMethods.updateEntityTypes = (info, data) => new Promise((
+entityTypeMethods.updateEntityTypes = (info, data) => new Promise((
   resolve,
   reject,
 ) => {
@@ -38,7 +38,7 @@ entityMethods.updateEntityTypes = (info, data) => new Promise((
     });
 });
 
-entityMethods.deleteEntityTypes = info => new Promise((resolve, reject) => {
+entityTypeMethods.deleteEntityTypes = info => new Promise((resolve, reject) => {
   models.Entities.entity_types.destroy({
     where: { entity_type: info.entity_type },
   })
@@ -55,4 +55,4 @@ entityMethods.deleteEntityTypes = info => new Promise((resolve, reject) => {
     });
 });
 
-module.exports = entityMethods;
+module.exports = entityTypeMethods;
