@@ -35,16 +35,18 @@ entityMethods.addEntity = newEntity => new Promise((resolve, reject) => {
 });
 
 entityMethods.updateEntity = updatedEntity => new Promise((resolve, reject) => {
-  models.Entities.entities.update({
-    entity_name: updatedEntity.entity_name,
-    entity_slug: updatedEntity.entity_slug,
-    entity_type_id: updatedEntity.entity_type_id,
-  },
-  {
-    where: {
-      id: updatedEntity.id,
+  models.Entities.entities.update(
+    {
+      entity_name: updatedEntity.entity_name,
+      entity_slug: updatedEntity.entity_slug,
+      entity_type_id: updatedEntity.entity_type_id,
     },
-  })
+    {
+      where: {
+        id: updatedEntity.id,
+      },
+    },
+  )
     .then((affectedCount) => {
       resolve(affectedCount > 0 ? 'updated' : 'No rows were updated. '
         + 'Make sure that you are passing the correct id as parameter');
