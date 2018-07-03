@@ -3,10 +3,54 @@ const express = require('express');
 const router = express.Router();
 const methods = require('data/methods');
 
-// Route to get all slugs from people_information_slugs
-router.get('/slug', (req, res) => {
-  // const { slugName } = req.params;
+/**
+ * @api {get} /private/people/slug GetAllSlugs
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName GetAllSlugs
+ * @apiGroup People
+ *
+ * @apiSuccess {String} status Status of the reponse
+ * @apiSuccess {Object} slug The newly created slug
+ * @apiSuccess {Number} id The id of the slug
+ * @apiSuccess {String} slug_name Name of the slug
+ * @apiSuccess {Date} createdAt createdAt
+ * @apiSuccess {Date} updatedAt updatedAt
+ *
+ * @apiParam {String} slugName Name of the slug
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+{
+    "status": "success",
+    "slug": [
+        {
+            "id": 1,
+            "slug_name": "address",
+            "createdAt": "2018-06-29T05:05:08.000Z",
+            "updatedAt": "2018-06-29T05:05:08.000Z"
+        },
+        {
+            "id": 2,
+            "slug_name": "1212",
+            "createdAt": "2018-06-29T05:05:23.000Z",
+            "updatedAt": "2018-06-29T05:05:23.000Z"
+        },
+        {
+            "id": 3,
+            "slug_name": "email",
+            "createdAt": "2018-07-03T04:34:54.000Z",
+            "updatedAt": "2018-07-03T04:34:54.000Z"
+        },
+        {
+            "id": 4,
+            "slug_name": "telephone",
+            "createdAt": "2018-07-03T05:19:16.000Z",
+            "updatedAt": "2018-07-03T05:19:16.000Z"
+        }
+    ]
+}
+ */
 
+router.get('/slug', (req, res) => {
   methods.people.getSlugs()
     .then((slug) => {
       res.json({
@@ -135,8 +179,7 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  // if (typeof (req.params.id) === 'number') {
-  // const peopleId = req.params.id;
+
   methods.people.findPeopleById(id)
     .then((people) => {
       res.json({
@@ -149,36 +192,33 @@ router.get('/:id', (req, res) => {
         error: err.message,
       });
     });
-  // } else {
-  //   next();
-  // }
 });
 
 /**
- * @api {put} /private/people/:slugName GetAllSlugs
+ * @api {put} /private/people/:slugName AddInformaionSlug
  * @apiVersion 1.0.0-alpha-1
- * @apiName GetAllSlugs
+ * @apiName AddInformaionSlug
  * @apiGroup People
  *
- * @apiSuccess {String} status Status of the reponse
- * @apiSuccess {Object} slug The newly created slug
- * @apiSuccess {Number} id The id of the slug
+ * @apiSuccess {Stirng} success success
+ * @apiSuccess {Object} slug Newly created slug
+ * @apiSuccess {id} id
  * @apiSuccess {String} slug_name Name of the slug
  * @apiSuccess {Date} createdAt createdAt
  * @apiSuccess {Date} updatedAt updatedAt
  *
  * @apiParam {String} slugName Name of the slug
+ *
  * @apiSuccessExample {json} Success-Response:
- *     HTTP/1.1 200 OK
- *    {
+ *    HTTP/1.1 200 OK
+ *     {
  *      "status": "success",
  *      "slug": {
- *        "id": 8,
- *        "slug_name": "mobilephone1",
- *        "updatedAt": "2018-06-07T05:03:15.846Z",
- *        "createdAt": "2018-06-07T05:03:15.846Z"
- *      }
- *    }
+ *        "id": 3,
+ *        "slug_name": "telephone",
+ *        "updatedAt": "2018-06-08T01:33:42.134Z",
+ *        "createdAt": "2018-06-08T01:33:42.134Z"
+ *     }
  */
 
 router.put('/:slugName', (req, res) => {
@@ -198,33 +238,6 @@ router.put('/:slugName', (req, res) => {
       });
     });
 });
-
-/**
- * @api {put} /private/people/:slugName InsertNewSlug
- * @apiVersion 1.0.0-alpha-1
- * @apiName InsertNewSlug
- * @apiGroup People
- *
- * @apiSuccess {Stirng} success Success message
- * @apiSuccess {Object} slug Newly inserted object
- * @apiSuccess {id} id
- * @apiSuccess {String} slug_name Name of the slug
- * @apiSuccess {Date} createdAt createdAt
- * @apiSuccess {Date} updatedAt updatedAt
- *
- * @apiParam {String} slugName Name of the slug
- *
- * @apiSuccessExample {json} Success-Response:
- *    HTTP/1.1 200 OK
- *     {
- *      "status": "success",
- *      "slug": {
- *        "id": 3,
- *        "slug_name": "telephone",
- *        "updatedAt": "2018-06-08T01:33:42.134Z",
- *        "createdAt": "2018-06-08T01:33:42.134Z"
- *     }
- */
 
 /**
  * @api {put} /private/people/:peopleId/:slugName AddInformationUsingSlug
@@ -248,12 +261,7 @@ router.put('/:slugName', (req, res) => {
  *     HTTP/1.1 200 OK
  *    {
  *      "status": "success",
- *      "slug": {
- *        "id": 8,
- *        "slug_name": "mobilephone",
- *        "updatedAt": "2018-06-07T05:03:15.846Z",
- *        "createdAt": "2018-06-07T05:03:15.846Z"
- *      }
+ *      "information": "Email inserted!"
  *    }
  *
  */
@@ -262,8 +270,6 @@ router.put('/:peopleId/:slugName', (req, res) => {
   const { slugName } = req.params;
   const { peopleId } = req.params;
 
-  // implement check here
-  // if ((typeof (peopleId) === 'number') && (typeof (slugName) === 'string')) {
   const slugValue = req.body.value;
   methods.people.putInformationUsingSlug(peopleId, slugName, slugValue)
     .then((info) => {
@@ -279,9 +285,6 @@ router.put('/:peopleId/:slugName', (req, res) => {
         error: err.message,
       });
     });
-  // } else {
-  //   next();
-  // }
 });
 
 /**
@@ -304,15 +307,20 @@ router.put('/:peopleId/:slugName', (req, res) => {
  * @apiParam {String} slugName Name of the slug
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
- *    {
- *      "status": "success",
- *      "slug": {
- *        "id": 8,
- *        "slug_name": "mobilephone1",
- *        "updatedAt": "2018-06-07T05:03:15.846Z",
- *        "createdAt": "2018-06-07T05:03:15.846Z"
- *      }
- *    }
+ * {
+ *   "status": "success",
+ *   "information": {
+ *       "id": 1,
+ *       "people_id": 1,
+ *       "slug_id": 3,
+ *       "data": [
+ *           "john@cet.ac.in",
+ *           "john@gmail.com"
+ *       ],
+ *       "createdAt": "2018-07-03T04:34:58.000Z",
+ *       "updatedAt": "2018-07-03T04:34:58.000Z"
+ *   }
+ * }
  *
  */
 

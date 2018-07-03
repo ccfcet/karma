@@ -9,7 +9,6 @@ coursesOfferedMethods.addCoursesOffered = info => new Promise((
 ) => {
   models.Academics.courses_offered.create(info)
     .then((newCourseOffered) => {
-      console.log('inside then');
       resolve(newCourseOffered);
     })
     .catch((err) => {
@@ -17,6 +16,7 @@ coursesOfferedMethods.addCoursesOffered = info => new Promise((
       reject(err);
     });
 });
+
 coursesOfferedMethods.updateCourses = (info, data) => new Promise((
   resolve,
   reject,

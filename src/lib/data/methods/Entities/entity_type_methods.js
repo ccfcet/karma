@@ -1,13 +1,12 @@
 const Promise = require('bluebird');
 
-const models = require('../../../models');
+const models = require('../../models');
 
-const entityMethods = {};
+const entityTypeMethods = {};
 
-entityMethods.addEntity = info => new Promise((resolve, reject) => {
+entityTypeMethods.addEntityType = info => new Promise((resolve, reject) => {
   models.Entities.entity_types.create(info)
     .then((model) => {
-      console.log('hello');
       resolve(model);
     })
     .catch((err) => {
@@ -15,11 +14,11 @@ entityMethods.addEntity = info => new Promise((resolve, reject) => {
       reject(err);
     });
 });
-entityMethods.updateEntityTypes = (info, data) => new Promise((
+
+entityTypeMethods.updateEntityTypes = (info, data) => new Promise((
   resolve,
   reject,
 ) => {
-  console.log('inside promise');
   models.Entities.entity_types.update(data, {
     where: {
       entity_type: info.entity_type,
@@ -28,8 +27,7 @@ entityMethods.updateEntityTypes = (info, data) => new Promise((
   })
     .then((updated) => {
       if (updated > 0) {
-        console.log('updated');
-        resolve(updated);
+        resolve('Updated');
       } else {
         reject(new Error('not updated'));
       }
@@ -39,15 +37,16 @@ entityMethods.updateEntityTypes = (info, data) => new Promise((
       reject(err);
     });
 });
-entityMethods.deleteEntityTypes = info => new Promise((resolve, reject) => {
+
+entityTypeMethods.deleteEntityTypes = info => new Promise((resolve, reject) => {
   models.Entities.entity_types.destroy({
     where: { entity_type: info.entity_type },
   })
     .then((deleted) => {
       if (deleted === 0) {
-        reject(new Error());
+        reject(new Error("Can't be deleted!"));
       } else {
-        resolve(deleted);
+        resolve('deleted');
       }
     })
     .catch((err) => {
@@ -56,4 +55,4 @@ entityMethods.deleteEntityTypes = info => new Promise((resolve, reject) => {
     });
 });
 
-module.exports = entityMethods;
+module.exports = entityTypeMethods;
