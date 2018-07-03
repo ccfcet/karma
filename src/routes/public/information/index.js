@@ -68,7 +68,8 @@ router.get('/:entityInformationSlug/:entitySlug', (req, res) => {
   // entitySlug
   const { entitySlug } = req.params;
 
-  methodsEntitites.obtainInformation.obtainInformation(entitySlug, entityInformationSlug)
+  methodsEntitites.obtainInformation.obtainInformation(entitySlug,
+    entityInformationSlug)
     .then((result) => {
       if (!_.isEmpty(result)) {
         res.json(result);

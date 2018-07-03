@@ -3,6 +3,26 @@ const express = require('express');
 const router = express.Router();
 const methods = require('data/methods');
 
+// Route to get all slugs from people_information_slugs
+router.get('/slug', (req, res) => {
+  // const { slugName } = req.params;
+
+  methods.people.getSlugs()
+    .then((slug) => {
+      res.json({
+        status: 'success',
+        slug,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
+});
+
+
 /**
  * @api {post} /private/people AddPeople
  * @apiVersion 1.0.0-alpha-1
@@ -113,25 +133,25 @@ router.post('/', (req, res) => {
  *     }
  */
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params;
-  if (typeof (req.params.id) === 'number') {
-    // const peopleId = req.params.id;
-    methods.people.findPeopleById(id)
-      .then((people) => {
-        res.json({
-          data: people.dataValues,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          status: 'error',
-          error: err.message,
-        });
+  // if (typeof (req.params.id) === 'number') {
+  // const peopleId = req.params.id;
+  methods.people.findPeopleById(id)
+    .then((people) => {
+      res.json({
+        data: people.dataValues,
       });
-  } else {
-    next();
-  }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
+  // } else {
+  //   next();
+  // }
 });
 
 /**
@@ -206,24 +226,6 @@ router.put('/:slugName', (req, res) => {
  *     }
  */
 
-router.get('/slug/:slugName', (req, res) => {
-  const { slugName } = req.params;
-
-  methods.people.getSlugs(slugName)
-    .then((slug) => {
-      res.json({
-        status: 'success',
-        slug,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        status: 'error',
-        error: err.message,
-      });
-    });
-});
-
 /**
  * @api {put} /private/people/:peopleId/:slugName AddInformationUsingSlug
  * @apiVersion 1.0.0-alpha-1
@@ -238,7 +240,10 @@ router.get('/slug/:slugName', (req, res) => {
  * @apiSuccess {Date} createdAt createdAt
  * @apiSuccess {Date} updatedAt updatedAt
  *
+ * @apiParam {Integer} peopleId people ID of the user
  * @apiParam {String} slugName Name of the slug
+ * @apiParam {String} value Value of the slug
+ *
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
  *    {
@@ -253,30 +258,30 @@ router.get('/slug/:slugName', (req, res) => {
  *
  */
 
-router.put('/:peopleId/:slugName', (req, res, next) => {
+router.put('/:peopleId/:slugName', (req, res) => {
   const { slugName } = req.params;
   const { peopleId } = req.params;
 
   // implement check here
-  if ((typeof (peopleId) === 'number') && (typeof (slugName) === 'string')) {
-    const slugValue = req.body.value;
-    methods.people.putInformationUsingSlug(peopleId, slugName, slugValue)
-      .then((info) => {
-        res.json({
-          status: 'success',
-          information: info,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({
-          status: 'error',
-          error: err.message,
-        });
+  // if ((typeof (peopleId) === 'number') && (typeof (slugName) === 'string')) {
+  const slugValue = req.body.value;
+  methods.people.putInformationUsingSlug(peopleId, slugName, slugValue)
+    .then((info) => {
+      res.json({
+        status: 'success',
+        information: info,
       });
-  } else {
-    next();
-  }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
+  // } else {
+  //   next();
+  // }
 });
 
 /**
@@ -315,7 +320,6 @@ router.get('/:peopleId/:slugName', (req, res) => {
   const { slugName } = req.params;
   const { peopleId } = req.params;
 
-  // if ((typeof (peopleId) === 'string') && (typeof (slugName) === 'string')) {
   methods.people.getInformationUsingSlug(peopleId, slugName)
     .then((info) => {
       res.json({
@@ -329,12 +333,6 @@ router.get('/:peopleId/:slugName', (req, res) => {
         error: err.message,
       });
     });
-  // } else {
-  //   res.status(500).json({
-  //     status: 'error',
-  //     error: 'Types of passed parameters differ from what is required!',
-  //   });
-  // }
 });
 
 module.exports = router;
