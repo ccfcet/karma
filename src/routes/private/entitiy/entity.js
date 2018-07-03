@@ -11,7 +11,7 @@ const methods = require('data/methods');
  * @apiGroup Entity
  *
  * @apiSuccess {String} message message
- * @apiSuccess {id} id Entity ID
+ * @apiSuccess {Number} id Entity ID
  * @apiSuccess {String} entity_name Entity name
  * @apiSuccess {String} entity_slug Entity slug name
  * @apiSuccess {Integer} entity_type_id Entity type id
@@ -86,22 +86,26 @@ router.get('/', (req, res) => {
 }
  */
 
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-
-  methods.Entities.entityMethods.findEntityById(id)
-    .then((entity) => {
-      res.status(200).json({
-        message: 'Success',
-        entity,
+router.get('/:id', (req, res, next) => {
+  if (Object.prototype.hasOwnProperty.call(req.params, 'id')) {
+    const { id } = req.params;
+    methods.Entities.entityMethods.findEntityById(id)
+      .then((entity) => {
+        res.status(200).json({
+          message: 'Success',
+          entity,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: 'Error',
+          Error: err.message,
+        });
       });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: 'Error',
-        Error: err.message,
-      });
-    });
+  } else {
+    console.log('The request doesnot qualify the GET /:id route');
+    next();
+  }
 });
 
 /**
