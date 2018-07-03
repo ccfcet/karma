@@ -55,7 +55,8 @@ router.post('/', (req, res) => {
 
 
 /**
- * @api {put} /private/entity/entity_type/:entityType/:entityTypeSlug UpdateEntityType
+ * @api {put} /private/entity/entity_type/:entityType/:entityTypeSlug
+ * UpdateEntityType
  * @apiVersion 1.0.0-alpha-1
  * @apiName UpdateEntityType
  * @apiGroup EntityType
