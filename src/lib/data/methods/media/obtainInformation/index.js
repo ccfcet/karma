@@ -74,58 +74,66 @@ returnObject.obtainEntityInformation = function (mediaId, mediaRolesId) {
 returnObject
   .obtainMediaInformationFromEntity = function (entityId, mediaRolesSlug) {
     return new Promise(((resolve, reject) => {
-      let entity;
-      let role;
+      const entity = {};
+      const role = {};
 
       models.Media.media_roles.findAll({
         where: {
-          media_roles_slug: mediaRolesSlug,
+          role_slug: mediaRolesSlug,
         },
+        attributes: ['id'],
+        raw: true,
       }).then((result) => {
-        role = result;
+        role.id = result[0].id;
+        models.Media.media_role_entity_association.findAll({
+          where: {
+            id: entityId,
+            role_id: role.id,
+          },
+          attributes: ['media_id'],
+          raw: true,
+        }).then((result) => {
+          console.log(`result is ${result}`);
+          entity.media_id = result[0].id;
+          console.log(entity.media_id);
+          models.Media.media.findAll({
+            /* include:
+              [
+                {
+                  model: models.Media.media_role_entity_association,
+                  where: { id: entityId },
+                  attributes: [],
+                },
+                {
+                  model: models.Media.media_roles,
+                  where: { role_slug: mediaRolesSlug },
+                  attributes: [],
+                },
+              ],
+            // attributes: [],
+            rejectOnEmpty: true, */
+    
+            where: { id: entity.media_id },
+    
+          }).then((result) => {
+            resolve(result.data);
+          }).catch((err) => {
+          // handle error;
+            console.log(err);
+            reject(err);
+          });
+        }));
+      };
+    
+        }).catch((err) => {
+          console.log(err);
+        });
       }).catch((err) => {
         console.log(err);
       });
-      models.Media.media_role_entity_association.findAll({
-        where: {
-          id: entityId,
-          role_id: role.id,
-        },
-      }).then((result) => {
-        entity = result;
-      }).catch((err) => {
-        console.log(err);
-      });
+      
 
-      models.Media.media.findAll({
-        /* include:
-          [
-            {
-              model: models.Media.media_role_entity_association,
-              where: { id: entityId },
-              attributes: [],
-            },
-            {
-              model: models.Media.media_roles,
-              where: { role_slug: mediaRolesSlug },
-              attributes: [],
-            },
-          ],
-        // attributes: [],
-        rejectOnEmpty: true, */
-
-        where: { id: entity.media_id },
-
-      }).then((result) => {
-        resolve(result.data);
-      }).catch((err) => {
-      // handle error;
-        console.log(err);
-        reject(err);
-      });
-    }));
-  };
-
+      
 // function to obtain information from table media joining table
 // media_roles_people_association and table media_roles using peopleId and
 // mediaRolesSlug respectively
