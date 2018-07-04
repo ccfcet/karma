@@ -179,7 +179,6 @@ const init = function (modelsObject) {
 // initialize loading of models
 init(db).then((finalObject) => {
   db = finalObject;
-  console.log(db);
   if (typeof db.callback === 'function') {
     db.callback();
   }
