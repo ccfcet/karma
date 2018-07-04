@@ -25,12 +25,13 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const info = {};
-  info.stream_type_long = req.body.streamType;
-  info.stream_type_short = req.body.streamTypeShort;
-  info.start_date = req.body.startDate;
-  info.end_date = req.body.endDate;
+  info.stream_type_id = req.body.streamId;
+  info.stream_name = req.body.streamName;
+  info.department_id = req.body.departmentId;
+  info.valid_start_date = req.body.startDate;
+  info.valid_end_date = req.body.endDate;
   console.log(info);
-  methods.Academics.streamTypesMethods.addStreamType(info)
+  methods.Academics.streamsOfferedMethods.addStreamsOffered(info)
     .then((model) => {
       res.send(model);
     })
@@ -42,23 +43,25 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put('/:streamId', (req, res) => {
+router.put('/:streamsOfferedId', (req, res) => {
   const info = {};
   const data = {};
 
-  info.id = req.params.streamId; // key values for finding row
+  info.id = req.params.streamsOfferedId; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'streamType') && Object
-    .prototype.hasOwnProperty.call(req.body, 'streamTypeShort') && Object
+  if (Object.prototype.hasOwnProperty.call(req.body, 'streamId') && Object
+    .prototype.hasOwnProperty.call(req.body, 'streamName') && Object
+    .prototype.hasOwnProperty.call(req.body, 'departmentId') && Object
     .prototype.hasOwnProperty.call(req.body, 'startDate') && Object.prototype
     .hasOwnProperty.call(req.body, 'endDate')) {
-    data.stream_type_long = req.body.streamType;
-    data.stream_type_short = req.body.streamTypeShort;
-    data.start_date = req.body.startDate;
-    data.end_date = req.body.endDate;
+    data.stream_type_id = req.body.streamId;
+    data.stream_name = req.body.streamName;
+    data.department_id = req.body.departmentId;
+    data.valid_start_date = req.body.startDate;
+    data.valid_end_date = req.body.endDate;
   }
 
-  methods.Academics.streamTypesMethods.updateStreamTypes(info, data)
+  methods.Academics.streamsOfferedMethods.updateStreamsOffered(info, data)
     .then((model) => {
       res.status(200).json({
         status: 'updated stream type',
@@ -76,9 +79,9 @@ router.put('/:streamId', (req, res) => {
 router.delete('/', (req, res) => {
   const info = {};
 
-  info.id = req.body.streamId;
+  info.id = req.body.id;
 
-  methods.Academics.streamTypesMethods.deleteStreamTypes(info)
+  methods.Academics.streamsOfferedMethods.deleteStreamsOffered(info)
     .then((model) => {
       res.status(200).json({
         status: 'stream Type deleted',

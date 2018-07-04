@@ -12,13 +12,13 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const info = {};
   info.people_id = req.body.peopleId;
-  info.course_id = req.body.courseId;
+  info.class_id = req.body.classId;
   info.activity = req.body.activity;
   info.date_time = req.body.datetime;
 
   methods.Faculty
-    .facultyMethods
-    .addFacultyEnrolmentAcademicActivity(info)
+    .facultyClassAdvisoryMethods
+    .addFacultyClassAdvisoryActivity(info)
     .then((model) => {
       res.send(model);
     })
@@ -29,25 +29,25 @@ router.post('/', (req, res) => {
       });
     });
 });
-router.put('/:enrolmentId', (req, res) => {
+router.put('/:advisoryId', (req, res) => {
   const info = {};
   const data = {};
 
-  info.id = req.params.EnrolmentId; // key values for finding row
+  info.id = req.params.advisoryId; // key values for finding row
 
   if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId') && Object
-    .prototype.hasOwnProperty.call(req.body, 'courseId') && Object.prototype
+    .prototype.hasOwnProperty.call(req.body, 'classId') && Object.prototype
     .hasOwnProperty.call(req.body, 'activity') && Object.prototype
     .hasOwnProperty.call(req.body, 'datetime')) {
     data.people_id = req.body.peopleId;
-    data.course_id = req.body.courseId;
+    data.class_id = req.body.classId;
     data.activity = req.body.activity;
     data.date_time = req.body.datetime;
   }
 
   methods.Faculty
-    .facultyMethods
-    .updateFacultyAcademicEnrolmentActivity(info, data)
+    .facultyClassAdvisoryMethods
+    .updateFacultyClassAdvisoryActivity(info, data)
     .then((model) => {
       res.status(200).json({
         status: 'updated',
@@ -66,13 +66,13 @@ router.delete('/', (req, res) => {
   const info = {};
 
   info.people_id = req.body.peopleId;
-  info.course_id = req.body.courseId;
+  info.class_id = req.body.classId;
   info.activity = req.body.activity;
 
 
   methods.Faculty
-    .facultyMethods
-    .deleteFacultyAcademicEnrolmentActivity(info)
+    .facultyClassAdvisoryMethods
+    .deleteFacultyClassAdvisoryActivity(info)
     .then((model) => {
       res.status(200).json({
         status: 'Class deleted',

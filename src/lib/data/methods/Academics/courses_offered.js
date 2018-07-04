@@ -3,6 +3,19 @@ const Promise = require('bluebird');
 const models = require('../../models');
 
 const coursesOfferedMethods = {};
+
+coursesOfferedMethods.getAllCoursesOffered = () => new Promise((resolve,
+  reject) => {
+  models.Academics.courses_offered.findAll()
+    .then((newCourseOffered) => {
+      resolve(newCourseOffered);
+    })
+    .catch((err) => {
+      console.log(err);
+      reject(err);
+    });
+});
+
 coursesOfferedMethods.addCoursesOffered = info => new Promise((
   resolve,
   reject,
@@ -23,8 +36,7 @@ coursesOfferedMethods.updateCourses = (info, data) => new Promise((
 ) => {
   models.Academics.courses_offered.update(data, {
     where: {
-      department_id: info.department_id,
-      official_course_id: info.official_course_id,
+      id: info.id,
     },
   })
     .then((updated) => {
@@ -32,7 +44,6 @@ coursesOfferedMethods.updateCourses = (info, data) => new Promise((
         resolve(updated);
       } else {
         reject(new Error());
-        // throw ('err')
       }
     }).catch((error) => {
       reject(error);

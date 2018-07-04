@@ -30,6 +30,7 @@ module.exports = function (sequelize, DataTypes) {
     models.Media.media_role_entity_association
       .belongsTo(models.Media.media, {
         onDelete: 'CASCADE',
+        targetkey: 'id',
         foreignKey: {
           name: 'media_id',
         // allowNull: false -- already defined
