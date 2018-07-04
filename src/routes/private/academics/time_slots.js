@@ -25,12 +25,11 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const info = {};
-  info.stream_type_long = req.body.streamType;
-  info.stream_type_short = req.body.streamTypeShort;
-  info.start_date = req.body.startDate;
-  info.end_date = req.body.endDate;
+  info.start_timestamp = req.body.startTimestamp;
+  info.end_timestamp = req.body.endTimestamp;
+
   console.log(info);
-  methods.Academics.streamTypesMethods.addTimeSlots(info)
+  methods.Academics.timeSlotsMethods.addTimeSlots(info)
     .then((model) => {
       res.send(model);
     })
@@ -42,23 +41,19 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put('/:streamId', (req, res) => {
+router.put('/:timeSlotId', (req, res) => {
   const info = {};
   const data = {};
 
-  info.id = req.params.streamId; // key values for finding row
+  info.id = req.params.timeSlotId; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'streamType') && Object
-    .prototype.hasOwnProperty.call(req.body, 'streamTypeShort') && Object
-    .prototype.hasOwnProperty.call(req.body, 'startDate') && Object.prototype
-    .hasOwnProperty.call(req.body, 'endDate')) {
-    data.stream_type_long = req.body.streamType;
-    data.stream_type_short = req.body.streamTypeShort;
-    data.start_date = req.body.startDate;
-    data.end_date = req.body.endDate;
+  if (Object.prototype.hasOwnProperty.call(req.body, 'startTimestamp') && Object
+    .prototype.hasOwnProperty.call(req.body, 'endTimestamp')) {
+    data.start_timestamp = req.body.startTimestamp;
+    data.end_timestamp = req.body.endTimestamp;
   }
 
-  methods.Academics.streamTypesMethods.updateTimeSlots(info, data)
+  methods.Academics.timeSlotsMethods.updateTimeSlots(info, data)
     .then((model) => {
       res.status(200).json({
         status: 'updated stream type',
@@ -76,9 +71,9 @@ router.put('/:streamId', (req, res) => {
 router.delete('/', (req, res) => {
   const info = {};
 
-  info.id = req.body.streamId;
+  info.id = req.body.timeSlotId;
 
-  methods.Academics.streamTypesMethods.deleteTimeSlots(info)
+  methods.Academics.timeSlotsMethods.deleteTimeSlots(info)
     .then((model) => {
       res.status(200).json({
         status: 'stream Type deleted',
