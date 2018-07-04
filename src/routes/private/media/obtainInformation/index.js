@@ -36,7 +36,7 @@ router.get('/entity/:entityId/:mediaRolesSlug', (req, res) => {
 });
 router.get('/:peopleId/:mediaRolesSlug', (req, res) => {
   const info = {};
-  info.people_id = req.params.entityId;
+  info.people_id = req.params.peopleId;
   info.slugName = req.params.mediaRolesSlug;
   media.obtainInformation
     .obtainMediaInformationFromPeople(info.people_id, info.slugName)
