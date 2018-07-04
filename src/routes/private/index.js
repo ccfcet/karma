@@ -47,15 +47,18 @@ router.get('/', (req, res) => {
     })
 }) */
 
+
 // router.use('/information', require('./information'))
 
-router.use('/people', require('./people'));
+// router.use('/people', require('./people'));
 
-router.use('/entity', require('./entity'));
+// router.use('/entity', require('./entity'));
 router.use('/media', require('./media'));
-
+router.use('/people', require('./people/people'));
+router.use('/entity', require('./entitiy/entity'));
+router.use('/entity/entity_type', require('./entitiy/entity_type'));
 router.use('/academics', require('./academics'));
 router.use('/student', require('./student'));
-// router.use('/menu', require('./menu'))
+router.use('/event', require('./event/event'));
 
 module.exports = router;

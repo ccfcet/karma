@@ -36,8 +36,8 @@ npm run lint--fix
 ```
 
 #### Generating docs using the apidoc
-1. Run ```gulp doc``` and an ```apidoc/``` folder will be created
-2. Go to that folder and open ```index.html``` and access the apidoc
+1. Run ```grunt apidoc``` and an ```apidoc/``` folder will be created inside ```docs``` folder in the project's root.
+2. Go to that folder and open ```index.html``` and access the API documentation.
 
 ## Contributions
 Contributions are always welcome. Please take notice of the LICENSE and NOTICE files. Any commit to the repository implies you agree with the conditions specified in the files.
