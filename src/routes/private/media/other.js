@@ -52,7 +52,7 @@ router.get('/entity/:entityId/:mediaRoleSlug', (req, res) => {
   const data = {};
   data.entity_id = req.params.entityId;
   data.media_role_slug = req.params.mediaRoleSlug;
-  methods.Media.media.getMediaForEntityUsingMediaRoleSlug(data)
+  methods.Media.other.getMediaForEntityUsingMediaRoleSlug(data)
     .then((media) => {
       res.status(200).json({
         message: 'success',
@@ -106,7 +106,30 @@ router.post('/entity/', (req, res) => {
   data.media_file_name = req.body.mediaFileName;
   data.media_location = req.body.mediaLocation;
 
-  methods.Media.media.addMediaForEntityUsingMediaRoleSlug(data)
+  methods.Media.other.addMediaForEntityUsingMediaRoleSlug(data)
+    .then((media) => {
+      res.status(200).json({
+        message: 'success',
+        media,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: 'error',
+        error: err.message,
+      });
+    });
+});
+
+router.put('/entity/', (req, res) => {
+  const data = {};
+  data.entity_id = req.body.entityId;
+  data.role_slug = req.body.mediaRoleSlug;
+  data.media_title = req.body.mediaTitle;
+  data.media_file_name = req.body.mediaFileName;
+  data.media_location = req.body.mediaLocation;
+
+  methods.Media.other.updateMediaForEntityUsingMediaRoleSlug(data)
     .then((media) => {
       res.status(200).json({
         message: 'success',
