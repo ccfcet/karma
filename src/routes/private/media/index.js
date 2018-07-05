@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.send({ status: 200 });
 });
-router.use('/obtain_information', require('./obtain_information'));
+router.use('/other', require('./other'));
 router.use('/media_people_association', require('./media_people_association'));
 router.use('/media_entity_association', require('./media_entity_association'));
 router.use('/media_roles', require('./media_roles'));
