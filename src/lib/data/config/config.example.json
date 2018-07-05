@@ -1,4 +1,5 @@
 {
+  "sequelize":{
     "development": {
       "username": "root",
       "password": "root",
@@ -24,3 +25,4 @@
       "operatorsAliases": "Sequelize.Op"
     }
   }
+}
