@@ -3,13 +3,14 @@ const express = require('express');
 const router = express.Router();
 // const methods = require('data/methods');
 const media = require('data/methods/media');
+
 const _ = require('lodash');
 
 router.get('/', (req, res) => {
   res.send({ status: 200 });
 });
 
-router.get('/entity/:entityId/:mediaRolesSlug', (req, res) => {
+router.get('/entity/:entityId/:mediaRoleSlug', (req, res) => {
   const info = {};
   info.entity_id = req.params.entityId;
   info.slugName = req.params.mediaRolesSlug;
@@ -34,7 +35,8 @@ router.get('/entity/:entityId/:mediaRolesSlug', (req, res) => {
       });
     });
 });
-router.get('/:peopleId/:mediaRolesSlug', (req, res) => {
+
+router.get('/people/:peopleId/:mediaRolesSlug', (req, res) => {
   const info = {};
   info.people_id = req.params.peopleId;
   info.slugName = req.params.mediaRolesSlug;
