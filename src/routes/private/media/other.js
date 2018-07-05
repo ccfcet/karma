@@ -4,7 +4,7 @@ const router = express.Router();
 const methods = require('data/methods');
 // const media = require('data/methods/media');
 
-const _ = require('lodash');
+// const _ = require('lodash');
 
 router.get('/', (req, res) => {
   res.send({ status: 200 });
@@ -144,28 +144,22 @@ router.put('/entity/', (req, res) => {
     });
 });
 
-router.get('/people/:peopleId/:mediaRolesSlug', (req, res) => {
+router.get('/people/:peopleId/:mediaRoleSlug', (req, res) => {
   const info = {};
   info.people_id = req.params.peopleId;
-  info.slugName = req.params.mediaRolesSlug;
-  methods.Media.obtainInformation
-    .obtainMediaInformationFromPeople(info.people_id, info.slugName)
-    .then((result) => {
-      console.log(result);
-      if (!_.isEmpty(result)) {
-        res.json(result);
-      } else {
-        res.status(501).json({
-          success: 'false',
-          code: 'information-empty',
-        });
-      }
+  info.role_slug = req.params.mediaRoleSlug;
+  methods.Media.other
+    .getMediaForPeopleUsingMediaRoleSlug(info)
+    .then((media) => {
+      res.status(200).json({
+        message: 'success',
+        media,
+      });
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).json({
-        success: 'false',
-        code: 'information-error',
+        message: 'error',
+        error: err.message,
       });
     });
 });
