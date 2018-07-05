@@ -39,7 +39,7 @@ mediaMethods.addMediaForEntityUsingMediaRoleSlug = data => new Promise((
                     resolve(mediaAtMediaRoleForEntity);
                   } else {
                     reject(new Error('Media was created but the assocication of'
-              + ' the media with entity could not be made'));
+                      + ' the media with entity could not be made'));
                   }
                 });
             } else {
@@ -51,7 +51,7 @@ mediaMethods.addMediaForEntityUsingMediaRoleSlug = data => new Promise((
           });
       } else {
         reject(new Error('Media role corresponding to the given slug cannot'
-      + ' be found'));
+          + ' be found'));
       }
     })
     .catch((err) => {
@@ -59,33 +59,37 @@ mediaMethods.addMediaForEntityUsingMediaRoleSlug = data => new Promise((
     });
 });
 
-// mediaMethods.addMediaForEntityUsingMediaRoleSlug = data => new Promise((
-//   resolve,
-//   reject,
-// ) => {
-//   models.media.media_roles.findOne({
-//     role_slug: data.role_slug,
-//   })
-//     .then((mediaRole) => {
-//       models.media.media_role_entity_association.create({
-//         role_id: mediaRole.id,
-//         entity_id: data.entity_id,
-//       })
-//         .then((media) => {
-//           if (media) resolve(media);
-//           else {
-//             reject(new Error('No media found for given media role and '
-//           + 'entity combination'));
-//           }
-//         })
-//         .catch((err) => {
-//           reject(err);
-//         });
-//     })
-//     .catch((err) => {
-//       reject(err);
-//     });
-// });
+mediaMethods.getMediaForEntityUsingMediaRoleSlug = data => new Promise((
+  resolve,
+  reject,
+) => {
+  models.Media.media_roles.findOne({
+    role_slug: data.role_slug,
+  })
+    .then((mediaRole) => {
+      if (mediaRole) {
+        models.Media.media_role_entity_association.findAll({
+          role_id: mediaRole.id,
+          entity_id: data.entity_id,
+        })
+          .then((media) => {
+            if (media) resolve(media);
+            else {
+              reject(new Error('No media found for given media role and '
+                + 'entity combination'));
+            }
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      } else {
+        reject(new Error('The corresponding media role slug is not defined'));
+      }
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 
 mediaMethods.updateMedia = (info, data) => new Promise((resolve, reject) => {
   models.media.media.update(data, {

@@ -28,6 +28,25 @@ router.post('/', (req, res) => {
     });
 });
 
+router.get('/entity/:entityId/:mediaRoleSlug', (req, res) => {
+  const data = {};
+  data.entity_id = req.params.entityId;
+  data.media_role_slug = req.params.mediaRoleSlug;
+  methods.Media.media.getMediaForEntityUsingMediaRoleSlug(data)
+    .then((media) => {
+      res.status(200).json({
+        message: 'success',
+        media,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: 'error',
+        error: err.message,
+      });
+    });
+});
+
 router.post('/entity/', (req, res) => {
   const data = {};
   data.entity_id = req.body.entityId;
