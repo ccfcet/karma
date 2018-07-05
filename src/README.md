@@ -11,7 +11,7 @@ git clone https://github.com/ccfcet/karma
 ```bash
 npm install
 ```
-4. Rename ```config.json.example``` file inside ```./lib/data/config/``` to ```config.json``` and fill the database information.
+4. Rename ```config.example.json``` file inside ```./lib/data/config/``` to ```config.json``` and fill the database information.
 
 ### Usage
 ```bash

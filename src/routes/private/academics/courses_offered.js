@@ -57,29 +57,39 @@ router.get('/', (req, res) => {
 }
  */
 
-router.post('/', (req, res) => {
-  const info = {};
-  info.official_course_id = req.body.officialCourseId;
-  info.department_id = req.body.departmentId;
-  info.name = req.body.name;
-  info.credits = req.body.credits;
-  info.valid_start_date = req.body.validStartDate;
-  info.valid_end_date = req.body.validEndDate;
-  info.duration_in_days = req.body.durationInDays;
+router.post('/', (req, res, next) => {
+  if (Object.prototype.hasOwnProperty.call(req.body, 'officialCourseId')
+    && Object.prototype.hasOwnProperty.call(req.body, 'departmentId')
+    && Object.prototype.hasOwnProperty.call(req.body, 'name')
+    && Object.prototype.hasOwnProperty.call(req.body, 'credits')
+    && Object.prototype.hasOwnProperty.call(req.body, 'validStartDate')
+    && Object.prototype.hasOwnProperty.call(req.body, 'validEndDate')
+    && Object.prototype.hasOwnProperty.call(req.body, 'durationInDays')) {
+    const info = {};
+    info.official_course_id = req.body.officialCourseId;
+    info.department_id = req.body.departmentId;
+    info.name = req.body.name;
+    info.credits = req.body.credits;
+    info.valid_start_date = req.body.validStartDate;
+    info.valid_end_date = req.body.validEndDate;
+    info.duration_in_days = req.body.durationInDays;
 
-  methods.Academics.courses_offered.addCoursesOffered(info)
-    .then((model) => {
-      res.status(200).json({
-        message: 'success',
-        course: model,
+    methods.Academics.courses_offered.addCoursesOffered(info)
+      .then((model) => {
+        res.status(200).json({
+          message: 'success',
+          course: model,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: 'error',
+          error: err,
+        });
       });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: 'error',
-        error: err,
-      });
-    });
+  } else {
+    next();
+  }
 });
 
 /**
@@ -143,6 +153,8 @@ router.put('/:course_offered_id', (req, res) => {
           state: err,
         });
       });
+  } else {
+    next();
   }
 });
 
@@ -166,23 +178,25 @@ router.put('/:course_offered_id', (req, res) => {
  */
 
 router.delete('/', (req, res) => {
-  const info = {};
+  if (Object.prototype.hasOwnProperty.call(req.body, 'officailCourseId')
+    && Object.prototype.hasOwnProperty.call(req.body, 'departmentId')) {
+    const info = {};
+    info.department_id = req.body.departmentId;
+    info.official_course_id = req.body.officialCourseId;
 
-  info.department_id = req.body.departmentId;
-  info.official_course_id = req.body.officialCourseId;
-
-  methods.Academics.courses_offered.deleteCourses(info)
-    .then((noOfRowsDeleted) => {
-      res.status(200).json({
-        message: `${noOfRowsDeleted} course(s) deleted`,
+    methods.Academics.courses_offered.deleteCourses(info)
+      .then((noOfRowsDeleted) => {
+        res.status(200).json({
+          message: `${noOfRowsDeleted} course(s) deleted`,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          status: 'Not able to delete.The row may not exist.',
+          state: err,
+        });
       });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        status: 'Not able to delete.The row may not exist.',
-        state: err,
-      });
-    });
+  }
 });
 
 module.exports = router;

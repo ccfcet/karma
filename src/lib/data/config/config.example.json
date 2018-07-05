@@ -1,0 +1,28 @@
+{
+  "sequelize":{
+    "development": {
+      "username": "root",
+      "password": "root",
+      "database": "karma",
+      "host": "127.0.0.1",
+      "dialect": "mysql",
+      "operatorsAliases": "Sequelize.Op"
+    },
+    "test": {
+      "username": "root",
+      "password": "root",
+      "database": "karmatest",
+      "host": "127.0.0.1",
+      "dialect": "mysql",
+      "operatorsAliases": "Sequelize.Op"
+    },
+    "production": {
+      "username": "root",
+      "password": "password",
+      "database": "karma",
+      "host": "127.0.0.1",
+      "dialect": "mysql",
+      "operatorsAliases": "Sequelize.Op"
+    }
+  }
+}
