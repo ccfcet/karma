@@ -114,11 +114,14 @@ otherMethods.updateMediaForEntityUsingMediaRoleSlug = data => new Promise((
                 },
               })
                 .then((affectedArray) => {
+                  console.log(affectedArray);
                   if (affectedArray[0] > 0) {
-                    resolve(affectedArray[1]);
+                    resolve();
                   } else {
                     reject(new Error('Media was created but the assocication of'
-                      + ' the media with entity could not be updated'));
+                      + ' the media with entity could not be updated. This'
+                      + ' may happen when the row to be updated is not present'
+                      + ' in the database.'));
                   }
                 });
             } else {
@@ -170,14 +173,64 @@ otherMethods.getMediaForPeopleUsingMediaRoleSlug = info => new Promise((
                 });
             } else {
               reject(new Error('No media was previously present in the '
-              + 'database for the given people and role combination'));
+                + 'database for the given people and role combination'));
             }
           });
       } else {
-        reject(new Error('Cannot find a row in media_roles table corresponding '
-          + 'to the role_slug given'));
+        reject(new Error('Cannot find a row in media_roles table corresponding'
+          + ' to the role_slug given'));
       }
     });
 });
 
+otherMethods.insertMediaForPeopleUsingMediaRoleSlug = data => new Promise((
+  resolve,
+  reject,
+) => {
+  models.Media.media_roles.findOne({
+    where: {
+      role_slug: data.role_slug,
+    },
+  })
+    .then((mediaRole) => {
+      if (!_.isEmpty(mediaRole)) {
+        models.Media.media.create({
+          media_file_name: data.media_file_name,
+          media_title: data.media_title,
+          media_location: data.media_location,
+        })
+          .then((media) => {
+            if (!_.isEmpty(media)) {
+              models.Media.media_role_people_association.create({
+                media_id: media.id,
+                role_id: mediaRole.id,
+                people_id: data.people_id,
+              })
+                .then((mediaAtRoleSlugForGivenPeopleId) => {
+                  if (!_.isEmpty(mediaAtRoleSlugForGivenPeopleId)) {
+                    resolve(mediaAtRoleSlugForGivenPeopleId);
+                  } else {
+                    reject(new Error('Media was created but it could not be '
+                      + ' assigned to the people_id given'));
+                  }
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            } else {
+              reject(new Error('Media could be created.'));
+            }
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      } else {
+        reject(new Error('No media role could be found for the given media role'
+          + ' slug'));
+      }
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 module.exports = otherMethods;
