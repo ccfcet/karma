@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
         err,
       });
     });
-  // res.send({ status: 200 });
 });
 
 /**
@@ -120,7 +119,7 @@ router.post('/', (req, res, next) => {
 }
  */
 
-router.put('/:course_offered_id', (req, res) => {
+router.put('/:course_offered_id', (req, res, next) => {
   if (Object.prototype.hasOwnProperty.call(req.body, 'officialCourseId')
     && Object.prototype.hasOwnProperty.call(req.body, 'departmentId')
     && Object.prototype.hasOwnProperty.call(req.body, 'name')
