@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 
-const methodsEntitites = require('data/methods/Entities');
-const methodsFaculty = require('data/methods/Faculty');
+const methodsEntitites = require('data/methods/entities');
+const methodsFaculty = require('data/methods/faculty');
 
 /**
 * @api {get} /public/information Public Information Entry Gate
