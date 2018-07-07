@@ -6,6 +6,10 @@ Back-end API framework for colleges.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ee425b15d0f9488b8a324cd170b6ff1a)](https://app.codacy.com/app/jilvin/karma?utm_source=github.com&utm_medium=referral&utm_content=ccfcet/karma&utm_campaign=badger)
 
+## Motivation
+
+There does not exist a free, open and powerful tool for colleges (specifically higher educational institutes) to enhance and improve processes through the effective management of data. The project aims to provide RESTful API services alone.
+
 ## Directory Structure
 
 ### Design
