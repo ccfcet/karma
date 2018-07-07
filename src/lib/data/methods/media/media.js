@@ -3,38 +3,33 @@ const Promise = require('bluebird');
 const models = require('../../models');
 
 const mediaMethods = {};
-mediaMethods.addMedia = (info) => {
-  console.log('inside adding faculty enrolment');
-  return new Promise((resolve, reject) => {
-    models.Media.media.create(info)
-      .then((newMedia) => {
-        resolve(newMedia);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-};
-mediaMethods.updateMedia = (info, data) => {
-  console.log(info, data);
-  return new Promise((resolve, reject) => {
-    models.media.media.update(data, {
-      where: {
-        id: info.id,
-      },
+mediaMethods.addMedia = info => new Promise((resolve, reject) => {
+  models.Media.media.create(info)
+    .then((newMedia) => {
+      resolve(newMedia);
     })
-      .then((updated) => {
-        if (updated > 0) {
-          resolve(updated);
-        } else {
-          reject(new Error());
-          // throw ('err')
-        }
-      }).catch((error) => {
-        reject(error);
-      });
-  });
-};
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+mediaMethods.updateMedia = (info, data) => new Promise((resolve, reject) => {
+  models.media.media.update(data, {
+    where: {
+      id: info.id,
+    },
+  })
+    .then((updated) => {
+      if (updated > 0) {
+        resolve(updated);
+      } else {
+        reject(new Error());
+        // throw ('err')
+      }
+    }).catch((error) => {
+      reject(error);
+    });
+});
 
 mediaMethods
   .deleteMedia = info => new Promise((resolve, reject) => {

@@ -13,7 +13,7 @@
     "email": "ccf@cet.ac.in"
   },
   "scripts": {
-    "docs": "apidoc -i src/ -o apidoc/",
+    "docs": "apidoc -i routes/ -o apidoc/",
     "dev": "DEBUG=karma nodemon ./bin/www",
     "start": "NODE_ENV=production node ./bin/www",
     "lint": "./node_modules/.bin/eslint ./ --report-unused-disable-directives --format 'node_modules/eslint-friendly-formatter'",
@@ -40,8 +40,6 @@
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-plugin-import": "^2.13.0",
-    "grunt": "^1.0.3",
-    "grunt-apidoc": "^0.11.0",
     "mocha": "^5.2.0"
   },
   "author": "Central Computing Facility, College of Engineering Trivandrum",
