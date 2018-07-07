@@ -1,12 +1,11 @@
 const methods = {};
 
 methods.authentication = require('./authentication');
-methods.Entities = require('./Entities');
-methods.Menu = require('./Menu');
-// methods.people = require('./people')
+methods.Entities = require('./entities');
+methods.Menu = require('./menu');
 methods.Media = require('./media');
 methods.people = require('./people');
-methods.Academics = require('./Academics');
+methods.Academics = require('./academics');
 methods.students = require('./student');
 methods.Events = require('./events');
 

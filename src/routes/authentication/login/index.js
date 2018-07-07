@@ -9,5 +9,6 @@ router.get('/', (req, res) => {
 });
 
 router.use('/karma', require('./karma'));
+// router.use('/facebook', require('./facebook'));
 
 module.exports = router;
