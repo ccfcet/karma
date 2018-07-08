@@ -1,0 +1,8 @@
+after_script: npm run coverage
+before_install: cd ./src
+language: node_js
+node_js:
+  - "node"
+os:
+  - linux
+  - osx
