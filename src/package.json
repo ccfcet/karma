@@ -18,10 +18,12 @@
     "start": "NODE_ENV=production node ./bin/www",
     "lint": "./node_modules/.bin/eslint ./ --report-unused-disable-directives --format 'node_modules/eslint-friendly-formatter'",
     "lint--fix": "./node_modules/.bin/eslint ./ --fix --report-unused-disable-directives --format 'node_modules/eslint-friendly-formatter'",
-    "test": "NODE_ENV=test mocha --recursive --exit"
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --recursive --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
     "authentication": "file:./lib/authentication",
+    "celebrate": "^8.0.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "data": "file:./lib/data",
@@ -36,11 +38,13 @@
     "apidoc": "^0.17.6",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "coveralls": "^3.0.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-plugin-import": "^2.13.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
   },
   "author": "Central Computing Facility, College of Engineering Trivandrum",
   "license": "AGPL-3.0-or-later"

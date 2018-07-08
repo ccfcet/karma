@@ -12,9 +12,9 @@ Aimed at explaining dependencies mentioned in /src/package.json(root module)
 methods.
 5. debug : Recommended usage(express-generator 4.16.0).
 6. express : express
-7. http-errors: Recommended usage(express-generator 4.16.0).
-8. helmet : Helmet helps you secure your Express apps by setting various HTTP
+7. helmet : Helmet helps you secure your Express apps by setting various HTTP
 headers. Refer https://expressjs.com/en/advanced/best-practice-security.html
+8. http-errors: Recommended usage(express-generator 4.16.0).
 9. lodash : A modern JavaScript utility library delivering modularity,
 performance & extras. Used in routes. Test for performance. Switch to native if
 suitable.

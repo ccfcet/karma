@@ -6,6 +6,7 @@ const logger = require('morgan');
 
 const helmet = require('helmet');
 const cors = require('cors');
+const celebrateErrors = require('celebrate').errors;
 
 const router = require('./routes/index');
 
@@ -21,6 +22,8 @@ app.use(cors());
 app.use(helmet());
 
 app.use('/', router);
+
+app.use(celebrateErrors);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
