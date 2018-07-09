@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const CoursesOffered = sequelize.define('courses_offered', {
     id: {
@@ -38,7 +36,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   CoursesOffered.associate = function (models) {
-    models.Academics.courses_offered.belongsTo(models.Entities.entities, {
+    models.academics.courses_offered.belongsTo(models.Entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'department_id',

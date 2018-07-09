@@ -159,6 +159,7 @@ const init = function (modelsObject) {
 
     processDirectory(__dirname, sequelize, modelsObject)
       .then((newModelsObject) => {
+        // if (!_.isEmpty(_.omit(newModelsObject, ['callback']))) {
         if (!_.isEmpty(newModelsObject)) {
           associate(newModelsObject, newModelsObject).then(() => {
             finish(sequelize, newModelsObject).then((finalObject) => {

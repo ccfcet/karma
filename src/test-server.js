@@ -7,7 +7,6 @@ const helmet = require('helmet');
 const cors = require('cors');
 const celebrateErrors = require('celebrate').errors;
 
-const router = require('./routes/index');
 
 const app = express();
 
@@ -25,56 +24,56 @@ app.use(celebrateErrors);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-    next(createError(404));
+  next(createError(404));
 });
 
 // error handler
 app.use((err, req, res) => {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 /**
 * Module dependencies.
 */
 
-var debug = require('debug')('karma');
-var http = require('http');
+const debug = require('debug')('karma');
+const http = require('http');
+const router = require('./routes/index');
 
-var models = require('./lib/data/models');
+const models = require('./lib/data/models');
 
 /**
 * Get port from environment and store in Express.
 */
 
-var port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
 * Create HTTP server.
 */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 // console.log("Server Created :)");
 
 modelCallback = function () {
-    models.sequelize.sync().then(function () {
-        /**
+  models.sequelize.sync().then(() => {
+    /**
         * Listen on provided port, on all network interfaces.
         */
-        server.on('error', onError);
-        server.on('listening', onListening);
-        server.listen(port);
-    });
-}
+    server.on('error', onError);
+    server.on('listening', onListening);
+    server.listen(port);
+  });
+};
 
-models.callback = modelCallback
-
+models.callback = modelCallback;
 
 
 /**
@@ -82,19 +81,19 @@ models.callback = modelCallback
 */
 
 function normalizePort(val) {
-    var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
 
-    if (port >= 0) {
-        // port number
-        return port;
-    }
+  if (port >= 0) {
+    // port number
+    return port;
+  }
 
-    return false;
+  return false;
 }
 
 /**
@@ -102,27 +101,27 @@ function normalizePort(val) {
 */
 
 function onError(error) {
-    if (error.syscall !== 'listen') {
-        throw error;
-    }
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
 
-    var bind = typeof port === 'string'
-        ? 'Pipe ' + port
-        : 'Port ' + port;
+  const bind = typeof port === 'string'
+    ? `Pipe ${port}`
+    : `Port ${port}`;
 
     // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case 'EACCES':
-            console.error(bind + ' requires elevated privileges');
-            process.exit(1);
-            break;
-        case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
+  switch (error.code) {
+    case 'EACCES':
+      console.error(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
 }
 
 /**
@@ -130,11 +129,11 @@ function onError(error) {
 */
 
 function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === 'string'
-        ? 'pipe ' + addr
-        : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+  const addr = server.address();
+  const bind = typeof addr === 'string'
+    ? `pipe ${addr}`
+    : `port ${addr.port}`;
+  debug(`Listening on ${bind}`);
 }
 
 

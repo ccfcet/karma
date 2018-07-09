@@ -25,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   EntityPeopleEnrollment.associate = function (models) {
-    models.Entities.entity_people_enrollment
+    models.entities.entity_people_enrollment
       .belongsTo(models.Entities.entities, {
         onDelete: 'CASCADE',
         foreignKey: {
@@ -34,7 +34,7 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Entities.entity_people_enrollment
+    models.entities.entity_people_enrollment
       .belongsTo(models.People.people, {
         onDelete: 'CASCADE',
         foreignKey: {

@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const Entities = sequelize.define('entities', {
     id: {
@@ -24,7 +22,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Entities.associate = function (models) {
-    models.Entities.entities.belongsTo(models.Entities.entity_types, {
+    models.entities.entities.belongsTo(models.Entities.entity_types, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'entity_type_id',

@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const StreamTypes = sequelize.define('stream_types', {
     id: {

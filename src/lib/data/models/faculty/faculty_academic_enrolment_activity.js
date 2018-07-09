@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const FacultyAcademicEnrolmentActivity = sequelize
     .define('faculty_academic_enrolment_activity', {
@@ -27,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   FacultyAcademicEnrolmentActivity.associate = function (models) {
-    models.Faculty.faculty_class_advisory_activity
+    models.faculty.faculty_class_advisory_activity
       .belongsTo(models.People.people, {
         onDelete: 'CASCADE',
         foreignKey: {
@@ -36,7 +34,7 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Faculty.faculty_class_advisory_activity
+    models.faculty.faculty_class_advisory_activity
       .belongsTo(models.Academics.courses_offered, {
         onDelete: 'CASCADE',
         foreignKey: {

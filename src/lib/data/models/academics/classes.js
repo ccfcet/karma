@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const Classes = sequelize.define('classes', {
     id: {
@@ -31,7 +29,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Classes.associate = function (models) {
-    models.Academics.classes.belongsTo(models.Academics.streams_offered, {
+    models.academics.classes.belongsTo(models.Academics.streams_offered, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'stream_id',

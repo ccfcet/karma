@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const TimeSlots = sequelize.define('time_slots', {
     id: {

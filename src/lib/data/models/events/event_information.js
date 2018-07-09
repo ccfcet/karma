@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const EventInformation = sequelize.define('event_information', {
     id: {
@@ -24,14 +22,15 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   EventInformation.associate = function (models) {
-    models.Events.event_information.belongsTo(models.Events.events, {
+    models.events.event_information.belongsTo(models.Events.events, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'event_id',
         // allowNull: false -- already defined
       },
     });
-    models.Events.event_information
+
+    models.events.event_information
       .belongsTo(models.Events.event_information_slugs, {
         onDelete: 'CASCADE',
         foreignKey: {

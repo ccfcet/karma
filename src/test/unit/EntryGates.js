@@ -5,7 +5,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 
 const models = require('../../lib/data/models');
-const app = require('../../app.js')
+const app = require('../../app.js');
+
 const { expect } = chai;
 
 chai.use(chaiHttp);

@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const Posts = sequelize.define('posts', {
     id: {
@@ -22,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Posts.associate = function (models) {
-    models.Blog.Posts.posts.belongsTo(models.Blog.blogs, {
+    models.blog.posts.posts.belongsTo(models.Blog.blogs, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'blog_id',

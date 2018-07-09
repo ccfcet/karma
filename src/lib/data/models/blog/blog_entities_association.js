@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   BlogEntitiesAssociation.associate = function (models) {
-    models.Blog.blog_entities_association.belongsTo(models.Entities.entities, {
+    models.blog.blog_entities_association.belongsTo(models.Entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'entity_id',
@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
       },
     });
 
-    models.Blog.blog_entities_association.belongsTo(models.Blog.blogs, {
+    models.blog.blog_entities_association.belongsTo(models.Blog.blogs, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'blog_id',
