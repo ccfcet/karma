@@ -22,7 +22,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Entities.associate = function (models) {
-    models.entities.entities.belongsTo(models.Entities.entity_types, {
+    models.entities.entities.belongsTo(models.entities.entity_types, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'entity_type_id',

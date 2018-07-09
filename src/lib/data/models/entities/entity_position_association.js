@@ -30,7 +30,7 @@ module.exports = function (sequelize, DataTypes) {
 
   EntityPositionAssociation.associate = function (models) {
     models.entities.entity_position_association
-      .belongsTo(models.Entities.entities, {
+      .belongsTo(models.entities.entities, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'entity_id',

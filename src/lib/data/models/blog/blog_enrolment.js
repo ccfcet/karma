@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   BlogEnrollment.associate = function (models) {
-    models.blog.blog_enrollment.belongsTo(models.Blog.blogs, {
+    models.blog.blog_enrollment.belongsTo(models.blog.blogs, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'blog_id',

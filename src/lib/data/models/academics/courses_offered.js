@@ -36,7 +36,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   CoursesOffered.associate = function (models) {
-    models.academics.courses_offered.belongsTo(models.Entities.entities, {
+    models.academics.courses_offered.belongsTo(models.entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'department_id',

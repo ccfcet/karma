@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Posts.associate = function (models) {
-    models.blog.posts.posts.belongsTo(models.Blog.blogs, {
+    models.blog.posts.posts.belongsTo(models.blog.blogs, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'blog_id',

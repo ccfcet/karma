@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
 
   EntityParentChildAssociation.associate = function (models) {
     models.entities.entity_parent_child_association
-      .belongsTo(models.Entities.entities, {
+      .belongsTo(models.entities.entities, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'parent_id',
@@ -29,7 +29,7 @@ module.exports = function (sequelize, DataTypes) {
       });
 
     models.entities.entity_parent_child_association
-      .belongsTo(models.Entities.entities, {
+      .belongsTo(models.entities.entities, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'child_id',

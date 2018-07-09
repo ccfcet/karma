@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   StreamsOffered.associate = function (models) {
-    models.academics.streams_offered.belongsTo(models.Academics.stream_types, {
+    models.academics.streams_offered.belongsTo(models.academics.stream_types, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'stream_type_id',
@@ -36,7 +36,7 @@ module.exports = function (sequelize, DataTypes) {
       },
     });
 
-    models.academics.streams_offered.belongsTo(models.Entities.entities, {
+    models.academics.streams_offered.belongsTo(models.entities.entities, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'department_id',

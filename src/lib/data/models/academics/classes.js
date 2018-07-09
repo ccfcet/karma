@@ -29,7 +29,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Classes.associate = function (models) {
-    models.academics.classes.belongsTo(models.Academics.streams_offered, {
+    models.academics.classes.belongsTo(models.academics.streams_offered, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'stream_id',

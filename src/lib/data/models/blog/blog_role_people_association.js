@@ -21,7 +21,7 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   BlogRolePeopleAssociation.associate = function (models) {
-    models.blog.blog_role_people_association.belongsTo(models.People.people, {
+    models.blog.blog_role_people_association.belongsTo(models.people.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_id',
@@ -29,7 +29,7 @@ module.exports = function (sequelize, DataTypes) {
       },
     });
 
-    models.blog.blog_role_people_association.belongsTo(models.Blog.blogs, {
+    models.blog.blog_role_people_association.belongsTo(models.blog.blogs, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'blog_id',
@@ -37,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
       },
     });
 
-    models.blog.blog_role_people_association.belongsTo(models.Blog.blog_roles, {
+    models.blog.blog_role_people_association.belongsTo(models.blog.blog_roles, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'role_id',
