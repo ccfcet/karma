@@ -27,8 +27,8 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   MediaRoleEntityAssociation.associate = function (models) {
-    models.Media.media_role_entity_association
-      .belongsTo(models.Media.media, {
+    models.media.media_role_entity_association
+      .belongsTo(models.media.media, {
         onDelete: 'CASCADE',
         targetkey: 'id',
         foreignKey: {
@@ -37,8 +37,8 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Media.media_role_entity_association
-      .belongsTo(models.Media.media_roles, {
+    models.media.media_role_entity_association
+      .belongsTo(models.media.media_roles, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'role_id',
@@ -46,8 +46,8 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Media.media_role_entity_association
-      .belongsTo(models.Entities.entities, {
+    models.media.media_role_entity_association
+      .belongsTo(models.entities.entities, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'entity_id',

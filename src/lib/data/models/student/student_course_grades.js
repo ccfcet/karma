@@ -30,7 +30,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   StudentCourseGrades.associate = function (models) {
-    models.Student.student_course_grades.belongsTo(models.People.people, {
+    models.student.student_course_grades.belongsTo(models.people.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_id',
@@ -38,8 +38,8 @@ module.exports = function (sequelize, DataTypes) {
       },
     });
 
-    models.Student.student_course_grades
-      .belongsTo(models.Academics.courses_offered, {
+    models.student.student_course_grades
+      .belongsTo(models.academics.courses_offered, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'course_id',
@@ -48,7 +48,7 @@ module.exports = function (sequelize, DataTypes) {
       });
 
     models.Student.student_course_grades
-      .belongsTo(models.Student.student_course_grading_standards, {
+      .belongsTo(models.student.student_course_grading_standards, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'grading_standard_id',
