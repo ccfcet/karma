@@ -4,31 +4,12 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
-const models = require('data/models/');
-const app = require('../../app.js');
-
-console.log(models);
-console.log('models');
+const models = require('../../lib/data/models');
+const app = require('../../app.js')
 const { expect } = chai;
-/* modelCallback = function () {
-  models.sequelize.sync().then(() => {
-    console.log('synced');
-    console.log(models);
-    /**
-    * Listen on provided port, on all network interfaces.
-    */
-// server.on('error', onError);
-// server.on('listening', onListening);
-// server.listen(port);
-// });
-// };
+
 chai.use(chaiHttp);
-/* before((done) => {
-  console.log('entered');
-  modelCallback();
-  done();
-});
-*/
+
 // For testing entry gates - refer api documentation
 describe('Test the Entry Gates', () => {
   it('GET /', (done) => {
@@ -131,7 +112,7 @@ describe('Public - Menu', () => {
           console.log(err);
         } else {
           expect(res).to.have.status(200);
-        // important -- compelete later
+          // important -- compelete later
         }
       });
   });

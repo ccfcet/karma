@@ -66,10 +66,5 @@ typings/
 # Serverless directories
 .serverless
 
-<<<<<<< Updated upstream
 # apidoc folder
 apidoc
-=======
-# api documentation
-apidoc
->>>>>>> Stashed changes
