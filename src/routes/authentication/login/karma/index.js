@@ -1,4 +1,5 @@
 const express = require('express');
+const { celebrate, Joi } = require('celebrate');
 
 const router = express.Router();
 
@@ -12,7 +13,15 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+router.post('/', celebrate({
+  body: Joi.object().keys({
+    // needs more precise validation including check for allowed charset
+    password: Joi.string().min(12).max(30).required(),
+    email: Joi.string().email(),
+    // needs a better way of validation
+    mobilenumber: Joi.number().integer(),
+  }).xor('email', 'mobilenumber'),
+}), (req, res) => {
   if (req.headers['content-type'] === 'application/json') {
     if (Object.prototype.hasOwnProperty.call(req.body, 'password')) {
       // is https really secure?

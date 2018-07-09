@@ -6,6 +6,10 @@
       "database": "karma",
       "host": "127.0.0.1",
       "dialect": "mysql",
+      "define": {
+        "underscored": true,
+        "freezeTableName": true
+      },
       "operatorsAliases": "Sequelize.Op"
     },
     "test": {
@@ -14,6 +18,10 @@
       "database": "karmatest",
       "host": "127.0.0.1",
       "dialect": "mysql",
+      "define": {
+        "underscored": true,
+        "freezeTableName": true
+      },
       "operatorsAliases": "Sequelize.Op"
     },
     "production": {
@@ -22,6 +30,10 @@
       "database": "karma",
       "host": "127.0.0.1",
       "dialect": "mysql",
+      "define": {
+        "underscored": true,
+        "freezeTableName": true
+      },
       "operatorsAliases": "Sequelize.Op"
     }
   }
