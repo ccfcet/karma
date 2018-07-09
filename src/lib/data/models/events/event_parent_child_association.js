@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
 
   EventParentChildAssociation.associate = function (models) {
     models.events.event_parent_child_association
-      .belongsTo(models.Events.events, {
+      .belongsTo(models.events.events, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'parent_id',
@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
     models.events.event_parent_child_association
-      .belongsTo(models.Events.events, {
+      .belongsTo(models.events.events, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'child_id',

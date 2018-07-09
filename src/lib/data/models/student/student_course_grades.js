@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const StudentCourseGrades = sequelize.define('student_course_grades', {
     id: {
@@ -47,7 +45,7 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Student.student_course_grades
+    models.student.student_course_grades
       .belongsTo(models.student.student_course_grading_standards, {
         onDelete: 'CASCADE',
         foreignKey: {

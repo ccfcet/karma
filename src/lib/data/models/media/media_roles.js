@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const MediaRoles = sequelize.define('media_roles', {
     id: {

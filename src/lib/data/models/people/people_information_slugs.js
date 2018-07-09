@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const PeopleInformationSlugs = sequelize.define('people_information_slugs', {
     id: {

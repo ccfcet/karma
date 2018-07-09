@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const MenuElements = sequelize.define('menu_elements', {
     id: {

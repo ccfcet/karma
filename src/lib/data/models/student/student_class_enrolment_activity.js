@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const StudentClassEnrolmentActivity = sequelize
     .define('student_class_enrolment_activity', {

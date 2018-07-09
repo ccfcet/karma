@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const MenuData = sequelize.define('menu_data', {
     id: {

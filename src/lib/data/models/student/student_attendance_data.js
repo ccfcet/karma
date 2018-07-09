@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const StudentAttendanceData = sequelize.define('student_attendance_data', {
     id: {
