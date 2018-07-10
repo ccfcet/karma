@@ -1,44 +1,19 @@
 // Contains tests for all the entry gates.
 
-// require('mocha');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-var http = require('http');
 
-const models = require('../../lib/data/models');
-const app = require('../../app.js');
+// const models = require('../../lib/data/models');
+const app = require('../../../bin/www');
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-
-var port = normalizePort(process.env.PORT || '3000');
-
-var server = http.createServer(app);
-var syncModels =  function () {
-    models.sequelize.sync().then(() => {
-    server.listen(port);
-  });
-}
-
-syncModels();
+process.nextTick(function(){
+app.callback = run;
+  // run()
+})
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
-
 
 // For testing entry gates - refer api documentation
 describe('Test the Entry Gates', () => {
@@ -97,41 +72,41 @@ describe('Test the Entry Gates', () => {
   });
 });
 
-describe('Public-Informtion', () => {
-  it('GET /public/information/:entityInformationSlug/:entitySlug', () => {
-    chai.request(app)
-      .get('/public/information/about/cse')
-      .end((err, res) => {
-        if (err) {
-          console.log(err);
-        }
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.a('json');
-        expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have
-          .equal('Back-end API framework for colleges.');
-        expect(res.body).to.have.property('title');
-        expect(res.body.title).to.equal('Karma');
-      });
-  });
-
-  it('GET /public/information/:entityInformationSlug/:entitySlug', () => {
-    chai.request(app)
-      .get('/public/information/about/robotics')
-      .end((err, res) => {
-        if (err) {
-          console.log(err);
-        } else {
-          expect(res).to.have.status(501);
-          expect(res.body).to.be.a('Object');
-          expect(res.body).to.have.property('data');
-          expect(res.body.data).to.be.a('json');
-          expect(res.body.data.success).to.equal('success');
-          expect(res.body.data.code).to.equal('information-empty');
-        }
-      });
-  });
-});
+// describe('Public-Informtion', () => {
+//   it('GET /public/information/:entityInformationSlug/:entitySlug', () => {
+//     chai.request(app)
+//       .get('/public/information/about/cse')
+//       .end((err, res) => {
+//         if (err) {
+//           console.log(err);
+//         }
+//         expect(res).to.have.status(200);
+//         expect(res.body).to.be.a('json');
+//         expect(res.body).to.have.property('data');
+//         expect(res.body.data).to.have
+//           .equal('Back-end API framework for colleges.');
+//         expect(res.body).to.have.property('title');
+//         expect(res.body.title).to.equal('Karma');
+//       });
+//   });
+//
+//   it('GET /public/information/:entityInformationSlug/:entitySlug', () => {
+//     chai.request(app)
+//       .get('/public/information/about/robotics')
+//       .end((err, res) => {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           expect(res).to.have.status(501);
+//           expect(res.body).to.be.a('Object');
+//           expect(res.body).to.have.property('data');
+//           expect(res.body.data).to.be.a('json');
+//           expect(res.body.data.success).to.equal('success');
+//           expect(res.body.data.code).to.equal('information-empty');
+//         }
+//       });
+//   });
+// });
 
 describe('Public - Menu', () => {
   it('/public/menu/:entity/:menuType', () => {
