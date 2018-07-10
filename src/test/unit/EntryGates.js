@@ -3,13 +3,42 @@
 // require('mocha');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+var http = require('http');
 
 const models = require('../../lib/data/models');
 const app = require('../../app.js');
 
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+var port = normalizePort(process.env.PORT || '3000');
+
+var server = http.createServer(app);
+var syncModels =  function () {
+    models.sequelize.sync().then(() => {
+    server.listen(port);
+  });
+}
+
+syncModels();
+
 const { expect } = chai;
 
 chai.use(chaiHttp);
+
 
 // For testing entry gates - refer api documentation
 describe('Test the Entry Gates', () => {
