@@ -59,8 +59,8 @@ function processDirectory(dirname, sequelize, modelsObject) {
       // 2) - samefile(index.js)
       // 3) - all files with extension other than .js
       if ((fileStats.name.indexOf('.') !== 0)
-        && (fileStats.name !== basename)
-        && (fileStats.name.slice(-3) === '.js')) {
+      && (fileStats.name !== basename)
+      && (fileStats.name.slice(-3) === '.js')) {
         // case of allowed file
         // import model using sequelize['import']
         const model = sequelize.import(path.join(root, fileStats.name));
@@ -159,7 +159,7 @@ const init = function (modelsObject) {
 
     processDirectory(__dirname, sequelize, modelsObject)
       .then((newModelsObject) => {
-        // if (!_.isEmpty(_.omit(newModelsObject, ['callback']))) {
+      // if (!_.isEmpty(_.omit(newModelsObject, ['callback']))) {
         if (!_.isEmpty(newModelsObject)) {
           associate(newModelsObject, newModelsObject).then(() => {
             finish(sequelize, newModelsObject).then((finalObject) => {
