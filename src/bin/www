@@ -35,6 +35,10 @@ let modelCallback = function() {
     if (typeof server.callback === 'function') {
       server.callback();
     }
+  }).catch(function(err) {
+    debug(err)
+    server.close();
+    process.exit(1)
   });
 }
 

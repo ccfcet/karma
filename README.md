@@ -5,8 +5,8 @@ Back-end API framework for colleges.
 <!-- Unable to break lines in the URLs. Fix when markdown adds support. -->
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ee425b15d0f9488b8a324cd170b6ff1a)](https://app.codacy.com/app/jilvin/karma?utm_source=github.com&utm_medium=referral&utm_content=ccfcet/karma&utm_campaign=badger)
-[![Build Status](https://travis-ci.org/ccfcet/karma.svg?branch=master)](https://travis-ci.org/ccfcet/karma)
-[![Build status](https://ci.appveyor.com/api/projects/status/6ajwsdwhwleyl9xl?svg=true)](https://ci.appveyor.com/project/jilvin/karma)
+[![Build Status](https://img.shields.io/travis/ccfcet/karma/master.svg?label=linux+%26+osx)](https://travis-ci.org/ccfcet/karma)
+[![Build status](https://img.shields.io/appveyor/ci/jilvin/karma/master.svg?label=windows)](https://ci.appveyor.com/project/jilvin/karma)
 [![Coverage Status](https://coveralls.io/repos/github/ccfcet/karma/badge.svg?branch=master)](https://coveralls.io/github/ccfcet/karma?branch=master)
 
 ## Motivation
