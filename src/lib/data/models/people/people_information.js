@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const PeopleInformation = sequelize.define('people_information', {
     id: {
@@ -24,7 +22,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   PeopleInformation.associate = function (models) {
-    models.People.people_information.belongsTo(models.People.people, {
+    models.people.people_information.belongsTo(models.people.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_id',
@@ -32,8 +30,8 @@ module.exports = function (sequelize, DataTypes) {
       },
     });
 
-    models.People.people_information
-      .belongsTo(models.People.people_information_slugs, {
+    models.people.people_information
+      .belongsTo(models.people.people_information_slugs, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'slug_id',

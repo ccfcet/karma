@@ -24,7 +24,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   ClassesTimeTables.associate = function (models) {
-    models.Academics.classes_time_tables.belongsTo(models.Academics.classes, {
+    models.academics.classes_time_tables.belongsTo(models.academics.classes, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'class_id',
@@ -32,8 +32,8 @@ module.exports = function (sequelize, DataTypes) {
       },
     });
 
-    models.Academics.classes_time_tables
-      .belongsTo(models.Academics.time_slots, {
+    models.academics.classes_time_tables
+      .belongsTo(models.academics.time_slots, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'time_slot_id',
@@ -41,8 +41,8 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Academics.classes_time_tables
-      .belongsTo(models.Faculty.faculty_academic_enrolment_activity, {
+    models.academics.classes_time_tables
+      .belongsTo(models.faculty.faculty_academic_enrolment_activity, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'faculty_id',

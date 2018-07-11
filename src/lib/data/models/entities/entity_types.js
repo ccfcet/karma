@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const EntityTypes = sequelize.define('entity_types', {
     id: {

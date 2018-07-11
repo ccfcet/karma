@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const PeopleActivityLog = sequelize.define('people_activity_log', {
     id: {
@@ -18,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   PeopleActivityLog.associate = function (models) {
-    models.Log.people_activity_log.belongsTo(models.People.people, {
+    models.log.people_activity_log.belongsTo(models.people.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_id',
@@ -26,7 +24,7 @@ module.exports = function (sequelize, DataTypes) {
       },
     });
 
-    models.Log.people_activity_log.belongsTo(models.Log.people_activities, {
+    models.log.people_activity_log.belongsTo(models.log.people_activities, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_activity_id',

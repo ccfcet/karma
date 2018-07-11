@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const EventInformationSlugs = sequelize.define('event_information_slugs', {
     id: {

@@ -17,8 +17,8 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   StudentCourseGradingStandardsGradeAssociation.associate = function (models) {
-    models.Student.student_course_grading_standards_grade_association
-      .belongsTo(models.Student.student_course_grading_standards, {
+    models.student.student_course_grading_standards_grade_association
+      .belongsTo(models.student.student_course_grading_standards, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'grading_standard_id',

@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
 
   AuthenticationInformationLocal.associate = function (models) {
     models.authentication.authentication_information_local
-      .belongsTo(models.People.people, {
+      .belongsTo(models.people.people, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'people_id',

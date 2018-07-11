@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const BlogRoles = sequelize.define('blog_roles', {
     id: {

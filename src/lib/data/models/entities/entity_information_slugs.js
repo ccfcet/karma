@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const EntityInfromationSlugs = sequelize.define('entity_information_slugs', {
     id: {

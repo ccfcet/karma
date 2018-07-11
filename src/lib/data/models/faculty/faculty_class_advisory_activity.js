@@ -25,8 +25,8 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   FacultyClassAdvisoryActivity.associate = function (models) {
-    models.Faculty.faculty_class_advisory_activity
-      .belongsTo(models.People.people, {
+    models.faculty.faculty_class_advisory_activity
+      .belongsTo(models.people.people, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'people_id',
@@ -34,8 +34,8 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Faculty.faculty_class_advisory_activity
-      .belongsTo(models.Academics.classes, {
+    models.faculty.faculty_class_advisory_activity
+      .belongsTo(models.academics.classes, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'class_id',

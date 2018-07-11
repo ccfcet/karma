@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const EventParentChildAssociation = sequelize
     .define('event_parent_child_association', {
@@ -21,16 +19,16 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   EventParentChildAssociation.associate = function (models) {
-    models.Events.event_parent_child_association
-      .belongsTo(models.Events.events, {
+    models.events.event_parent_child_association
+      .belongsTo(models.events.events, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'parent_id',
         // allowNull: false -- already defined
         },
       });
-    models.Events.event_parent_child_association
-      .belongsTo(models.Events.events, {
+    models.events.event_parent_child_association
+      .belongsTo(models.events.events, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'child_id',

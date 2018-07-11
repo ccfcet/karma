@@ -17,8 +17,8 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   MenuParentChildAssociations.associate = function (models) {
-    models.Menu.menu_parent_child_associations
-      .belongsTo(models.Menu.menu_elements, {
+    models.menu.menu_parent_child_associations
+      .belongsTo(models.menu.menu_elements, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'parent_id',
@@ -26,8 +26,8 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Menu.menu_parent_child_associations
-      .belongsTo(models.Menu.menu_elements, {
+    models.menu.menu_parent_child_associations
+      .belongsTo(models.menu.menu_elements, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'child_id',

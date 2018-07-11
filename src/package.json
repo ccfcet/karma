@@ -14,11 +14,11 @@
   },
   "scripts": {
     "docs": "apidoc -i routes/ -o apidoc/",
-    "dev": "DEBUG=karma nodemon ./bin/www",
+    "dev": "DEBUG=karma:* nodemon ./bin/www",
     "start": "NODE_ENV=production node ./bin/www",
     "lint": "./node_modules/.bin/eslint ./ --report-unused-disable-directives --format 'node_modules/eslint-friendly-formatter'",
     "lint--fix": "./node_modules/.bin/eslint ./ --fix --report-unused-disable-directives --format 'node_modules/eslint-friendly-formatter'",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --recursive --exit",
+    "test": "NODE_ENV=test nyc --reporter=html mocha --check-leaks --delay --forbid-only --forbid-pending --use_strict --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {

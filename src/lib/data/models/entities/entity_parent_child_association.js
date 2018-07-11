@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const EntityParentChildAssociation = sequelize
     .define('entity_parent_child_association', {
@@ -21,8 +19,8 @@ module.exports = function (sequelize, DataTypes) {
     });
 
   EntityParentChildAssociation.associate = function (models) {
-    models.Entities.entity_parent_child_association
-      .belongsTo(models.Entities.entities, {
+    models.entities.entity_parent_child_association
+      .belongsTo(models.entities.entities, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'parent_id',
@@ -30,8 +28,8 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Entities.entity_parent_child_association
-      .belongsTo(models.Entities.entities, {
+    models.entities.entity_parent_child_association
+      .belongsTo(models.entities.entities, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'child_id',

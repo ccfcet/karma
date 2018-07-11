@@ -22,8 +22,8 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   EntityInformation.associate = function (models) {
-    models.Entities.entity_information
-      .belongsTo(models.Entities.entities, {
+    models.entities.entity_information
+      .belongsTo(models.entities.entities, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'entity_id',
@@ -31,8 +31,8 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Entities.entity_information
-      .belongsTo(models.Entities.entity_information_slugs, {
+    models.entities.entity_information
+      .belongsTo(models.entities.entity_information_slugs, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'slug_id',

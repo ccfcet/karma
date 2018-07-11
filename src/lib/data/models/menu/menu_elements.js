@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const MenuElements = sequelize.define('menu_elements', {
     id: {
@@ -25,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
     },
   });
   MenuElements.associate = function (models) {
-    models.Menu.menu_elements.belongsTo(models.Menu.menu_data, {
+    models.menu.menu_elements.belongsTo(models.menu.menu_data, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'menu_id',

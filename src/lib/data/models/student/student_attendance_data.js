@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const StudentAttendanceData = sequelize.define('student_attendance_data', {
     id: {
@@ -39,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   StudentAttendanceData.associate = function (models) {
-    models.Student.student_attendance_data.belongsTo(models.People.people, {
+    models.student.student_attendance_data.belongsTo(models.people.people, {
       onDelete: 'CASCADE',
       foreignKey: {
         name: 'people_id',
@@ -47,8 +45,8 @@ module.exports = function (sequelize, DataTypes) {
       },
     });
 
-    models.Student.student_attendance_data
-      .belongsTo(models.Academics.courses_offered, {
+    models.student.student_attendance_data
+      .belongsTo(models.academics.courses_offered, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'course_id',
@@ -56,8 +54,8 @@ module.exports = function (sequelize, DataTypes) {
         },
       });
 
-    models.Student.student_attendance_data
-      .belongsTo(models.People.people, {
+    models.student.student_attendance_data
+      .belongsTo(models.people.people, {
         onDelete: 'CASCADE',
         foreignKey: {
           name: 'faculty_id',

@@ -1,5 +1,3 @@
-
-
 module.exports = function (sequelize, DataTypes) {
   const Events = sequelize.define('events', {
     id: {

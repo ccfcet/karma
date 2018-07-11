@@ -6,11 +6,11 @@ const models = require('../../../models');
 // menuType
 const menuDataFind = function (entitySlug, menuType) {
   return new Promise(((resolve, reject) => {
-    models.Menu.menu_data.findOne({
+    models.menu.menu_data.findOne({
       raw: true,
       include: [
         {
-          model: models.Entities.entities,
+          model: models.entities.entities,
           attributes: [],
           where: { entity_slug: entitySlug },
         },
