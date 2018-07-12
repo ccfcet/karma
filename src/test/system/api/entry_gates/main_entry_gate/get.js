@@ -11,12 +11,11 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('EntryGates - Main Entry Gate - GET', () => {
-  it('200', (done) => {
+  it('GET /', (done) => {
     chai.request(app)
       .get('/')
       .then((res) => {
         expect(res).to.have.status(200);
-        console.log(res.body);
         expect(res.body).to.deep.equal({
           name: 'Karma API',
           version: '1.0.0-alpha-1',
