@@ -1,4 +1,4 @@
-const Menu = {};
+const Other = {};
 
 Menu.obtainMenu = require('./obtainMenu');
 Menu.menuMethods = require('./menu');
