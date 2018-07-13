@@ -1,11 +1,12 @@
 const Promise = require('bluebird');
+const _ = require('lodash');
 const models = require('../../models');
 
 const peopleMethods = {};
 
 // Method to add people to the database
 peopleMethods.addPeople = info => new Promise((resolve, reject) => {
-  models.People.people.create(info)
+  models.people.people.create(info)
     .then((model) => {
       resolve(model);
     })
@@ -15,15 +16,24 @@ peopleMethods.addPeople = info => new Promise((resolve, reject) => {
     });
 });
 
+peopleMethods.getAllPeople = () => new Promise((resolve, reject) => {
+  models.people.people.findAll()
+    .then((people) => {
+      resolve(people);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 // Method to find people given their people_id
 peopleMethods.findPeopleById = peopleId => new Promise((resolve, reject) => {
-  models.People.people.findById(peopleId)
+  models.people.people.findById(peopleId)
     .then((person) => {
-      if (person !== null) {
+      if (_.isEmpty(person)) {
         resolve(person);
       } else {
         reject(new Error('No rows were returned from people table for the'
-        + 'given people_id'));
+          + 'given people_id'));
       }
     })
     .catch((err) => {
@@ -33,7 +43,7 @@ peopleMethods.findPeopleById = peopleId => new Promise((resolve, reject) => {
 
 // Method to insert a new slug
 peopleMethods.insertSlug = slugName => new Promise((resolve, reject) => {
-  models.People.people_information_slugs.findOrCreate({
+  models.people.people_information_slugs.findOrCreate({
     where: { slug_name: slugName },
   }).spread((slug, created) => {
     if (created) {
@@ -50,7 +60,7 @@ peopleMethods.insertSlug = slugName => new Promise((resolve, reject) => {
 
 // Method to get all slugs in the database
 peopleMethods.getSlugs = () => new Promise((resolve, reject) => {
-  models.People.people_information_slugs.findAll()
+  models.people.people_information_slugs.findAll()
     .then((slugs) => {
       if (slugs !== null) {
         resolve(slugs);
@@ -69,12 +79,12 @@ peopleMethods.getInformationUsingSlug = (
   peopleId,
   slugName,
 ) => new Promise((resolve, reject) => {
-  models.People.people_information_slugs.findOne({
+  models.people.people_information_slugs.findOne({
     where: { slug_name: slugName },
   })
     .then((slug) => {
       if (slug) {
-        models.People.people_information.findOne({
+        models.people.people_information.findOne({
           where: {
             people_id: peopleId,
             slug_id: slug.id,
@@ -85,7 +95,7 @@ peopleMethods.getInformationUsingSlug = (
               resolve(peopleInfomation);
             } else {
               reject(new Error('No entry was found in the people_information'
-              + 'table!'));
+                + 'table!'));
             }
           })
           .catch((err) => {
@@ -100,11 +110,11 @@ peopleMethods.getInformationUsingSlug = (
       reject(err);
     });
 
-  // models.People.people.findOne({
+  // models.people.people.findOne({
   //   where: { people_id: peopleId },
   //   include: [
   //     {
-  //       model: models.People.people_information_slugs,
+  //       model: models.people.people_information_slugs,
   //       where: {
   //         slug_name: slugName
   //       }
@@ -126,7 +136,7 @@ peopleMethods.putInformationUsingSlug = (
   slugName,
   slugValue,
 ) => new Promise((resolve, reject) => {
-  models.People.people_information_slugs.findOne({
+  models.people.people_information_slugs.findOne({
     where: { slug_name: slugName },
   })
     .then((slug) => {
@@ -161,7 +171,7 @@ peopleMethods.putInformationUsingSlug = (
                 .indexOf(slugValueTrimmed);
               if ((indexOfSlugValueInExistingData !== -1)) {
                 reject(new Error('The value for the slug given is already'
-                + 'present in the database'));
+                  + 'present in the database'));
               }
               existingData = resultsOne.data;
               // eslint-disable-next-line max-len
@@ -199,6 +209,21 @@ peopleMethods.putInformationUsingSlug = (
     })
     .catch((err) => {
       console.log(err);
+      reject(err);
+    });
+});
+
+peopleMethods.deleteAllPeople = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.people.people.destroy({
+    where: {},
+  })
+    .then((noOfRowsDeleted) => {
+      resolve(noOfRowsDeleted);
+    })
+    .catch((err) => {
       reject(err);
     });
 });

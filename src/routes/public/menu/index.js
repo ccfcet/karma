@@ -100,8 +100,6 @@ router.get('/:entity/:menuType', (req, res) => {
   const menuTypeVar = req.params.menuType;
 
   methods.Menu.obtainMenu(entityVar, menuTypeVar).then((result) => {
-    console.log('inside methods.Menu.obtainMenu');
-
     if (!_.isEmpty(result.data)) {
       res.json({
         title: result.title,

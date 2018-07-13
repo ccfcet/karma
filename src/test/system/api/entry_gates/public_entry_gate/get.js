@@ -10,15 +10,14 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('EntryGates - Main Entry Gate - GET', () => {
-  it('GET /', (done) => {
+describe('EntryGates - Public Entry Gate - GET', () => {
+  it('GET /public', (done) => {
     chai.request(app)
-      .get('/')
+      .get('/public')
       .then((res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.deep.equal({
-          name: 'Karma API',
-          version: '1.0.0-alpha-1',
+          status: 200,
         });
         done();
       }).catch((err) => {

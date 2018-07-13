@@ -10,8 +10,8 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('EntryGates - Main Entry Gate - GET', () => {
-  it('GET /', (done) => {
+describe('Public - Menu - GET', () => {
+  it('GET /public/menu/:entity/:menuType', (done) => {
     chai.request(app)
       .get('/')
       .then((res) => {

@@ -8,20 +8,21 @@ process.nextTick(() => {
 });
 
 chai.use(chaiHttp);
+
 const { expect } = chai;
 
-describe('EntryGates - Main Entry Gate - GET', () => {
-  it('GET /', (done) => {
+describe('EntryGates - Private Entry Gate - GET', () => {
+  it('GET /private', (done) => {
     chai.request(app)
-      .get('/')
+      .get('/private')
       .then((res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.deep.equal({
-          name: 'Karma API',
-          version: '1.0.0-alpha-1',
+          status: 200,
         });
         done();
-      }).catch((err) => {
+      })
+      .catch((err) => {
         done(err);
       });
   });
