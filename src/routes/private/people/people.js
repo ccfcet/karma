@@ -3,6 +3,23 @@ const express = require('express');
 const router = express.Router();
 const methods = require('data/methods');
 
+
+router.get('/', (req, res) => {
+  methods.people.getAllPeople()
+    .then((people) => {
+      res.json({
+        status: 'success',
+        people,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
+});
+
 /**
  * @api {get} /private/people/slug GetAllSlugs
  * @apiVersion 1.0.0-alpha-1
@@ -126,7 +143,7 @@ router.post('/', (req, res) => {
     info.phone_number = req.body.phoneNumber;
     methods.people.addPeople(info)
       .then((model) => {
-        res.json(model);
+        res.status(200).json(model);
       })
       .catch((err) => {
         res.status(500).json({
@@ -183,13 +200,13 @@ router.get('/:id', (req, res) => {
   methods.people.findPeopleById(id)
     .then((people) => {
       res.json({
-        data: people.dataValues,
+        data: people,
       });
     })
     .catch((err) => {
       res.status(500).json({
         status: 'error',
-        error: err.message,
+        error: err,
       });
     });
 });
