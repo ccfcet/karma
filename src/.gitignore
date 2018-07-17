@@ -1,3 +1,5 @@
+# from GitHub maintained .gitignore for NodeJS projects -- start
+
 # Logs
 logs
 *.log
@@ -57,8 +59,14 @@ typings/
 # dotenv environment variables file
 .env
 
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+
 # next.js build output
 .next
+
+# nuxt.js build output
+.nuxt
 
 # vuepress build output
 .vuepress/dist
@@ -66,5 +74,11 @@ typings/
 # Serverless directories
 .serverless
 
+# from GitHub maintained .gitignore for NodeJS projects -- end
+
+# additional -- start
+
 # apidoc folder
 apidoc
+
+# additional -- end
