@@ -1,4 +1,4 @@
-const axios = require('axios');
+// const axios = require('axios');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
@@ -12,47 +12,32 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-let newPeople = {};
+const newPeople = [];
 
-before(() => {
-  methods.people.deleteAllPeople();
+before((done) => {
+  methods.people.deleteAllPeople()
+    .then(() => {
+      const data = {
+        first_name: 'John',
+        middle_name: 'M',
+        last_name: 'Doe',
+        gender: 'M',
+        date_of_birth: '1987-01-01',
+        nationality: 'Indian',
+      };
 
-  const data = {
-    firstName: 'John',
-    middleName: 'M',
-    lastName: 'Doe',
-    gender: 'M',
-    dateOfBirth: '1987-01-01',
-    nationality: 'Indian',
-  };
-
-  axios({
-    method: 'post',
-    url: 'http://localhost:3000/private/people',
-    data,
-  })
-    .then((res) => {
-      // console.log(res.data);
-      newPeople = res.data;
+      methods.people.addPeople(data)
+        .then((model) => {
+          console.log(model.dataValues.created_at);
+          newPeople.push(JSON.parse(JSON.stringify(model.dataValues)));
+          done();
+        })
+        .catch((err) => console.log(err));
     })
-    .catch((error) => {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and
-        // an instance of http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
+    .catch((err) => {
+      console.log(err);
     });
+    
 });
 
 describe('People - GetPeople - GET', () => {
@@ -60,11 +45,10 @@ describe('People - GetPeople - GET', () => {
     chai.request(app)
       .get('/private/people')
       .then((res) => {
+        // const output  = res.body.people;
         expect(res).to.have.status(200);
-        expect(res.body).to.deep.equal({
-          status: "success",
-          people: newPeople
-        });
+        expect(res.body.status).equal("success");
+        expect(res.body.people).to.deep.equal(newPeople);
         done();
       })
       .catch((err) => {
@@ -74,5 +58,4 @@ describe('People - GetPeople - GET', () => {
 });
 
 after(() => {
-// console.log(inserted)
 });

@@ -220,8 +220,8 @@ peopleMethods.deleteAllPeople = () => new Promise((
   models.people.people.destroy({
     where: {},
   })
-    .then((noOfRowsDeleted) => {
-      resolve(noOfRowsDeleted);
+    .then(() => {
+      resolve();
     })
     .catch((err) => {
       reject(err);
