@@ -4,7 +4,7 @@ const models = require('../../models');
 
 const mediaMethods = {};
 mediaMethods.addMedia = info => new Promise((resolve, reject) => {
-  models.Media.media.create(info)
+  models.media.media.create(info)
     .then((newMedia) => {
       resolve(newMedia);
     })
@@ -33,7 +33,7 @@ mediaMethods.updateMedia = (info, data) => new Promise((resolve, reject) => {
 
 mediaMethods
   .deleteMedia = info => new Promise((resolve, reject) => {
-    models.Media.media.destroy({
+    models.media.media.destroy({
       where: { id: info.id },
     })
       .then((deleted) => {

@@ -5,7 +5,7 @@ const studentCourseGradesMethods = {};
 
 studentCourseGradesMethods
   .addStudentGrade = info => new Promise((resolve, reject) => {
-    models.Student.student_course_grades.create(info)
+    models.student.student_course_grades.create(info)
       .then((created) => {
         resolve(created);
       }).catch((err) => {
@@ -17,7 +17,7 @@ studentCourseGradesMethods
   .updateStudentGrade = (info, data) => new Promise((resolve, reject) => {
     console.log('Hello');
     console.log(info.people_id);
-    models.Student.student_course_grades.update(data, {
+    models.student.student_course_grades.update(data, {
       where: {
         people_id: info.people_id,
         course_id: info.course_id,
@@ -35,7 +35,7 @@ studentCourseGradesMethods
 
 studentCourseGradesMethods
   .deleteStudentGrade = info => new Promise((resolve, reject) => {
-    models.Student.student_course_grades.destroy({
+    models.student.student_course_grades.destroy({
       where: {
         people_id: info.people_id,
         course_id: info.course_id,

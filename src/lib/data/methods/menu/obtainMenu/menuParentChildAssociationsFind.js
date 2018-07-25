@@ -11,7 +11,7 @@ const { Op } = Sequelize;
 // matching either parent_id or child_id
 const menuParentChildAssociationsFind = function (ids) {
   return new Promise(((resolve, reject) => {
-    models.Menu.menu_parent_child_associations.findAll({
+    models.menu.menu_parent_child_associations.findAll({
       raw: true,
       where: {
         [Op.and]: [{ parent_id: { [Op.in]: ids } },

@@ -4,24 +4,23 @@ const models = require('../../models');
 
 const streamTypesMethods = {};
 
-streamTypesMethods.addStreamType = (info) => {
+streamTypesMethods.addStreamType = info => new Promise((resolve, reject) => {
   console.log(info);
-  return new Promise((resolve, reject) => {
-    models.Academics.stream_types.create(info)
-      .then((newStreamType) => {
-        resolve(newStreamType);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-};
+  models.academics.stream_types.create(info)
+    .then((newStreamType) => {
+      console.log(newStreamType);
+      resolve(newStreamType);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 
 streamTypesMethods.updateStreamTypes = (info, data) => new Promise((
   resolve,
   reject,
 ) => {
-  models.Academics.stream_types.update(data, {
+  models.academics.stream_types.update(data, {
     where: {
       id: info.id,
     },
@@ -42,7 +41,7 @@ streamTypesMethods.deleteStreamTypes = info => new Promise((
   resolve,
   reject,
 ) => {
-  models.Academics.stream_types.destroy({
+  models.academics.stream_types.destroy({
     where: {
       id: info.id,
 

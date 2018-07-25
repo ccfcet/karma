@@ -5,7 +5,7 @@ const models = require('../../models');
 const entityMethods = {};
 
 entityMethods.getAllEntities = () => new Promise((resolve, reject) => {
-  models.Entities.entities.findAll()
+  models.entities.entities.findAll()
     .then((entities) => {
       resolve(entities);
     })
@@ -15,7 +15,7 @@ entityMethods.getAllEntities = () => new Promise((resolve, reject) => {
 });
 
 entityMethods.findEntityById = id => new Promise((resolve, reject) => {
-  models.Entities.entities.findById(id)
+  models.entities.entities.findById(id)
     .then((entities) => {
       resolve(entities);
     })
@@ -25,7 +25,7 @@ entityMethods.findEntityById = id => new Promise((resolve, reject) => {
 });
 
 entityMethods.addEntity = newEntity => new Promise((resolve, reject) => {
-  models.Entities.entities.create(newEntity)
+  models.entities.entities.create(newEntity)
     .then((entity) => {
       resolve(entity);
     })
@@ -35,7 +35,7 @@ entityMethods.addEntity = newEntity => new Promise((resolve, reject) => {
 });
 
 entityMethods.updateEntity = updatedEntity => new Promise((resolve, reject) => {
-  models.Entities.entities.update(
+  models.entities.entities.update(
     {
       entity_name: updatedEntity.entity_name,
       entity_slug: updatedEntity.entity_slug,
@@ -57,7 +57,7 @@ entityMethods.updateEntity = updatedEntity => new Promise((resolve, reject) => {
 });
 
 entityMethods.deleteEntity = id => new Promise((resolve, reject) => {
-  models.Entities.entities.destroy({
+  models.entities.entities.destroy({
     where: {
       id,
     },

@@ -5,7 +5,7 @@ const models = require('../../models');
 const entityTypeMethods = {};
 
 entityTypeMethods.addEntityType = info => new Promise((resolve, reject) => {
-  models.Entities.entity_types.create(info)
+  models.entities.entity_types.create(info)
     .then((model) => {
       resolve(model);
     })
@@ -19,7 +19,7 @@ entityTypeMethods.updateEntityTypes = (info, data) => new Promise((
   resolve,
   reject,
 ) => {
-  models.Entities.entity_types.update(data, {
+  models.entities.entity_types.update(data, {
     where: {
       entity_type: info.entity_type,
       entity_type_slug: info.entity_type_slug,
@@ -39,7 +39,7 @@ entityTypeMethods.updateEntityTypes = (info, data) => new Promise((
 });
 
 entityTypeMethods.deleteEntityTypes = info => new Promise((resolve, reject) => {
-  models.Entities.entity_types.destroy({
+  models.entities.entity_types.destroy({
     where: { entity_type: info.entity_type },
   })
     .then((deleted) => {

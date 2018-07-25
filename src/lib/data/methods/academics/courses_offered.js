@@ -6,7 +6,7 @@ const coursesOfferedMethods = {};
 
 coursesOfferedMethods.getAllCoursesOffered = () => new Promise((resolve,
   reject) => {
-  models.Academics.courses_offered.findAll()
+  models.academics.courses_offered.findAll()
     .then((newCourseOffered) => {
       resolve(newCourseOffered);
     })
@@ -20,7 +20,7 @@ coursesOfferedMethods.addCoursesOffered = info => new Promise((
   resolve,
   reject,
 ) => {
-  models.Academics.courses_offered.create(info)
+  models.academics.courses_offered.create(info)
     .then((newCourseOffered) => {
       resolve(newCourseOffered);
     })
@@ -34,7 +34,7 @@ coursesOfferedMethods.updateCourses = (info, data) => new Promise((
   resolve,
   reject,
 ) => {
-  models.Academics.courses_offered.update(data, {
+  models.academics.courses_offered.update(data, {
     where: {
       id: info.id,
     },
@@ -51,7 +51,7 @@ coursesOfferedMethods.updateCourses = (info, data) => new Promise((
 });
 
 coursesOfferedMethods.deleteCourses = info => new Promise((resolve, reject) => {
-  models.Academics.courses_offered.destroy({
+  models.academics.courses_offered.destroy({
     where: {
       department_id: info.department_id,
       official_course_id: info.official_course_id,

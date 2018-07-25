@@ -1,9 +1,12 @@
 // const axios = require('axios');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const chaiExclude = require('chai-exclude');
 
+chai.use(chaiExclude);
 const app = require('../../../../../bin/www');
 const methods = require('../../../../../lib/data/methods');
+
 
 process.nextTick(() => {
   app.callback = run;
@@ -13,7 +16,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 const newPeople = [];
-
+const tempPeople = [];
 before((done) => {
   methods.people.deleteAllPeople()
     .then(() => {
@@ -29,7 +32,13 @@ before((done) => {
       methods.people.addPeople(data)
         .then((model) => {
           console.log(model.dataValues.created_at);
-          newPeople.push(JSON.parse(JSON.stringify(model.dataValues)));
+          newPeople.push(model.dataValues);
+
+          newPeople.map((datum) => {
+            delete datum.created_at;
+            delete datum.updated_at;
+            tempPeople.push(datum);
+          });
           done();
         })
         .catch(err => console.log(err));
@@ -47,7 +56,9 @@ describe('People - GetPeople - GET', () => {
         // const output  = res.body.people;
         expect(res).to.have.status(200);
         expect(res.body.status).equal('success');
-        expect(res.body.people).to.deep.equal(newPeople);
+        expect(res.body.people)
+          .excluding(['created_at', 'updated_at']).to.deep.equal(tempPeople);
+
         done();
       })
       .catch((err) => {

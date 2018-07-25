@@ -6,7 +6,7 @@ const facultyClassAdvisoryMethods = {};
 facultyClassAdvisoryMethods.addFacultyClassAdvisoryActivity = (info) => {
   console.log('inside adding faculty enrolment');
   return new Promise((resolve, reject) => {
-    models.Faculty.faculty_class_advisory_activity.create(info)
+    models.faculty.faculty_class_advisory_activity.create(info)
       .then((newfacultyClassAdvisoryActivity) => {
         resolve(newfacultyClassAdvisoryActivity);
       })
@@ -20,7 +20,7 @@ facultyClassAdvisoryMethods
   .updateFacultyClassAdvisoryActivity = (info, data) => {
     console.log(info, data);
     return new Promise((resolve, reject) => {
-      models.Faculty.faculty_class_advisory_activity.update(data, {
+      models.faculty.faculty_class_advisory_activity.update(data, {
         where: {
           id: info.id,
         },
@@ -43,7 +43,7 @@ facultyClassAdvisoryMethods
     resolve,
     reject,
   ) => {
-    models.Faculty.faculty_class_advisory_activity.destroy({
+    models.faculty.faculty_class_advisory_activity.destroy({
       where: {
         people_id: info.people_id,
         class_id: info.class_id,

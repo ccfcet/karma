@@ -7,7 +7,7 @@ returnObject.classesMethods = require('./classes');
 
 returnObject.obtainInformation = function (streamId, className, division) {
   return new Promise(((resolve, reject) => {
-    models.Academics.classes_time_tables.findOne({
+    models.academics.classes_time_tables.findOne({
       include:
         [
           {

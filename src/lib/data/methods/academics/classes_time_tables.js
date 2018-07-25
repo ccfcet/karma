@@ -8,7 +8,7 @@ const classesTimeTablesMethods = {};
 classesTimeTablesMethods.addClassesTimeTables = (info) => {
   console.log('inside adding Classes');
   return new Promise((resolve, reject) => {
-    models.Academics.classes_time_tables.create(info)
+    models.academics.classes_time_tables.create(info)
       .then((timeTable) => {
         resolve(timeTable);
       })
@@ -27,7 +27,7 @@ classesTimeTablesMethods.updateClassesTimeTablesWithClassNameAndDivision = (
     info.className,
     info.division,
   ).then((classesTimeTables) => {
-    models.Academics.classes_time_tables.update(data, {
+    models.academics.classes_time_tables.update(data, {
       where: {
         class_id: classesTimeTables.class_id,
         day: info.day,
@@ -51,7 +51,7 @@ classesTimeTablesMethods.updateClassesTimeTablesWithClassNameAndDivision = (
 classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
   console.log(info, data);
   return new Promise((resolve, reject) => {
-    models.Academics.classes_time_tables.update(data, {
+    models.academics.classes_time_tables.update(data, {
       where: {
         id: info.id,
       },
@@ -73,7 +73,7 @@ classesTimeTablesMethods.deleteClassesTimeTables = info => new Promise((
   resolve,
   reject,
 ) => {
-  models.Academics.classes_time_tables.destroy({
+  models.academics.classes_time_tables.destroy({
     where: {
       id: info.id,
 

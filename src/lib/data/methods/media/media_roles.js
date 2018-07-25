@@ -6,7 +6,7 @@ const mediaRolesMethods = {};
 mediaRolesMethods.addMediaRoles = (info) => {
   console.log('inside adding faculty enrolment');
   return new Promise((resolve, reject) => {
-    models.Media.media_roles.create(info)
+    models.media.media_roles.create(info)
       .then((newmediaRoles) => {
         resolve(newmediaRoles);
       })
@@ -38,7 +38,7 @@ mediaRolesMethods.updateMediaRoles = (info, data) => {
 
 mediaRolesMethods
   .deleteMediaRoles = info => new Promise((resolve, reject) => {
-    models.Media.media_roles.destroy({
+    models.media.media_roles.destroy({
       where: { id: info.id },
     })
       .then((deleted) => {

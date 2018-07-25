@@ -9,14 +9,14 @@ otherMethods.getMediaForEntityUsingMediaRoleSlug = data => new Promise((
   resolve,
   reject,
 ) => {
-  models.Media.media_roles.findOne({
+  models.media.media_roles.findOne({
     where: {
       role_slug: data.role_slug,
     },
   })
     .then((mediaRole) => {
       if (!_.isEmpty(mediaRole)) {
-        models.Media.media_role_entity_association.findAll({
+        models.media.media_role_entity_association.findAll({
           role_id: mediaRole.id,
           entity_id: data.entity_id,
         })
@@ -43,7 +43,7 @@ otherMethods.addMediaForEntityUsingMediaRoleSlug = data => new Promise((
   resolve,
   reject,
 ) => {
-  models.Media.media_roles.findOne({
+  models.media.media_roles.findOne({
     where: {
       role_slug: data.role_slug,
     },
@@ -57,7 +57,7 @@ otherMethods.addMediaForEntityUsingMediaRoleSlug = data => new Promise((
         })
           .then((medium) => {
             if (!_.isEmpty(medium)) {
-              models.Media.media_role_entity_association.create({
+              models.media.media_role_entity_association.create({
                 media_id: medium.id,
                 role_id: mediaRole.id,
                 entity_id: data.entity_id,
@@ -91,21 +91,21 @@ otherMethods.updateMediaForEntityUsingMediaRoleSlug = data => new Promise((
   resolve,
   reject,
 ) => {
-  models.Media.media_roles.findOne({
+  models.media.media_roles.findOne({
     where: {
       role_slug: data.role_slug,
     },
   })
     .then((mediaRole) => {
       if (!_.isEmpty(mediaRole)) {
-        models.Media.media.create({
+        models.media.media.create({
           media_title: data.media_title,
           media_location: data.media_location,
           media_file_name: data.media_file_name,
         })
           .then((medium) => {
             if (!_.isEmpty(medium)) {
-              models.Media.media_role_entity_association.update({
+              models.media.media_role_entity_association.update({
                 media_id: medium.id,
               }, {
                 where: {
@@ -145,14 +145,14 @@ otherMethods.getMediaForPeopleUsingMediaRoleSlug = info => new Promise((
   resolve,
   reject,
 ) => {
-  models.Media.media_roles.findOne({
+  models.media.media_roles.findOne({
     where: {
       role_slug: info.role_slug,
     },
   })
     .then((mediaRole) => {
       if (!_.isEmpty(mediaRole)) {
-        models.Media.media_role_people_association.findOne({
+        models.media.media_role_people_association.findOne({
           where: {
             role_id: mediaRole.id,
             people_id: info.people_id,
@@ -160,7 +160,7 @@ otherMethods.getMediaForPeopleUsingMediaRoleSlug = info => new Promise((
         })
           .then((mediaAtMediaRoleForPeopleGiven) => {
             if (!_.isEmpty(mediaAtMediaRoleForPeopleGiven)) {
-              models.Media.media.findById(mediaAtMediaRoleForPeopleGiven.id)
+              models.media.media.findById(mediaAtMediaRoleForPeopleGiven.id)
                 .then((media) => {
                   if (!_.isEmpty(media)) resolve(media);
                   else {
@@ -187,21 +187,21 @@ otherMethods.insertMediaForPeopleUsingMediaRoleSlug = data => new Promise((
   resolve,
   reject,
 ) => {
-  models.Media.media_roles.findOne({
+  models.media.media_roles.findOne({
     where: {
       role_slug: data.role_slug,
     },
   })
     .then((mediaRole) => {
       if (!_.isEmpty(mediaRole)) {
-        models.Media.media.create({
+        models.media.media.create({
           media_file_name: data.media_file_name,
           media_title: data.media_title,
           media_location: data.media_location,
         })
           .then((media) => {
             if (!_.isEmpty(media)) {
-              models.Media.media_role_people_association.create({
+              models.media.media_role_people_association.create({
                 media_id: media.id,
                 role_id: mediaRole.id,
                 people_id: data.people_id,

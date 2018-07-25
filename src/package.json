@@ -24,6 +24,7 @@
   "dependencies": {
     "authentication": "file:./lib/authentication",
     "celebrate": "^8.0.0",
+    "chai-exclude": "^1.0.8",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "data": "file:./lib/data",

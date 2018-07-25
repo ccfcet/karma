@@ -8,7 +8,7 @@ classesMethods.addClasses = (info) => {
   console.log('inside adding Classes');
 
   return new Promise((resolve, reject) => {
-    models.Academics.classes.create(info).then((model) => {
+    models.academics.classes.create(info).then((model) => {
       resolve(model);
     })
       .catch((err) => {
@@ -22,7 +22,7 @@ classesMethods.findBySlug = (streamId, slugName) => {
   console.log('finding by slugname');
 
   return new Promise((resolve, reject) => {
-    models.Academics.classes.findAll({
+    models.academics.classes.findAll({
       where:
         {
           stream_id: streamId,
@@ -45,7 +45,7 @@ classesMethods.findBySlug = (streamId, slugName) => {
 classesMethods.findById = (id) => {
   console.log('finding by id');
   return new Promise((resolve, reject) => {
-    models.Academics.classes.findAll({
+    models.academics.classes.findAll({
       where:
       { id },
 
@@ -67,7 +67,7 @@ classesMethods.updateClasses = (info, data) => new Promise((
   resolve,
   reject,
 ) => {
-  models.Academics.classes.update(data, {
+  models.academics.classes.update(data, {
     where: {
       id: info.id,
     },
@@ -85,7 +85,7 @@ classesMethods.updateClasses = (info, data) => new Promise((
 });
 
 classesMethods.deleteClasses = info => new Promise((resolve, reject) => {
-  models.Academics.classes.destroy({
+  models.academics.classes.destroy({
     where: {
       stream_id: info.stream_id,
       division: info.division,

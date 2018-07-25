@@ -5,7 +5,7 @@ const facultyMethods = {};
 facultyMethods.addFacultyAcademicEnrolmentActivity = (info) => {
   console.log('inside adding faculty enrolment');
   return new Promise((resolve, reject) => {
-    models.Faculty.faculty_academic_enrolment_activity.create(info)
+    models.faculty.faculty_academic_enrolment_activity.create(info)
       .then((newfacultyAcademicEnrolemntActivity) => {
         resolve(newfacultyAcademicEnrolemntActivity);
       })
@@ -19,7 +19,7 @@ facultyMethods
   .updateFacultyAcademicEnrolmentActivity = (info, data) => {
     console.log(info, data);
     return new Promise((resolve, reject) => {
-      models.Faculty.faculty_academic_enrolment_activity.update(data, {
+      models.faculty.faculty_academic_enrolment_activity.update(data, {
         where: {
           id: info.id,
         },
@@ -41,7 +41,7 @@ facultyMethods.deleteFacultyAcademicEnrolmentActivity = info => new Promise((
   resolve,
   reject,
 ) => {
-  models.Faculty.faculty_academic_enrolment_activity.destroy({
+  models.faculty.faculty_academic_enrolment_activity.destroy({
     where: {
       people_id: info.people_id,
       course_id: info.course_id,

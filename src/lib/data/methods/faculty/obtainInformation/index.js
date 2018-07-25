@@ -4,7 +4,7 @@ const models = require('../../../models');
 
 const obtainInformation = function () {
   return new Promise(((resolve, reject) => {
-    models.Faculty.faculty_academic_enrolment_activity.findAll({
+    models.faculty.faculty_academic_enrolment_activity.findAll({
       include: [
         {
           model: models.People.people,

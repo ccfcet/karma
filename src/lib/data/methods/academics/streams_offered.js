@@ -7,7 +7,7 @@ const streamsOfferedMethods = {};
 streamsOfferedMethods.addStreamsOffered = (info) => {
   console.log(info);
   return new Promise((resolve, reject) => {
-    models.Academics.streams_offered.create(info)
+    models.academics.streams_offered.create(info)
       .then((newStreamOffered) => {
         resolve(newStreamOffered);
       })
@@ -21,7 +21,7 @@ streamsOfferedMethods.updateStreamsOffered = (info, data) => new Promise((
   resolve,
   reject,
 ) => {
-  models.Academics.streams_offered.update(data, {
+  models.academics.streams_offered.update(data, {
     where: {
       id: info.id,
     },
@@ -42,7 +42,7 @@ streamsOfferedMethods.deleteStreamsOffered = info => new Promise((
   resolve,
   reject,
 ) => {
-  models.Academics.streams_offered.destroy({
+  models.academics.streams_offered.destroy({
     where: {
       id: info.id,
 

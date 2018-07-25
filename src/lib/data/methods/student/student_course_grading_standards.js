@@ -5,7 +5,7 @@ const studentCourseGradingStandards = {};
 
 studentCourseGradingStandards
   .createStandard = info => new Promise((resolve, reject) => {
-    models.Student.student_course_grading_standards.create(info)
+    models.student.student_course_grading_standards.create(info)
       .then((created) => {
         resolve(created);
       }).catch((err) => {

@@ -7,7 +7,7 @@ mediaAssociationMethods
   .addMediaRolePeopleAssociation = (info) => {
     console.log('inside adding faculty enrolment');
     return new Promise((resolve, reject) => {
-      models.Media.media_role_people_association.create(info)
+      models.media.media_role_people_association.create(info)
         .then((newmediaRolePeopleAssociation) => {
           resolve(newmediaRolePeopleAssociation);
         })
@@ -40,7 +40,7 @@ mediaAssociationMethods
 
 mediaAssociationMethods
   .deleteMediaRolePeopleAssociation = info => new Promise((resolve, reject) => {
-    models.Media.media_role_people_association.destroy({
+    models.media.media_role_people_association.destroy({
       where: { id: info.id },
     })
       .then((deleted) => {

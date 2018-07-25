@@ -5,7 +5,7 @@ const models = require('../../models');
 const menuMethods = {};
 
 menuMethods.addMenu = data => new Promise((resolve, reject) => {
-  models.Menu.menu_data.create(data)
+  models.menu.menu_data.create(data)
     .then((menuData) => {
       if (!_.isEmpty(menuData)) {
         resolve(menuData);
@@ -20,7 +20,7 @@ menuMethods.addMenu = data => new Promise((resolve, reject) => {
 });
 
 menuMethods.deleteMenuById = id => new Promise((resolve, reject) => {
-  models.Menu.menu_data.delete({
+  models.menu.menu_data.delete({
     where: {
       id,
     },
@@ -36,3 +36,5 @@ menuMethods.deleteMenuById = id => new Promise((resolve, reject) => {
       reject(err);
     });
 });
+
+module.exports = menuMethods;
