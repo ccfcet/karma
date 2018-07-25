@@ -32,12 +32,11 @@ before((done) => {
           newPeople.push(JSON.parse(JSON.stringify(model.dataValues)));
           done();
         })
-        .catch((err) => console.log(err));
+        .catch(err => console.log(err));
     })
     .catch((err) => {
       console.log(err);
     });
-    
 });
 
 describe('People - GetPeople - GET', () => {
@@ -47,7 +46,7 @@ describe('People - GetPeople - GET', () => {
       .then((res) => {
         // const output  = res.body.people;
         expect(res).to.have.status(200);
-        expect(res.body.status).equal("success");
+        expect(res.body.status).equal('success');
         expect(res.body.people).to.deep.equal(newPeople);
         done();
       })
