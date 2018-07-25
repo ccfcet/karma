@@ -4,7 +4,7 @@ const chaiExclude = require('chai-exclude');
 
 chai.use(chaiExclude);
 const app = require('../../../../../bin/www');
-// /const methods = require('../../../../../lib/data/methods');
+const methods = require('../../../../../lib/data/methods');
 
 
 process.nextTick(() => {
@@ -16,6 +16,15 @@ const { expect } = chai;
 
 
 describe('Post stream types - POST', () => {
+  beforeEach((done) => {
+        methods.Academics.streamTypesMethods.deleteAllStreamTypes().then(() =>{
+            console.log("done")
+            done();
+        })
+        .catch((err) =>{
+            console.log(err)
+        })
+  })
   it('POST /private/academics/stream_types/', (done) => {
     const classes = {
       streamType: '5',

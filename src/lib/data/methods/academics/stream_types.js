@@ -5,10 +5,8 @@ const models = require('../../models');
 const streamTypesMethods = {};
 
 streamTypesMethods.addStreamType = info => new Promise((resolve, reject) => {
-  console.log(info);
   models.academics.stream_types.create(info)
     .then((newStreamType) => {
-      console.log(newStreamType);
       resolve(newStreamType);
     })
     .catch((err) => {
@@ -34,6 +32,20 @@ streamTypesMethods.updateStreamTypes = (info, data) => new Promise((
       }
     }).catch((error) => {
       reject(error);
+    });
+});
+streamTypesMethods.deleteAllStreamTypes = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.academics.stream_types.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
     });
 });
 

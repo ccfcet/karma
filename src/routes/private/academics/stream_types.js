@@ -29,7 +29,6 @@ router.post('/', (req, res) => {
   info.stream_type_short = req.body.streamTypeShort;
   info.start_date = req.body.startDate;
   info.end_date = req.body.endDate;
-  console.log(info);
   methods.Academics.streamTypesMethods.addStreamType(info)
     .then((model) => {
       res.send(model);
