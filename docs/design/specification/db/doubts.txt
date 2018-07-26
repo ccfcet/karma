@@ -1,6 +1,0 @@
-student_attendance_data
-  use of time in student_attendance_data - should we refer timeslots ?
-media ? check ?
-slugs for all tables?
-posts?
-entity people enrolment?
