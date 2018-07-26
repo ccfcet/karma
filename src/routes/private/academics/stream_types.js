@@ -17,11 +17,23 @@ const methods = require('data/methods');
  *       'status': 200
  *     }
  */
+
 router.get('/', (req, res) => {
-  res.send({
-    status: 'functional',
-  });
+  methods.Academics.streamTypesMethods.getAllStreamTypes()
+    .then((classes) => {
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
 });
+
 
 router.post('/', (req, res) => {
   const info = {};
