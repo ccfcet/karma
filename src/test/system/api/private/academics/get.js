@@ -20,28 +20,55 @@ const tempPeople = [];
 
 describe('/PUT/:streamid ', () => {
   it('it should UPDATE streamtypes given the streamid', (done) => {
-    const streamid = 96;
-    const classes = {
-      streamType: '5',
-      streamTypeShort: '10',
-      startDate: '2018-07-25',
-      endDate: '2018-07-29',
-    };
-
-    chai.request(app)
-      .put(`/private/academics/stream_types/${streamid}`)
-      .send(classes)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.a('object');
-        console.log(res.body)
-        expect(res.body.status).to.eql('updated stream type');
-
-        done();
-      });
+    methods.Academics.streamTypesMethods.getAllStreamTypes()
+    .then((res) =>{
+      const streamid = res[0].dataValues.id;
+      const classes = {
+        streamType: '5',
+        streamTypeShort: '10',
+        startDate: '2018-07-25',
+        endDate: '2018-07-29',
+      };
+  
+      chai.request(app)
+        .put(`/private/academics/stream_types/${streamid}`)
+        .send(classes)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body.status).to.eql('updated stream type');
+  
+          done();
+        });
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
   });
 });
 
+
+describe('/DELETE stream_types with id ', () => {
+  it('it should DELETE streamtypes given the streamid', (done) => {
+    methods.Academics.streamTypesMethods.getAllStreamTypes()
+    .then((res) =>{
+      const streamId = res[0].dataValues.id;
+
+      chai.request(app)
+        .delete('/private/academics/stream_types/')
+        .send({streamId})
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body.status).to.eql('stream Type deleted');
+          done();
+        });
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  });
+});
 
 
 describe('StreamTypes - GetStreamTypes - GET', () => {
