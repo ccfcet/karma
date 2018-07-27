@@ -17,11 +17,23 @@ const methods = require('data/methods');
  *       'status': 200
  *     }
  */
+
 router.get('/', (req, res) => {
-  res.send({
-    status: 200,
-  });
+  methods.Academics.timeSlotsMethods.getAllTimeSlots()
+    .then((classes) => {
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
 });
+
 
 router.post('/', (req, res) => {
   const info = {};
@@ -76,7 +88,7 @@ router.delete('/', (req, res) => {
   methods.Academics.timeSlotsMethods.deleteTimeSlots(info)
     .then((model) => {
       res.status(200).json({
-        status: 'stream Type deleted',
+        status: 'time Slot deleted',
         state: model,
       });
     })
