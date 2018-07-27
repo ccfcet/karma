@@ -16,23 +16,20 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 
-const newPeople = [];
-const tempPeople = [];
-
 describe('/PUT/:timeslotid ', () => {
   it('it should UPDATE timeslots given the slotid', (done) => {
     methods.Academics.timeSlotsMethods.getAllTimeSlots()
     .then((res) =>{
       const timeSlotId = res[0].dataValues.id;
+      var datetime ="2000-01-01 01:00:00 UTC";
       const classes = {
-        streamType: '5',
-        streamTypeShort: '10',
-        startDate: '2018-07-25',
-        endDate: '2018-07-29',
-      };
+        startTimestamp: datetime.substr(11, 8),
+        endTimestamp: datetime.substr(11, 8),
+    };
+
   
       chai.request(app)
-        .put(`/private/academics/stream_types/${streamid}`)
+        .put(`/private/academics/time_slots/${timeSlotId}`)
         .send(classes)
         .end((err, res) => {
           expect(res).to.have.status(200);

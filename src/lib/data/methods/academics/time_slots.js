@@ -22,6 +22,7 @@ timeSlotsMethods.getAllTimeSlots = () => new Promise((resolve, reject) => {
       resolve(timeSlots);
     })
     .catch((err) => {
+      console.log('no row')
       reject(err);
     });
 });

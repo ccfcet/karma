@@ -17,20 +17,19 @@ const { expect } = chai;
 
 describe('Post time slots - POST', () => {
     beforeEach((done) => {
-        methods.Academics.timeSlotsMethods.deleteAllTimeSlots()
-          .then(()  =>{
-              console.log("done")
-              done();
-          })
-          .catch((err) =>{
-              console.log(err)
-          })
-    })
+        methods.Academics.timeSlotsMethods.deleteAllTimeSlots().then(() =>{
+            console.log("done")
+            done();
+        })
+        .catch((err) =>{
+            console.log(err)
+        })
+  })
     it('POST /private/academics/time_slots/', (done) => {
         var datetime ="2000-01-01 02:00:00 UTC";
         const classes = {
-          start_timestamp: datetime.substr(11, 8),
-          end_timestamp: datetime.substr(11, 8),
+            startTimestamp: datetime.substr(11, 8),
+            endTimestamp: datetime.substr(11, 8),
         };
       chai.request(app)
         .post('/private/academics/time_slots/')
