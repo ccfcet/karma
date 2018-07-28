@@ -78,7 +78,7 @@ router.delete('/', (req, res) => {
   methods.Media.mediaMethods.deleteMedia(info)
     .then((model) => {
       res.status(200).json({
-        status: 'Time table deleted',
+        status: 'media deleted',
         state: model,
       });
     })
