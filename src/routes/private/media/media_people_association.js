@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
   info.people_id = req.body.peopleId;
 
 
-  methods.media.mediaAssociationMethods
+  methods.Media.mediaAssociationMethods
     .addMediaRolePeopleAssociation(info)
     .then((model) => {
       res.json(model);
@@ -42,7 +42,7 @@ router.put('/:id', (req, res) => {
     data.role_id = req.body.roleId;
   }
 
-  methods.media
+  methods.Media
     .mediaAssociationMethods
     .updateMediaRolePeopleAssociation(info, data)
     .then((model) => {
@@ -64,7 +64,7 @@ router.delete('/', (req, res) => {
   const info = {};
   info.id = req.body.id;
 
-  methods.media
+  methods.Media
     .mediaAssociationMethods
     .deleteMediaRolePeopleAssociation(info)
     .then((model) => {

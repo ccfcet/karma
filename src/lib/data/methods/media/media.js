@@ -31,6 +31,22 @@ mediaMethods.updateMedia = (info, data) => new Promise((resolve, reject) => {
     });
 });
 
+mediaMethods.deleteAllMedia = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.media.media.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
+      console.log('deleted')
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 mediaMethods
   .deleteMedia = info => new Promise((resolve, reject) => {
     models.media.media.destroy({

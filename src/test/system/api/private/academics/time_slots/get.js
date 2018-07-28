@@ -62,9 +62,6 @@ describe('TimeSlots - GetTimeSlots - GET', () => {
         expect(res.body.status).equal('success');
         var re = [];
         re= res.body.classes
-        console.log(re[0].start_timestamp)
-        console.log(re[0].end_timestamp)
-
         expect(re)
           .excluding(['created_at', 'updated_at']).to.deep.equal(tempPeople);
 
