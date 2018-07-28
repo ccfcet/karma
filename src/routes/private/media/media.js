@@ -4,7 +4,20 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  res.send({ status: 200 });
+  console.log('got into route')
+  methods.Media.mediaMethods.getAllMedia()
+    .then((classes) => {
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
 });
 
 router.post('/', (req, res) => {
@@ -15,7 +28,7 @@ router.post('/', (req, res) => {
   info.people_id = req.body.peopleId;
 
 
-  methods.media.mediaMethods
+  methods.Media.mediaMethods
     .addMedia(info)
     .then((model) => {
       res.json(model);
@@ -42,7 +55,7 @@ router.put('/:id', (req, res) => {
     data.role_id = req.body.roleId;
   }
 
-  methods.media.mediaMethods.updateMedia(info, data)
+  methods.Media.mediaMethods.updateMedia(info, data)
     .then((model) => {
       res.status(200).json({
         status: 'updated',
@@ -62,7 +75,7 @@ router.delete('/', (req, res) => {
   const info = {};
   info.id = req.body.id;
 
-  methods.media.mediaMethods.deleteMedia(info)
+  methods.Media.mediaMethods.deleteMedia(info)
     .then((model) => {
       res.status(200).json({
         status: 'Time table deleted',

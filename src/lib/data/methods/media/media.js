@@ -13,6 +13,18 @@ mediaMethods.addMedia = info => new Promise((resolve, reject) => {
     });
 });
 
+mediaMethods.getAllMedia = () => new Promise((resolve, reject) => {
+  console.log('entered getallmedia')
+  models.media.media.findAll()
+    .then((classes) => {
+      resolve(classes);
+
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 mediaMethods.updateMedia = (info, data) => new Promise((resolve, reject) => {
   models.media.media.update(data, {
     where: {
@@ -35,6 +47,7 @@ mediaMethods.deleteAllMedia = () => new Promise((
   resolve,
   reject,
 ) => {
+  console.log('entered delete')
   models.media.media.destroy({
     where: {},
   })
@@ -64,4 +77,20 @@ mediaMethods
         reject(err);
       });
   });
+
+  mediaMethods.deleteAllMedia = () => new Promise((
+    resolve,
+    reject,
+  ) => {
+    models.media.media.destroy({
+      where: {},
+    })
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
 module.exports = mediaMethods;
