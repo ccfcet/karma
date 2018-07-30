@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-  const EntityInfromationSlugs = sequelize.define('entity_information_slugs', {
+  const EntityInformationSlugs = sequelize.define('entity_information_slugs', {
     id: {
       type: DataTypes.INTEGER(),
       primaryKey: true,
@@ -12,5 +12,5 @@ module.exports = function (sequelize, DataTypes) {
     },
   });
 
-  return EntityInfromationSlugs;
+  return EntityInformationSlugs;
 };
