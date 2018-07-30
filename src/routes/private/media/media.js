@@ -4,9 +4,10 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  console.log('got into route')
+  console.log('got into route');
   methods.Media.mediaMethods.getAllMedia()
     .then((classes) => {
+      console.log(classes)
       res.json({
         status: 'success',
         classes,
@@ -23,9 +24,9 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const info = {};
 
-  info.media_id = req.body.mediaId;
-  info.role_id = req.body.roleId;
-  info.people_id = req.body.peopleId;
+  info.media_title = req.body.mediaTitle;
+  info.media_file_name = req.body.mediaFileName;
+  info.media_location = req.body.mediaLocation;
 
 
   methods.Media.mediaMethods
@@ -47,18 +48,18 @@ router.put('/:id', (req, res) => {
 
   info.id = req.params.id; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'mediaId') && Object
-    .prototype.hasOwnProperty.call(req.body, 'peopleId') && Object.prototype
-    .hasOwnProperty.call(req.body, 'roleId')) {
-    data.media_id = req.body.mediaId;
-    data.people_id = req.body.peopleId;
-    data.role_id = req.body.roleId;
+  if (Object.prototype.hasOwnProperty.call(req.body, 'mediaTitle') && Object
+    .prototype.hasOwnProperty.call(req.body, 'mediaFileName') && Object.prototype
+    .hasOwnProperty.call(req.body, 'mediaLocation')) {
+    data.media_title = req.body.mediaTitle;
+    data.media_file_name = req.body.mediaFileName;
+    data.media_location = req.body.mediaLocation;
   }
 
   methods.Media.mediaMethods.updateMedia(info, data)
     .then((model) => {
       res.status(200).json({
-        status: 'updated',
+        status: 'updated media',
         state: model[0],
       });
     })

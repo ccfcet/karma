@@ -14,11 +14,11 @@ mediaMethods.addMedia = info => new Promise((resolve, reject) => {
 });
 
 mediaMethods.getAllMedia = () => new Promise((resolve, reject) => {
-  console.log('entered getallmedia')
+  console.log('entered getallmedia');
   models.media.media.findAll()
     .then((classes) => {
       resolve(classes);
-
+      console.log(classes)
     })
     .catch((err) => {
       reject(err);
@@ -34,6 +34,7 @@ mediaMethods.updateMedia = (info, data) => new Promise((resolve, reject) => {
     .then((updated) => {
       if (updated > 0) {
         resolve(updated);
+        console.log(updated)
       } else {
         reject(new Error());
         // throw ('err')
@@ -47,13 +48,13 @@ mediaMethods.deleteAllMedia = () => new Promise((
   resolve,
   reject,
 ) => {
-  console.log('entered delete')
+  console.log('entered delete');
   models.media.media.destroy({
     where: {},
   })
     .then(() => {
       resolve();
-      console.log('deleted')
+      console.log('deleted');
     })
     .catch((err) => {
       reject(err);
@@ -74,21 +75,6 @@ mediaMethods
       })
       .catch((err) => {
         console.log(err);
-        reject(err);
-      });
-  });
-
-  mediaMethods.deleteAllMedia = () => new Promise((
-    resolve,
-    reject,
-  ) => {
-    models.media.media.destroy({
-      where: {},
-    })
-      .then(() => {
-        resolve();
-      })
-      .catch((err) => {
         reject(err);
       });
   });
