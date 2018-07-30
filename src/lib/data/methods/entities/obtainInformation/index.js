@@ -12,7 +12,8 @@ const returnObject = {};
 
 returnObject.obtainInformation = function (entitySlug, entityInformationSlug) {
   return new Promise((resolve, reject) => {
-    if (_.includes(_.keys(models.entities.entities.attributes), entityInformationSlug)) {
+    if (_.includes(_.keys(models.entities.entities.attributes),
+      entityInformationSlug)) {
       models.entities.entities.findOne({
         where: { entity_slug: entitySlug },
         attributes: [entityInformationSlug],

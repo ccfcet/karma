@@ -1,2 +1,0 @@
-# Checklist
-- [ ] News APIs

@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../bin/www');
 const methods = require('../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -14,10 +13,7 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-
-const newPeople = [];
-const tempPeople = [];
-
+let newPeople = [];
 
 describe('StreamTypes - GetStreamTypes - GET', () => {
   beforeEach((done) => {
@@ -33,14 +29,8 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
 
         methods.Academics.streamTypesMethods.addStreamType(classes)
           .then((model) => {
-            newPeople.push(model.dataValues);
+            newPeople = model.dataValues;
 
-            newPeople.map((datum) => {
-              delete datum.created_at;
-              delete datum.updated_at;
-
-              tempPeople.push(datum);
-            });
             done();
           })
           .catch(err => console.log(err));
@@ -49,7 +39,6 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
         console.log(err);
       });
   });
-
 
   it('GET /private/Academics/stream_types/', (done) => {
     chai.request(app)
@@ -64,7 +53,7 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
         re[0].end_date = new Date(re[0].end_date);
 
         expect(re)
-          .excluding(['created_at', 'updated_at']).to.deep.equal(tempPeople);
+          .excluding(['created_at', 'updated_at']).to.deep.equal(newPeople);
 
         done();
       })
@@ -73,7 +62,6 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
       });
   });
 });
-
 
 describe('Post stream types - POST', () => {
   beforeEach((done) => {
