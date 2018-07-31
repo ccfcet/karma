@@ -1,4 +1,4 @@
-const chai = require('chai');
+/*const chai = require('chai');
 const chaiHttp = require('chai-http');
 const chaiExclude = require('chai-exclude');
 
@@ -23,14 +23,21 @@ const tempPeople = [];
 
 describe('StreamTypes - GetStreamTypes - GET', () => {
   beforeEach((done) => {
- 
-        console.log('entered')
-        const classes = {
-          stream_type_long: '5',
-          stream_type_short: '5',
-          start_date: '2018-07-25',
-          end_date: '2018-07-29',
-        };
+    methods.Academics.streamTypesMethods.deleteAllStreamTypes()
+      .then(() => {
+        methods.Entities.entityMethods.deleteAllEntities()
+          .then(() => {
+            methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+              .then() => {
+
+              }
+          console.log('entered')
+          const classes = {
+            stream_type_long: '5',
+            stream_type_short: '5',
+            start_date: '2018-07-25',
+            end_date: '2018-07-29',
+            };
   
         methods.Academics.streamTypesMethods.addStreamType(classes)
           .then((model) => {
@@ -47,9 +54,16 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
             done();
           })
           .catch(err => console.log(err));
-      })
-    
-
+      })  
+      .catch((err) => {
+        console.log(err);
+      });
+    });
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+}
   
 
   it('GET /private/Academics/stream_types/', (done) => {
@@ -69,20 +83,12 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
 
         done();
       })
+        })
+    
       .catch((err) => {
         done(err);
       });
   });
-
-  afterEach((done) =>{
-    methods.Academics.streamTypesMethods.deleteAllStreamTypes()
-     .then(() =>{
-        console.log('deleted')
-        done()
-     })
-     .catch((err) =>{
-      console.log(err)
-     })
-  })
 });
 
+*/

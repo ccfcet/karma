@@ -42,5 +42,14 @@ describe('Post stream types - POST', () => {
           done();
         });
     });
+    afterEach((done) => {
+      methods.Academics.streamTypesMethods.deleteAllStreamTypes().then(() =>{
+          console.log("done")
+          done();
+      })
+      .catch((err) =>{
+          console.log(err)
+      })
+})
   });
   

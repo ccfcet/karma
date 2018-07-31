@@ -14,8 +14,39 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
+const newPeople = [];
+const tempPeople = [];
+
 
 describe('/DELETE stream_types with id ', () => {
+
+    beforeEach((done) => {
+ 
+      console.log('entered')
+      const classes = {
+        stream_type_long: '5',
+        stream_type_short: '5',
+        start_date: '2018-07-25',
+        end_date: '2018-07-29',
+      };
+
+      methods.Academics.streamTypesMethods.addStreamType(classes)
+        .then((model) => {
+          newPeople.push(model.dataValues);
+
+          newPeople.map((datum) => {
+
+            delete datum.created_at;
+            delete datum.updated_at;
+
+            tempPeople.push(datum);
+           
+          });
+          done();
+        })
+        .catch(err => console.log(err));
+ 
+      })
     it('it should DELETE streamtypes given the streamid', (done) => {
       methods.Academics.streamTypesMethods.getAllStreamTypes()
       .then((res) =>{

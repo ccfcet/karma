@@ -20,11 +20,38 @@ const newPeople = [];
 const tempPeople = [];
 
 describe('/PUT/:streamid ', () => {
+  beforeEach((done) => {
+ 
+    console.log('entered')
+    const classes = {
+      stream_type_long: '5',
+      stream_type_short: '5',
+      start_date: '2018-07-25',
+      end_date: '2018-07-29',
+    };
+
+    methods.Academics.streamTypesMethods.addStreamType(classes)
+      .then((model) => {
+        newPeople.push(model.dataValues);
+
+        newPeople.map((datum) => {
+
+          delete datum.created_at;
+          delete datum.updated_at;
+
+          tempPeople.push(datum);
+         
+        });
+        done();
+      })
+      .catch(err => console.log(err));
+  })
+
   it('it should UPDATE streamtypes given the streamid', (done) => {
     methods.Academics.streamTypesMethods.getAllStreamTypes()
     .then((res) =>{
       const streamid = res[0].dataValues.id;
-      const classes = {
+      const Types = {
         streamType: '5',
         streamTypeShort: '10',
         startDate: '2018-07-25',
@@ -33,7 +60,7 @@ describe('/PUT/:streamid ', () => {
   
       chai.request(app)
         .put(`/private/academics/stream_types/${streamid}`)
-        .send(classes)
+        .send(Types)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.a('object');
