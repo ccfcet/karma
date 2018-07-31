@@ -28,18 +28,22 @@ describe('Media - GetMedia - GET', () => {
           media_file_name: 'Hey there',
           media_location: 'Kottayam',
         };
-        console.log('deleted')
-  
+        console.log('deleted');
+
         methods.Media.mediaMethods.addMedia(data)
           .then((model) => {
             console.log(model.dataValues.created_at);
             newPeople.push(model.dataValues);
-  
-            newPeople.map((datum) => {
-              delete datum.created_at;
-              delete datum.updated_at;
-              tempPeople.push(datum);
+
+            const ret = newPeople.map((datum) => {
+              const dat = datum;
+              delete dat.created_at;
+              delete dat.updated_at;
+              return dat;
             });
+            console.log(ret);
+            tempPeople.push(ret[0]);
+
             done();
           })
           .catch(err => console.log(err));
@@ -56,7 +60,7 @@ describe('Media - GetMedia - GET', () => {
         expect(res).to.have.status(200);
         expect(res.body.status).equal('success');
         expect(res.body.classes)
-        .excluding(['created_at','updated_at']).to.deep.equal(tempPeople);
+          .excluding(['created_at', 'updated_at']).to.deep.equal(tempPeople);
 
         done();
       })

@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   console.log('got into route');
   methods.Media.mediaMethods.getAllMedia()
     .then((classes) => {
-      console.log(classes)
+      console.log(classes);
       res.json({
         status: 'success',
         classes,
@@ -49,8 +49,8 @@ router.put('/:id', (req, res) => {
   info.id = req.params.id; // key values for finding row
 
   if (Object.prototype.hasOwnProperty.call(req.body, 'mediaTitle') && Object
-    .prototype.hasOwnProperty.call(req.body, 'mediaFileName') && Object.prototype
-    .hasOwnProperty.call(req.body, 'mediaLocation')) {
+    .prototype.hasOwnProperty.call(req.body, 'mediaFileName') && Object
+    .prototype.hasOwnProperty.call(req.body, 'mediaLocation')) {
     data.media_title = req.body.mediaTitle;
     data.media_file_name = req.body.mediaFileName;
     data.media_location = req.body.mediaLocation;

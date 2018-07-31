@@ -22,7 +22,7 @@ timeSlotsMethods.getAllTimeSlots = () => new Promise((resolve, reject) => {
       resolve(timeSlots);
     })
     .catch((err) => {
-      console.log('no row')
+      console.log('no row');
       reject(err);
     });
 });
@@ -57,7 +57,7 @@ timeSlotsMethods.deleteAllTimeSlots = () => new Promise((
   })
     .then(() => {
       resolve();
-      console.log('deleted')
+      console.log('deleted');
     })
     .catch((err) => {
       reject(err);

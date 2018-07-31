@@ -19,52 +19,48 @@ const tempPeople = [];
 
 
 describe('/DELETE stream_types with id ', () => {
+  beforeEach((done) => {
+    console.log('entered');
+    const classes = {
+      stream_type_long: '5',
+      stream_type_short: '5',
+      start_date: '2018-07-25',
+      end_date: '2018-07-29',
+    };
 
-    beforeEach((done) => {
- 
-      console.log('entered')
-      const classes = {
-        stream_type_long: '5',
-        stream_type_short: '5',
-        start_date: '2018-07-25',
-        end_date: '2018-07-29',
-      };
-
-      methods.Academics.streamTypesMethods.addStreamType(classes)
-        .then((model) => {
-          newPeople.push(model.dataValues);
-
-          newPeople.map((datum) => {
-
-            delete datum.created_at;
-            delete datum.updated_at;
-
-            tempPeople.push(datum);
-           
-          });
-          done();
-        })
-        .catch(err => console.log(err));
- 
+    methods.Academics.streamTypesMethods.addStreamType(classes)
+      .then((model) => {
+        newPeople.push(model.dataValues);
+        const ret = newPeople.map((datum) => {
+          const dat = datum;
+          delete dat.created_at;
+          delete dat.updated_at;
+          return dat;
+        });
+        console.log(ret);
+        tempPeople.push(ret[0]);
+        done();
       })
-    it('it should DELETE streamtypes given the streamid', (done) => {
-      methods.Academics.streamTypesMethods.getAllStreamTypes()
-      .then((res) =>{
-        const streamId = res[0].dataValues.id;
-  
+      .catch(err => console.log(err));
+  });
+  it('it should DELETE streamtypes given the streamid', (done) => {
+    methods.Academics.streamTypesMethods.getAllStreamTypes()
+      .then((res) => {
+        let streamId = {};
+        streamId = res[0].dataValues.id;
+
         chai.request(app)
           .delete('/private/academics/stream_types/')
-          .send({streamId})
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            expect(res.body).to.be.a('object');
-            expect(res.body.status).to.eql('stream Type deleted');
+          .send({ streamId })
+          .end((err, result) => {
+            expect(result).to.have.status(200);
+            expect(result.body).to.be.a('object');
+            expect(result.body.status).to.eql('stream Type deleted');
             done();
           });
       })
-      .catch((err)=>{
-        console.log(err)
-      })
-    });
+      .catch((err) => {
+        console.log(err);
+      });
   });
-  
+});

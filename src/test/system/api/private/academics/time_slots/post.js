@@ -16,30 +16,29 @@ const { expect } = chai;
 
 
 describe('Post time slots - POST', () => {
-    beforeEach((done) => {
-        methods.Academics.timeSlotsMethods.deleteAllTimeSlots().then(() =>{
-            console.log("done")
-            done();
-        })
-        .catch((err) =>{
-            console.log(err)
-        })
-  })
-    it('POST /private/academics/time_slots/', (done) => {
-        var datetime ="2000-01-01 02:00:00 UTC";
-        const classes = {
-            startTimestamp: datetime.substr(11, 8),
-            endTimestamp: datetime.substr(11, 8),
-        };
-      chai.request(app)
-        .post('/private/academics/time_slots/')
-        .send(classes)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.a('object');
-          
-          done();
-        });
-    });
+  beforeEach((done) => {
+    methods.Academics.timeSlotsMethods.deleteAllTimeSlots().then(() => {
+      console.log('done');
+      done();
+    })
+      .catch((err) => {
+        console.log(err);
+      });
   });
-  
+  it('POST /private/academics/time_slots/', (done) => {
+    const datetime = '2000-01-01 02:00:00 UTC';
+    const classes = {
+      startTimestamp: datetime.substr(11, 8),
+      endTimestamp: datetime.substr(11, 8),
+    };
+    chai.request(app)
+      .post('/private/academics/time_slots/')
+      .send(classes)
+      .end((err, result) => {
+        expect(result).to.have.status(200);
+        expect(result.body).to.be.a('object');
+
+        done();
+      });
+  });
+});

@@ -18,7 +18,7 @@ mediaMethods.getAllMedia = () => new Promise((resolve, reject) => {
   models.media.media.findAll()
     .then((classes) => {
       resolve(classes);
-      console.log(classes)
+      console.log(classes);
     })
     .catch((err) => {
       reject(err);
@@ -34,7 +34,7 @@ mediaMethods.updateMedia = (info, data) => new Promise((resolve, reject) => {
     .then((updated) => {
       if (updated > 0) {
         resolve(updated);
-        console.log(updated)
+        console.log(updated);
       } else {
         reject(new Error());
         // throw ('err')

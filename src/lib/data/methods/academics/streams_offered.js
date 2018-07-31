@@ -16,7 +16,10 @@ streamsOfferedMethods.addStreamsOffered = (info) => {
       });
   });
 };
-streamsOfferedMethods.getAllStreamsOffered = () => new Promise((resolve, reject) => {
+streamsOfferedMethods.getAllStreamsOffered = () => new Promise((
+  resolve,
+  reject,
+) => {
   models.academics.streams_offered.findAll()
     .then((streamsOffered) => {
       resolve(streamsOffered);
@@ -56,7 +59,7 @@ streamsOfferedMethods.deleteAllStreamsOffered = () => new Promise((
   })
     .then(() => {
       resolve();
-      console.log('deleted')
+      console.log('deleted');
     })
     .catch((err) => {
       reject(err);

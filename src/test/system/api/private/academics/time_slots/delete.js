@@ -16,24 +16,24 @@ const { expect } = chai;
 
 
 describe('/DELETE time_slots with id ', () => {
-    it('it should DELETE timeslots given the slotid', (done) => {
-      methods.Academics.timeSlotsMethods.getAllTimeSlots()
-      .then((res) =>{
-        const timeSlotId = res[0].dataValues.id;
-  
+  it('it should DELETE timeslots given the slotid', (done) => {
+    methods.Academics.timeSlotsMethods.getAllTimeSlots()
+      .then((res) => {
+        let timeSlotId = {};
+        timeSlotId = res[0].dataValues.id;
+
         chai.request(app)
           .delete('/private/academics/time_slots/')
-          .send({timeSlotId})
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            expect(res.body).to.be.a('object');
-            expect(res.body.status).to.eql('time Slot deleted');
+          .send({ timeSlotId })
+          .end((err, result) => {
+            expect(result).to.have.status(200);
+            expect(result.body).to.be.a('object');
+            expect(result.body.status).to.eql('time Slot deleted');
             done();
           });
       })
-      .catch((err)=>{
-        console.log(err)
-      })
-    });
+      .catch((err) => {
+        console.log(err);
+      });
   });
-  
+});
