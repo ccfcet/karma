@@ -9,10 +9,12 @@ module.exports = function (sequelize, DataTypes) {
       parent_id: {
         type: DataTypes.INTEGER(),
         allowNull: false,
+        compositeIndex: true,
       },
       child_id: {
         type: DataTypes.INTEGER(),
         allowNull: false,
+        compositeIndex: true,
       },
     });
 

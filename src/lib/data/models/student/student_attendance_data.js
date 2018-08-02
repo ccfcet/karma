@@ -34,6 +34,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER(),
       allowNull: false,
     },
+    max_value: {
+      type: DataTypes.INTEGER(),
+      allowNull: false,
+    },
   });
 
   StudentAttendanceData.associate = function (models) {
