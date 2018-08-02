@@ -10,12 +10,12 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const info = {};
 
-  info.media_id = req.body.mediaId;
-  info.role_id = req.body.roleId;
-  info.people_id = req.body.peopleId;
+  info.role_name = req.body.roleName;
+  info.role_slug = req.body.roleSlug;
+  info.role_description = req.body.roleDescription;
 
 
-  methods.media.mediaRolesMethods
+  methods.Media.mediaRolesMethods
     .addMediaRoles(info)
     .then((model) => {
       res.json(model);
@@ -34,15 +34,15 @@ router.put('/:id', (req, res) => {
 
   info.id = req.params.id; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'mediaId') && Object
-    .prototype.hasOwnProperty.call(req.body, 'peopleId') && Object.prototype
-    .hasOwnProperty.call(req.body, 'roleId')) {
-    data.media_id = req.body.mediaId;
-    data.people_id = req.body.peopleId;
-    data.role_id = req.body.roleId;
+  if (Object.prototype.hasOwnProperty.call(req.body, 'roleName') && Object
+    .prototype.hasOwnProperty.call(req.body, 'roleSlug') && Object.prototype
+    .hasOwnProperty.call(req.body, 'roleDescription')) {
+    data.role_name = req.body.roleName;
+    data.role_slug = req.body.roleSlug;
+    data.role_description = req.body.roleDescription;
   }
 
-  methods.media.mediaRolesMethods.updateMediaRoles(info, data)
+  methods.Media.mediaRolesMethods.updateMediaRoles(info, data)
     .then((model) => {
       res.status(200).json({
         status: 'updated',
@@ -62,7 +62,7 @@ router.delete('/', (req, res) => {
   const info = {};
   info.id = req.body.id;
 
-  methods.media.mediaRolesMethods.deleteMediaRoles(info)
+  methods.Media.mediaRolesMethods.deleteMediaRoles(info)
     .then((model) => {
       res.status(200).json({
         status: 'Time table deleted',

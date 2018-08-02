@@ -19,16 +19,16 @@ const newPeople = [];
 const tempPeople = [];
 
 
-describe('Media - GetMedia - GET', () => {
+describe('Media - GetMediaRoles - GET', () => {
   beforeEach((done) => {
     console.log('entered');
     const classes = {
-      media_title: 'Title',
-      media_file_name: 'File Name',
-      media_location: 'Location',
+      role_name: 'Name',
+      role_slug: 'Slug',
+      role_description: 'Description',
     };
 
-    methods.Media.mediaMethods.addMedia(classes)
+    methods.Media.mediaRolesMethods.addMediaRoles(classes)
       .then((model) => {
         newPeople.push(model.dataValues);
 
@@ -46,9 +46,9 @@ describe('Media - GetMedia - GET', () => {
   });
 
 
-  it('GET /private/media/media/', (done) => {
+  it('GET /private/media/media_roles/', (done) => {
     chai.request(app)
-      .get('/private/media/media/')
+      .get('/private/media/media_roles/')
       .then((res) => {
         // const output  = res.body.people;
         expect(res).to.have.status(200);
@@ -69,7 +69,7 @@ describe('Media - GetMedia - GET', () => {
   });
 
   afterEach((done) => {
-    methods.Media.mediaMethods.deleteAllMedia()
+    methods.Media.mediaRolesMethods.deleteAllMediaRoles()
       .then(() => {
         console.log('deleted');
         done();

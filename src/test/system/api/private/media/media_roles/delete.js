@@ -1,4 +1,3 @@
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const chaiExclude = require('chai-exclude');
@@ -16,28 +15,20 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 
-describe('/PUT/:id ', () => {
-  it('it should UPDATE media given the id', (done) => {
-    methods.Media.mediaMethods.getAllMedia()
+describe('/DELETE mediaroles with id ', () => {
+  it('it should DELETE mediaroles given the slotid', (done) => {
+    methods.Media.mediaRolesMethods.getAllMediaRoles()
       .then((res) => {
         let id = {};
         id = res[0].dataValues.id;
-        console.log(`${id}HEllo`);
-        const classes = {
-          mediaTitle: 'Hello ',
-          mediaFileName: 'Hey ',
-          mediaLocation: 'Kottayamaaaa',
-        };
-
 
         chai.request(app)
-          .put(`/private/media/media/${id}`)
-          .send(classes)
+          .delete('/private/media/media_roles/')
+          .send({ id })
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('updated media');
-
+            expect(result.body.status).to.eql('mediaroles deleted');
             done();
           });
       })

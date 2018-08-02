@@ -15,9 +15,9 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 
-describe('Post media - POST', () => {
+describe('Post mediaroles - POST', () => {
   beforeEach((done) => {
-    methods.Media.mediaMethods.deleteAllMedia().then(() => {
+    methods.Media.mediaRolesMethods.deleteAllMediaRoles().then(() => {
       console.log('done');
       done();
     })
@@ -25,20 +25,19 @@ describe('Post media - POST', () => {
         console.log(err);
       });
   });
-  it('POST /private/media/media/', (done) => {
+  it('POST /private/media/media_roles/', (done) => {
     const classes = {
-      mediaTitle: 'Hello World',
-      mediaFileName: 'Hey there',
-      mediaLocation: 'Kottayam',
+      roleName: 'Name',
+      roleSlug: 'Slug',
+      roleDescription: 'Description',
     };
     chai.request(app)
-      .post('/private/media/media/')
+      .post('/private/media/media_roles/')
       .send(classes)
       .end((err, result) => {
         expect(result).to.have.status(200);
         expect(result.body).to.be.a('object');
-        console.log(result.body);
-        console.log('Helloworld how are you');
+
         done();
       });
   });

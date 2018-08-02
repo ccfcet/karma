@@ -1,3 +1,4 @@
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const chaiExclude = require('chai-exclude');
@@ -18,17 +19,16 @@ const { expect } = chai;
 const newPeople = [];
 const tempPeople = [];
 
-
-describe('Media - GetMedia - GET', () => {
+describe('/PUT/:id ', () => {
   beforeEach((done) => {
     console.log('entered');
     const classes = {
-      media_title: 'Title',
-      media_file_name: 'File Name',
-      media_location: 'Location',
+      role_name: 'Name',
+      role_slug: 'Slug',
+      role_description: 'Description',
     };
 
-    methods.Media.mediaMethods.addMedia(classes)
+    methods.Media.mediaRolesMethods.addMediaRoles(classes)
       .then((model) => {
         newPeople.push(model.dataValues);
 
@@ -45,35 +45,37 @@ describe('Media - GetMedia - GET', () => {
       .catch(err => console.log(err));
   });
 
-
-  it('GET /private/media/media/', (done) => {
-    chai.request(app)
-      .get('/private/media/media/')
+  it('it should UPDATE mediaroles given the id', (done) => {
+    methods.Academics.streamTypesMethods.getAllMediaRoles()
       .then((res) => {
-        // const output  = res.body.people;
-        expect(res).to.have.status(200);
-        expect(res.body.status).equal('success');
-        let re = [];
-        re = res.body.classes;
-        // re[0].start_date = new Date(re[0].start_date);
-        // re[0].end_date = new Date(re[0].end_date);
+        let id = {};
+        id = res[0].dataValues.id;
+        const Types = {
+          roleName: 'Name',
+          roleSlug: 'Slug',
+          roleDescription: 'Description',
+        };
 
-        expect(re)
-          .excluding(['created_at', 'updated_at']).to.deep.equal(tempPeople);
+        chai.request(app)
+          .put(`/private/media/media_roles/${id}`)
+          .send(Types)
+          .end((err, result) => {
+            expect(result).to.have.status(200);
+            expect(result.body).to.be.a('object');
+            expect(result.body.status).to.eql('updated media roles');
 
-        done();
+            done();
+          });
       })
       .catch((err) => {
-        done(err);
+        console.log(err);
       });
   });
-
   afterEach((done) => {
-    methods.Media.mediaMethods.deleteAllMedia()
-      .then(() => {
-        console.log('deleted');
-        done();
-      })
+    methods.Media.mediaMethods.deleteAllMediaRoles().then(() => {
+      console.log('done');
+      done();
+    })
       .catch((err) => {
         console.log(err);
       });
