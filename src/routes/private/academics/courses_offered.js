@@ -4,6 +4,21 @@ const router = express.Router();
 
 const methods = require('data/methods');
 
+/**
+ * @api {get} /private/academics/courses_offered GetCoursesOffered
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName GetCoursesOffered
+ * @apiGroup Academics
+ *
+ * @apiSuccess {Number} status 200
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       'status': 200
+ *     }
+ */
+
 router.get('/', (req, res) => {
   methods.Academics.courses_offered.getAllCoursesOffered()
     .then((courses) => {
@@ -21,14 +36,14 @@ router.get('/', (req, res) => {
 });
 
 /**
- * @api {post} /private/academics/courses_offered AddCourseOffered
+ * @api {post} /private/academics/courses_offered AddCoursesOffered
  * @apiVersion 1.0.0-alpha-1
- * @apiName AddCourseOffered
+ * @apiName AddCoursesOffered
  * @apiGroup Academics
  *
  * @apiParam {String} officialCourseId Official course Id
  * @apiParam {Number} departmentId Department ID
- * @apiparam {Stirng} name Official Name of the course
+ * @apiparam {String} name Official Name of the course
  * @apiParam {Integer} credits Number of credits for the course
  * @apiParam {Date} validStartDate A valid start date for the course
  * @apiParam {Date} validEndDate A valid end date for the course
@@ -42,7 +57,7 @@ router.get('/', (req, res) => {
 {
     "message": "success",
     "course": {
-        "id": 4,
+        "id": "4",
         "official_course_id": "CS310",
         "department_id": "6",
         "name": "Computer Vision",
@@ -93,9 +108,9 @@ router.post('/', (req, res, next) => {
 
 /**
  * @api {put} /private/academics/courses_offered/
- * UpdateCourseOffered
+ * UpdateCoursesOffered
  * @apiVersion 1.0.0-alpha-1
- * @apiName UpdateCourseOffered
+ * @apiName UpdateCoursesOffered
  * @apiGroup Academics
  *
  * @apiParam {String} officialCourseId Official course Id
@@ -158,11 +173,12 @@ router.put('/:course_offered_id', (req, res, next) => {
 });
 
 /**
- * @api {put} /private/academics/courses_offered/
- * UpdateCourseOffered
+ * @api {delete} /private/academics/courses_offered/
+ * DeleteCoursesOffered
  * @apiVersion 1.0.0-alpha-1
- * @apiName UpdateCourseOffered
+ * @apiName UpdateCoursesOffered
  * @apiGroup Academics
+ * 
  * @apiParam {String} officialCourseId Official course Id
  * @apiParam {Number} departmentId Department ID
  *
@@ -172,12 +188,12 @@ router.put('/:course_offered_id', (req, res, next) => {
  * @apiSuccessExample {json} Success-response
  * HTTP/1.1 200 OK
 {
-    "message": "1 course(s) deleted"
+    "message": "Deleted"
 }
  */
 
 router.delete('/', (req, res) => {
-  if (Object.prototype.hasOwnProperty.call(req.body, 'officailCourseId')
+  if (Object.prototype.hasOwnProperty.call(req.body, 'officialCourseId')
     && Object.prototype.hasOwnProperty.call(req.body, 'departmentId')) {
     const info = {};
     info.department_id = req.body.departmentId;
