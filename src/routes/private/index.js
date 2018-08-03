@@ -27,8 +27,7 @@ router.get('/', (req, res) => {
 
 router.use('/media', require('./media'));
 router.use('/people', require('./people/people'));
-router.use('/entity', require('./entity/entity'));
-router.use('/entity/entity_type', require('./entity/entity_type'));
+router.use('/entity', require('./entity'));
 router.use('/academics', require('./academics'));
 router.use('/student', require('./student'));
 router.use('/event', require('./event'));
