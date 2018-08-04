@@ -83,4 +83,53 @@ newsMethods.insertNewsUsingEntitySlug = data => new Promise((
     });
 });
 
+newsMethods.getNewsUsingEntitySlug = data => new Promise((
+  resolve,
+  reject,
+) => {
+  models.entities.entities.findOne({
+    where: {
+      entity_slug: data.entitySlug,
+    },
+  })
+    .then((entity) => {
+      if (_.isEmpty(entity)) {
+        reject(new Error('No entity could be found for the given entity slug'));
+      } else {
+        models.news.news.findAll({
+          where: {
+            entity_id: entity.id,
+          },
+        })
+          .then((entityNews) => {
+            const newsIdArray = [];
+
+            _.forEach(entityNews, (item) => {
+              newsIdArray.push(item.news_id);
+            });
+
+            models.news.news_data.findAll({
+              where: {
+                id: newsIdArray,
+              },
+            })
+              .then((entityNewsData) => {
+                if (_.isEmpty(entityNewsData)) {
+                  reject(new Error('Either an error has occured while getting'
+                    + ' news or no news was found for the given entity'));
+                } else {
+                  resolve(entityNewsData);
+                }
+              })
+              .catch((err) => {
+                reject(err);
+              });
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      }
+    });
+});
+
 module.exports = newsMethods;

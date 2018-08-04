@@ -149,4 +149,59 @@ router.post('/:entitySlug', (req, res) => {
   }
 });
 
+/**
+ * @api {get} /private/news/:entitySlug GetNewsUsingEntitySlug
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName GetNewsUsingEntitySlug
+ * @apiGroup News
+ *
+ * @apiParam {String} entitySlug The slug of the enitity for which news has
+ * to be retrieved
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} entity_news Entity News object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "message": "success",
+    "entity_news": [
+        {
+            "id": 1,
+            "title": "Diamond Jubilee",
+            "text": "College of Engineering Trivandrum celebrated its
+            diamond jubilee",
+            "created_at": "2018-08-04T14:51:35.000Z",
+            "updated_at": "2018-08-04T14:51:35.000Z"
+        },
+        {
+            "id": 2,
+            "title": "Dhwani 2019",
+            "text": "Dhwani 2019 will be conducted on February 18 - 19",
+            "created_at": "2018-08-04T15:55:38.000Z",
+            "updated_at": "2018-08-04T15:55:38.000Z"
+        }
+    ]
+}
+ */
+
+router.get('/:entitySlug', (req, res) => {
+  if (Object.prototype.hasOwnProperty.call(req.params, 'entitySlug')) {
+    const data = {};
+    data.entitySlug = req.params.entitySlug;
+    methods.News.other.getNewsUsingEntitySlug(data)
+      .then((entityNews) => {
+        res.status(200).json({
+          message: 'success',
+          entity_news: entityNews,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: 'error',
+          error: err.message,
+        });
+      });
+  }
+});
+
 module.exports = router;
