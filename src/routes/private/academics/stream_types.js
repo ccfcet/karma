@@ -165,7 +165,6 @@ router.delete('/', (req, res) => {
   const info = {};
 
   info.id = req.body.streamId;
-
   methods.Academics.streamTypesMethods.deleteStreamTypes(info)
     .then((model) => {
       res.status(200).json({

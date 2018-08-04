@@ -29,9 +29,22 @@ before((done) => {
 
       methods.people.addPeople(data)
         .then((model) => {
+<<<<<<< HEAD
+          console.log(model.dataValues.created_at);
+          newPeople.push(model.dataValues);
+          const ret = newPeople.map((datum) => {
+            const dat = datum;
+            delete dat.created_at;
+            delete dat.updated_at;
+            return dat;
+          });
+          console.log(ret);
+          tempPeople.push(ret[0]);
+=======
           newPeople = model.dataValues;
           // newPeople = _.omit(model.dataValues, ['created_at', 'updated_at']);
 
+>>>>>>> master
           done();
         })
         .catch(err => console.log(err));

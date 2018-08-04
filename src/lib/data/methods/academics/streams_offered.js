@@ -16,6 +16,18 @@ streamsOfferedMethods.addStreamsOffered = (info) => {
       });
   });
 };
+streamsOfferedMethods.getAllStreamsOffered = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.academics.streams_offered.findAll()
+    .then((streamsOffered) => {
+      resolve(streamsOffered);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 
 streamsOfferedMethods.updateStreamsOffered = (info, data) => new Promise((
   resolve,
@@ -38,6 +50,21 @@ streamsOfferedMethods.updateStreamsOffered = (info, data) => new Promise((
     });
 });
 
+streamsOfferedMethods.deleteAllStreamsOffered = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.academics.streams_offered.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
+      console.log('deleted');
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 streamsOfferedMethods.deleteStreamsOffered = info => new Promise((
   resolve,
   reject,

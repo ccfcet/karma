@@ -53,4 +53,22 @@ mediaRolesMethods
         reject(err);
       });
   });
+
+mediaRolesMethods.deleteAllMediaRoles = () => new Promise((
+  resolve,
+  reject,
+) => {
+  console.log('entered delete');
+  models.media.media_roles.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
+      console.log('deleted');
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 module.exports = mediaRolesMethods;

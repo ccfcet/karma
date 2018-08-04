@@ -16,6 +16,16 @@ timeSlotsMethods.addTimeSlots = (info) => {
       });
   });
 };
+timeSlotsMethods.getAllTimeSlots = () => new Promise((resolve, reject) => {
+  models.academics.time_slots.findAll()
+    .then((timeSlots) => {
+      resolve(timeSlots);
+    })
+    .catch((err) => {
+      console.log('no row');
+      reject(err);
+    });
+});
 
 timeSlotsMethods.updateTimeSlots = (info, data) => new Promise((
   resolve,
@@ -38,6 +48,21 @@ timeSlotsMethods.updateTimeSlots = (info, data) => new Promise((
     });
 });
 
+timeSlotsMethods.deleteAllTimeSlots = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.academics.time_slots.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
+      console.log('deleted');
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 timeSlotsMethods.deleteTimeSlots = info => new Promise((resolve, reject) => {
   models.academics.time_slots.destroy({
     where: {

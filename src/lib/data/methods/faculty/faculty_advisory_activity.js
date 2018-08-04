@@ -1,6 +1,6 @@
 const Promise = require('bluebird');
 
-const models = require('../../../models');
+const models = require('../../models');
 
 const facultyClassAdvisoryMethods = {};
 facultyClassAdvisoryMethods.addFacultyClassAdvisoryActivity = (info) => {

@@ -4,18 +4,32 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  res.send({ status: 200 });
+  console.log('got into route');
+  methods.Media.mediaMethods.getAllMedia()
+    .then((classes) => {
+      console.log(classes);
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
 });
 
 router.post('/', (req, res) => {
   const info = {};
 
-  info.media_id = req.body.mediaId;
-  info.role_id = req.body.roleId;
-  info.people_id = req.body.peopleId;
+  info.media_title = req.body.mediaTitle;
+  info.media_file_name = req.body.mediaFileName;
+  info.media_location = req.body.mediaLocation;
 
 
-  methods.media.mediaMethods
+  methods.Media.mediaMethods
     .addMedia(info)
     .then((model) => {
       res.json(model);
@@ -34,18 +48,18 @@ router.put('/:id', (req, res) => {
 
   info.id = req.params.id; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'mediaId') && Object
-    .prototype.hasOwnProperty.call(req.body, 'peopleId') && Object.prototype
-    .hasOwnProperty.call(req.body, 'roleId')) {
-    data.media_id = req.body.mediaId;
-    data.people_id = req.body.peopleId;
-    data.role_id = req.body.roleId;
+  if (Object.prototype.hasOwnProperty.call(req.body, 'mediaTitle') && Object
+    .prototype.hasOwnProperty.call(req.body, 'mediaFileName') && Object
+    .prototype.hasOwnProperty.call(req.body, 'mediaLocation')) {
+    data.media_title = req.body.mediaTitle;
+    data.media_file_name = req.body.mediaFileName;
+    data.media_location = req.body.mediaLocation;
   }
 
-  methods.media.mediaMethods.updateMedia(info, data)
+  methods.Media.mediaMethods.updateMedia(info, data)
     .then((model) => {
       res.status(200).json({
-        status: 'updated',
+        status: 'updated media',
         state: model[0],
       });
     })
@@ -62,10 +76,10 @@ router.delete('/', (req, res) => {
   const info = {};
   info.id = req.body.id;
 
-  methods.media.mediaMethods.deleteMedia(info)
+  methods.Media.mediaMethods.deleteMedia(info)
     .then((model) => {
       res.status(200).json({
-        status: 'Time table deleted',
+        status: 'media deleted',
         state: model,
       });
     })
