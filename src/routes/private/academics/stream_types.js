@@ -35,52 +35,71 @@ router.get('/', (req, res) => {
 });
 
 /**
- * @api {post} /private/academics/stream_types AddStreamTypes
+ * @api {post} /private/academics/stream_types AddStreamType
  * @apiVersion 1.0.0-alpha-1
- * @apiName AddStreamTypes
+ * @apiName AddStreamType
  * @apiGroup Academics
  *
  * @apiParam {String} streamTypeLong Name of the stream type
  * @apiParam {String} streamTypeShort Short stream type
- * @apiParam {Date} startDate A valid start date for the course
- * @apiParam {Date} endDate A valid end date for the course
+ * @apiParam {Date} startDate A valid start date for the stream type
+ * @apiParam {Date} endDate A valid end date for the stream type
  *
  * @apiSuccess {String} message message
- * @apiSuccess {json} course Course object
+ * @apiSuccess {json} stream_type Stream type object
  *
  * @apiSuccessExample {json} Success-response
  * HTTP/1.1 200 OK
 {
-    "message": "success",
-    "course": {
-        "id": "4",
-        "stream_type_long": "Computer Science And Engineering",
-        "stream_type_short": "CSE",
-        "start_date": "2016-08-08T18:30:00.000Z",
-        "end_date": "2017-08-08T18:30:00.000Z",
-        "updatedAt": "2018-07-04T05:29:02.577Z",
-        "createdAt": "2018-07-04T05:29:02.577Z"
-    }
+    "status": "success",
+    "classes": [
+        {
+            "id": 1,
+            "stream_type_long": "Bachelor of Technology",
+            "stream_type_short": "B.Tech",
+            "start_date": "1997-01-01T00:00:00.000Z",
+            "end_date": "1998-01-01T00:00:00.000Z",
+            "created_at": "2018-08-04T00:51:52.000Z",
+            "updated_at": "2018-08-04T01:00:38.000Z"
+        },
+        {
+            "id": 2,
+            "stream_type_long": "Master of Technology",
+            "stream_type_short": "M.Tech",
+            "start_date": "1997-01-01T00:00:00.000Z",
+            "end_date": "1998-01-01T00:00:00.000Z",
+            "created_at": "2018-08-04T00:54:43.000Z",
+            "updated_at": "2018-08-04T01:00:51.000Z"
+        }
+    ]
 }
  */
 
 
 router.post('/', (req, res) => {
   const info = {};
-  info.stream_type_long = req.body.streamType;
-  info.stream_type_short = req.body.streamTypeShort;
-  info.start_date = req.body.startDate;
-  info.end_date = req.body.endDate;
-  methods.Academics.streamTypesMethods.addStreamType(info)
-    .then((model) => {
-      res.send(model);
-    })
-    .catch((err) => {
-      res.send({
-        status: 'error',
-        error: err,
+  if (Object.prototype.hasOwnProperty.call(req.body, 'streamType')
+    && Object.prototype.hasOwnProperty.call(req.body, 'streamTypeShort')
+    && Object.prototype.hasOwnProperty.call(req.body, 'startDate')
+    && Object.prototype.hasOwnProperty.call(req.body, 'endDate')) {
+    info.stream_type_long = req.body.streamType;
+    info.stream_type_short = req.body.streamTypeShort;
+    info.start_date = req.body.startDate;
+    info.end_date = req.body.endDate;
+    methods.Academics.streamTypesMethods.addStreamType(info)
+      .then((model) => {
+        res.status(200).json({
+          message: 'success',
+          stream_type: model,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          status: 'error',
+          error: err.message,
+        });
       });
-    });
+  }
 });
 
 /**
@@ -92,8 +111,8 @@ router.post('/', (req, res) => {
  *
  * @apiParam {String} streamTypeLong Name of the stream type
  * @apiParam {String} streamTypeShort Short stream type
- * @apiParam {Date} startDate A valid start date for the course
- * @apiParam {Date} endDate A valid end date for the course
+ * @apiParam {Date} startDate A valid start date for the stream
+ * @apiParam {Date} endDate A valid end date for the stream
  *
  * @apiSuccess {String} message message
  * @apiSuccess {json} course Course object
@@ -101,10 +120,7 @@ router.post('/', (req, res) => {
  * @apiSuccessExample {json} Success-response
  * HTTP/1.1 200 OK
 {
-    "status": "updated",
-    "state": [
-        1
-    ]
+    "message": "updated stream type",
 }
  */
 
@@ -127,14 +143,13 @@ router.put('/:streamId', (req, res) => {
   methods.Academics.streamTypesMethods.updateStreamTypes(info, data)
     .then((model) => {
       res.status(200).json({
-        status: 'updated stream type',
-        state: model[0],
+        message: 'updated stream type',
       });
     })
     .catch((err) => {
       res.send({
         status: 'Not able to update.Row may not exist',
-        state: err,
+        state: err.message,
       });
     });
 });

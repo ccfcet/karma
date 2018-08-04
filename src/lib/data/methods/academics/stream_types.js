@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-
+const _ = require('lodash');
 const models = require('../../models');
 
 const streamTypesMethods = {};
@@ -8,7 +8,6 @@ streamTypesMethods.addStreamType = info => new Promise((resolve, reject) => {
   models.academics.stream_types.create(info)
     .then((newStreamType) => {
       resolve(newStreamType);
-      console.log('created');
     })
     .catch((err) => {
       reject(err);

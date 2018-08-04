@@ -18,9 +18,9 @@ const methods = require('data/methods');
  *     }
  */
 router.get('/', (req, res) => {
-  res.send({
-    status: 'functional',
-  });
+  // res.send({
+  //   status: 'functional',
+  // });
 });
 
 /**
