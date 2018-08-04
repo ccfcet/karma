@@ -8,5 +8,6 @@ methods.people = require('./people');
 methods.Academics = require('./academics');
 methods.students = require('./student');
 methods.Events = require('./events');
+methods.News = require('./news');
 
 module.exports = methods;
