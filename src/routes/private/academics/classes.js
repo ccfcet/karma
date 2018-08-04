@@ -3,9 +3,58 @@ const express = require('express');
 const router = express.Router();
 const methods = require('data/methods');
 
+
+/**
+ * @api {get} /private/academics/classes GetClasses
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName GetClasses
+ * @apiGroup Academics
+ *
+ * @apiSuccess {Number} status 200
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       'status': 200
+ *     }
+ */
+
 router.get('/', (req, res) => {
   res.send({ status: 200 });
 });
+
+/**
+ * @api {post} /private/academics/classes AddClasses
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName AddClasses
+ * @apiGroup Academics
+ *
+ * @apiParam {Integer} streamId Stream ID
+ * @apiParam {Date} startDate A valid start date for the class
+ * @apiparam {String} currentClassSlug The present class slug
+ * @apiParam {Integer} division Division
+ * @apiParam {Date} endDate A valid end date for the class
+ *
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} course Course object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "message": "success",
+    "course": {
+      "id" : "4",
+        "current_class_slug": "Slug-value",
+        "stream_id": "6",
+        "division": "5",
+        "start_date": "2016-08-08T18:30:00.000Z",
+        "end_date": "2017-08-08T18:30:00.000Z",
+        "updatedAt": "2018-07-04T05:29:02.577Z",
+        "createdAt": "2018-07-04T05:29:02.577Z"
+    }
+}
+ */
+
 
 router.post('/', (req, res) => {
   const info = {};
@@ -30,6 +79,32 @@ router.post('/', (req, res) => {
       });
     });
 });
+
+/**
+ * @api {put} /private/academics/classes/
+ * UpdateClasses
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName UpdateClasses
+ * @apiGroup Academics
+ *
+ * @apiParam {Integer} streamId Stream ID
+ * @apiParam {Date} startDate A valid start date for the class
+ * @apiparam {String} currentClassSlug The present class slug
+ * @apiParam {Integer} division Division
+ * @apiParam {Date} endDate A valid end date for the class
+ *
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} course Course object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "status": "updated",
+    "state": [
+        1
+    ]
+}
+ */
 
 router.put('/:classId', (req, res) => {
   const info = {};
@@ -63,6 +138,29 @@ router.put('/:classId', (req, res) => {
       });
     });
 });
+
+/**
+ * @api {delete} /private/academics/classes/
+ * DeleteClasses
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName DeleteClasses
+ * @apiGroup Academics
+ *
+ * @apiParam {Integer} streamId Stream ID
+ * @apiParam {Date} startDate A valid start date for the class
+ * @apiparam {String} currentClassSlug The present class slug
+ * @apiParam {Integer} division Division
+ * @apiParam {Date} endDate A valid end date for the class
+ *
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} course Course object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "message": "Deleted"
+}
+ */
 
 router.delete('/', (req, res) => {
   const info = {};

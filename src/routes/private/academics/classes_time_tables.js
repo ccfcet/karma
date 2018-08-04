@@ -3,9 +3,56 @@ const express = require('express');
 const router = express.Router();
 const methods = require('data/methods');
 
+/**
+ * @api {get} /private/academics/classes_time_tables GetClassesTimeTables
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName GetClassesTimeTables
+ * @apiGroup Academics
+ *
+ * @apiSuccess {Number} status 200
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       'status': 200
+ *     }
+ */
+
 router.get('/', (req, res) => {
   res.send({ status: 200 });
 });
+
+
+/**
+ * @api {post} /private/academics/classes_time_tables AddClassesTimeTables
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName AddClassesTimeTables
+ * @apiGroup Academics
+ *
+ * @apiParam {Integer} classId Class ID
+ * @apiParam {Integer} timeSlotId ID for each time slot
+ * @apiparam {String} day The day
+ * @apiParam {Integer} courseId Course ID
+ *
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} course Course object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "message": "success",
+    "course": {
+        "id" : 4,
+        "class_id": "2",
+        "course_id": "20",
+        "day": "Monday",
+        "time_solt_id": "3",
+        "updatedAt": "2018-07-04T05:29:02.577Z",
+        "createdAt": "2018-07-04T05:29:02.577Z"
+    }
+}
+ */
+
 
 router.post('/', (req, res) => {
   const info = {};
@@ -26,6 +73,30 @@ router.post('/', (req, res) => {
       });
     });
 });
+
+/**
+ * @api {put} /private/academics/classes_time_tables UpdateClassesTimeTables
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName UpdateClassesTimeTables
+ * @apiGroup Academics
+ *
+ * @apiParam {Integer} classId Class ID
+ * @apiParam {Integer} timeSlotId ID for each time slot
+ * @apiparam {String} day The day
+ * @apiParam {Integer} courseId Course ID
+ *
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} course Course object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "status": "updated",
+    "state": [
+        1
+    ]
+}
+ */
 
 router.put('/:timeTableId', (req, res) => {
   const info = {};
@@ -57,6 +128,28 @@ router.put('/:timeTableId', (req, res) => {
       });
     });
 });
+
+/**
+ * @api {delete} /private/academics/classes_time_tables DeleteClassesTimeTables
+
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName DeleteClassesTimeTables
+ * @apiGroup Academics
+ *
+ * @apiParam {Integer} classId Class ID
+ * @apiParam {Integer} timeSlotId ID for each time slot
+ * @apiparam {String} day The day
+ * @apiParam {Integer} courseId Course ID
+ *
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} course Course object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "message": "Deleted"
+}
+ */
 
 router.delete('/', (req, res) => {
   const info = {};

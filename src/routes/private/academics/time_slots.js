@@ -4,10 +4,10 @@ const router = express.Router();
 const methods = require('data/methods');
 
 /**
- * @api {get} /private Private Entry Gate
+ * @api {get} /private/academics/time_slots GetTimeSlots
  * @apiVersion 1.0.0-alpha-1
- * @apiName EntryGatePrivate
- * @apiGroup EntryGates
+ * @apiName GetTimeSlots
+ * @apiGroup Academics
  *
  * @apiSuccess {Number} status 200
  *
@@ -34,6 +34,31 @@ router.get('/', (req, res) => {
     });
 });
 
+/**
+ * @api {post} /private/academics/time_slots AddTimeSlots
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName AddTimeSlots
+ * @apiGroup Academics
+ *
+ * @apiParam {Date} startTimestamp Starting timestamp
+ * @apiParam {Date} endTimestamp Ending timestamp
+ *
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} course Course object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "message": "success",
+    "course": {
+        "id": "4",
+        "start_timestamp": "2016-08-08T18:30:00.000Z",
+        "end_timestamp": "2017-08-08T18:30:00.000Z",
+        "updatedAt": "2018-07-04T05:29:02.577Z",
+        "createdAt": "2018-07-04T05:29:02.577Z"
+    }
+}
+ */
 
 router.post('/', (req, res) => {
   const info = {};
@@ -52,6 +77,29 @@ router.post('/', (req, res) => {
       });
     });
 });
+
+/**
+ * @api {put} /private/academics/time_slots/
+ * UpdateTimeSlots
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName UpdateTimeSlots
+ * @apiGroup Academics
+ *
+ * @apiParam {Date} startTimestamp Starting timestamp
+ * @apiParam {Date} endTimestamp Ending timestamp
+ *
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} course Course object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "status": "updated",
+    "state": [
+        1
+    ]
+}
+ */
 
 router.put('/:timeSlotId', (req, res) => {
   const info = {};
@@ -80,6 +128,26 @@ router.put('/:timeSlotId', (req, res) => {
     });
 });
 
+/**
+ * @api {delete} /private/academics/time_slots/
+ * DeleteTimeSlots
+ * @apiVersion 1.0.0-alpha-1
+ * @apiName DeleteTimeSlots
+ * @apiGroup Academics
+ *
+ * @apiParam {Date} startTimestamp Starting timestamp
+ * @apiParam {Date} endTimestamp Ending timestamp
+ *
+ * @apiSuccess {String} message message
+ * @apiSuccess {json} course Course object
+ *
+ * @apiSuccessExample {json} Success-response
+ * HTTP/1.1 200 OK
+{
+    "message": "Deleted"
+}
+ */
+
 router.delete('/', (req, res) => {
   const info = {};
 
@@ -88,7 +156,11 @@ router.delete('/', (req, res) => {
   methods.Academics.timeSlotsMethods.deleteTimeSlots(info)
     .then((model) => {
       res.status(200).json({
+<<<<<<< HEAD
         status: 'time Slot deleted',
+=======
+        status: 'Time Slots deleted',
+>>>>>>> master
         state: model,
       });
     })

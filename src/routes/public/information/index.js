@@ -73,7 +73,10 @@ router.get('/:entityInformationSlug/:entitySlug', (req, res) => {
     .obtainInformation(entitySlug, entityInformationSlug)
     .then((result) => {
       if (!_.isEmpty(result)) {
-        res.json(result);
+        res.json({
+          success: true,
+          data: result,
+        });
       } else {
         res.status(501).json({
           success: 'false',

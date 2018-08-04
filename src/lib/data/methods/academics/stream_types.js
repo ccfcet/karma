@@ -18,6 +18,7 @@ streamTypesMethods.addStreamType = info => new Promise((resolve, reject) => {
 streamTypesMethods.getAllStreamTypes = () => new Promise((resolve, reject) => {
   models.academics.stream_types.findAll()
     .then((streamTypes) => {
+      console.log('deleted');
       resolve(streamTypes);
     })
     .catch((err) => {
