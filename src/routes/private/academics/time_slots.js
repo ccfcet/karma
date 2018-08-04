@@ -89,7 +89,7 @@ router.post('/', (req, res) => {
         1
     ]
 }
- */ 
+ */
 
 router.put('/:timeSlotId', (req, res) => {
   const info = {};
@@ -124,7 +124,7 @@ router.put('/:timeSlotId', (req, res) => {
  * @apiVersion 1.0.0-alpha-1
  * @apiName DeleteTimeSlots
  * @apiGroup Academics
- * 
+ *
  * @apiParam {Date} startTimestamp Starting timestamp
  * @apiParam {Date} endTimestamp Ending timestamp
  *

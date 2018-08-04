@@ -145,7 +145,7 @@ router.put('/:classId', (req, res) => {
  * @apiVersion 1.0.0-alpha-1
  * @apiName DeleteClasses
  * @apiGroup Academics
- * 
+ *
  * @apiParam {Integer} streamId Stream ID
  * @apiParam {Date} startDate A valid start date for the class
  * @apiparam {String} currentClassSlug The present class slug

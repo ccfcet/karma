@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
  * @apiParam {Integer} streamTypeId Stream Type ID
  * @apiParam {String} streamName Stream Name
  * @apiParam {Integer} departmentId Department ID
- * @apiParam {Date} validStartDate A valid start date 
+ * @apiParam {Date} validStartDate A valid start date
  * @apiParam {Date} validEndDate A valid end date
  *
  * @apiSuccess {String} message message
@@ -85,7 +85,7 @@ router.post('/', (req, res) => {
  * @apiParam {Integer} streamTypeId Stream Type ID
  * @apiParam {String} streamName Stream Name
  * @apiParam {Integer} departmentId Department ID
- * @apiParam {Date} validStartDate A valid start date 
+ * @apiParam {Date} validStartDate A valid start date
  * @apiParam {Date} validEndDate A valid end date
  *
  * @apiSuccess {String} message message
@@ -99,7 +99,7 @@ router.post('/', (req, res) => {
         1
     ]
 }
- */ 
+ */
 
 router.put('/:streamsOfferedId', (req, res) => {
   const info = {};
@@ -140,11 +140,11 @@ router.put('/:streamsOfferedId', (req, res) => {
  * @apiVersion 1.0.0-alpha-1
  * @apiName DeleteStreamsOffered
  * @apiGroup Academics
- * 
+ *
  * @apiParam {Integer} streamTypeId Stream Type ID
  * @apiParam {String} streamName Stream Name
  * @apiParam {Integer} departmentId Department ID
- * @apiParam {Date} validStartDate A valid start date 
+ * @apiParam {Date} validStartDate A valid start date
  * @apiParam {Date} validEndDate A valid end date
  *
  * @apiSuccess {String} message message

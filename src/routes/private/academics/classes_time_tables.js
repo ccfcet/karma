@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
         "day": "Monday",
         "time_solt_id": "3",
         "updatedAt": "2018-07-04T05:29:02.577Z",
-        "createdAt": "2018-07-04T05:29:02.577Z"        
+        "createdAt": "2018-07-04T05:29:02.577Z"
     }
 }
  */

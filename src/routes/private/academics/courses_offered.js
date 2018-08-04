@@ -178,7 +178,7 @@ router.put('/:course_offered_id', (req, res, next) => {
  * @apiVersion 1.0.0-alpha-1
  * @apiName UpdateCoursesOffered
  * @apiGroup Academics
- * 
+ *
  * @apiParam {String} officialCourseId Official course Id
  * @apiParam {Number} departmentId Department ID
  *

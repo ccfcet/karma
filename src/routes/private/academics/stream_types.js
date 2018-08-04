@@ -145,7 +145,7 @@ router.put('/:streamId', (req, res) => {
  * @apiVersion 1.0.0-alpha-1
  * @apiName DeleteStreamTypes
  * @apiGroup Academics
- * 
+ *
  * @apiParam {String} streamTypeLong Name of the stream type
  * @apiParam {String} streamTypeShort Short stream type
  * @apiParam {Date} startDate A valid start date for the course
