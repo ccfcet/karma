@@ -50,36 +50,37 @@ returnObject.obtainInformation = function (entitySlug, entityInformationSlug) {
   });
 };
 
-returnObject.getEntitiesByType = entityTypeSlug => new Promise(
-  (resolve, reject) => {
-    models.entities.entity_types.findOne({
-      where: {
-        entity_type_slug: entityTypeSlug,
-      },
-    })
-      .then((entityType) => {
-        console.log(entityTypeSlug);
-        if (_.isEmpty(entityType)) {
-          reject(new Error('Could not find an entity type for the given slug'));
-        } else {
-          models.entities.entities.findAll({
-            where: {
-              entity_type_id: entityType.id,
-            },
-          })
-            .then((entities) => {
-              if (_.isEmpty(entities)) {
-                reject(new Error('Could not find entities corresponding '
+returnObject.getEntitiesByType = entityTypeSlug => new Promise((
+  resolve,
+  reject,
+) => {
+  models.entities.entity_types.findOne({
+    where: {
+      entity_type_slug: entityTypeSlug,
+    },
+  })
+    .then((entityType) => {
+      console.log(entityTypeSlug);
+      if (_.isEmpty(entityType)) {
+        reject(new Error('Could not find an entity type for the given slug'));
+      } else {
+        models.entities.entities.findAll({
+          where: {
+            entity_type_id: entityType.id,
+          },
+        })
+          .then((entities) => {
+            if (_.isEmpty(entities)) {
+              reject(new Error('Could not find entities corresponding '
                 + 'to given slug'));
-              } else {
-                resolve(entities);
-              }
-            });
-        }
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  },
-);
+            } else {
+              resolve(entities);
+            }
+          });
+      }
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 module.exports = returnObject;

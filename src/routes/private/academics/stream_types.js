@@ -141,7 +141,7 @@ router.put('/:streamId', (req, res) => {
   }
 
   methods.Academics.streamTypesMethods.updateStreamTypes(info, data)
-    .then((model) => {
+    .then(() => {
       res.status(200).json({
         message: 'updated stream type',
       });

@@ -48,8 +48,8 @@ describe('/PUT/:id ', () => {
   it('it should UPDATE mediaroles given the id', (done) => {
     methods.Academics.streamTypesMethods.getAllMediaRoles()
       .then((res) => {
-        let id = {};
-        id = res[0].dataValues.id;
+        const { id } = res[0].dataValues;
+        // id = .id;
         const Types = {
           roleName: 'Name',
           roleSlug: 'Slug',

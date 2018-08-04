@@ -17,10 +17,10 @@ const methods = require('data/methods');
  *       'status': 200
  *     }
  */
-router.get('/', (req, res) => {
-  // res.send({
-  //   status: 'functional',
-  // });
+router.get('/', (res) => {
+  res.send({
+    status: 'functional',
+  });
 });
 
 /**

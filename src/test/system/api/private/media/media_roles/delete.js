@@ -19,8 +19,8 @@ describe('/DELETE mediaroles with id ', () => {
   it('it should DELETE mediaroles given the slotid', (done) => {
     methods.Media.mediaRolesMethods.getAllMediaRoles()
       .then((res) => {
-        let id = {};
-        id = res[0].dataValues.id;
+        const { id } = res[0].dataValues;
+        // id = .id;
 
         chai.request(app)
           .delete('/private/media/media_roles/')
