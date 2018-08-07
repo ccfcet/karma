@@ -14,26 +14,52 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
+const newPeople = [];
+const tempPeople = [];
 
-describe('/DELETE mediaroles with id ', () => {
-  it('it should DELETE mediaroles given the slotid', (done) => {
+
+describe('/DELETE media roles with id ', () => {
+  beforeEach((done) => {
+    console.log('entered');
+    const classes = {
+      role_name: 'Name',
+      role_slug: 'Slug',
+      role_description: 'Description',
+    };
+
+    methods.Media.mediaRolesMethods.addMediaRoles(classes)
+      .then((model) => {
+        newPeople.push(model.dataValues);
+        const ret = newPeople.map((datum) => {
+          const dat = datum;
+          delete dat.created_at;
+          delete dat.updated_at;
+          return dat;
+        });
+        console.log(ret);
+        tempPeople.push(ret[0]);
+        done();
+      })
+      .catch(err => console.log(err));
+  });
+  it('it should DELETE media given the id', (done) => {
     methods.Media.mediaRolesMethods.getAllMediaRoles()
       .then((res) => {
-        const { id } = res[0].dataValues;
-        // id = .id;
+        let streamId = {};
+        streamId = res[0].dataValues.id;
 
         chai.request(app)
           .delete('/private/media/media_roles/')
-          .send({ id })
+          .send({ streamId })
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('mediaroles deleted');
+            expect(result.body.status).to.eql('Media Roles Type deleted');
             done();
           });
       })
       .catch((err) => {
-        console.log(err);
+        console.log('hello', err);
       });
   });
 });

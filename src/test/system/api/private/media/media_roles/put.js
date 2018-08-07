@@ -16,53 +16,26 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 
-const newPeople = [];
-const tempPeople = [];
-
 describe('/PUT/:id ', () => {
-  beforeEach((done) => {
-    console.log('entered');
-    const classes = {
-      role_name: 'Name',
-      role_slug: 'Slug',
-      role_description: 'Description',
-    };
-
-    methods.Media.mediaRolesMethods.addMediaRoles(classes)
-      .then((model) => {
-        newPeople.push(model.dataValues);
-
-        const ret = newPeople.map((datum) => {
-          const dat = datum;
-          delete dat.created_at;
-          delete dat.updated_at;
-          return dat;
-        });
-        console.log(ret);
-        tempPeople.push(ret[0]);
-        done();
-      })
-      .catch(err => console.log(err));
-  });
-
-  it('it should UPDATE mediaroles given the id', (done) => {
-    methods.Academics.streamTypesMethods.getAllMediaRoles()
+  it('it should UPDATE media_roles given the id', (done) => {
+    methods.Media.mediaRolesMethods.getAllMediaRoles()
       .then((res) => {
         const { id } = res[0].dataValues;
-        // id = .id;
-        const Types = {
+        console.log(`${id}`);
+        const classes = {
           roleName: 'Name',
           roleSlug: 'Slug',
           roleDescription: 'Description',
         };
 
+
         chai.request(app)
           .put(`/private/media/media_roles/${id}`)
-          .send(Types)
+          .send(classes)
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('updated media roles');
+            expect(result.body.status).to.eql('updated mediaroles');
 
             done();
           });
@@ -71,13 +44,16 @@ describe('/PUT/:id ', () => {
         console.log(err);
       });
   });
+
   afterEach((done) => {
-    methods.Media.mediaMethods.deleteAllMediaRoles().then(() => {
-      console.log('done');
-      done();
-    })
+    methods.Media.mediaRolesMethods.deleteAllMediaRoles()
+      .then(() => {
+        console.log('deleted');
+        done();
+      })
       .catch((err) => {
         console.log(err);
       });
   });
+
 });

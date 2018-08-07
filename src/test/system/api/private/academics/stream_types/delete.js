@@ -60,7 +60,7 @@ describe('/DELETE stream_types with id ', () => {
           });
       })
       .catch((err) => {
-        console.log(err);
+        console.log('hello', err);
       });
   });
 });

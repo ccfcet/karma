@@ -4,7 +4,7 @@ const models = require('../../models');
 
 const mediaRolesMethods = {};
 mediaRolesMethods.addMediaRoles = (info) => {
-  console.log('inside adding faculty enrolment');
+  console.log('inside add media roles');
   return new Promise((resolve, reject) => {
     models.media.media_roles.create(info)
       .then((newmediaRoles) => {
@@ -65,6 +65,18 @@ mediaRolesMethods.deleteAllMediaRoles = () => new Promise((
     .then(() => {
       resolve();
       console.log('deleted');
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+mediaRolesMethods.getAllMediaRoles = () => new Promise((resolve, reject) => {
+  console.log('entered getallmediaroles');
+  models.media.media_roles.findAll()
+    .then((classes) => {
+      resolve(classes);
+      console.log(classes);
     })
     .catch((err) => {
       reject(err);

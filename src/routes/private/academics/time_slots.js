@@ -156,7 +156,7 @@ router.delete('/', (req, res) => {
   methods.Academics.timeSlotsMethods.deleteTimeSlots(info)
     .then((model) => {
       res.status(200).json({
-        status: 'Time Slots deleted',
+        status: 'TimeSlots deleted',
         state: model,
       });
     })

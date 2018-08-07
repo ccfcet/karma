@@ -143,7 +143,7 @@ router.put('/:streamId', (req, res) => {
   methods.Academics.streamTypesMethods.updateStreamTypes(info, data)
     .then(() => {
       res.status(200).json({
-        message: 'updated stream type',
+        status: 'updated stream type',
       });
     })
     .catch((err) => {

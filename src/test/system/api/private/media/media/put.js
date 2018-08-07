@@ -21,7 +21,7 @@ describe('/PUT/:id ', () => {
     methods.Media.mediaMethods.getAllMedia()
       .then((res) => {
         const { id } = res[0].dataValues;
-        console.log(`${id}HEllo`);
+        console.log(`${id}`);
         const classes = {
           mediaTitle: 'Hello ',
           mediaFileName: 'Hey ',
@@ -44,4 +44,16 @@ describe('/PUT/:id ', () => {
         console.log(err);
       });
   });
+
+  afterEach((done) => {
+    methods.Media.mediaMethods.deleteAllMedia()
+      .then(() => {
+        console.log('deleted');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
 });

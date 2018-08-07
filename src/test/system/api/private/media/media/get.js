@@ -19,7 +19,7 @@ const newPeople = [];
 const tempPeople = [];
 
 
-describe('Media - GetMedia - GET', () => {
+describe('Media - Media - GET', () => {
   beforeEach((done) => {
     console.log('entered');
     const classes = {
@@ -53,11 +53,9 @@ describe('Media - GetMedia - GET', () => {
         // const output  = res.body.people;
         expect(res).to.have.status(200);
         expect(res.body.status).equal('success');
+        console.log('request', res.body);
         let re = [];
         re = res.body.classes;
-        // re[0].start_date = new Date(re[0].start_date);
-        // re[0].end_date = new Date(re[0].end_date);
-
         expect(re)
           .excluding(['created_at', 'updated_at']).to.deep.equal(tempPeople);
 
