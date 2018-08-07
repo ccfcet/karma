@@ -79,3 +79,17 @@ INSERT INTO `entity_information` (`id`, `entity_id`, `slug_id`, `data`, `created
 INSERT INTO `entity_types` (`id`, `entity_type`, `entity_type_slug`, `created_at`, `updated_at`) VALUES (2, 'Department', 'department', '2018-08-03 00:00:00', '2018-08-03 00:00:00');
 --insert department
 INSERT INTO `entities` (`id`, `entity_name`, `entity_slug`, `entity_type_id`, `created_at`, `updated_at`) VALUES (NULL, 'Department of Computer Science and Engineering', 'dcse', '2', CURRENT_DATE(), CURRENT_DATE());
+
+--insert news_data
+INSERT INTO `news_data` (`id`, `title`, `text`, `created_at`, `updated_at`) VALUES
+(1, 'Govt appoints 2 members to CBDT after five months of positions lying vacant ', 'Almost after five months of vacancies in the Central Board of Direct Taxes (CBDT), the government on Monday appointed two members, Aditya Vikram, IRS (IT) 1981 batch & Pramod Chandra Mody, IRS (IT) 1982 batch, as members in the apex body. ', '2018-08-04 14:51:35', '2018-08-04 14:51:35'),
+(2, ' Cab-hailing firm Ola to launch in the UK ', ' Indian ride-hailing firm Ola said on Tuesday it plans to launch services in the United Kingdom this year, months after it expanded its operations in Australia, in an ongoing turf war with rival Uber Technologies.', '2018-08-04 15:55:38', '2018-08-04 15:55:38'),
+(3, 'Dotslash 2019', 'Dotslash 2019 will be conducted on February 18 - 19', '2018-08-04 15:56:14', '2018-08-04 15:56:14'),
+(4, 'RBI must resume issuing LoUs, LoCs, says parliamentary panel ', 'The Reserve Bank of India’s decision to discontinue the issuance of Letters of Undertaking (LoU) and Letters of Credit (LoC) for trade credit was a “knee-jerk reaction” to the Punjab National Bank fraud case and the facility should be restored at the earliest, the Parliamentary Standing Committee on Commerce said in a report tabled in the Rajya Sabha on Monday.', '2018-08-07 12:50:34', '2018-08-07 12:50:34');
+
+--insert news
+INSERT INTO `news` (`id`, `news_id`, `entity_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2018-08-04 14:51:35', '2018-08-04 14:51:35'),
+(2, 2, 1, '2018-08-04 15:55:38', '2018-08-04 15:55:38'),
+(3, 3, 2, '2018-08-04 15:56:15', '2018-08-04 15:56:15'),
+(4, 4, 1, '2018-08-07 12:51:04', '2018-08-07 12:51:04');
