@@ -21,8 +21,9 @@ router.get('/', (req, res) => {
   res.send({ status: 200 });
 });
 
+router.use('/academics', require('./academics'));
 router.use('/information', require('./information'));
-
 router.use('/menu', require('./menu'));
+router.use('/news', require('./news'));
 
 module.exports = router;

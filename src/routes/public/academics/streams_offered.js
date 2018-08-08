@@ -17,10 +17,16 @@ const methods = require('data/methods');
  *       'status': 200
  *     }
  */
-router.get('/', (res) => {
-  res.send({
-    status: 'functional',
-  });
+router.get('/:stream_type', (req, res, next) => {
+  methods.Academics.streamsOfferedMethods
+    .getAllStreamsOfferedOfStreamType(req.params.stream_type)
+    .then((streams) => {
+      res.json({
+        streams,
+      });
+    }).catch((err) => {
+      next(err);
+    });
 });
 
 /**

@@ -5,19 +5,20 @@ const methods = require('data/methods');
 
 router.get('/', (req, res) => {
   methods.Media.mediaRolesMethods
-  .getAllMediaRoles()
-  .then((model) => {
-    res.status(200).json({
-      status:'success',
-      classes:model
+    .getAllMediaRoles()
+    .then((model) => {
+      res.status(200).json({
+        status: 'success',
+        classes: model,
+      });
+    })
+    .catch((err) => {
+      res.json({
+        status: 'error',
+        error: err,
+      });
     });
-  })
-  .catch((err) => {
-    res.json({
-      status: 'error',
-      error: err,
-    });
-  });});
+});
 
 router.post('/', (req, res) => {
   const info = {};

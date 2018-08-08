@@ -16,6 +16,7 @@ streamsOfferedMethods.addStreamsOffered = (info) => {
       });
   });
 };
+
 streamsOfferedMethods.getAllStreamsOffered = () => new Promise((
   resolve,
   reject,
@@ -28,6 +29,25 @@ streamsOfferedMethods.getAllStreamsOffered = () => new Promise((
       reject(err);
     });
 });
+
+streamsOfferedMethods
+  .getAllStreamsOfferedOfStreamType = streamType => new Promise((
+    resolve,
+    reject,
+  ) => {
+    models.academics.streams_offered.findAll({
+      include: [{
+        model: models.academics.stream_types,
+        where: { stream_type_short: streamType },
+      }],
+    })
+      .then((streamsOffered) => {
+        resolve(streamsOffered);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 
 streamsOfferedMethods.updateStreamsOffered = (info, data) => new Promise((
   resolve,

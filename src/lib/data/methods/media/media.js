@@ -54,7 +54,7 @@ mediaMethods.deleteAllMedia = () => new Promise((
   })
     .then((res) => {
       resolve();
-      console.log('deleted all',res);
+      console.log('deleted all', res);
     })
     .catch((err) => {
       reject(err);

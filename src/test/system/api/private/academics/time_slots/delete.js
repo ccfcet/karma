@@ -43,7 +43,7 @@ describe('/DELETE time_slots with id ', () => {
   });
   it('it should DELETE time_slots given the timeSlotId', (done) => {
     methods.Academics.timeSlotsMethods.getAllTimeSlots()
-      .then((res) => {
+      .then(() => {
         let timeSlotId = {};
         timeSlotId = tempPeople[0].id;
 
