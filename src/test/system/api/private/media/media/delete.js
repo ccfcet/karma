@@ -45,12 +45,12 @@ describe('/DELETE media with id ', () => {
   it('it should DELETE media given the id', (done) => {
     methods.Media.mediaMethods.getAllMedia()
       .then((res) => {
-        let streamId = {};
-        streamId = res[0].dataValues.id;
-        console.log(`${streamId}Poda potta`);
+        let Id = {};
+        Id = res[0].dataValues.id;
+        console.log(`${Id}`);
         chai.request(app)
           .delete('/private/media/media/')
-          .send({ id: streamId })
+          .send({ id: Id })
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');

@@ -50,7 +50,7 @@ describe('/DELETE stream_types with id ', () => {
         streamId = res[0].dataValues.id;
 
         chai.request(app)
-          .delete('/private/academics/stream_types/')
+          .delete('/public/academics/stream_types/')
           .send({ streamId })
           .end((err, result) => {
             expect(result).to.have.status(200);

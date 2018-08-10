@@ -25,14 +25,14 @@ describe('Post time slots - POST', () => {
         console.log(err);
       });
   });
-  it('POST /private/academics/time_slots/', (done) => {
+  it('POST /public/academics/time_slots/', (done) => {
     const datetime = '2000-01-01 02:00:00 UTC';
     const classes = {
       startTimestamp: datetime.substr(11, 8),
       endTimestamp: datetime.substr(11, 8),
     };
     chai.request(app)
-      .post('/private/academics/time_slots/')
+      .post('/public/academics/time_slots/')
       .send(classes)
       .end((err, result) => {
         expect(result).to.have.status(200);

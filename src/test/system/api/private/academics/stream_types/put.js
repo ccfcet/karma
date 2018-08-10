@@ -59,7 +59,7 @@ describe('/PUT/:streamid ', () => {
         };
 
         chai.request(app)
-          .put(`/private/academics/stream_types/${streamid}`)
+          .put(`/public/academics/stream_types/${streamid}`)
           .send(Types)
           .end((err, result) => {
             expect(result).to.have.status(200);

@@ -58,7 +58,7 @@ router.put('/:id', (req, res) => {
   methods.Media.mediaRolesMethods.updateMediaRoles(info, data)
     .then((model) => {
       res.status(200).json({
-        status: 'updated',
+        status: 'Updated Media Roles', 
         state: model[0],
       });
     })
@@ -78,7 +78,7 @@ router.delete('/', (req, res) => {
   methods.Media.mediaRolesMethods.deleteMediaRoles(info)
     .then((model) => {
       res.status(200).json({
-        status: 'mediaroles deleted',
+        status: 'Media Roles deleted',
         state: model,
       });
     })

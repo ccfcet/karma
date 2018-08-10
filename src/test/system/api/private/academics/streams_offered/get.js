@@ -68,9 +68,9 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
   });
 
 
-  it('GET /private/Academics/stream_types/', (done) => {
+  it('GET /public/Academics/stream_types/', (done) => {
     chai.request(app)
-      .get('/private/Academics/stream_types/')
+      .get('/public/Academics/stream_types/')
       .then((res) => {
         // const output  = res.body.people;
         expect(res).to.have.status(200);

@@ -41,4 +41,14 @@ describe('Post mediaroles - POST', () => {
         done();
       });
   });
+
+  afterEach((done) => {
+    methods.Media.mediaRolesMethods.deleteAllMediaRoles().then(() => {
+      console.log('done');
+      done();
+    })
+      .catch((err) => {
+        console.log(err);
+});
+});
 });

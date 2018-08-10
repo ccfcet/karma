@@ -31,7 +31,7 @@ describe('/PUT/:timeslotid ', () => {
 
 
         chai.request(app)
-          .put(`/private/academics/time_slots/${timeSlotId}`)
+          .put(`/public/academics/time_slots/${timeSlotId}`)
           .send(classes)
           .end((err, result) => {
             expect(result).to.have.status(200);

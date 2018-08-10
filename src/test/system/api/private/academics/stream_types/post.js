@@ -25,7 +25,7 @@ describe('Post stream types - POST', () => {
         console.log(err);
       });
   });
-  it('POST /private/academics/stream_types/', (done) => {
+  it('POST /public/academics/stream_types/', (done) => {
     const classes = {
       streamType: '5',
       streamTypeShort: '5',
@@ -33,7 +33,7 @@ describe('Post stream types - POST', () => {
       endDate: '2018-07-29',
     };
     chai.request(app)
-      .post('/private/academics/stream_types/')
+      .post('/public/academics/stream_types/')
       .send(classes)
       .end((err, result) => {
         expect(result).to.have.status(200);

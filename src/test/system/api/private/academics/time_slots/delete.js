@@ -48,7 +48,7 @@ describe('/DELETE time_slots with id ', () => {
         timeSlotId = tempPeople[0].id;
 
         chai.request(app)
-          .delete('/private/academics/time_slots/')
+          .delete('/public/academics/time_slots/')
           .send({ timeSlotId })
           .end((err, result) => {
             expect(result).to.have.status(200);

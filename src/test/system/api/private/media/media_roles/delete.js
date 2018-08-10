@@ -45,16 +45,16 @@ describe('/DELETE media roles with id ', () => {
   it('it should DELETE media given the id', (done) => {
     methods.Media.mediaRolesMethods.getAllMediaRoles()
       .then((res) => {
-        let streamId = {};
-        streamId = res[0].dataValues.id;
+        let Id = {};
+        Id = res[0].dataValues.id;
 
         chai.request(app)
           .delete('/private/media/media_roles/')
-          .send({ streamId })
+          .send({ id : Id })
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('Media Roles Type deleted');
+            expect(result.body.status).to.eql('Media Roles deleted');
             done();
           });
       })
