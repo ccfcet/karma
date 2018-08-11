@@ -15,8 +15,8 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 
-const newPeople = [];
-const tempPeople = [];
+const newVar = [];
+const tempVar = [];
 
 
 describe('Media - Media - GET', () => {
@@ -30,16 +30,16 @@ describe('Media - Media - GET', () => {
 
     methods.Media.mediaMethods.addMedia(classes)
       .then((model) => {
-        newPeople.push(model.dataValues);
+        newVar.push(model.dataValues);
 
-        const ret = newPeople.map((datum) => {
+        const ret = newVar.map((datum) => {
           const dat = datum;
           delete dat.created_at;
           delete dat.updated_at;
           return dat;
         });
         console.log(ret);
-        tempPeople.push(ret[0]);
+        tempVar.push(ret[0]);
         done();
       })
       .catch(err => console.log(err));
@@ -57,7 +57,7 @@ describe('Media - Media - GET', () => {
         let re = [];
         re = res.body.classes;
         expect(re)
-          .excluding(['created_at', 'updated_at']).to.deep.equal(tempPeople);
+          .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
 
         done();
       })

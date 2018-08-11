@@ -15,8 +15,8 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 
-const newPeople = [];
-const tempPeople = [];
+const newVar = [];
+const tempVar = [];
 
 
 describe('StreamTypes - GetStreamTypes - GET', () => {
@@ -31,16 +31,16 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
 
     methods.Academics.streamTypesMethods.addStreamType(classes)
       .then((model) => {
-        newPeople.push(model.dataValues);
+        newVar.push(model.dataValues);
 
-        const ret = newPeople.map((datum) => {
+        const ret = newVar.map((datum) => {
           const dat = datum;
           delete dat.created_at;
           delete dat.updated_at;
           return dat;
         });
         console.log(ret);
-        tempPeople.push(ret[0]);
+        tempVar.push(ret[0]);
         done();
       })
       .catch(err => console.log(err));
@@ -60,7 +60,7 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
         re[0].end_date = new Date(re[0].end_date);
 
         expect(re)
-          .excluding(['created_at', 'updated_at']).to.deep.equal(tempPeople);
+          .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
 
         done();
       })

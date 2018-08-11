@@ -1,3 +1,4 @@
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const chaiExclude = require('chai-exclude');
@@ -14,22 +15,26 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
+
 const newVar = [];
 const tempVar = [];
 
-
-describe('/DELETE media roles with id ', () => {
+describe('/PUT/:peopleId ', () => {
   beforeEach((done) => {
     console.log('entered');
     const classes = {
-      role_name: 'Name',
-      role_slug: 'Slug',
-      role_description: 'Description',
+        first_name: 'John',
+        middle_name: 'M',
+        last_name: 'Doe',
+        gender: 'M',
+        date_of_birth: '1987-01-01',
+        nationality: 'Indian',
     };
 
-    methods.Media.mediaRolesMethods.addMediaRoles(classes)
+    methods.People.peopleMethods.addPeople(classes)
       .then((model) => {
         newVar.push(model.dataValues);
+
         const ret = newVar.map((datum) => {
           const dat = datum;
           delete dat.created_at;
@@ -42,24 +47,43 @@ describe('/DELETE media roles with id ', () => {
       })
       .catch(err => console.log(err));
   });
-  it('it should DELETE media given the id', (done) => {
-    methods.Media.mediaRolesMethods.getAllMediaRoles()
+
+  it('it should UPDATE people given the peopleId', (done) => {
+    methods.People.peopleMethods.getAllPeople()
       .then((res) => {
-        let Id = {};
-        Id = res[0].dataValues.id;
+        let peopleId = {};
+        peopleId = res[0].dataValues.id;
+        const Types = {
+            firstName: 'John',
+            middleName: 'Z',
+            lastName: 'Wick',
+            gender: 'M',
+            dateOfBirth: '1988-03-06',
+            nationality: 'Indian',
+        };
 
         chai.request(app)
-          .delete('/private/media/media_roles/')
-          .send({ id : Id })
+          .put(`/private/people/people/${peopleId}`)
+          .send(Types)
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('Media Roles deleted');
+            expect(result.body.status).to.eql('Updated People');
+
             done();
           });
       })
       .catch((err) => {
-        console.log('hello', err);
+        console.log(err);
+      });
+  });
+  afterEach((done) => {
+    methods.People.peopleMethods.deleteAllPeople().then(() => {
+      console.log('done');
+      done();
+    })
+      .catch((err) => {
+        console.log(err);
       });
   });
 });

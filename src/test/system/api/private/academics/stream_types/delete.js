@@ -14,8 +14,8 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-const newPeople = [];
-const tempPeople = [];
+const newVar = [];
+const tempVar = [];
 
 
 describe('/DELETE stream_types with id ', () => {
@@ -30,15 +30,15 @@ describe('/DELETE stream_types with id ', () => {
 
     methods.Academics.streamTypesMethods.addStreamType(classes)
       .then((model) => {
-        newPeople.push(model.dataValues);
-        const ret = newPeople.map((datum) => {
+        newVar.push(model.dataValues);
+        const ret = newVar.map((datum) => {
           const dat = datum;
           delete dat.created_at;
           delete dat.updated_at;
           return dat;
         });
         console.log(ret);
-        tempPeople.push(ret[0]);
+        tempVar.push(ret[0]);
         done();
       })
       .catch(err => console.log(err));

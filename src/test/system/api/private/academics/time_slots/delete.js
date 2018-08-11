@@ -14,8 +14,8 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-const newPeople = [];
-const tempPeople = [];
+const newVar = [];
+const tempVar = [];
 
 
 describe('/DELETE time_slots with id ', () => {
@@ -28,15 +28,15 @@ describe('/DELETE time_slots with id ', () => {
 
     methods.Academics.timeSlotsMethods.addTimeSlots(classes)
       .then((model) => {
-        newPeople.push(model.dataValues);
-        const ret = newPeople.map((datum) => {
+        newVar.push(model.dataValues);
+        const ret = newVar.map((datum) => {
           const dat = datum;
           delete dat.created_at;
           delete dat.updated_at;
           return dat;
         });
         console.log('return value', ret);
-        tempPeople.push(ret[0]);
+        tempVar.push(ret[0]);
         done();
       })
       .catch(err => console.log(err));
@@ -45,7 +45,7 @@ describe('/DELETE time_slots with id ', () => {
     methods.Academics.timeSlotsMethods.getAllTimeSlots()
       .then(() => {
         let timeSlotId = {};
-        timeSlotId = tempPeople[0].id;
+        timeSlotId = tempVar[0].id;
 
         chai.request(app)
           .delete('/public/academics/time_slots/')

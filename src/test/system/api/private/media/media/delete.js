@@ -14,8 +14,8 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-const newPeople = [];
-const tempPeople = [];
+const newVar = [];
+const tempVar = [];
 
 
 describe('/DELETE media with id ', () => {
@@ -29,15 +29,15 @@ describe('/DELETE media with id ', () => {
 
     methods.Media.mediaMethods.addMedia(classes)
       .then((model) => {
-        newPeople.push(model.dataValues);
-        const ret = newPeople.map((datum) => {
+        newVar.push(model.dataValues);
+        const ret = newVar.map((datum) => {
           const dat = datum;
           delete dat.created_at;
           delete dat.updated_at;
           return dat;
         });
         console.log(ret);
-        tempPeople.push(ret[0]);
+        tempVar.push(ret[0]);
         done();
       })
       .catch(err => console.log(err));
