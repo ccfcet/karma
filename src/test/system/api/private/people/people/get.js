@@ -51,7 +51,7 @@ describe('People - GetPeople - GET', () => {
 
   it('GET /private/People/people/', (done) => {
     chai.request(app)
-      .get('/private/People/people/')
+      .get('/private/people/')
       .then((res) => {
         // const output  = res.body.people;
         expect(res).to.have.status(200);
@@ -79,8 +79,6 @@ describe('People - GetPeople - GET', () => {
       });
   });
 });
-
-
 
 
 // const chai = require('chai');

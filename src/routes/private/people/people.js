@@ -21,6 +21,7 @@ const methods = require('data/methods');
 router.get('/', (req, res) => {
   methods.People.peopleMethods.getAllPeople()
     .then((classes) => {
+      console.log('people')
       res.json({
         status: 'success',
         classes,
@@ -76,30 +77,27 @@ router.get('/', (req, res) => {
  */
 
 
-router.post('/', (req, res) => {
+router.post('/', (req, res,next) => {
   const info = {};
   if (Object.prototype.hasOwnProperty.call(req.body, 'firstName')
     && Object.prototype.hasOwnProperty.call(req.body, 'middleName')
     && Object.prototype.hasOwnProperty.call(req.body, 'lastName')
     && Object.prototype.hasOwnProperty.call(req.body, 'gender')
     && Object.prototype.hasOwnProperty.call(req.body, 'dateOfBirth')
-    && Object.prototype.hasOwnProperty.call(req.body, 'nationality')
-    && Object.prototype.hasOwnProperty.call(req.body, 'createdAt')
-    && Object.prototype.hasOwnProperty.call(req.body, 'updatedAt')) {
+    && Object.prototype.hasOwnProperty.call(req.body, 'nationality')) {
     info.first_name = req.body.firstName;
     info.middle_name = req.body.middleName;
     info.last_name = req.body.lastName;
     info.gender = req.body.gender;
     info.date_of_birth = req.body.dateOfBirth;
     info.nationality = req.body.nationality;
-    info.created_at = req.body.createdAt;
-    info.updated_at = req.body.updatedAt;
 
+console.log(info)
     methods.People.peopleMethods.addPeople(info)
       .then((model) => {
         res.status(200).json({
           message: 'success',
-          people : model,
+          people: model,
         });
       })
       .catch((err) => {
@@ -108,6 +106,11 @@ router.post('/', (req, res) => {
           error: err.message,
         });
       });
+  }
+  else {
+    console.log('request could not be accepted')
+    next();
+
   }
 });
 
@@ -144,17 +147,13 @@ router.put('/:peopleId', (req, res) => {
     && Object.prototype.hasOwnProperty.call(req.body, 'lastName')
     && Object.prototype.hasOwnProperty.call(req.body, 'gender')
     && Object.prototype.hasOwnProperty.call(req.body, 'dateOfBirth')
-    && Object.prototype.hasOwnProperty.call(req.body, 'nationality')
-    && Object.prototype.hasOwnProperty.call(req.body, 'createdAt')
-    && Object.prototype.hasOwnProperty.call(req.body, 'updatedAt')) {
-      data.first_name = req.body.firstName;
-      data.middle_name = req.body.middleName;
-      data.last_name = req.body.lastName;
-      data.gender = req.body.gender;
-      data.date_of_birth = req.body.dateOfBirth;
-      data.nationality = req.body.nationality;
-      data.created_at = req.body.createdAt;
-      data.updated_at = req.body.updatedAt;
+    && Object.prototype.hasOwnProperty.call(req.body, 'nationality')) {
+    data.first_name = req.body.firstName;
+    data.middle_name = req.body.middleName;
+    data.last_name = req.body.lastName;
+    data.gender = req.body.gender;
+    data.date_of_birth = req.body.dateOfBirth;
+    data.nationality = req.body.nationality;
   }
 
   methods.People.peopleMethods.updatePeople(info, data)
@@ -195,7 +194,7 @@ router.put('/:peopleId', (req, res) => {
 
 router.delete('/', (req, res) => {
   const info = {};
-
+  console.log(info)
   info.id = req.body.peopleId;
   methods.People.peopleMethods.deletePeople(info)
     .then((model) => {

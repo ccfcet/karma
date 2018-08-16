@@ -25,19 +25,21 @@ describe('Post People - POST', () => {
         console.log(err);
       });
   });
-  it('POST /private/people/people/', (done) => {
+  it('POST /private/people/', (done) => {
     const classes = {
-        firstName: 'John',
-        middleName: 'M',
-        lastName: 'Doe',
-        gender: 'M',
-        dateOfBirth: '1987-01-01',
-        nationality: 'Indian',
+      firstName: 'Johnny',
+      middleName: 'M',
+      lastName: 'Doe',
+      gender: 'M',
+      dateOfBirth: '1987-01-01',
+      nationality: 'Indian',
     };
+    console.log(classes)
     chai.request(app)
-      .post('/private/people/people/')
+      .post('/private/people/')
       .send(classes)
       .end((err, result) => {
+        console.log(err)
         expect(result).to.have.status(200);
         expect(result.body).to.be.a('object');
 

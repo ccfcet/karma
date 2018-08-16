@@ -54,5 +54,20 @@ entityTypeMethods.deleteEntityTypes = info => new Promise((resolve, reject) => {
       reject(err);
     });
 });
+entityTypeMethods.deleteAllEntityTypes = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.entities.entity_types.destroy({
+    where: {
+    },
+  })
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 
 module.exports = entityTypeMethods;

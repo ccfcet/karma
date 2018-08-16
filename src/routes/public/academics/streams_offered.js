@@ -3,6 +3,23 @@ const express = require('express');
 const router = express.Router();
 const methods = require('data/methods');
 
+
+router.get('/', (req, res) => {
+  methods.Academics.streamsOfferedMethods.getAllStreamsOffered()
+    .then((classes) => {
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
+});
+
 /**
  * @api {get} /private/academics/streams_offered GetStreamsOffered
  * @apiVersion 1.0.0-alpha-1

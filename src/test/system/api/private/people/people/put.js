@@ -23,12 +23,12 @@ describe('/PUT/:peopleId ', () => {
   beforeEach((done) => {
     console.log('entered');
     const classes = {
-        first_name: 'John',
-        middle_name: 'M',
-        last_name: 'Doe',
-        gender: 'M',
-        date_of_birth: '1987-01-01',
-        nationality: 'Indian',
+      first_name: 'John',
+      middle_name: 'M',
+      last_name: 'Doe',
+      gender: 'M',
+      date_of_birth: '1987-01-01',
+      nationality: 'Indian',
     };
 
     methods.People.peopleMethods.addPeople(classes)
@@ -54,16 +54,16 @@ describe('/PUT/:peopleId ', () => {
         let peopleId = {};
         peopleId = res[0].dataValues.id;
         const Types = {
-            firstName: 'John',
-            middleName: 'Z',
-            lastName: 'Wick',
-            gender: 'M',
-            dateOfBirth: '1988-03-06',
-            nationality: 'Indian',
+          firstName: 'John',
+          middleName: 'Z',
+          lastName: 'Wick',
+          gender: 'M',
+          dateOfBirth: '1988-03-06',
+          nationality: 'Indian',
         };
 
         chai.request(app)
-          .put(`/private/people/people/${peopleId}`)
+          .put(`/private/people/${peopleId}`)
           .send(Types)
           .end((err, result) => {
             expect(result).to.have.status(200);

@@ -50,7 +50,7 @@ describe('/DELETE media roles with id ', () => {
 
         chai.request(app)
           .delete('/private/media/media_roles/')
-          .send({ id : Id })
+          .send({ id: Id })
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');

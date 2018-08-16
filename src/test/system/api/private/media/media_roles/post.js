@@ -49,6 +49,6 @@ describe('Post mediaroles - POST', () => {
     })
       .catch((err) => {
         console.log(err);
-});
-});
+      });
+  });
 });

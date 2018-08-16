@@ -1,10 +1,10 @@
-/* const chai = require('chai');
+const chai = require('chai');
 const chaiHttp = require('chai-http');
 const chaiExclude = require('chai-exclude');
 
 chai.use(chaiExclude);
-const app = require('../../../../../../bin/www'); */
-/* const methods = require('../../../../../../lib/data/methods');
+const app = require('../../../../../../bin/www'); 
+const methods = require('../../../../../../lib/data/methods');
 
 
 process.nextTick(() => {
@@ -15,13 +15,16 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 
-const newVar = [];
+const newPeople = [];
+const streamType = [];
 const newEntity = [];
+const newEntityType = [];
 const tempStreamTypes = [];
 const tempEntities = [];
+const streamsOffered = []
+const newStreams = [];
 
-
-describe('StreamTypes - GetStreamTypes - GET', () => {
+describe('StreamsOffered - GetStreamsOffered - GET', () => {
   beforeEach((done) => {
     console.log('entered');
     const classes = {
@@ -33,55 +36,80 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
 
     methods.Academics.streamTypesMethods.addStreamType(classes)
       .then((model) => {
-        newVar.push(model.dataValues);
-
-        newVar.map((datum) => {
-          delete datum.created_at;
-          delete datum.updated_at;
-
-          tempStreamTypes.push(datum);
-        });
-        const entity = {
+        streamType.push(model.dataValues);
+        const entityTypes = {
+          entity_type : 'people',
+          entity_type_slug : 'about',
 
         }
-        methods.Entities.EntityMethods.addEntity(entity)
-        .then((entity) =>{
-          newEntity.push(entity.dataValues);
+        console.log(streamType);
+        
+        methods.Entities.entityTypeMethods.addEntityType(entityTypes)
+        .then((entityType) =>{
+          console.log('entered entity type')
+          newEntityType.push(entityType.dataValues);
+          const entity = {
+            entity_name:'cse',
+            entity_slug: 'about',
+            entity_type_id: newEntityType[0].id,
+                  }
+            methods.Entities.entityMethods.addEntity(entity)
+            .then((entities) =>{
+              newEntity.push(entities.dataValues);
+              console.log(streamType);
 
-          newEntity.map((value) =>{
-            delete value.created_at;
-            delete value.updated_at;
+              const newStream = {
 
-            tempEntities.push(value)
+                stream_type_id: streamType[0].id,
+                stream_name: 'btech',
+                department_id: newEntity[0].id,
+                valid_start_date: '2018-07-25',
+                valid_end_date: '2018-07-25',
+               }
+              methods.Academics.streamsOfferedMethods.addStreamsOffered(newStream)
+              .then((streams) =>{
+                streamsOffered.push(streams.dataValues);
+
+                  var returns = streamsOffered.map((values) =>{
+                    var val = values
+                    delete val.created_at;
+                    delete val.updated_at;
+                    return val
+                    })
+                 newStreams.push(returns[0])
+                done();
+                })
+              .catch((err) =>{
+                console.log(err)
+                })
+              })
+            .catch((err) =>{
+                console.log(err);
+                })
+              })
+          .catch((err) =>{
+
           })
-
-          methods.Academics.streamsOfferedMethods.addStreamsOffered()
-
-          done();
-        })
-        .catch((err) =>{
-            console.log(err);
-        })
-
       })
       .catch(err => console.log(err));
   });
 
 
-  it('GET /public/Academics/stream_types/', (done) => {
+  it('GET /public/Academics/streams_offered/', (done) => {
     chai.request(app)
-      .get('/public/Academics/stream_types/')
+      .get('/public/academics/streams_offered/')
       .then((res) => {
         // const output  = res.body.people;
         expect(res).to.have.status(200);
         expect(res.body.status).equal('success');
-        let re = [];
-        re = res.body.classes;
-        re[0].start_date = new Date(re[0].start_date);
-        re[0].end_date = new Date(re[0].end_date);
+        let re = res.body.classes;
+        re[0].valid_start_date = new Date(re[0].valid_start_date);
+        re[0].valid_end_date = new Date(re[0].valid_end_date);
+        console.log(re)
+        console.log(newStreams)
 
         expect(re)
-          .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
+          .excluding(['created_at', 'updated_at']).to.deep.equal(newStreams);
 
         done();
       })
@@ -91,14 +119,34 @@ describe('StreamTypes - GetStreamTypes - GET', () => {
   });
 
   afterEach((done) => {
-    methods.Academics.streamTypesMethods.deleteAllStreamTypes()
-      .then(() => {
-        console.log('deleted');
-        done();
+    methods.Academics.streamTypesMethods.deleteAllStreamTypes().then(() =>{
+      console.log('deleted streamtypes')
+      methods.Entities.entityTypeMethods.deleteAllEntityTypes().then(() =>{
+        console.log('deleted entitytypes')
+        methods.Entities.entityMethods.deleteAllEntity().then(() =>{
+          console.log('deleted entities')
+
+          methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+          .then(() => {
+            console.log('deleted');
+            done();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        })
+        .catch((err) =>{
+          console.log(err)
+        })
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) =>{
+        console.log(err)
+      })
+    })
+    .catch((err) =>{
+      console.log(err);
+    })
+
   });
 });
-*/

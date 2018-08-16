@@ -58,7 +58,7 @@ router.put('/:id', (req, res) => {
   methods.Media.mediaRolesMethods.updateMediaRoles(info, data)
     .then((model) => {
       res.status(200).json({
-        status: 'Updated Media Roles', 
+        status: 'Updated Media Roles',
         state: model[0],
       });
     })

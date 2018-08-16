@@ -69,4 +69,19 @@ entityMethods.deleteEntity = id => new Promise((resolve, reject) => {
       reject(err);
     });
 });
+entityMethods.deleteAllEntity = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.entities.entities.destroy({
+    where: {
+    },
+  })
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 module.exports = entityMethods;
