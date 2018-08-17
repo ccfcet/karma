@@ -20,7 +20,19 @@ const methods = require('data/methods');
  */
 
 router.get('/', (req, res) => {
-  res.send({ status: 200 });
+  methods.Academics.classesMethods.getAllClasses()
+    .then((classes) => {
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
 });
 
 /**

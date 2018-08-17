@@ -15,12 +15,9 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 
-const newPeople = [];
 const streamType = [];
 const newEntity = [];
 const newEntityType = [];
-const tempStreamTypes = [];
-const tempEntities = [];
 const streamsOffered = []
 const newStreams = [];
 
