@@ -21,10 +21,10 @@ const methods = require('data/methods');
 
 router.get('/', (req, res) => {
   methods.Academics.courses_offered.getAllCoursesOffered()
-    .then((courses) => {
+    .then((model) => {
       res.status(200).json({
         message: 'success',
-        courses,
+        classes: model,
       });
     })
     .catch((err) => {
@@ -154,7 +154,7 @@ router.put('/:course_offered_id', (req, res, next) => {
     data.valid_start_date = req.body.validStartDate;
     data.valid_end_date = req.body.validEndDate;
     data.duration_in_days = req.body.durationInDays;
-    methods.Academics.courses_offered.updateCourses(info, data)
+    methods.Academics.courses_offered.updateCoursesOffered(info, data)
       .then((model) => {
         res.status(200).json({
           status: 'updated',
@@ -199,7 +199,7 @@ router.delete('/', (req, res) => {
     info.department_id = req.body.departmentId;
     info.official_course_id = req.body.officialCourseId;
 
-    methods.Academics.courses_offered.deleteCourses(info)
+    methods.Academics.courses_offered.deleteCoursesOffered(info)
       .then((noOfRowsDeleted) => {
         res.status(200).json({
           message: `${noOfRowsDeleted} course(s) deleted`,

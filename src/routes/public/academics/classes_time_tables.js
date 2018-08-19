@@ -19,7 +19,19 @@ const methods = require('data/methods');
  */
 
 router.get('/', (req, res) => {
-  res.send({ status: 200 });
+  methods.Academics.classesTimeTablesMethods.getAllClassesTimeTables()
+    .then((model) => {
+      res.status(200).json({
+        status: 'success',
+        classes: model,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err,
+      });
+    });
 });
 
 

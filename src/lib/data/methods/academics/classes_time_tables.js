@@ -69,6 +69,21 @@ classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
   });
 };
 
+classesTimeTablesMethods.deleteAllClassesTimeTables = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.academics.classes_time_tables.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 classesTimeTablesMethods.deleteClassesTimeTables = info => new Promise((
   resolve,
   reject,

@@ -4,8 +4,7 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  methods.Media.mediaRolesMethods
-    .getAllMediaRoles()
+  methods.Media.mediaRolesMethods.getAllMediaRoles()
     .then((model) => {
       res.status(200).json({
         status: 'success',
