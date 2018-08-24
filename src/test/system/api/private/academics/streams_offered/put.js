@@ -21,7 +21,6 @@ const newEntity = [];
 const newEntityType = [];
 const streamsOffered = []
 const newStreams = [];
-const stream = [];
 
 describe('/PUT/:streamid ', () => {
   beforeEach((done) => {

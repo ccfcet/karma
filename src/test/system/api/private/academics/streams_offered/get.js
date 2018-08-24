@@ -132,7 +132,35 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
               console.log(err);
             });
         })
-          .catch((err) => {
+          .catch((err) => {afterEach((done) => {
+            methods.Academics.streamTypesMethods.deleteAllStreamTypes().then(() => {
+              console.log('deleted streamtypes');
+              methods.Entities.entityTypeMethods.deleteAllEntityTypes().then(() => {
+                console.log('deleted entitytypes');
+                methods.Entities.entityMethods.deleteAllEntity().then(() => {
+                  console.log('deleted entities');
+        
+                  methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                    .then(() => {
+                      console.log('deleted');
+                      done();
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              })
+                .catch((err) => {
+                  console.log(err);
+                });
+            })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
             console.log(err);
           });
       })

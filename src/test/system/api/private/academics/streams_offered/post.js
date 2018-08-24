@@ -17,8 +17,7 @@ const { expect } = chai;
 const streamType = [];
 const newEntity = [];
 const newEntityType = [];
-const streamsOffered = []
-const newStreams = [];
+
 
 describe('Post stream types - POST', () => {
   beforeEach((done) => {
