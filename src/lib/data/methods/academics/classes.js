@@ -18,6 +18,16 @@ classesMethods.addClasses = (info) => {
   });
 };
 
+classesMethods.getAllClasses = () => new Promise((resolve, reject) => {
+  models.academics.classes.findAll()
+    .then((classes) => {
+      resolve(classes);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 classesMethods.findBySlug = (streamId, slugName) => {
   console.log('finding by slugname');
 
@@ -81,6 +91,21 @@ classesMethods.updateClasses = (info, data) => new Promise((
       }
     }).catch((error) => {
       reject(error);
+    });
+});
+
+classesMethods.deleteAllClasses = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.academics.classes.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
     });
 });
 

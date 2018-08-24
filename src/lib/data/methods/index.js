@@ -9,5 +9,6 @@ methods.Academics = require('./academics');
 methods.students = require('./student');
 methods.Events = require('./events');
 methods.News = require('./news');
+methods.Faculty = require('./faculty');
 
 module.exports = methods;

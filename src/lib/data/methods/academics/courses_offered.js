@@ -16,21 +16,21 @@ coursesOfferedMethods.getAllCoursesOffered = () => new Promise((resolve,
     });
 });
 
-coursesOfferedMethods.addCoursesOffered = info => new Promise((
-  resolve,
-  reject,
-) => {
-  models.academics.courses_offered.create(info)
-    .then((newCourseOffered) => {
-      resolve(newCourseOffered);
-    })
-    .catch((err) => {
-      console.log(err);
-      reject(err);
-    });
-});
+coursesOfferedMethods.addCoursesOffered = (info) => {
 
-coursesOfferedMethods.updateCourses = (info, data) => new Promise((
+  return new Promise((resolve, reject) => {
+    models.academics.courses_offered.create(info)
+    .then((model) => {
+      resolve(model);
+    })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
+};
+
+coursesOfferedMethods.updateCoursesOffered = (info, data) => new Promise((
   resolve,
   reject,
 ) => {
@@ -50,7 +50,22 @@ coursesOfferedMethods.updateCourses = (info, data) => new Promise((
     });
 });
 
-coursesOfferedMethods.deleteCourses = info => new Promise((resolve, reject) => {
+coursesOfferedMethods.deleteAllCoursesOffered = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.academics.courses_offered.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+coursesOfferedMethods.deleteCoursesOffered = info => new Promise((resolve, reject) => {
   models.academics.courses_offered.destroy({
     where: {
       department_id: info.department_id,
@@ -58,7 +73,7 @@ coursesOfferedMethods.deleteCourses = info => new Promise((resolve, reject) => {
     },
   }).then((deleted) => {
     if (deleted === 0) {
-      console.log('error tg');
+      console.log('error');
       reject(new Error());
     } else {
       resolve(deleted);

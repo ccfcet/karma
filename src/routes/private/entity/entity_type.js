@@ -5,7 +5,7 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  res.json({ status: 'functional' });
+  res.json({ status: 'success' });
 });
 
 /**

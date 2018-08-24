@@ -18,6 +18,17 @@ classesTimeTablesMethods.addClassesTimeTables = (info) => {
       });
   });
 };
+classesTimeTablesMethods.getAllClassesTimeTables = () => new Promise((resolve,
+  reject) => {
+  models.academics.classes_time_tables.findAll()
+    .then((newClassesTimeTables) => {
+      resolve(newClassesTimeTables);
+    })
+    .catch((err) => {
+      console.log(err);
+      reject(err);
+    });
+});
 classesTimeTablesMethods.updateClassesTimeTablesWithClassNameAndDivision = (
   info,
   data,
@@ -68,6 +79,21 @@ classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
       });
   });
 };
+
+classesTimeTablesMethods.deleteAllClassesTimeTables = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.academics.classes_time_tables.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 
 classesTimeTablesMethods.deleteClassesTimeTables = info => new Promise((
   resolve,

@@ -20,11 +20,12 @@ const methods = require('data/methods');
  */
 
 router.get('/', (req, res) => {
-  methods.Academics.courses_offered.getAllCoursesOffered()
-    .then((courses) => {
+  methods.Academics.coursesOfferedMethods.getAllCoursesOffered()
+    .then((model) => {
+      console.log('courses offered')
       res.status(200).json({
         message: 'success',
-        courses,
+        classes: model,
       });
     })
     .catch((err) => {
@@ -88,7 +89,7 @@ router.post('/', (req, res, next) => {
     info.valid_end_date = req.body.validEndDate;
     info.duration_in_days = req.body.durationInDays;
 
-    methods.Academics.courses_offered.addCoursesOffered(info)
+    methods.Academics.coursesOfferedMethods.addCoursesOffered(info)
       .then((model) => {
         res.status(200).json({
           message: 'success',
@@ -154,7 +155,7 @@ router.put('/:course_offered_id', (req, res, next) => {
     data.valid_start_date = req.body.validStartDate;
     data.valid_end_date = req.body.validEndDate;
     data.duration_in_days = req.body.durationInDays;
-    methods.Academics.courses_offered.updateCourses(info, data)
+    methods.Academics.coursesOfferedMethods.updateCoursesOffered(info, data)
       .then((model) => {
         res.status(200).json({
           status: 'updated',
@@ -199,7 +200,7 @@ router.delete('/', (req, res) => {
     info.department_id = req.body.departmentId;
     info.official_course_id = req.body.officialCourseId;
 
-    methods.Academics.courses_offered.deleteCourses(info)
+    methods.Academics.coursesOfferedMethods.deleteCoursesOffered(info)
       .then((noOfRowsDeleted) => {
         res.status(200).json({
           message: `${noOfRowsDeleted} course(s) deleted`,

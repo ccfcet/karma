@@ -37,6 +37,21 @@ facultyMethods
     });
   };
 
+  facultyMethods.deleteAllFacultyAcademicEnrolmentActivity = () => new Promise((
+    resolve,
+    reject,
+  ) => {
+    models.faculty.faculty_academic_enrolment_activity.destroy({
+      where: {},
+    })
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
 facultyMethods.deleteFacultyAcademicEnrolmentActivity = info => new Promise((
   resolve,
   reject,
