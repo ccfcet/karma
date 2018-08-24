@@ -56,7 +56,7 @@ describe('/DELETE people with peopleId ', () => {
           .delete('/private/people/')
           .send({ peopleId })
           .end((err, result) => {
-            console.log(err)
+            console.log(err);
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
             expect(result.body.status).to.eql('People Deleted');

@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const chaiExclude = require('chai-exclude');
 
 chai.use(chaiExclude);
-const app = require('../../../../../../bin/www'); 
+const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
 
@@ -21,7 +21,7 @@ const newEntity = [];
 const newEntityType = [];
 const tempStreamTypes = [];
 const tempEntities = [];
-const streamsOffered = []
+const streamsOffered = [];
 const newStreams = [];
 
 describe('StreamsOffered - GetStreamsOffered - GET', () => {
@@ -38,58 +38,58 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
       .then((model) => {
         streamType.push(model.dataValues);
         const entityTypes = {
-          entity_type : 'people',
-          entity_type_slug : 'about',
+          entity_type: 'people',
+          entity_type_slug: 'about',
 
-        }
+        };
         console.log(streamType);
-        
+
         methods.Entities.entityTypeMethods.addEntityType(entityTypes)
-        .then((entityType) =>{
-          console.log('entered entity type')
-          newEntityType.push(entityType.dataValues);
-          const entity = {
-            entity_name:'cse',
-            entity_slug: 'about',
-            entity_type_id: newEntityType[0].id,
-                  }
+          .then((entityType) => {
+            console.log('entered entity type');
+            newEntityType.push(entityType.dataValues);
+            const entity = {
+              entity_name: 'cse',
+              entity_slug: 'about',
+              entity_type_id: newEntityType[0].id,
+            };
             methods.Entities.entityMethods.addEntity(entity)
-            .then((entities) =>{
-              newEntity.push(entities.dataValues);
-              console.log(streamType);
+              .then((entities) => {
+                newEntity.push(entities.dataValues);
+                console.log(streamType);
 
-              const newStream = {
+                const newStream = {
 
-                stream_type_id: streamType[0].id,
-                stream_name: 'btech',
-                department_id: newEntity[0].id,
-                valid_start_date: '2018-07-25',
-                valid_end_date: '2018-07-25',
-               }
-              methods.Academics.streamsOfferedMethods.addStreamsOffered(newStream)
-              .then((streams) =>{
-                streamsOffered.push(streams.dataValues);
+                  stream_type_id: streamType[0].id,
+                  stream_name: 'btech',
+                  department_id: newEntity[0].id,
+                  valid_start_date: '2018-07-25',
+                  valid_end_date: '2018-07-25',
+                };
+                methods.Academics.streamsOfferedMethods.addStreamsOffered(newStream)
+                  .then((streams) => {
+                    streamsOffered.push(streams.dataValues);
 
-                  var returns = streamsOffered.map((values) =>{
-                    var val = values
-                    delete val.created_at;
-                    delete val.updated_at;
-                    return val
-                    })
-                 newStreams.push(returns[0])
-                done();
-                })
-              .catch((err) =>{
-                console.log(err)
-                })
+                    const returns = streamsOffered.map((values) => {
+                      const val = values;
+                      delete val.created_at;
+                      delete val.updated_at;
+                      return val;
+                    });
+                    newStreams.push(returns[0]);
+                    done();
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               })
-            .catch((err) =>{
+              .catch((err) => {
                 console.log(err);
-                })
-              })
-          .catch((err) =>{
-
+              });
           })
+          .catch((err) => {
+
+          });
       })
       .catch(err => console.log(err));
   });
@@ -102,11 +102,11 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
         // const output  = res.body.people;
         expect(res).to.have.status(200);
         expect(res.body.status).equal('success');
-        let re = res.body.classes;
+        const re = res.body.classes;
         re[0].valid_start_date = new Date(re[0].valid_start_date);
         re[0].valid_end_date = new Date(re[0].valid_end_date);
-        console.log(re)
-        console.log(newStreams)
+        console.log(re);
+        console.log(newStreams);
 
         expect(re)
           .excluding(['created_at', 'updated_at']).to.deep.equal(newStreams);
@@ -119,34 +119,32 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
   });
 
   afterEach((done) => {
-    methods.Academics.streamTypesMethods.deleteAllStreamTypes().then(() =>{
-      console.log('deleted streamtypes')
-      methods.Entities.entityTypeMethods.deleteAllEntityTypes().then(() =>{
-        console.log('deleted entitytypes')
-        methods.Entities.entityMethods.deleteAllEntity().then(() =>{
-          console.log('deleted entities')
+    methods.Academics.streamTypesMethods.deleteAllStreamTypes().then(() => {
+      console.log('deleted streamtypes');
+      methods.Entities.entityTypeMethods.deleteAllEntityTypes().then(() => {
+        console.log('deleted entitytypes');
+        methods.Entities.entityMethods.deleteAllEntity().then(() => {
+          console.log('deleted entities');
 
           methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
-          .then(() => {
-            console.log('deleted');
-            done();
-          })
+            .then(() => {
+              console.log('deleted');
+              done();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
           .catch((err) => {
             console.log(err);
           });
-
-        })
-        .catch((err) =>{
-          console.log(err)
-        })
       })
-      .catch((err) =>{
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err);
+        });
     })
-    .catch((err) =>{
-      console.log(err);
-    })
-
+      .catch((err) => {
+        console.log(err);
+      });
   });
 });

@@ -21,7 +21,7 @@ const methods = require('data/methods');
 router.get('/', (req, res) => {
   methods.People.peopleMethods.getAllPeople()
     .then((classes) => {
-      console.log('people')
+      console.log('people');
       res.json({
         status: 'success',
         classes,
@@ -77,7 +77,7 @@ router.get('/', (req, res) => {
  */
 
 
-router.post('/', (req, res,next) => {
+router.post('/', (req, res, next) => {
   const info = {};
   if (Object.prototype.hasOwnProperty.call(req.body, 'firstName')
     && Object.prototype.hasOwnProperty.call(req.body, 'middleName')
@@ -92,7 +92,7 @@ router.post('/', (req, res,next) => {
     info.date_of_birth = req.body.dateOfBirth;
     info.nationality = req.body.nationality;
 
-console.log(info)
+    console.log(info);
     methods.People.peopleMethods.addPeople(info)
       .then((model) => {
         res.status(200).json({
@@ -106,11 +106,9 @@ console.log(info)
           error: err.message,
         });
       });
-  }
-  else {
-    console.log('request could not be accepted')
+  } else {
+    console.log('request could not be accepted');
     next();
-
   }
 });
 
@@ -194,7 +192,7 @@ router.put('/:peopleId', (req, res) => {
 
 router.delete('/', (req, res) => {
   const info = {};
-  console.log(info)
+  console.log(info);
   info.id = req.body.peopleId;
   methods.People.peopleMethods.deletePeople(info)
     .then((model) => {

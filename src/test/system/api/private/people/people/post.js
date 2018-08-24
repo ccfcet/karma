@@ -34,12 +34,12 @@ describe('Post People - POST', () => {
       dateOfBirth: '1987-01-01',
       nationality: 'Indian',
     };
-    console.log(classes)
+    console.log(classes);
     chai.request(app)
       .post('/private/people/')
       .send(classes)
       .end((err, result) => {
-        console.log(err)
+        console.log(err);
         expect(result).to.have.status(200);
         expect(result.body).to.be.a('object');
 
