@@ -145,7 +145,7 @@ router.put('/:streamsOfferedId', (req, res) => {
   methods.Academics.streamsOfferedMethods.updateStreamsOffered(info, data)
     .then((model) => {
       res.status(200).json({
-        status: 'updated stream type',
+        status: 'updated streams offered',
         state: model[0],
       });
     })
@@ -188,7 +188,7 @@ router.delete('/', (req, res) => {
   methods.Academics.streamsOfferedMethods.deleteStreamsOffered(info)
     .then((model) => {
       res.status(200).json({
-        status: 'stream offered deleted',
+        status: 'streams offered deleted',
         state: model,
       });
     })
