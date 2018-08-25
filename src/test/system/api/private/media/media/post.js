@@ -38,7 +38,6 @@ describe('Post media - POST', () => {
         expect(result).to.have.status(200);
         expect(result.body).to.be.a('object');
         console.log(result.body);
-        console.log('Helloworld how are you');
         done();
       });
   });
