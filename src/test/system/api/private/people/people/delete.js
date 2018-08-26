@@ -53,7 +53,7 @@ describe('/DELETE people with peopleId ', () => {
         peopleId = res[0].dataValues.id;
 
         chai.request(app)
-          .delete('/private/people/')
+          .delete('/private/people/people/')
           .send({ peopleId })
           .end((err, result) => {
             console.log(err);

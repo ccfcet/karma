@@ -110,11 +110,11 @@ router.post('/', (req, res) => {
 }
  */
 
-router.put('/:timeTableId', (req, res) => {
+router.put('/:cttId', (req, res) => {
   const info = {};
   const data = {};
 
-  info.id = req.params.id; // key values for finding row
+  info.id = req.params.cttId; // key values for finding row
 
   if (Object.prototype.hasOwnProperty.call(req.body, 'classId') 
    && Object.prototype.hasOwnProperty.call(req.body, 'day') 

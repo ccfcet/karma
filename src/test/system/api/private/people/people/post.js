@@ -25,7 +25,7 @@ describe('Post People - POST', () => {
         console.log(err);
       });
   });
-  it('POST /private/people/', (done) => {
+  it('POST /private/people/people/', (done) => {
     const classes = {
       firstName: 'Johnny',
       middleName: 'M',
@@ -36,7 +36,7 @@ describe('Post People - POST', () => {
     };
     console.log(classes);
     chai.request(app)
-      .post('/private/people/')
+      .post('/private/people/people/')
       .send(classes)
       .end((err, result) => {
         console.log(err);

@@ -63,7 +63,7 @@ describe('/PUT/:peopleId ', () => {
         };
 
         chai.request(app)
-          .put(`/private/people/${peopleId}`)
+          .put(`/private/people/people/${peopleId}`)
           .send(Types)
           .end((err, result) => {
             expect(result).to.have.status(200);
