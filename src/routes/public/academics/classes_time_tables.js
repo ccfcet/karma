@@ -114,22 +114,24 @@ router.put('/:timeTableId', (req, res) => {
   const info = {};
   const data = {};
 
-  info.id = req.params.timeTableId; // key values for finding row
+  info.id = req.params.id; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'classId') && Object
-    .prototype.hasOwnProperty.call(req.body, 'day') && Object.prototype
-    .hasOwnProperty.call(req.body, 'timeSlotId') && Object.prototype
-    .hasOwnProperty.call(req.body, 'courseId')) {
+  if (Object.prototype.hasOwnProperty.call(req.body, 'classId') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'day') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'timeSlotId') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'courseId') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'facultyId')) {
     data.class_id = req.body.classId;
     data.day = req.body.day;
     data.time_slot_id = req.body.timeSlotId;
     data.course_id = req.body.courseId;
+    data.faculty_id = req.body.facultyId;
   }
 
   methods.Academics.classesTimeTablesMethods.updateClassesTimeTables(info, data)
     .then((model) => {
       res.status(200).json({
-        status: 'updated',
+        status: 'updated classes_time_tables',
         state: model[0],
       });
     })
@@ -165,12 +167,12 @@ router.put('/:timeTableId', (req, res) => {
 
 router.delete('/', (req, res) => {
   const info = {};
-  info.id = req.body.timeTableId;
+  info.id = req.body.id;
 
   methods.Academics.classesTimeTablesMethods.deleteClassesTimeTables(info)
     .then((model) => {
       res.status(200).json({
-        status: 'Time table deleted',
+        status: 'classes_time_tables deleted',
         state: model,
       });
     })
