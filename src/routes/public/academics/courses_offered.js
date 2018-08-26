@@ -158,7 +158,7 @@ router.put('/:course_offered_id', (req, res, next) => {
     methods.Academics.coursesOfferedMethods.updateCoursesOffered(info, data)
       .then((model) => {
         res.status(200).json({
-          status: 'updated',
+          status: 'updated courses offered',
           state: model,
         });
       })
