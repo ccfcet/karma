@@ -139,7 +139,7 @@ describe('/PUT/:streamid ', () => {
                 console.log(err);
             })
       });
-  it('it should UPDATE streamtypes given the streamid', (done) => {
+  it('it should UPDATE classes given the classid', (done) => {
     methods.Academics.classesMethods.getAllClasses()
       .then((res) => {
         let classId = {};

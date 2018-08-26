@@ -14,13 +14,13 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-
 const newStreamType = [];
 const newEntity = [];
 const newEntityType = [];
 const newStreamsOffered = [];
 const newClass = [];
 const New = [];
+
           
 
 describe('Classes - GetClasses - GET', () => {

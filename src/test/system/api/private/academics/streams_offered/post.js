@@ -91,15 +91,16 @@ describe('Post stream types - POST', () => {
         });
     });
 
-  it('POST /public/academics/stream_types/', (done) => {
+  it('POST /public/academics/streams_offered/', (done) => {
     const newStream = {
               
-        stream_type_id: streamType[0].id,
-        stream_name: 'btech',
-        department_id: newEntity[0].id,
-        valid_start_date: '2018-07-25',
-        valid_end_date: '2018-07-25',
+        streamId: streamType[0].id,
+        streamName: 'btech',
+        departmentId: newEntity[0].id,
+        startDate: '2018-07-25',
+        endDate: '2018-07-25',
       };
+      console.log(newStream)
 
     chai.request(app)
       .post('/public/academics/streams_offered/')
