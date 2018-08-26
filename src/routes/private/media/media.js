@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
   console.log('got into route');
   methods.Media.mediaMethods.getAllMedia()
     .then((classes) => {
-      console.log(classes);
       res.json({
         status: 'success',
         classes,

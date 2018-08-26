@@ -20,7 +20,6 @@ const tempVar = [];
 
 describe('/DELETE media with id ', () => {
   beforeEach((done) => {
-    console.log('entered');
     const classes = {
       media_title: 'Title',
       media_file_name: 'File Name',
@@ -36,7 +35,6 @@ describe('/DELETE media with id ', () => {
           delete dat.updated_at;
           return dat;
         });
-        console.log(ret);
         tempVar.push(ret[0]);
         done();
       })
@@ -47,7 +45,6 @@ describe('/DELETE media with id ', () => {
       .then((res) => {
         let Id = {};
         Id = res[0].dataValues.id;
-        console.log(`${Id}`);
         chai.request(app)
           .delete('/private/media/media/')
           .send({ id: Id })

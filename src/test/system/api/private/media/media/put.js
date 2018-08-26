@@ -21,7 +21,6 @@ describe('/PUT/:id ', () => {
     methods.Media.mediaMethods.getAllMedia()
       .then((res) => {
         const { id } = res[0].dataValues;
-        console.log(`${id}`);
         const classes = {
           mediaTitle: 'Hello ',
           mediaFileName: 'Hey ',

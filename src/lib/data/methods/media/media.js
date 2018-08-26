@@ -18,7 +18,6 @@ mediaMethods.getAllMedia = () => new Promise((resolve, reject) => {
   models.media.media.findAll()
     .then((classes) => {
       resolve(classes);
-      console.log(classes);
     })
     .catch((err) => {
       reject(err);
@@ -54,7 +53,6 @@ mediaMethods.deleteAllMedia = () => new Promise((
   })
     .then((res) => {
       resolve();
-      console.log('deleted all', res);
     })
     .catch((err) => {
       reject(err);

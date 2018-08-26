@@ -76,7 +76,6 @@ mediaRolesMethods.getAllMediaRoles = () => new Promise((resolve, reject) => {
   models.media.media_roles.findAll()
     .then((classes) => {
       resolve(classes);
-      console.log(classes);
     })
     .catch((err) => {
       reject(err);

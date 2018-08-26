@@ -53,7 +53,6 @@ describe('Media - Media - GET', () => {
         // const output  = res.body.people;
         expect(res).to.have.status(200);
         expect(res.body.status).equal('success');
-        console.log('request', res.body);
         let re = [];
         re = res.body.classes;
         expect(re)

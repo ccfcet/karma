@@ -39,7 +39,6 @@ describe('TimeSlots - GetTimeSlots - GET', () => {
               delete dat.updated_at;
               return dat;
             });
-            console.log(ret);
             tempVar.push(ret[0]);
             done();
           })

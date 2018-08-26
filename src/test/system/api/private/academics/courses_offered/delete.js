@@ -76,16 +76,19 @@ describe('/DELETE courses_offered', () => {
     it('it should DELETE courses_offered given the courseid', (done) => {
         methods.Academics.coursesOfferedMethods.getAllCoursesOffered()
           .then((res) => {
-            let id = {};
-            id = res[0].dataValues.id;
-    
+            const data = {};
+            data.officialCourseId = res[0].dataValues.official_course_id;
+            data.departmentId = res[0].dataValues.department_id;
+            console.log(data)
+            console.log(res[0].dataValues)
             chai.request(app)
               .delete('/public/academics/courses_offered/')
-              .send({ id })
+              .send({ data })
               .end((err, result) => {
+                console.log(err)
                 expect(result).to.have.status(200);
                 expect(result.body).to.be.a('object');
-                expect(result.body.status).to.eql('courses_offered deleted');
+                expect(result.body.message).to.eql('courses_offered deleted');
                 done();
               });
           })

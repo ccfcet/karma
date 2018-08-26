@@ -35,7 +35,6 @@ describe('/DELETE time_slots with id ', () => {
           delete dat.updated_at;
           return dat;
         });
-        console.log('return value', ret);
         tempVar.push(ret[0]);
         done();
       })

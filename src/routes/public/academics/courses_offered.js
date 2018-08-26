@@ -88,7 +88,6 @@ router.post('/', (req, res, next) => {
     info.valid_start_date = req.body.validStartDate;
     info.valid_end_date = req.body.validEndDate;
     info.duration_in_days = req.body.durationInDays;
-
     methods.Academics.coursesOfferedMethods.addCoursesOffered(info)
       .then((model) => {
         res.status(200).json({
@@ -194,16 +193,19 @@ router.put('/:course_offered_id', (req, res, next) => {
  */
 
 router.delete('/', (req, res) => {
-  if (Object.prototype.hasOwnProperty.call(req.body, 'officialCourseId')
-    && Object.prototype.hasOwnProperty.call(req.body, 'departmentId')) {
+  console.log('entered delete-coursesOffered')
+  console.log(req.body)
+  if (Object.prototype.hasOwnProperty.call(req.body.data, 'officialCourseId')
+    && Object.prototype.hasOwnProperty.call(req.body.data, 'departmentId')) {
     const info = {};
-    info.department_id = req.body.departmentId;
-    info.official_course_id = req.body.officialCourseId;
+    info.department_id = req.body.data.departmentId;
+    info.official_course_id = req.body.data.officialCourseId;
 
     methods.Academics.coursesOfferedMethods.deleteCoursesOffered(info)
       .then((noOfRowsDeleted) => {
+        console.log(noOfRowsDeleted)
         res.status(200).json({
-          message: `${noOfRowsDeleted} course(s) deleted`,
+          message: `courses_offered deleted`,
         });
       })
       .catch((err) => {

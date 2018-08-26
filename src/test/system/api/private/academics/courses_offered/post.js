@@ -70,13 +70,13 @@ describe('Post courses offered - POST', () => {
 
     it('POST /public/academics/courses_offered/', (done) => {
         const coursesoffered = {
-            official_course_id: 'Course ID',
+            officialCourseId: 'Course ID',
             name: 'Name',
-            department_id: newEntity[0].id,
+            departmentId: newEntity[0].id,
             credits:4,
-            valid_start_date: '2012-12-07',
-            valid_end_date: '2014-04-08',
-            duration_in_days: 5,
+            validStartDate: '2012-12-07',
+            validEndDate: '2014-04-08',
+            durationInDays: 5,
         };
     
         chai.request(app)

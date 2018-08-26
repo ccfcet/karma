@@ -18,7 +18,6 @@ const { expect } = chai;
 describe('Post media - POST', () => {
   beforeEach((done) => {
     methods.Media.mediaMethods.deleteAllMedia().then(() => {
-      console.log('done');
       done();
     })
       .catch((err) => {
@@ -37,7 +36,6 @@ describe('Post media - POST', () => {
       .end((err, result) => {
         expect(result).to.have.status(200);
         expect(result.body).to.be.a('object');
-        console.log(result.body);
         done();
       });
   });
