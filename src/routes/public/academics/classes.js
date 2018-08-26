@@ -138,8 +138,9 @@ router.put('/:classId', (req, res) => {
 
   methods.Academics.classesMethods.updateClasses(info, data)
     .then((model) => {
+      console.log(model)
       res.status(200).json({
-        status: 'updated',
+        status: 'updated classes',
         state: model[0],
       });
     })
@@ -177,14 +178,15 @@ router.put('/:classId', (req, res) => {
 router.delete('/', (req, res) => {
   const info = {};
 
-  info.stream_id = req.body.streamId;
-  info.division = req.body.division;
-  info.current_class_slug = req.body.currentClass;
+  info.stream_id = req.body.data.streamId;
+  info.division = req.body.data.division;
+  info.current_class_slug = req.body.data.currentClass;
 
   methods.Academics.classesMethods.deleteClasses(info)
     .then((model) => {
+      console.log(model)
       res.status(200).json({
-        status: 'Class deleted',
+        status: 'deleted classes',
         state: model,
       });
     })
