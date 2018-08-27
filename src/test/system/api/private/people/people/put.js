@@ -1,4 +1,3 @@
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const chaiExclude = require('chai-exclude');
@@ -21,7 +20,6 @@ const tempVar = [];
 
 describe('/PUT/:peopleId ', () => {
   beforeEach((done) => {
-    console.log('entered');
     const classes = {
       first_name: 'John',
       middle_name: 'M',

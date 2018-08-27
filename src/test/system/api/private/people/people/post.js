@@ -18,7 +18,6 @@ const { expect } = chai;
 describe('Post People - POST', () => {
   beforeEach((done) => {
     methods.People.peopleMethods.deleteAllPeople().then(() => {
-      console.log('done');
       done();
     })
       .catch((err) => {

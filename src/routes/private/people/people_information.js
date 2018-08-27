@@ -7,7 +7,7 @@ const methods = require('data/methods');
 */
 
 router.get('/', (req, res) => {
-    methods.People.peopleInfoSlugsMethods.getAllPeopleInfoSlugs()
+    methods.People.peopleInfoMethods.getAllPeopleInfo()
       .then((classes) => {
         console.log('people');
         res.json({
@@ -29,11 +29,15 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res, next) => {
     const info = {};
-    if (Object.prototype.hasOwnProperty.call(req.body, 'slugName')) {
-      info.slug_name = req.body.slugName;
+    if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId')
+    &&  Object.prototype.hasOwnProperty.call(req.body, 'slugId')
+    &&  Object.prototype.hasOwnProperty.call(req.body, 'data')) {
+        info.people_id = req.body.peopleId;
+        info.slug_id = req.body.slugId;
+        info.data = req.body.data;
   
       console.log(info);
-      methods.People.peopleInfoSlugsMethods.addPeopleInfoSlugs(info)
+      methods.People.peopleInfoMethods.addPeopleInfo(info)
         .then((model) => {
           res.status(200).json({
             message: 'success',
@@ -56,20 +60,24 @@ router.post('/', (req, res, next) => {
     Doc. for put
 */
 
-router.put('/:peopleInfoSlugId', (req, res) => {
+router.put('/:peopleInfoId', (req, res) => {
     const info = {};
     const data = {};
   
-    info.id = req.params.peopleInfoSlugId; // key values for finding row
+    info.id = req.params.peopleInfoId; // key values for finding row
   
-    if (Object.prototype.hasOwnProperty.call(req.body, 'slugName')) {
-      data.slug_name = req.body.slugName;
+    if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId')
+     && Object.prototype.hasOwnProperty.call(req.body, 'slugId')
+     && Object.prototype.hasOwnProperty.call(req.body, 'data')) {
+      data.people_id = req.body.peopleId;
+      data.slug_id = req.body.slugId;
+      data.data = req.body.data;
     }
   
-    methods.People.peopleInfoSlugsMethods.updatePeopleInfoSlugs(info, data)
+    methods.People.peopleInfoMethods.updatePeopleInfo(info, data)
       .then(() => {
         res.status(200).json({
-          status: 'updated peopleInfoSlugs',
+          status: 'updated peopleInfo',
         });
       })
       .catch((err) => {
@@ -87,11 +95,11 @@ router.put('/:peopleInfoSlugId', (req, res) => {
 router.delete('/', (req, res) => {
     const info = {};
     console.log(info);
-    info.id = req.body.peopleInfoSlugId;
-    methods.People.peopleInfoSlugsMethods.deletePeopleInfoSlugs(info)
+    info.id = req.body.peopleInfoId;
+    methods.People.peopleInfoMethods.deletePeopleInfo(info)
       .then((model) => {
         res.status(200).json({
-          status: 'deleted peopleInfoSlugs',
+          status: 'deleted peopleInfo',
           state: model,
         });
       })
