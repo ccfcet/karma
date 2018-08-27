@@ -23,7 +23,6 @@ const newStreams = [];
 
 describe('StreamsOffered - GetStreamsOffered - GET', () => {
   beforeEach((done) => {
-    console.log('entered');
     const classes = {
       stream_type_long: '5',
       stream_type_short: '5',

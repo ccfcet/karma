@@ -168,7 +168,7 @@ describe('/DELETE classes_time_tables', () => {
                                                  activity: 'X',
                                                  date_time: '2012-11-05 11:09:56',
                                                };
-                                               methods.Faculty.facultyMethods.addFacultyAcademicEnrolmentActivity(enrolmentactivity)
+                                               methods.Faculty.facultyEAMethods.addFacultyAcademicEnrolmentActivity(enrolmentactivity)
                                                .then((EnrolmentActivity) => {
                                                  newEnrolmentActivity.push(EnrolmentActivity.dataValues);
       
@@ -299,7 +299,7 @@ describe('/DELETE classes_time_tables', () => {
                       methods.People.peopleMethods.deleteAllPeople()
                       .then(() => {
                         console.log('delete People');
-                        methods.Faculty.facultyMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                        methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
                         .then(() => {
                           console.log('deleted EnrolmentActivity');
                           methods.Academics.classesTimeTablesMethods.deleteAllClassesTimeTables()

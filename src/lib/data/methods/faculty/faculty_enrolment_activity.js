@@ -1,8 +1,8 @@
 const Promise = require('bluebird');
 const models = require('../../models');
 
-const facultyMethods = {};
-facultyMethods.addFacultyAcademicEnrolmentActivity = (info) => {
+const facultyEAMethods = {};
+facultyEAMethods.addFacultyAcademicEnrolmentActivity = (info) => {
   console.log('inside adding faculty enrolment');
   return new Promise((resolve, reject) => {
     models.faculty.faculty_academic_enrolment_activity.create(info)
@@ -15,7 +15,17 @@ facultyMethods.addFacultyAcademicEnrolmentActivity = (info) => {
   });
 };
 
-facultyMethods
+facultyEAMethods.getAllFacultyAcademicEnrolmentActivity = () => new Promise((resolve, reject) => {
+  models.faculty.faculty_academic_enrolment_activity.findAll()
+    .then((people) => {
+      resolve(people);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+facultyEAMethods
   .updateFacultyAcademicEnrolmentActivity = (info, data) => {
     console.log(info, data);
     return new Promise((resolve, reject) => {
@@ -37,7 +47,7 @@ facultyMethods
     });
   };
 
-  facultyMethods.deleteAllFacultyAcademicEnrolmentActivity = () => new Promise((
+  facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity = () => new Promise((
     resolve,
     reject,
   ) => {
@@ -52,7 +62,7 @@ facultyMethods
       });
   });
 
-facultyMethods.deleteFacultyAcademicEnrolmentActivity = info => new Promise((
+facultyEAMethods.deleteFacultyAcademicEnrolmentActivity = info => new Promise((
   resolve,
   reject,
 ) => {
@@ -76,4 +86,4 @@ facultyMethods.deleteFacultyAcademicEnrolmentActivity = info => new Promise((
 });
 
 
-module.exports = facultyMethods;
+module.exports = facultyEAMethods;

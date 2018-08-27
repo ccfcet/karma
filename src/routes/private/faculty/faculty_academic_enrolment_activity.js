@@ -4,9 +4,20 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  res.send({
-    status: 'functional',
-  });
+  methods.Faculty.facultyEAMethods.getAllFacultyAcademicEnrolmentActivity()
+    .then((classes) => {
+      console.log('people');
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
 });
 
 router.post('/', (req, res) => {
@@ -17,8 +28,8 @@ router.post('/', (req, res) => {
   info.date_time = req.body.datetime;
 
   methods.Faculty
-    .facultyMethods
-    .addFacultyEnrolmentAcademicActivity(info)
+    .facultyEAMethods
+    .addFacultyAcademicEnrolmentActivity(info)
     .then((model) => {
       res.send(model);
     })
@@ -35,10 +46,10 @@ router.put('/:enrolmentId', (req, res) => {
 
   info.id = req.params.EnrolmentId; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId') && Object
-    .prototype.hasOwnProperty.call(req.body, 'courseId') && Object.prototype
-    .hasOwnProperty.call(req.body, 'activity') && Object.prototype
-    .hasOwnProperty.call(req.body, 'datetime')) {
+  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'courseId') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'activity') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'datetime')) {
     data.people_id = req.body.peopleId;
     data.course_id = req.body.courseId;
     data.activity = req.body.activity;
@@ -46,7 +57,7 @@ router.put('/:enrolmentId', (req, res) => {
   }
 
   methods.Faculty
-    .facultyMethods
+    .facultyEAMethods
     .updateFacultyAcademicEnrolmentActivity(info, data)
     .then((model) => {
       res.status(200).json({
@@ -71,11 +82,11 @@ router.delete('/', (req, res) => {
 
 
   methods.Faculty
-    .facultyMethods
+    .facultyEAMethods
     .deleteFacultyAcademicEnrolmentActivity(info)
     .then((model) => {
       res.status(200).json({
-        status: 'Class deleted',
+        status: 'deleted faculty_enrolment_activity',
         state: model,
       });
     })

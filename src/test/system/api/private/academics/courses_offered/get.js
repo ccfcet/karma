@@ -79,7 +79,6 @@ describe('CoursesOffered - GetCoursesOffered - GET', () => {
         .get('/public/academics/courses_offered/')
         .then((res) => {
             expect(res).to.have.status(200);
-            //expect(res.body.classes.status).equal('success');
             let re = res.body.classes;
             re[0].valid_start_date = new Date(re[0].valid_start_date);
             re[0].valid_end_date = new Date(re[0].valid_end_date);

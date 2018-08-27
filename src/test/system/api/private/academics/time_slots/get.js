@@ -54,7 +54,6 @@ describe('TimeSlots - GetTimeSlots - GET', () => {
     chai.request(app)
       .get('/public/Academics/time_slots/')
       .then((res) => {
-        // const output  = res.body.people;
         expect(res).to.have.status(200);
         expect(res.body.status).equal('success');
         let re = [];
