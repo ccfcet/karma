@@ -113,6 +113,9 @@ describe('Faculty_academic_enrolment_activity - GetFacultyAcademicEnrolmentActiv
             expect(res).to.have.status(200);
             expect(res.body.status).equal('success');
             let re = res.body.classes;
+            re[0].date_time = new Date(re[0].date_time);
+            //re[0].end_date = new Date(re[0].end_date);
+
             expect(re)
             .excluding(['created_at','updated_at']).to.deep.equal(newFAEA);
             done();            

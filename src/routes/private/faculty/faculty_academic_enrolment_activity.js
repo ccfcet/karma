@@ -4,6 +4,7 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
+  console.log("inside faculty activity")
   methods.Faculty.facultyEAMethods.getAllFacultyAcademicEnrolmentActivity()
     .then((classes) => {
       console.log('people');

@@ -30,5 +30,5 @@ router.use('/people', require('./people'));
 router.use('/entity', require('./entity'));
 router.use('/student', require('./student'));
 router.use('/event', require('./event'));
-
+router.use('/faculty', require('./faculty'));
 module.exports = router;
