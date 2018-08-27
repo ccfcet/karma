@@ -19,7 +19,7 @@ const newPIS = [];
 const New = [];
 const newPeopleInfo = [];
 
-describe('PeopleInformation - GetPeopleInformation -GET', () => {
+describe('PeopleInformation - GetPeopleInformation - GET', () => {
     beforeEach((done) => {
         const peopleinfoslugs = {
             slug_name: 'SlugName', 

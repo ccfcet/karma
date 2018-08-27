@@ -77,7 +77,7 @@ router.put('/:peopleInfoId', (req, res) => {
     methods.People.peopleInfoMethods.updatePeopleInfo(info, data)
       .then(() => {
         res.status(200).json({
-          status: 'updated peopleInfo',
+          status: 'updated people_information',
         });
       })
       .catch((err) => {
