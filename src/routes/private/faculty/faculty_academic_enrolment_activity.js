@@ -45,16 +45,16 @@ router.put('/:enrolmentId', (req, res) => {
   const info = {};
   const data = {};
 
-  info.id = req.params.EnrolmentId; // key values for finding row
-
-  if (Object.prototype.hasOwnProperty.call(req.body.faea, 'peopleId') 
-   && Object.prototype.hasOwnProperty.call(req.body.faea, 'courseId') 
-   && Object.prototype.hasOwnProperty.call(req.body.faea, 'activity') 
-   && Object.prototype.hasOwnProperty.call(req.body.faea, 'datetime')) {
-    data.people_id = req.body.faea.peopleId;
-    data.course_id = req.body.faea.courseId;
-    data.activity = req.body.faea.activity;
-    data.date_time = req.body.faea.datetime;
+  info.id = req.params.enrolmentId; // key values for finding row
+  console.log(req.body)
+  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'courseId') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'activity') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'dateTime')) {
+    data.people_id = req.body.peopleId;
+    data.course_id = req.body.courseId;
+    data.activity = req.body.activity;
+    data.date_time = req.body.dateTime;
   }
 
   methods.Faculty
@@ -62,7 +62,7 @@ router.put('/:enrolmentId', (req, res) => {
     .updateFacultyAcademicEnrolmentActivity(info, data)
     .then((model) => {
       res.status(200).json({
-        status: 'updated',
+        status: 'updated faculty',
         state: model[0],
       });
     })

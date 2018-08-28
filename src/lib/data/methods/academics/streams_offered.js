@@ -5,7 +5,6 @@ const models = require('../../models');
 const streamsOfferedMethods = {};
 
 streamsOfferedMethods.addStreamsOffered = (info) => {
-  console.log(info);
   return new Promise((resolve, reject) => {
     models.academics.streams_offered.create(info)
       .then((newStreamOffered) => {

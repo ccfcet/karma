@@ -22,7 +22,7 @@ const newCoursesOffered = []
 const FAEA = [];
 const newFAEA = [];
 
-describe('/DELETE stream_types with id ', () => {
+describe('/DELETE faculty with id ', () => {
     beforeEach((done) => {
         const newpeople = {
             first_name: 'John',

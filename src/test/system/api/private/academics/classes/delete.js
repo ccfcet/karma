@@ -21,10 +21,10 @@ const newStreamsOffered = [];
 const newClass = [];
 const New = [];
 
-describe('/DELETE time_slots with id ', () => {
+describe('/DELETE classes with id ', () => {
   beforeEach((done) => {
     const entityTypes = {
-        entity_type : 'people',
+        entity_type : 'p',
         entity_type_slug : 'about',
       };
       methods.Entities.entityTypeMethods.addEntityType(entityTypes)

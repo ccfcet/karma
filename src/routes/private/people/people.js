@@ -20,7 +20,7 @@ const methods = require('data/methods');
 router.get('/', (req, res) => {
   methods.People.peopleMethods.getAllPeople()
     .then((classes) => {
-      console.log('people');
+      console.log(classes);
       res.json({
         status: 'success',
         classes,

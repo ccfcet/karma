@@ -38,7 +38,6 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
           entity_type_slug: 'about',
 
         };
-        console.log(streamType);
 
         methods.Entities.entityTypeMethods.addEntityType(entityTypes)
           .then((entityType) => {

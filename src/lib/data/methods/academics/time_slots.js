@@ -5,7 +5,6 @@ const models = require('../../models');
 const timeSlotsMethods = {};
 
 timeSlotsMethods.addTimeSlots = (info) => {
-  console.log(info);
   return new Promise((resolve, reject) => {
     models.academics.time_slots.create(info)
       .then((newTimeSlot) => {

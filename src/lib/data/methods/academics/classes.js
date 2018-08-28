@@ -39,7 +39,6 @@ classesMethods.findBySlug = (streamId, slugName) => {
           current_class_slug: slugName,
         },
     }).then((classes) => {
-      console.log(classes);
       if (classes) {
         resolve(classes);
       } else {
@@ -60,7 +59,6 @@ classesMethods.findById = (id) => {
       { id },
 
     }).then((classes) => {
-      console.log(classes);
       if (classes) {
         resolve(classes);
       } else {

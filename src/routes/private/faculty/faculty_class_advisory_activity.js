@@ -4,11 +4,23 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  res.send({
-    status: 'functional',
-  });
+  console.log("inside faculty activity")
+  methods.Faculty.facultyClassAdvisoryMethods
+  .getAllFacultyClassAdvisoryActivity()
+    .then((classes) => {
+      console.log('got activity')
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
 });
-
 router.post('/', (req, res) => {
   const info = {};
   info.people_id = req.body.peopleId;

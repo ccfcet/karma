@@ -32,6 +32,7 @@ const newCoursesOffered1 = [];
 const New = [];
 
 describe('/DELETE classes_time_tables', () => {
+  
     beforeEach((done) => {
         const timeslot = {
             start_timestamp: '09:12:56',

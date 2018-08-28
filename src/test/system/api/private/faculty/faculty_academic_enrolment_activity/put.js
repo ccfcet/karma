@@ -148,7 +148,7 @@ describe('/PUT/:id ', () => {
                 console.log(err);
             });
       });
-  it('it should UPDATE media given the id', (done) => {
+  it('it should UPDATE faculty given the id', (done) => {
     methods.Faculty.facultyEAMethods.getAllFacultyAcademicEnrolmentActivity()
       .then((res) => {
         const enrolmentId = res[0].dataValues.id;
@@ -158,14 +158,14 @@ describe('/PUT/:id ', () => {
             activity: 'Y',
             dateTime: '2012-12-09 11:55:55',
         };
-
+        console.log('entered faculty activity')
         chai.request(app)
           .put(`/private/faculty/faculty_academic_enrolment_activity/${enrolmentId}`)
           .send(faea)
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('updated media');
+            expect(result.body.status).to.eql('updated faculty');
 
             done();
           });
@@ -176,13 +176,46 @@ describe('/PUT/:id ', () => {
   });
 
   afterEach((done) => {
-    methods.Media.mediaMethods.deleteAllMedia()
-      .then(() => {
-        console.log('deleted');
-        done();
-      })
-      .catch((err) => {
+    methods.People.peopleMethods.deleteAllPeople()
+    .then(() => {
+        console.log('deleted people');
+
+        methods.Entities.entityTypeMethods.deleteAllEntityTypes()
+        .then(() => {
+            console.log('deleted entitytypes');
+
+           methods.Entities.entityMethods.deleteAllEntity()
+           .then(() => {
+                console.log('deleted entities');
+
+                methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                .then(() => {
+                    console.log('deleted coursesoffered');
+
+                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                    .then(() => {
+                        console.log('deleted faculty_academic_enrolment_activity');
+                        done();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    })
+    .catch((err) => {
         console.log(err);
-      });
-  });
+    });
+});
+
 });

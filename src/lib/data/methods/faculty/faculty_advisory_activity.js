@@ -15,10 +15,20 @@ facultyClassAdvisoryMethods.addFacultyClassAdvisoryActivity = (info) => {
       });
   });
 };
+facultyClassAdvisoryMethods
+.getAllFacultyClassAdvisoryActivity= () => new Promise((resolve, reject) => {
+  models.faculty.faculty_class_advisory_activity.findAll()
+    .then((people) => {
+      resolve(people);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 
 facultyClassAdvisoryMethods
   .updateFacultyClassAdvisoryActivity = (info, data) => {
-    console.log(info, data);
     return new Promise((resolve, reject) => {
       models.faculty.faculty_class_advisory_activity.update(data, {
         where: {
@@ -62,4 +72,19 @@ facultyClassAdvisoryMethods
     });
   });
 
+  facultyClassAdvisoryMethods
+  .deleteAllFacultyClassAdvisoryActivity = () => new Promise((
+    resolve,
+    reject,
+  ) => {
+    models.faculty.faculty_class_advisory_activity.destroy({
+      where: {},
+    })
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 module.exports = facultyClassAdvisoryMethods;

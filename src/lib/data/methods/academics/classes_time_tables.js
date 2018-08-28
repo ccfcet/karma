@@ -60,7 +60,6 @@ classesTimeTablesMethods.updateClassesTimeTablesWithClassNameAndDivision = (
 });
 
 classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
-  console.log(info, data);
   return new Promise((resolve, reject) => {
     models.academics.classes_time_tables.update(data, {
       where: {
