@@ -49,7 +49,6 @@ describe('/PUT/:streamid ', () => {
                         entity_type_slug: 'about',
               
                       };
-                      console.log(streamType);
               
                       methods.Entities.entityTypeMethods.addEntityType(entityTypes)
                         .then((entityType) => {
@@ -63,7 +62,6 @@ describe('/PUT/:streamid ', () => {
                           methods.Entities.entityMethods.addEntity(entity)
                             .then((entities) => {
                                 newEntity.push(entities.dataValues);
-                                console.log(streamType);
                 
                                 const newStream = {
                 

@@ -47,14 +47,14 @@ router.put('/:enrolmentId', (req, res) => {
 
   info.id = req.params.EnrolmentId; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'courseId') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'activity') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'datetime')) {
-    data.people_id = req.body.peopleId;
-    data.course_id = req.body.courseId;
-    data.activity = req.body.activity;
-    data.date_time = req.body.datetime;
+  if (Object.prototype.hasOwnProperty.call(req.body.faea, 'peopleId') 
+   && Object.prototype.hasOwnProperty.call(req.body.faea, 'courseId') 
+   && Object.prototype.hasOwnProperty.call(req.body.faea, 'activity') 
+   && Object.prototype.hasOwnProperty.call(req.body.faea, 'datetime')) {
+    data.people_id = req.body.faea.peopleId;
+    data.course_id = req.body.faea.courseId;
+    data.activity = req.body.faea.activity;
+    data.date_time = req.body.faea.datetime;
   }
 
   methods.Faculty
@@ -76,10 +76,9 @@ router.put('/:enrolmentId', (req, res) => {
 
 router.delete('/', (req, res) => {
   const info = {};
-
-  info.people_id = req.body.peopleId;
-  info.course_id = req.body.courseId;
-  info.activity = req.body.activity;
+  info.people_id = req.body.data.peopleId;
+  info.course_id = req.body.data.courseId;
+  info.activity = req.body.data.activity;
 
 
   methods.Faculty
@@ -87,7 +86,7 @@ router.delete('/', (req, res) => {
     .deleteFacultyAcademicEnrolmentActivity(info)
     .then((model) => {
       res.status(200).json({
-        status: 'deleted faculty_enrolment_activity',
+        status: 'faculty deleted',
         state: model,
       });
     })

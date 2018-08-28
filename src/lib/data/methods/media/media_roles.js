@@ -16,7 +16,6 @@ mediaRolesMethods.addMediaRoles = (info) => {
   });
 };
 mediaRolesMethods.updateMediaRoles = (info, data) => {
-  console.log(info, data);
   return new Promise((resolve, reject) => {
     models.media.media_roles.update(data, {
       where: {
@@ -58,7 +57,6 @@ mediaRolesMethods.deleteAllMediaRoles = () => new Promise((
   resolve,
   reject,
 ) => {
-  console.log('entered delete');
   models.media.media_roles.destroy({
     where: {},
   })

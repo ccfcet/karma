@@ -38,7 +38,6 @@ describe('/DELETE stream_types with id ', () => {
               entity_type_slug: 'about',
     
             };
-            console.log(streamType);
     
             methods.Entities.entityTypeMethods.addEntityType(entityTypes)
               .then((entityType) => {
@@ -52,7 +51,6 @@ describe('/DELETE stream_types with id ', () => {
                 methods.Entities.entityMethods.addEntity(entity)
                   .then((entities) => {
                     newEntity.push(entities.dataValues);
-                    console.log(streamType);
     
                     const newStream = {
     

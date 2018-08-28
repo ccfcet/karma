@@ -101,8 +101,7 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
         const re = res.body.classes;
         re[0].valid_start_date = new Date(re[0].valid_start_date);
         re[0].valid_end_date = new Date(re[0].valid_end_date);
-        console.log(re);
-        console.log(newStreams);
+
 
         expect(re)
           .excluding(['created_at', 'updated_at']).to.deep.equal(newStreams);

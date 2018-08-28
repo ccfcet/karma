@@ -45,9 +45,7 @@ describe('Post stream types - POST', () => {
                         entity_type: 'people',
                         entity_type_slug: 'about',
               
-                      };
-                      console.log(streamType);
-              
+                      };              
                       methods.Entities.entityTypeMethods.addEntityType(entityTypes)
                         .then((entityType) => {
                           console.log('entered entity type');
@@ -100,8 +98,6 @@ describe('Post stream types - POST', () => {
         startDate: '2018-07-25',
         endDate: '2018-07-25',
       };
-      console.log(newStream)
-
     chai.request(app)
       .post('/public/academics/streams_offered/')
       .send(newStream)
