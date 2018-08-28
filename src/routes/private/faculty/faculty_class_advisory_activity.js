@@ -47,14 +47,16 @@ router.put('/:advisoryId', (req, res) => {
 
   info.id = req.params.advisoryId; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId') && Object
-    .prototype.hasOwnProperty.call(req.body, 'classId') && Object.prototype
-    .hasOwnProperty.call(req.body, 'activity') && Object.prototype
-    .hasOwnProperty.call(req.body, 'datetime')) {
+  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'classId') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'activity') 
+   && Object.prototype.hasOwnProperty.call(req.body, 'dateTime')
+   && Object.prototype.hasOwnProperty.call(req.body, 'courseId')) {
     data.people_id = req.body.peopleId;
     data.class_id = req.body.classId;
     data.activity = req.body.activity;
-    data.date_time = req.body.datetime;
+    data.date_time = req.body.dateTime;
+    data.course_id = req.body.courseId;
   }
 
   methods.Faculty
@@ -62,7 +64,7 @@ router.put('/:advisoryId', (req, res) => {
     .updateFacultyClassAdvisoryActivity(info, data)
     .then((model) => {
       res.status(200).json({
-        status: 'updated',
+        status: 'updated faculty_activity',
         state: model[0],
       });
     })
@@ -77,9 +79,9 @@ router.put('/:advisoryId', (req, res) => {
 router.delete('/', (req, res) => {
   const info = {};
 
-  info.people_id = req.body.peopleId;
-  info.class_id = req.body.classId;
-  info.activity = req.body.activity;
+  info.people_id = req.body.data.peopleId;
+  info.class_id = req.body.data.classId;
+  info.activity = req.body.data.activity;
 
 
   methods.Faculty
@@ -87,7 +89,7 @@ router.delete('/', (req, res) => {
     .deleteFacultyClassAdvisoryActivity(info)
     .then((model) => {
       res.status(200).json({
-        status: 'Class deleted',
+        status: 'faculty_advisory deleted',
         state: model,
       });
     })

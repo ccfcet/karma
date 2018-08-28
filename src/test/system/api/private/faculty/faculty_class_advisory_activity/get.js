@@ -227,7 +227,7 @@ describe('Faculty_academic_enrolment_activity - GetFacultyAcademicEnrolmentActiv
                                 .then(() => {
                                     methods.Faculty.facultyClassAdvisoryMethods.deleteAllFacultyClassAdvisoryActivity()
                                     .then(() =>{
-                                        console.log('deleted faculty class')
+                                        console.log('deleted faculty_class')
                                         done();
                                     })
                                     .catch((err) =>{

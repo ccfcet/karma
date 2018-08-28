@@ -17,12 +17,10 @@ const { expect } = chai;
 const newPeople = [];
 const newEntity = [];
 const newEntityType = [];
-const newCoursesOffered = []
-const FAEA = [];
-const newFAEA = [];
+const newCoursesOffered = [];
 
 
-describe('Post media - POST', () => {
+describe('Post faculty_enrolment - POST', () => {
   beforeEach((done) => {
     methods.People.peopleMethods.deleteAllPeople()
         .then(() => {
