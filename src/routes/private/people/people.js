@@ -191,7 +191,6 @@ router.put('/:peopleId', (req, res) => {
 
 router.delete('/', (req, res) => {
   const info = {};
-  console.log(info);
   info.id = req.body.peopleId;
   methods.People.peopleMethods.deletePeople(info)
     .then((model) => {

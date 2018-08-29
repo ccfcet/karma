@@ -19,8 +19,7 @@ const newEntity = [];
 const newEntityType = [];
 const tempVar = [];
 
-
-describe('Entities - Entities - GET', () => {
+describe('/DELETE entities with id ', () => {
     beforeEach((done) => {
         const entitytype = {
             entity_type : 'people',
@@ -40,10 +39,10 @@ describe('Entities - Entities - GET', () => {
                 newEntity.push(Entity.dataValues);
 
                 const ret = newEntity.map((values) => {
-                const val = values;
-                delete val.created_at;
-                delete val.updated_at;
-                return val;
+                    const val = values;
+                    delete val.created_at;
+                    delete val.updated_at;
+                    return val;
                 });
                 tempVar.push(ret[0]);
                 done();
@@ -57,22 +56,26 @@ describe('Entities - Entities - GET', () => {
         });
     });
 
-
-    it('GET /private/entities/entities/', (done) => {
-        chai.request(app)
-        .get('/private/entities/entities/')
+    it('it should DELETE entities given the entityId', (done) => {
+        methods.Entities.entityMethods.getAllEntities()
         .then((res) => {
-            expect(res).to.have.status(200);
-            expect(res.body.status).equal('success');
-            let re = [];
-            re = res.body.classes;
-            expect(re)
-            .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
-
-            done();
+            const data = {};
+            data.entityId = res[0].dataValues.id;
+            data.entityTypeId = res[0].dataValues.entity_type_id;
+    
+            chai.request(app)
+            .delete('/private/entities/entities/')
+            .send({ data })
+            .end((err, result) => {
+                console.log(err);
+                expect(result).to.have.status(200);
+                expect(result.body).to.be.a('object');
+                expect(result.body.status).to.eql('deleted entities');
+                done();
+            });
         })
         .catch((err) => {
-            done(err);
+            console.log(err);
         });
     });
 

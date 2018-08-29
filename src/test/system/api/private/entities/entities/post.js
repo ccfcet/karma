@@ -14,14 +14,24 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-
-const newEntity = [];
 const newEntityType = [];
-const tempVar = [];
-
 
 describe('Entities - Entities - GET', () => {
     beforeEach((done) => {
+
+        // methods.Entities.entityTypeMethods.deleteAllEntityTypes()
+        // .then(() => {
+        //     methods.Entities.entityMethods.deleteAllEntity()
+        //     .then(() => {
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     });
+        // })
+        // .catch((err) => {
+        //     console.log(err);
+        // });
+
         const entitytype = {
             entity_type : 'people',
             entity_type_slug : 'about',    
@@ -30,53 +40,31 @@ describe('Entities - Entities - GET', () => {
         .then((EntityType) => {
             newEntityType.push(EntityType.dataValues);
 
-            const entity = {
-                entity_name:'cse',
-                entity_slug: 'about',
-                entity_type_id: newEntityType[0].id,
-            };
-            methods.Entities.entityMethods.addEntity(entity)
-            .then((Entity) => {
-                newEntity.push(Entity.dataValues);
-
-                const ret = newEntity.map((values) => {
-                const val = values;
-                delete val.created_at;
-                delete val.updated_at;
-                return val;
-                });
-                tempVar.push(ret[0]);
                 done();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
         })
         .catch((err) => {
             console.log(err);
         });
     });
 
-
-    it('GET /private/entities/entities/', (done) => {
+    it('POST /private/entities/entities/', (done) => {
+        const entity = {
+            entity_name:'cse',
+            entity_slug: 'about',
+            entity_type_id: newEntityType[0].id,
+        };
         chai.request(app)
-        .get('/private/entities/entities/')
-        .then((res) => {
-            expect(res).to.have.status(200);
-            expect(res.body.status).equal('success');
-            let re = [];
-            re = res.body.classes;
-            expect(re)
-            .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
-
+        .post('/private/entities/entities/')
+        .send(entity)
+        .end((err, result) => {
+            console.log(err);
+            expect(result).to.have.status(200);
+            expect(result.body).to.be.a('object');    
             done();
-        })
-        .catch((err) => {
-            done(err);
         });
     });
 
-    afterEach((done) => {
+      afterEach((done) => {
         methods.Entities.entityTypeMethods.deleteAllEntityTypes()
         .then(() => {
             console.log('deleted entitytypes');
@@ -93,4 +81,5 @@ describe('Entities - Entities - GET', () => {
             console.log(err);
         });
     });
+
 });

@@ -63,4 +63,15 @@ describe('/DELETE peopleInfoSlugs with peopleInfoSlugId', () => {
         });
     });
 
+    afterEach((done) => {
+        methods.People.peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs()
+        .then(() => {
+            console.log('deleted people_information_slugs');
+            done();
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    });
+
 })

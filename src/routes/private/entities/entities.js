@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
   methods.Entities.entityMethods.getAllEntities()
     .then((entities) => {
       res.status(200).json({
-        message: 'Success',
+        message: 'success',
         entities,
       });
     })
@@ -86,26 +86,20 @@ router.get('/', (req, res) => {
 }
  */
 
-router.get('/:id', (req, res, next) => {
-  if (Object.prototype.hasOwnProperty.call(req.params, 'id')) {
-    const { id } = req.params;
-    methods.Entities.entityMethods.findEntityById(id)
-      .then((entity) => {
-        res.status(200).json({
-          message: 'Success',
-          entity,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message: 'Error',
-          Error: err.message,
-        });
+router.get('/', (req, res) => {
+  methods.Entities.entityMethods.getAllEntities()
+    .then((classes) => {
+      res.json({
+        status: 'success',
+        classes,
       });
-  } else {
-    console.log('The request doesnot qualify the GET /:id route');
-    next();
-  }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
 });
 
 /**
@@ -141,16 +135,18 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   if (Object.prototype.hasOwnProperty.call(req.body, 'entityName')
-    && Object.prototype.hasOwnProperty.call(req.body, 'entitySlug')
-    && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeId')) {
+   && Object.prototype.hasOwnProperty.call(req.body, 'entityId')
+   && Object.prototype.hasOwnProperty.call(req.body, 'entitySlug')
+   && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeId')) {
     const newEntity = {};
     newEntity.entity_name = req.body.entityName;
+    newEntity.id = req.body.entityId;
     newEntity.entity_slug = req.body.entitySlug;
     newEntity.entity_type_id = req.body.entityTypeId;
     methods.Entities.entityMethods.addEntity(newEntity)
       .then((entity) => {
         res.status(200).json({
-          message: 'Success',
+          message: 'success',
           entity,
         });
       })
@@ -186,22 +182,22 @@ router.post('/', (req, res, next) => {
 }
  */
 
-router.put('/:id', (req, res, next) => {
-  if (Object.prototype.hasOwnProperty.call(req.params, 'id')
+router.put('/:entityId', (req, res, next) => {
+  if (Object.prototype.hasOwnProperty.call(req.params, 'entityId')
     && Object.prototype.hasOwnProperty.call(req.body, 'entityName')
     && Object.prototype.hasOwnProperty.call(req.body, 'entitySlug')
     && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeId')) {
     const newEntity = {};
 
-    newEntity.id = req.params.id;
+    newEntity.id = req.params.entityId;
     newEntity.entity_name = req.body.entityName;
     newEntity.entity_slug = req.body.entitySlug;
     newEntity.entity_type_id = req.body.entityTypeId;
 
     methods.Entities.entityMethods.updateEntity(newEntity)
-      .then((message) => {
+      .then(() => {
         res.status(200).json({
-          message,
+          status: 'updated entities',
         });
       })
       .catch((err) => {
@@ -233,25 +229,23 @@ router.put('/:id', (req, res, next) => {
 }
  */
 
-router.delete('/:id', (req, res, next) => {
-  if (Object.prototype.hasOwnProperty.call(req.params, 'id')) {
-    const { id } = req.params;
-    methods.Entities.entityMethods.deleteEntity(id)
-      .then((message) => {
-        res.status(200).json({
-          message,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message: 'Error',
-          Error: err,
-        });
+router.delete('/', (req, res) => {
+  const info = {};
+  info.id = req.body.entityId;
+  info.entity_type_id = req.body.entityTypeId;
+  methods.Entities.entityMethods.deleteEntity(info)
+    .then((model) => {
+      res.status(200).json({
+        status: 'deleted entities',
+        state: model,
       });
-  } else {
-    console.log('The request doesnot qualify the PUT / route');
-    next();
-  }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'Not able to delete.The row may not exist.',
+        state: err,
+      });
+    });
 });
 
 module.exports = router;

@@ -4,7 +4,6 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  console.log('got into route');
   methods.Media.mediaMethods.getAllMedia()
     .then((classes) => {
       res.json({

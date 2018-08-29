@@ -79,8 +79,6 @@ describe('/DELETE courses_offered', () => {
             const data = {};
             data.officialCourseId = res[0].dataValues.official_course_id;
             data.departmentId = res[0].dataValues.department_id;
-            console.log(data)
-            console.log(res[0].dataValues)
             chai.request(app)
               .delete('/public/academics/courses_offered/')
               .send({ data })
