@@ -28,6 +28,7 @@ describe('Entities - Entities - GET', () => {
         };
         methods.Entities.entityTypeMethods.addEntityType(entitytype)
         .then((EntityType) => {
+            console.log('added entity types');
             newEntityType.push(EntityType.dataValues);
 
             const entity = {
@@ -37,6 +38,7 @@ describe('Entities - Entities - GET', () => {
             };
             methods.Entities.entityMethods.addEntity(entity)
             .then((Entity) => {
+                console.log('added entity')
                 newEntity.push(Entity.dataValues);
 
                 const ret = newEntity.map((values) => {
@@ -63,9 +65,9 @@ describe('Entities - Entities - GET', () => {
         .get('/private/entities/entities/')
         .then((res) => {
             expect(res).to.have.status(200);
-            expect(res.body.status).equal('success');
+            expect(res.body.message).equal('success');
             let re = [];
-            re = res.body.classes;
+            re = res.body.entities;
             expect(re)
             .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
 

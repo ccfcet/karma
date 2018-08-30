@@ -62,7 +62,7 @@ describe('/DELETE entities with id ', () => {
             const data = {};
             data.entityId = res[0].dataValues.id;
             data.entityTypeId = res[0].dataValues.entity_type_id;
-    
+            console.log(data)
             chai.request(app)
             .delete('/private/entities/entities/')
             .send({ data })

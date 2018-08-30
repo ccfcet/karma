@@ -23,6 +23,7 @@ require('data/methods');
 
 router.get('/', (req, res) => {
   res.send({ status: 200 });
+  console.log('private')
 });
 
 router.use('/media', require('./media'));

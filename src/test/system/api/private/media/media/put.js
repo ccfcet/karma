@@ -25,7 +25,7 @@ describe('/PUT/:id ', () => {
           mediaFileName: 'Hey ',
           mediaLocation: 'Kottayamaaaa',
         };
-
+        console.log(res)
 
         chai.request(app)
           .put(`/private/media/media/${id}`)

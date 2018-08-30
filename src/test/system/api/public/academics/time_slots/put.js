@@ -17,11 +17,27 @@ const { expect } = chai;
 
 
 describe('/PUT/:timeslotid ', () => {
+  beforeEach((done) => {
+    console.log('entered');
+    const classes = {
+      start_timestamp: '2018-08-05 09:25:14',
+      end_timestamp: '2018-07-29 10:55:45',
+    };
+
+    methods.Academics.timeSlotsMethods.addTimeSlots(classes)
+      .then((model) => {
+        console.log('added time slots')
+        done();
+      })
+      .catch(err => console.log(err));
+  });
   it('it should UPDATE timeslots given the slotid', (done) => {
     methods.Academics.timeSlotsMethods.getAllTimeSlots()
       .then((res) => {
         let timeSlotId = {};
+        console.log(res)
         timeSlotId = res[0].dataValues.id;
+        console.log("timeslotid : ", timeSlotId)
         let datetime = {};
         datetime = '2000-01-01 01:00:00 UTC';
         const classes = {
@@ -44,5 +60,15 @@ describe('/PUT/:timeslotid ', () => {
       .catch((err) => {
         console.log(err);
       });
+  });
+  afterEach((done) =>{
+    methods.Academics.timeSlotsMethods.deleteAllTimeSlots()
+    .then(() =>{
+      console.log('deleted time slots');
+      done();
+    })
+    .catch((err) =>{
+      console.log(err);
+    })
   });
 });

@@ -308,10 +308,10 @@ describe('POST classes_time_tables - POST', () => {
                       
         const classestt = {
             day: 'Monday',
-            faculty_id: newEnrolmentActivity[0].id,
-            class_id: newClasses[0].id,
-            time_slot_id: newTimeSlot[0].id,
-            course_id: newCoursesOffered[0].id,
+            facultyId: newEnrolmentActivity[0].id,
+            classId: newClasses[0].id,
+            timeSlotId: newTimeSlot[0].id,
+            courseId: newCoursesOffered[0].id,
         };
     
         chai.request(app)

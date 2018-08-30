@@ -86,22 +86,6 @@ router.get('/', (req, res) => {
 }
  */
 
-router.get('/', (req, res) => {
-  methods.Entities.entityMethods.getAllEntities()
-    .then((classes) => {
-      res.json({
-        status: 'success',
-        classes,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        status: 'error',
-        error: err.message,
-      });
-    });
-});
-
 /**
  * @api {post} /private/entity/ AddEntity
  * @apiVersion 1.0.0-alpha-1
@@ -135,12 +119,12 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res, next) => {
   if (Object.prototype.hasOwnProperty.call(req.body, 'entityName')
-   && Object.prototype.hasOwnProperty.call(req.body, 'entityId')
+   //&& Object.prototype.hasOwnProperty.call(req.body, 'entityId')
    && Object.prototype.hasOwnProperty.call(req.body, 'entitySlug')
    && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeId')) {
     const newEntity = {};
     newEntity.entity_name = req.body.entityName;
-    newEntity.id = req.body.entityId;
+    //newEntity.id = req.body.entityId;
     newEntity.entity_slug = req.body.entitySlug;
     newEntity.entity_type_id = req.body.entityTypeId;
     methods.Entities.entityMethods.addEntity(newEntity)
@@ -231,8 +215,9 @@ router.put('/:entityId', (req, res, next) => {
 
 router.delete('/', (req, res) => {
   const info = {};
-  info.id = req.body.entityId;
-  info.entity_type_id = req.body.entityTypeId;
+  info.id = req.body.data.entityId;
+  info.entity_type_id = req.body.data.entityTypeId;
+  console.log(info)
   methods.Entities.entityMethods.deleteEntity(info)
     .then((model) => {
       res.status(200).json({

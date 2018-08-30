@@ -49,9 +49,9 @@ describe('Entities - Entities - GET', () => {
 
     it('POST /private/entities/entities/', (done) => {
         const entity = {
-            entity_name:'cse',
-            entity_slug: 'about',
-            entity_type_id: newEntityType[0].id,
+            entityName:'cse',
+            entitySlug: 'about',
+            entityTypeId: newEntityType[0].id,
         };
         chai.request(app)
         .post('/private/entities/entities/')

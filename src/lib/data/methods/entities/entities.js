@@ -56,10 +56,10 @@ entityMethods.updateEntity = updatedEntity => new Promise((resolve, reject) => {
     });
 });
 
-entityMethods.deleteEntity = id => new Promise((resolve, reject) => {
+entityMethods.deleteEntity = info => new Promise((resolve, reject) => {
   models.entities.entities.destroy({
     where: {
-      id,
+      id: info.id,
     },
   })
     .then((affectedCount) => {

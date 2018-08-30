@@ -73,6 +73,7 @@ router.post('/', (req, res) => {
   info.day = req.body.day;
   info.time_slot_id = req.body.timeSlotId;
   info.course_id = req.body.courseId;
+  info.faculty_id = req.body.facultyId;
 
   methods.Academics.classesTimeTablesMethods.addClassesTimeTables(info)
     .then((model) => {
