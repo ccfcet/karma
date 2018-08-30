@@ -5,7 +5,19 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  res.json({ status: 'success' });
+  methods.Entities.entityTypeMethods.getAllEntityTypes()
+    .then((entity_type) => {
+      res.status(200).json({
+        message: 'success',
+        entity_type,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: 'Error',
+        Error: err.message,
+      });
+    });
 });
 
 /**
@@ -35,9 +47,9 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const info = {};
   if (Object.prototype.hasOwnProperty.call(req.body, 'entityType')
-    && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeSlug')) {
+   && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeSlug')) {
     info.entity_type = req.body.entityType;
-    console.log(req.body.entityType);
+    // console.log(req.body.entityType);
     info.entity_type_slug = req.body.entityTypeSlug;
     methods.Entities.entityTypeMethods.addEntityType(info)
       .then((model) => {
@@ -76,29 +88,28 @@ router.post('/', (req, res) => {
 }
  */
 
-router.put('/:entityType/:entityTypeSlug', (req, res) => {
-  const data = {};
+router.put('/:entityTypeId', (req, res) => {
   const info = {};
-  info.entity_type = req.params.entityType;
-  info.entity_type_slug = req.params.entityTypeSlug;
+  const data = {};
+
+  info.id = req.params.entityTypeId; // key values for finding row
 
   if (Object.prototype.hasOwnProperty.call(req.body, 'entityType')
-  && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeSlug')) {
+   && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeSlug')) {
     data.entity_type = req.body.entityType;
     data.entity_type_slug = req.body.entityTypeSlug;
   }
+
   methods.Entities.entityTypeMethods.updateEntityTypes(info, data)
-    .then((model) => {
-      console.log(model);
-      res.json({
-        success: 'success',
+    .then(() => {
+      res.status(200).json({
+        status: 'updated entitytypes',
       });
     })
     .catch((err) => {
-      res.status(200).json({
-        success: 'not successful',
-        error: err.message,
-
+      res.send({
+        status: 'Not able to update.Row maynot exist',
+        state: err,
       });
     });
 });
@@ -123,12 +134,14 @@ router.put('/:entityType/:entityTypeSlug', (req, res) => {
 
 router.delete('/', (req, res) => {
   const info = {};
-  info.entity_type = req.body.entityType;
+  info.id = req.body.data.entityTypeId;
+  info.entity_type = req.body.data.entityType;
+  info.entity_type_slug = req.body.data.entityTypeSlug;
 
   methods.Entities.entityTypeMethods.deleteEntityTypes(info)
     .then((message) => {
       res.json({
-        status: 'Success',
+        status: 'deleted entitytypes',
         message,
       });
     })

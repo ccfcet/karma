@@ -14,19 +14,29 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
+
 const newEntityType = [];
+const tempVar = [];
 
-describe('Post - Entities - POST', () => {
+
+describe('EntityTypes - EntityTypes - GET', () => {
     beforeEach((done) => {
-
         const entitytype = {
             entity_type : 'people',
             entity_type_slug : 'about',    
         };
         methods.Entities.entityTypeMethods.addEntityType(entitytype)
         .then((EntityType) => {
+            console.log('added entity types');
             newEntityType.push(EntityType.dataValues);
 
+                const ret = newEntityType.map((values) => {
+                const val = values;
+                delete val.created_at;
+                delete val.updated_at;
+                return val;
+                });
+                tempVar.push(ret[0]);
                 done();
         })
         .catch((err) => {
@@ -34,39 +44,33 @@ describe('Post - Entities - POST', () => {
         });
     });
 
-    it('POST /private/entities/entities/', (done) => {
-        const entity = {
-            entityName:'cse',
-            entitySlug: 'about',
-            entityTypeId: newEntityType[0].id,
-        };
+
+    it('GET /private/entities/entity_types/', (done) => {
         chai.request(app)
-        .post('/private/entities/entities/')
-        .send(entity)
-        .end((err, result) => {
-            console.log(err);
-            expect(result).to.have.status(200);
-            expect(result.body).to.be.a('object');    
+        .get('/private/entities/entity_types/')
+        .then((res) => {
+            expect(res).to.have.status(200);
+            expect(res.body.message).equal('success');
+            let re = [];
+            re = res.body.entity_type;
+            expect(re)
+            .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
+
             done();
+        })
+        .catch((err) => {
+            done(err);
         });
     });
 
-      afterEach((done) => {
+    afterEach((done) => {
         methods.Entities.entityTypeMethods.deleteAllEntityTypes()
         .then(() => {
             console.log('deleted entitytypes');
-            methods.Entities.entityMethods.deleteAllEntity()
-            .then(() => {
-                console.log('deleted entities');
                 done();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
         })
         .catch((err) => {
             console.log(err);
         });
     });
-
 });

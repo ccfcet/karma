@@ -19,20 +19,15 @@ const newVar = [];
 const tempVar = [];
 
 
-describe('People - GetPeople - GET', () => {
+describe('EntityInfoSlugs - GetEntityInfoSlugs - GET', () => {
   beforeEach((done) => {
-    const newpeople = {
-      first_name: 'John',
-      middle_name: 'M',
-      last_name: 'Doe',
-      gender: 'M',
-      date_of_birth: '1987-01-01',
-      nationality: 'Indian',
+    const new_eis = {
+      slug_name: 'NewSlug',
     };
 
-    methods.People.peopleMethods.addPeople(newpeople)
-      .then((NewPeople) => {
-        newVar.push(NewPeople.dataValues);
+    methods.Entities.entityInfoSlugsMethods.addEntityInfoSlugs(new_eis)
+      .then((NewEIS) => {
+        newVar.push(NewEIS.dataValues);
 
         const ret = newVar.map((values) => {
           const val = values;
@@ -50,14 +45,14 @@ describe('People - GetPeople - GET', () => {
     });
 
 
-  it('GET /private/people/people/', (done) => {
+  it('GET /private/entities/entity_information_slugs/', (done) => {
     chai.request(app)
-      .get('/private/people/people/')
+      .get('/private/entities/entity_information_slugs/')
       .then((res) => {
         expect(res).to.have.status(200);
         expect(res.body.status).equal('success');
         let re = [];
-        re = res.body.classes;
+        re = res.body.entities;
         expect(re)
         .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
 
@@ -69,9 +64,9 @@ describe('People - GetPeople - GET', () => {
   });
 
   afterEach((done) => {
-    methods.People.peopleMethods.deleteAllPeople()
+    methods.Entities.entityInfoSlugsMethods.deleteAllEntityInfoSlugs()
       .then(() => {
-        console.log('deleted people');
+        console.log('deleted entityInfoSlugs');
         done();
       })
       .catch((err) => {

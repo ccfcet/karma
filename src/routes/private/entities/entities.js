@@ -119,7 +119,6 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res, next) => {
   if (Object.prototype.hasOwnProperty.call(req.body, 'entityName')
-   //&& Object.prototype.hasOwnProperty.call(req.body, 'entityId')
    && Object.prototype.hasOwnProperty.call(req.body, 'entitySlug')
    && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeId')) {
     const newEntity = {};
@@ -168,9 +167,9 @@ router.post('/', (req, res, next) => {
 
 router.put('/:entityId', (req, res, next) => {
   if (Object.prototype.hasOwnProperty.call(req.params, 'entityId')
-    && Object.prototype.hasOwnProperty.call(req.body, 'entityName')
-    && Object.prototype.hasOwnProperty.call(req.body, 'entitySlug')
-    && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeId')) {
+   && Object.prototype.hasOwnProperty.call(req.body, 'entityName')
+   && Object.prototype.hasOwnProperty.call(req.body, 'entitySlug')
+   && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeId')) {
     const newEntity = {};
 
     newEntity.id = req.params.entityId;

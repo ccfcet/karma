@@ -15,26 +15,31 @@ entityTypeMethods.addEntityType = info => new Promise((resolve, reject) => {
     });
 });
 
-entityTypeMethods.updateEntityTypes = (info, data) => new Promise((
-  resolve,
-  reject,
-) => {
+entityTypeMethods.getAllEntityTypes = () => new Promise((resolve, reject) => {
+  models.entities.entity_types.findAll()
+    .then((entity_type) => {
+      resolve(entity_type);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+entityTypeMethods.updateEntityTypes = (info, data) => new Promise((resolve, reject) => {
   models.entities.entity_types.update(data, {
     where: {
-      entity_type: info.entity_type,
-      entity_type_slug: info.entity_type_slug,
+      id: info.id,
     },
   })
     .then((updated) => {
       if (updated > 0) {
-        resolve('Updated');
+        resolve(updated);
+        console.log(updated);
       } else {
-        reject(new Error('not updated'));
+        reject(new Error());
       }
-    })
-    .catch((err) => {
-      console.log(err);
-      reject(err);
+    }).catch((error) => {
+      reject(error);
     });
 });
 
