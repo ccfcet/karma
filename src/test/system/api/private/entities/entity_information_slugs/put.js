@@ -18,7 +18,7 @@ const { expect } = chai;
 const newVar = [];
 const tempVar = [];
 
-describe('/PUT/:entityInfoSlugsId ', () => {
+describe('/PUT/:entityInfoSlugsId', () => {
   beforeEach((done) => {
     const new_eis = {
         slug_name: 'NewSlug',
