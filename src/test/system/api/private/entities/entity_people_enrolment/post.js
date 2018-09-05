@@ -17,10 +17,9 @@ const { expect } = chai;
 
 const newEntity = [];
 const newEntityType = [];
-const newEntity1 = [];
-const newEntityType1 = [];
+const newPeople =  [];
 
-describe('Post - EntityParentChild_Association - POST', () => {
+describe('Post - EntityPeopleEnrolment - POST', () => {
     beforeEach((done) => {
 
         const entitytype = {
@@ -42,30 +41,18 @@ describe('Post - EntityParentChild_Association - POST', () => {
                 console.log('added entity')
                 newEntity.push(Entity.dataValues);
 
-                const entitytype1 = {
-                    entity_type : 'people1',
-                    entity_type_slug : 'about1',    
+                const people = {
+                    first_name: 'John',
+                    middle_name: 'M',
+                    last_name: 'Doe',
+                    gender: 'M',
+                    date_of_birth: '1987-01-01',
+                    nationality: 'Indian',
                 };
-                methods.Entities.entityTypeMethods.addEntityType(entitytype1)
-                .then((EntityType1) => {
-                    console.log('added entity types');
-                    newEntityType1.push(EntityType1.dataValues);
-        
-                    const entity1 = {
-                        entity_name:'cse1',
-                        entity_slug: 'aboutentity1',
-                        entity_type_id: newEntityType1[0].id,
-                    };
-                    methods.Entities.entityMethods.addEntity(entity1)
-                    .then((Entity1) => {
-                        console.log('added entity')
-                        newEntity1.push(Entity1.dataValues);
-    
-                        done();
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
+                methods.People.peopleMethods.addPeople(people)
+                .then((PEOPLE) => {
+                    newPeople.push(PEOPLE.dataValues);
+                    done();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -80,14 +67,16 @@ describe('Post - EntityParentChild_Association - POST', () => {
         });
     });
 
-    it('POST /private/entities/entity_parent_child_association/', (done) => {
-        const epc = {
-            parentId: newEntity[0].id,
-            childId: newEntity1[0].id,
+    it('POST /private/entities/entity_people_enrolment/', (done) => {
+        const epe = {
+            entityId: newEntity[0].id,
+            peopleId: newPeople[0].id,
+            dateTime: '1999-09-08 11:11:11',
+            Activity: 'X',
         };
         chai.request(app)
-        .post('/private/entities/entity_parent_child_association/')
-        .send(epc)
+        .post('/private/entities/entity_people_enrolment/')
+        .send(epe)
         .end((err, result) => {
             console.log(err);
             expect(result).to.have.status(200);
@@ -103,10 +92,17 @@ describe('Post - EntityParentChild_Association - POST', () => {
             methods.Entities.entityMethods.deleteAllEntity()
             .then(() => {
                 console.log('deleted entities');
-                methods.Entities.entityParentChildMethods.deleteAllEntityParentChild()
+                methods.People.peopleMethods.deleteAllPeople()
                 .then(() => {
-                    console.log('deleted entity_parentchild_association');
-                    done();
+                    console.log('deleted people');
+                    methods.Entities.entityPeopleEnrolMethods.deleteAllEntityPeopleEnrol()
+                    .then(() => {
+                        console.log('deleted EntityPeopleEnrolment');
+                        done();                        
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
                 })
                 .catch((err) => {
                     console.log(err);

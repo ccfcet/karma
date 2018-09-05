@@ -14,5 +14,6 @@ router.use('/entity_parent_child_association', require('./entity_parent_child_as
 router.use('/entity_information_slugs', require('./entity_information_slugs'));
 router.use('/information', require('./obtain_information'));
 router.use('/entity_position_association', require('./entity_position_association'));
+router.use('/entity_people_enrolment', require('./entity_people_enrolment'));
 
 module.exports = router;
