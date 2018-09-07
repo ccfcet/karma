@@ -123,7 +123,7 @@ router.post('/', (req, res, next) => {
    && Object.prototype.hasOwnProperty.call(req.body, 'entityTypeId')) {
     const newEntity = {};
     newEntity.entity_name = req.body.entityName;
-    //newEntity.id = req.body.entityId;
+    // newEntity.id = req.body.entityId;
     newEntity.entity_slug = req.body.entitySlug;
     newEntity.entity_type_id = req.body.entityTypeId;
     methods.Entities.entityMethods.addEntity(newEntity)
@@ -216,7 +216,7 @@ router.delete('/', (req, res) => {
   const info = {};
   info.id = req.body.data.entityId;
   info.entity_type_id = req.body.data.entityTypeId;
-  console.log(info)
+  console.log(info);
   methods.Entities.entityMethods.deleteEntity(info)
     .then((model) => {
       res.status(200).json({

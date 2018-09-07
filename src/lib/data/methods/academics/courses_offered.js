@@ -16,19 +16,16 @@ coursesOfferedMethods.getAllCoursesOffered = () => new Promise((resolve,
     });
 });
 
-coursesOfferedMethods.addCoursesOffered = (info) => {
-
-  return new Promise((resolve, reject) => {
-    models.academics.courses_offered.create(info)
+coursesOfferedMethods.addCoursesOffered = info => new Promise((resolve, reject) => {
+  models.academics.courses_offered.create(info)
     .then((model) => {
       resolve(model);
     })
-      .catch((err) => {
-        console.log(err);
-        reject(err);
-      });
-  });
-};
+    .catch((err) => {
+      console.log(err);
+      reject(err);
+    });
+});
 
 coursesOfferedMethods.updateCoursesOffered = (info, data) => new Promise((
   resolve,

@@ -21,7 +21,7 @@ const tempVar = [];
 describe('/DELETE EntityInfoSlugs with entityInfoSlugsId ', () => {
   beforeEach((done) => {
     const new_eis = {
-        slug_name: 'NewSlug',
+      slug_name: 'NewSlug',
     };
 
     methods.Entities.entityInfoSlugsMethods.addEntityInfoSlugs(new_eis)
@@ -38,7 +38,7 @@ describe('/DELETE EntityInfoSlugs with entityInfoSlugsId ', () => {
         done();
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       });
   });
   it('it should DELETE EntityInfoSlugs given the entityInfoSlugsId', (done) => {

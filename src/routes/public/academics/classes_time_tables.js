@@ -117,10 +117,10 @@ router.put('/:cttId', (req, res) => {
 
   info.id = req.params.cttId; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'classId') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'day') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'timeSlotId') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'courseId') 
+  if (Object.prototype.hasOwnProperty.call(req.body, 'classId')
+   && Object.prototype.hasOwnProperty.call(req.body, 'day')
+   && Object.prototype.hasOwnProperty.call(req.body, 'timeSlotId')
+   && Object.prototype.hasOwnProperty.call(req.body, 'courseId')
    && Object.prototype.hasOwnProperty.call(req.body, 'facultyId')) {
     data.class_id = req.body.classId;
     data.day = req.body.day;

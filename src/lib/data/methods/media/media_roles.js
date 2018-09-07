@@ -15,25 +15,23 @@ mediaRolesMethods.addMediaRoles = (info) => {
       });
   });
 };
-mediaRolesMethods.updateMediaRoles = (info, data) => {
-  return new Promise((resolve, reject) => {
-    models.media.media_roles.update(data, {
-      where: {
-        id: info.id,
-      },
-    })
-      .then((updated) => {
-        if (updated > 0) {
-          resolve(updated);
-        } else {
-          reject(new Error());
-          // throw ('err')
-        }
-      }).catch((error) => {
-        reject(error);
-      });
-  });
-};
+mediaRolesMethods.updateMediaRoles = (info, data) => new Promise((resolve, reject) => {
+  models.media.media_roles.update(data, {
+    where: {
+      id: info.id,
+    },
+  })
+    .then((updated) => {
+      if (updated > 0) {
+        resolve(updated);
+      } else {
+        reject(new Error());
+        // throw ('err')
+      }
+    }).catch((error) => {
+      reject(error);
+    });
+});
 
 mediaRolesMethods
   .deleteMediaRoles = info => new Promise((resolve, reject) => {

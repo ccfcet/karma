@@ -26,7 +26,7 @@ describe('Post EntityInfoSlugs - POST', () => {
   });
   it('POST /private/entities/entity_information_slugs/', (done) => {
     const New = {
-        slugName: 'AnotherNewSlug',
+      slugName: 'AnotherNewSlug',
     };
     chai.request(app)
       .post('/private/entities/entity_information_slugs/')

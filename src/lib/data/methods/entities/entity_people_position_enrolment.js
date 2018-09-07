@@ -15,74 +15,74 @@ entityPeoplePosEnrolMethods.findEntityPeoplePosEnrolById = id => new Promise((re
 });
 
 entityPeoplePosEnrolMethods.addEntityPeoplePosEnrol = info => new Promise((resolve, reject) => {
-    models.entities.entity_people_position_enrolment.create(info)
-      .then((entity_ppe) => {
-        resolve(entity_ppe);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-  
-  entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol = () => new Promise((resolve, reject) => {
-    models.entities.entity_people_position_enrolment.findAll()
-      .then((entity_ppe) => {
-        resolve(entity_ppe);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-  
-  entityPeoplePosEnrolMethods.updateEntityPeoplePosEnrol = (info, data) => new Promise((resolve, reject) => {
-    models.entities.entity_people_position_enrolment.update(data, {
-      where: {
-        id: info.id,
-      },
+  models.entities.entity_people_position_enrolment.create(info)
+    .then((entity_ppe) => {
+      resolve(entity_ppe);
     })
-      .then((updated) => {
-        if (updated > 0) {
-          resolve(updated);
-          console.log(updated);
-        } else {
-          reject(new Error());
-        }
-      }).catch((error) => {
-        reject(error);
-      });
-  });
-  
-  entityPeoplePosEnrolMethods.deleteAllEntityPeoplePosEnrol = () => new Promise((
-    resolve,
-    reject,
-  ) => {
-    models.entities.entity_people_position_enrolment.destroy({
-      where: {},
-    })
-      .then((res) => {
-        resolve();
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-  
-  entityPeoplePosEnrolMethods
-    .deleteEntityPeoplePosEnrol = info => new Promise((resolve, reject) => {
-      models.entities.entity_people_position_enrolment.destroy({
-        where: { id: info.id },
-      })
-        .then((deleted) => {
-          if (deleted === 0) {
-            reject(new Error());
-          } else {
-            resolve(deleted);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          reject(err);
-        });
+    .catch((err) => {
+      reject(err);
     });
+});
+
+entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol = () => new Promise((resolve, reject) => {
+  models.entities.entity_people_position_enrolment.findAll()
+    .then((entity_ppe) => {
+      resolve(entity_ppe);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+entityPeoplePosEnrolMethods.updateEntityPeoplePosEnrol = (info, data) => new Promise((resolve, reject) => {
+  models.entities.entity_people_position_enrolment.update(data, {
+    where: {
+      id: info.id,
+    },
+  })
+    .then((updated) => {
+      if (updated > 0) {
+        resolve(updated);
+        console.log(updated);
+      } else {
+        reject(new Error());
+      }
+    }).catch((error) => {
+      reject(error);
+    });
+});
+
+entityPeoplePosEnrolMethods.deleteAllEntityPeoplePosEnrol = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.entities.entity_people_position_enrolment.destroy({
+    where: {},
+  })
+    .then((res) => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+entityPeoplePosEnrolMethods
+  .deleteEntityPeoplePosEnrol = info => new Promise((resolve, reject) => {
+    models.entities.entity_people_position_enrolment.destroy({
+      where: { id: info.id },
+    })
+      .then((deleted) => {
+        if (deleted === 0) {
+          reject(new Error());
+        } else {
+          resolve(deleted);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
 
 module.exports = entityPeoplePosEnrolMethods;

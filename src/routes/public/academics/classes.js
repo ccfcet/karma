@@ -138,7 +138,7 @@ router.put('/:classId', (req, res) => {
 
   methods.Academics.classesMethods.updateClasses(info, data)
     .then((model) => {
-      console.log(model)
+      console.log(model);
       res.status(200).json({
         status: 'updated classes',
         state: model[0],
@@ -184,7 +184,7 @@ router.delete('/', (req, res) => {
 
   methods.Academics.classesMethods.deleteClasses(info)
     .then((model) => {
-      console.log(model)
+      console.log(model);
       res.status(200).json({
         status: 'deleted classes',
         state: model,

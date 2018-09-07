@@ -23,83 +23,83 @@ const newEPC = [];
 const tempVar = [];
 
 describe('/PUT/:entityParentChildId ', () => {
-    beforeEach((done) => {
-        const entitytype = {
-            entity_type : 'people',
-            entity_type_slug : 'about',    
+  beforeEach((done) => {
+    const entitytype = {
+      entity_type: 'people',
+      entity_type_slug: 'about',
+    };
+    methods.Entities.entityTypeMethods.addEntityType(entitytype)
+      .then((EntityType) => {
+        console.log('added entity types');
+        newEntityType.push(EntityType.dataValues);
+
+        const entity = {
+          entity_name: 'cse',
+          entity_slug: 'aboutentity',
+          entity_type_id: newEntityType[0].id,
         };
-        methods.Entities.entityTypeMethods.addEntityType(entitytype)
-        .then((EntityType) => {
-            console.log('added entity types');
-            newEntityType.push(EntityType.dataValues);
+        methods.Entities.entityMethods.addEntity(entity)
+          .then((Entity) => {
+            console.log('added entity');
+            newEntity.push(Entity.dataValues);
 
-            const entity = {
-                entity_name:'cse',
-                entity_slug: 'aboutentity',
-                entity_type_id: newEntityType[0].id,
+            const entitytype1 = {
+              entity_type: 'people1',
+              entity_type_slug: 'about1',
             };
-            methods.Entities.entityMethods.addEntity(entity)
-            .then((Entity) => {
-                console.log('added entity')
-                newEntity.push(Entity.dataValues);
+            methods.Entities.entityTypeMethods.addEntityType(entitytype1)
+              .then((EntityType1) => {
+                console.log('added entity types');
+                newEntityType1.push(EntityType1.dataValues);
 
-                const entitytype1 = {
-                    entity_type : 'people1',
-                    entity_type_slug : 'about1',    
+                const entity1 = {
+                  entity_name: 'cse1',
+                  entity_slug: 'aboutentity1',
+                  entity_type_id: newEntityType1[0].id,
                 };
-                methods.Entities.entityTypeMethods.addEntityType(entitytype1)
-                .then((EntityType1) => {
-                    console.log('added entity types');
-                    newEntityType1.push(EntityType1.dataValues);
-        
-                    const entity1 = {
-                        entity_name:'cse1',
-                        entity_slug: 'aboutentity1',
-                        entity_type_id: newEntityType1[0].id,
-                    };
-                    methods.Entities.entityMethods.addEntity(entity1)
-                    .then((Entity1) => {
-                        console.log('added entity')
-                        newEntity1.push(Entity1.dataValues);
-        
-                        const epc = {
-                            parent_id: newEntity[0].id,
-                            child_id: newEntity1[0].id,
-                        };
-                        methods.Entities.entityParentChildMethods.addEntityParentChild(epc)
-                        .then((EPC) => {
-                            console.log('added entity_parentchild_association');
-                            newEPC.push(EPC.dataValues);
+                methods.Entities.entityMethods.addEntity(entity1)
+                  .then((Entity1) => {
+                    console.log('added entity');
+                    newEntity1.push(Entity1.dataValues);
 
-                            const ret = newEPC.map((values) => {
-                                const val = values;
-                                delete val.created_at;
-                                delete val.updated_at;
-                                return val;
-                            });
-                            tempVar.push(ret[0]);
-                            done();
-                        })
-                        .catch((err) => {
-                            console.log(err);
+                    const epc = {
+                      parent_id: newEntity[0].id,
+                      child_id: newEntity1[0].id,
+                    };
+                    methods.Entities.entityParentChildMethods.addEntityParentChild(epc)
+                      .then((EPC) => {
+                        console.log('added entity_parentchild_association');
+                        newEPC.push(EPC.dataValues);
+
+                        const ret = newEPC.map((values) => {
+                          const val = values;
+                          delete val.created_at;
+                          delete val.updated_at;
+                          return val;
                         });
-                    })
-                    .catch((err) => {
+                        tempVar.push(ret[0]);
+                        done();
+                      })
+                      .catch((err) => {
                         console.log(err);
-                    });
-                })
-                .catch((err) => {
+                      });
+                  })
+                  .catch((err) => {
                     console.log(err);
-                });
-            })
-            .catch((err) => {
+                  });
+              })
+              .catch((err) => {
                 console.log(err);
-            });
-        })
-        .catch((err) => {
+              });
+          })
+          .catch((err) => {
             console.log(err);
-        });
-    });
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
   it('it should UPDATE entities given the entityParentChildId', (done) => {
     methods.Entities.entityParentChildMethods.getAllEntityParentChild()
@@ -107,8 +107,8 @@ describe('/PUT/:entityParentChildId ', () => {
         let entityParentChildId = {};
         entityParentChildId = res[0].dataValues.id;
         const New = {
-            parentId: newEntity1[0].id,
-            childId: newEntity[0].id,
+          parentId: newEntity1[0].id,
+          childId: newEntity[0].id,
         };
 
         chai.request(app)
@@ -126,29 +126,29 @@ describe('/PUT/:entityParentChildId ', () => {
         console.log(err);
       });
   });
-  
+
   afterEach((done) => {
     methods.Entities.entityTypeMethods.deleteAllEntityTypes()
-    .then(() => {
+      .then(() => {
         console.log('deleted entitytypes');
         methods.Entities.entityMethods.deleteAllEntity()
-        .then(() => {
+          .then(() => {
             console.log('deleted entities');
             methods.Entities.entityParentChildMethods.deleteAllEntityParentChild()
-            .then(() => {
+              .then(() => {
                 console.log('deleted entity_parentchild_association');
                 done();
-            })
-            .catch((err) => {
+              })
+              .catch((err) => {
                 console.log(err);
-            });
-        })
-        .catch((err) => {
+              });
+          })
+          .catch((err) => {
             console.log(err);
-        });
-    })
-    .catch((err) => {
+          });
+      })
+      .catch((err) => {
         console.log(err);
-    });
-});
+      });
+  });
 });

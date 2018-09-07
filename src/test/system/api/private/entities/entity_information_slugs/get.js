@@ -42,7 +42,7 @@ describe('EntityInfoSlugs - GetEntityInfoSlugs - GET', () => {
       .catch((err) => {
         console.log(err);
       });
-    });
+  });
 
 
   it('GET /private/entities/entity_information_slugs/', (done) => {
@@ -54,7 +54,7 @@ describe('EntityInfoSlugs - GetEntityInfoSlugs - GET', () => {
         let re = [];
         re = res.body.entities;
         expect(re)
-        .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
+          .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
 
         done();
       })

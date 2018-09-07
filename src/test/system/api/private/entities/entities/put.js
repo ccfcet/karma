@@ -22,38 +22,38 @@ const tempVar = [];
 describe('/PUT/:entityId ', () => {
   beforeEach((done) => {
     const entitytype = {
-        entity_type : 'people',
-        entity_type_slug : 'about',    
+      entity_type: 'people',
+      entity_type_slug: 'about',
     };
     methods.Entities.entityTypeMethods.addEntityType(entitytype)
-    .then((EntityType) => {
+      .then((EntityType) => {
         newEntityType.push(EntityType.dataValues);
 
         const entity = {
-            entity_name:'cse',
-            entity_slug: 'about',
-            entity_type_id: newEntityType[0].id,
+          entity_name: 'cse',
+          entity_slug: 'about',
+          entity_type_id: newEntityType[0].id,
         };
         methods.Entities.entityMethods.addEntity(entity)
-        .then((Entity) => {
+          .then((Entity) => {
             newEntity.push(Entity.dataValues);
 
             const ret = newEntity.map((values) => {
-            const val = values;
-            delete val.created_at;
-            delete val.updated_at;
-            return val;
+              const val = values;
+              delete val.created_at;
+              delete val.updated_at;
+              return val;
             });
             tempVar.push(ret[0]);
             done();
-        })
-        .catch((err) => {
+          })
+          .catch((err) => {
             console.log(err);
-        });
-    })
-    .catch((err) => {
+          });
+      })
+      .catch((err) => {
         console.log(err);
-    });
+      });
   });
 
   it('it should UPDATE entities given the entityId', (done) => {
@@ -62,9 +62,9 @@ describe('/PUT/:entityId ', () => {
         let entityId = {};
         entityId = res[0].dataValues.id;
         const New = {
-            entityName:'cse',
-            entitySlug: 'about',
-            entityTypeId: newEntityType[0].id,
+          entityName: 'cse',
+          entitySlug: 'about',
+          entityTypeId: newEntityType[0].id,
         };
 
         chai.request(app)
@@ -82,22 +82,22 @@ describe('/PUT/:entityId ', () => {
         console.log(err);
       });
   });
-  
-    afterEach((done) => {
-        methods.Entities.entityTypeMethods.deleteAllEntityTypes()
-        .then(() => {
-            console.log('deleted entitytypes');
-            methods.Entities.entityMethods.deleteAllEntity()
-            .then(() => {
-                console.log('deleted entities');
-                done();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        })
-        .catch((err) => {
+
+  afterEach((done) => {
+    methods.Entities.entityTypeMethods.deleteAllEntityTypes()
+      .then(() => {
+        console.log('deleted entitytypes');
+        methods.Entities.entityMethods.deleteAllEntity()
+          .then(() => {
+            console.log('deleted entities');
+            done();
+          })
+          .catch((err) => {
             console.log(err);
-        });
-    });
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 });

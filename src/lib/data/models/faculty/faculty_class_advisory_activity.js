@@ -22,10 +22,10 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE(),
         allowNull: false,
       },
-      course_id : {
-        type : DataTypes.INTEGER(),
-        allowNull : false
-      }
+      course_id: {
+        type: DataTypes.INTEGER(),
+        allowNull: false,
+      },
     });
 
   FacultyClassAdvisoryActivity.associate = function (models) {
@@ -46,16 +46,16 @@ module.exports = function (sequelize, DataTypes) {
         // allowNull: false -- already defined
         },
       });
-  
-  models.faculty.faculty_class_advisory_activity
-  .belongsTo(models.academics.courses_offered, {
-    onDelete: 'CASCADE',
-    foreignKey: {
-      name: 'course_id',
-    // allowNull: false -- already defined
-    },
-  });
-};
+
+    models.faculty.faculty_class_advisory_activity
+      .belongsTo(models.academics.courses_offered, {
+        onDelete: 'CASCADE',
+        foreignKey: {
+          name: 'course_id',
+          // allowNull: false -- already defined
+        },
+      });
+  };
 
   return FacultyClassAdvisoryActivity;
 };

@@ -41,14 +41,14 @@ describe('Post time slots - POST', () => {
         done();
       });
   });
-  afterEach((done) =>{
+  afterEach((done) => {
     methods.Academics.timeSlotsMethods.deleteAllTimeSlots()
-    .then(() =>{
-      console.log('deleted time slots');
-      done();
-    })
-    .catch((err) =>{
-      console.log(err);
-    })
+      .then(() => {
+        console.log('deleted time slots');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 });

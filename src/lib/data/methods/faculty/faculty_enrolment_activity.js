@@ -47,20 +47,20 @@ facultyEAMethods
     });
   };
 
-  facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity = () => new Promise((
-    resolve,
-    reject,
-  ) => {
-    models.faculty.faculty_academic_enrolment_activity.destroy({
-      where: {},
+facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.faculty.faculty_academic_enrolment_activity.destroy({
+    where: {},
+  })
+    .then(() => {
+      resolve();
     })
-      .then(() => {
-        resolve();
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+    .catch((err) => {
+      reject(err);
+    });
+});
 
 facultyEAMethods.deleteFacultyAcademicEnrolmentActivity = info => new Promise((
   resolve,

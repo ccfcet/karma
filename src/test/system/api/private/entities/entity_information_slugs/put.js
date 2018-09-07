@@ -21,7 +21,7 @@ const tempVar = [];
 describe('/PUT/:entityInfoSlugsId', () => {
   beforeEach((done) => {
     const new_eis = {
-        slug_name: 'NewSlug',
+      slug_name: 'NewSlug',
     };
 
     methods.Entities.entityInfoSlugsMethods.addEntityInfoSlugs(new_eis)
@@ -38,7 +38,7 @@ describe('/PUT/:entityInfoSlugsId', () => {
         done();
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       });
   });
 
@@ -49,7 +49,7 @@ describe('/PUT/:entityInfoSlugsId', () => {
         entityInfoSlugsId = res[0].dataValues.id;
 
         const New = {
-            slugName: 'AnotherNewSlug',
+          slugName: 'AnotherNewSlug',
         };
 
         chai.request(app)

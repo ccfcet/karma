@@ -18,7 +18,7 @@ const { expect } = chai;
 const streamType = [];
 const newEntity = [];
 const newEntityType = [];
-const streamsOffered = []
+const streamsOffered = [];
 const newStreams = [];
 
 describe('StreamsOffered - GetStreamsOffered - GET', () => {
@@ -129,19 +129,24 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
               console.log(err);
             });
         })
-          .catch((err) => {afterEach((done) => {
-            methods.Academics.streamTypesMethods.deleteAllStreamTypes().then(() => {
-              console.log('deleted streamtypes');
-              methods.Entities.entityTypeMethods.deleteAllEntityTypes().then(() => {
-                console.log('deleted entitytypes');
-                methods.Entities.entityMethods.deleteAllEntity().then(() => {
-                  console.log('deleted entities');
-        
-                  methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
-                    .then(() => {
-                      console.log('deleted');
-                      done();
-                    })
+          .catch((err) => {
+            afterEach((done) => {
+              methods.Academics.streamTypesMethods.deleteAllStreamTypes().then(() => {
+                console.log('deleted streamtypes');
+                methods.Entities.entityTypeMethods.deleteAllEntityTypes().then(() => {
+                  console.log('deleted entitytypes');
+                  methods.Entities.entityMethods.deleteAllEntity().then(() => {
+                    console.log('deleted entities');
+
+                    methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                      .then(() => {
+                        console.log('deleted');
+                        done();
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  })
                     .catch((err) => {
                       console.log(err);
                     });
@@ -153,11 +158,7 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
                 .catch((err) => {
                   console.log(err);
                 });
-            })
-              .catch((err) => {
-                console.log(err);
-              });
-          });
+            });
             console.log(err);
           });
       })

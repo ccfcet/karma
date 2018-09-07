@@ -9,18 +9,18 @@ const methods = require('data/methods');
 */
 
 router.get('/', (req, res) => {
-    methods.Entities.entityInfoMethods.getAllEntityInfo()
+  methods.Entities.entityInfoMethods.getAllEntityInfo()
     .then((entities) => {
-        res.status(200).json({
-          status: 'success',
-          entities,
-        });
+      res.status(200).json({
+        status: 'success',
+        entities,
+      });
     })
     .catch((err) => {
-        res.status(500).json({
-          message: 'Error',
-          Error: err.message,
-        });
+      res.status(500).json({
+        message: 'Error',
+        Error: err.message,
+      });
     });
 });
 
@@ -29,31 +29,30 @@ router.get('/', (req, res) => {
 */
 
 router.post('/', (req, res, next) => {
-    if (Object.prototype.hasOwnProperty.call(req.body, 'entityId')
+  if (Object.prototype.hasOwnProperty.call(req.body, 'entityId')
      && Object.prototype.hasOwnProperty.call(req.body, 'slugId')
      && Object.prototype.hasOwnProperty.call(req.body, 'Data')) {
-      const New = {};
-      New.entity_id = req.body.entityId;
-      New.slug_id = req.body.slugId;
-      New.data = req.body.Data;
-      methods.Entities.entityInfoMethods.addEntityInfo(New)
-        .then((entity) => {
-          res.status(200).json({
-            status: 'success',
-            entity,
-          });
-        })
-        .catch((err) => {
-          res.status(500).json({
-            message: 'Error',
-            Error: err.message,
-          });
+    const New = {};
+    New.entity_id = req.body.entityId;
+    New.slug_id = req.body.slugId;
+    New.data = req.body.Data;
+    methods.Entities.entityInfoMethods.addEntityInfo(New)
+      .then((entity) => {
+        res.status(200).json({
+          status: 'success',
+          entity,
         });
-    } 
-    else {
-      console.log('The request doesnot qualify the POST / route');
-      next();
-    }
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: 'Error',
+          Error: err.message,
+        });
+      });
+  } else {
+    console.log('The request doesnot qualify the POST / route');
+    next();
+  }
 });
 
 /*
@@ -93,26 +92,25 @@ router.put('/:entityInfoId', (req, res) => {
 */
 
 router.delete('/', (req, res) => {
-    const info = {};
-    info.id = req.body.data.entityInfoId;
-    info.entity_id = req.body.data.entityId;
-    info.slug_id = req.body.data.slugId;
-    info.data = req.body.data.Data;
-    console.log(info)
-    methods.Entities.entityInfoMethods.deleteEntityInfo(info)
-      .then((model) => {
-        res.status(200).json({
-          status: 'deleted EntityInformation',
-          state: model,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          status: 'Not able to delete.The row may not exist.',
-          state: err,
-        });
+  const info = {};
+  info.id = req.body.data.entityInfoId;
+  info.entity_id = req.body.data.entityId;
+  info.slug_id = req.body.data.slugId;
+  info.data = req.body.data.Data;
+  console.log(info);
+  methods.Entities.entityInfoMethods.deleteEntityInfo(info)
+    .then((model) => {
+      res.status(200).json({
+        status: 'deleted EntityInformation',
+        state: model,
       });
-  });
-  
-  module.exports = router;
-  
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'Not able to delete.The row may not exist.',
+        state: err,
+      });
+    });
+});
+
+module.exports = router;

@@ -15,32 +15,30 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Post - EntityTypes - POST', () => {
+  it('POST /private/entities/entity_types/', (done) => {
+    const entitytype = {
+      entityType: 'people',
+      entityTypeSlug: 'about',
+    };
+    chai.request(app)
+      .post('/private/entities/entity_types/')
+      .send(entitytype)
+      .end((err, result) => {
+        console.log(err);
+        expect(result).to.have.status(200);
+        expect(result.body).to.be.a('object');
+        done();
+      });
+  });
 
-    it('POST /private/entities/entity_types/', (done) => {
-        const entitytype = {
-            entityType : 'people',
-            entityTypeSlug : 'about',    
-        };
-        chai.request(app)
-        .post('/private/entities/entity_types/')
-        .send(entitytype)
-        .end((err, result) => {
-            console.log(err);
-            expect(result).to.have.status(200);
-            expect(result.body).to.be.a('object');    
-            done();
-        });
-    });
-
-      afterEach((done) => {
-        methods.Entities.entityTypeMethods.deleteAllEntityTypes()
-        .then(() => {
-            console.log('deleted entitytypes');
-                done();
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    });
-
+  afterEach((done) => {
+    methods.Entities.entityTypeMethods.deleteAllEntityTypes()
+      .then(() => {
+        console.log('deleted entitytypes');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 });

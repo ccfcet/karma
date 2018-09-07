@@ -4,11 +4,11 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  console.log("inside faculty activity")
+  console.log('inside faculty activity');
   methods.Faculty.facultyClassAdvisoryMethods
-  .getAllFacultyClassAdvisoryActivity()
+    .getAllFacultyClassAdvisoryActivity()
     .then((classes) => {
-      console.log('got activity')
+      console.log('got activity');
       res.json({
         status: 'success',
         classes,
@@ -47,9 +47,9 @@ router.put('/:advisoryId', (req, res) => {
 
   info.id = req.params.advisoryId; // key values for finding row
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'classId') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'activity') 
+  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId')
+   && Object.prototype.hasOwnProperty.call(req.body, 'classId')
+   && Object.prototype.hasOwnProperty.call(req.body, 'activity')
    && Object.prototype.hasOwnProperty.call(req.body, 'dateTime')
    && Object.prototype.hasOwnProperty.call(req.body, 'courseId')) {
     data.people_id = req.body.peopleId;

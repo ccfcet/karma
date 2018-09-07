@@ -16,37 +16,35 @@ facultyClassAdvisoryMethods.addFacultyClassAdvisoryActivity = (info) => {
   });
 };
 facultyClassAdvisoryMethods
-.getAllFacultyClassAdvisoryActivity= () => new Promise((resolve, reject) => {
-  models.faculty.faculty_class_advisory_activity.findAll()
-    .then((people) => {
-      resolve(people);
-    })
-    .catch((err) => {
-      reject(err);
-    });
-});
+  .getAllFacultyClassAdvisoryActivity = () => new Promise((resolve, reject) => {
+    models.faculty.faculty_class_advisory_activity.findAll()
+      .then((people) => {
+        resolve(people);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 
 
 facultyClassAdvisoryMethods
-  .updateFacultyClassAdvisoryActivity = (info, data) => {
-    return new Promise((resolve, reject) => {
-      models.faculty.faculty_class_advisory_activity.update(data, {
-        where: {
-          id: info.id,
-        },
-      })
-        .then((updated) => {
-          if (updated > 0) {
-            resolve(updated);
-          } else {
-            reject(new Error());
+  .updateFacultyClassAdvisoryActivity = (info, data) => new Promise((resolve, reject) => {
+    models.faculty.faculty_class_advisory_activity.update(data, {
+      where: {
+        id: info.id,
+      },
+    })
+      .then((updated) => {
+        if (updated > 0) {
+          resolve(updated);
+        } else {
+          reject(new Error());
           // throw ('err')
-          }
-        }).catch((error) => {
-          reject(error);
-        });
-    });
-  };
+        }
+      }).catch((error) => {
+        reject(error);
+      });
+  });
 
 facultyClassAdvisoryMethods
   .deleteFacultyClassAdvisoryActivity = info => new Promise((
@@ -72,7 +70,7 @@ facultyClassAdvisoryMethods
     });
   });
 
-  facultyClassAdvisoryMethods
+facultyClassAdvisoryMethods
   .deleteAllFacultyClassAdvisoryActivity = () => new Promise((
     resolve,
     reject,

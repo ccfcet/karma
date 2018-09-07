@@ -20,57 +20,57 @@ const tempVar = [];
 
 
 describe('EntityTypes - EntityTypes - GET', () => {
-    beforeEach((done) => {
-        const entitytype = {
-            entity_type : 'people',
-            entity_type_slug : 'about',    
-        };
-        methods.Entities.entityTypeMethods.addEntityType(entitytype)
-        .then((EntityType) => {
-            console.log('added entity types');
-            newEntityType.push(EntityType.dataValues);
+  beforeEach((done) => {
+    const entitytype = {
+      entity_type: 'people',
+      entity_type_slug: 'about',
+    };
+    methods.Entities.entityTypeMethods.addEntityType(entitytype)
+      .then((EntityType) => {
+        console.log('added entity types');
+        newEntityType.push(EntityType.dataValues);
 
-                const ret = newEntityType.map((values) => {
-                const val = values;
-                delete val.created_at;
-                delete val.updated_at;
-                return val;
-                });
-                tempVar.push(ret[0]);
-                done();
-        })
-        .catch((err) => {
-            console.log(err);
+        const ret = newEntityType.map((values) => {
+          const val = values;
+          delete val.created_at;
+          delete val.updated_at;
+          return val;
         });
-    });
+        tempVar.push(ret[0]);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
 
-    it('GET /private/entities/entity_types/', (done) => {
-        chai.request(app)
-        .get('/private/entities/entity_types/')
-        .then((res) => {
-            expect(res).to.have.status(200);
-            expect(res.body.message).equal('success');
-            let re = [];
-            re = res.body.entity_type;
-            expect(re)
-            .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
+  it('GET /private/entities/entity_types/', (done) => {
+    chai.request(app)
+      .get('/private/entities/entity_types/')
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).equal('success');
+        let re = [];
+        re = res.body.entity_type;
+        expect(re)
+          .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
 
-            done();
-        })
-        .catch((err) => {
-            done(err);
-        });
-    });
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
 
-    afterEach((done) => {
-        methods.Entities.entityTypeMethods.deleteAllEntityTypes()
-        .then(() => {
-            console.log('deleted entitytypes');
-                done();
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    });
+  afterEach((done) => {
+    methods.Entities.entityTypeMethods.deleteAllEntityTypes()
+      .then(() => {
+        console.log('deleted entitytypes');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 });

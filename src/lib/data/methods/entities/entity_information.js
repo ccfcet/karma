@@ -15,74 +15,74 @@ entityInfoMethods.findEntityInfoId = id => new Promise((resolve, reject) => {
 });
 
 entityInfoMethods.addEntityInfo = info => new Promise((resolve, reject) => {
-    models.entities.entity_information.create(info)
-      .then((entity_info) => {
-        resolve(entity_info);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-  
-entityInfoMethods.getAllEntityInfo = () => new Promise((resolve, reject) => {
-    models.entities.entity_information.findAll()
-      .then((entity_info) => {
-        resolve(entity_info);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-  
-  entityInfoMethods.updateEntityInfo = (info, data) => new Promise((resolve, reject) => {
-    models.entities.entity_information.update(data, {
-      where: {
-        id: info.id,
-      },
+  models.entities.entity_information.create(info)
+    .then((entity_info) => {
+      resolve(entity_info);
     })
-      .then((updated) => {
-        if (updated > 0) {
-          resolve(updated);
-          console.log(updated);
-        } else {
-          reject(new Error());
-        }
-      }).catch((error) => {
-        reject(error);
-      });
-  });
-  
-  entityInfoMethods.deleteAllEntityInfo = () => new Promise((
-    resolve,
-    reject,
-  ) => {
-    models.entities.entity_information.destroy({
-      where: {},
-    })
-      .then((res) => {
-        resolve();
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-  
-  entityInfoMethods
-    .deleteEntityInfo = info => new Promise((resolve, reject) => {
-      models.entities.entity_information.destroy({
-        where: { id: info.id },
-      })
-        .then((deleted) => {
-          if (deleted === 0) {
-            reject(new Error());
-          } else {
-            resolve(deleted);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          reject(err);
-        });
+    .catch((err) => {
+      reject(err);
     });
+});
+
+entityInfoMethods.getAllEntityInfo = () => new Promise((resolve, reject) => {
+  models.entities.entity_information.findAll()
+    .then((entity_info) => {
+      resolve(entity_info);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+entityInfoMethods.updateEntityInfo = (info, data) => new Promise((resolve, reject) => {
+  models.entities.entity_information.update(data, {
+    where: {
+      id: info.id,
+    },
+  })
+    .then((updated) => {
+      if (updated > 0) {
+        resolve(updated);
+        console.log(updated);
+      } else {
+        reject(new Error());
+      }
+    }).catch((error) => {
+      reject(error);
+    });
+});
+
+entityInfoMethods.deleteAllEntityInfo = () => new Promise((
+  resolve,
+  reject,
+) => {
+  models.entities.entity_information.destroy({
+    where: {},
+  })
+    .then((res) => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+entityInfoMethods
+  .deleteEntityInfo = info => new Promise((resolve, reject) => {
+    models.entities.entity_information.destroy({
+      where: { id: info.id },
+    })
+      .then((deleted) => {
+        if (deleted === 0) {
+          reject(new Error());
+        } else {
+          resolve(deleted);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
 
 module.exports = entityInfoMethods;

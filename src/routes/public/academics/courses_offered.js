@@ -22,7 +22,7 @@ const methods = require('data/methods');
 router.get('/', (req, res) => {
   methods.Academics.coursesOfferedMethods.getAllCoursesOffered()
     .then((model) => {
-      console.log('courses offered')
+      console.log('courses offered');
       res.status(200).json({
         message: 'success',
         classes: model,
@@ -193,8 +193,8 @@ router.put('/:course_offered_id', (req, res, next) => {
  */
 
 router.delete('/', (req, res) => {
-  console.log('entered delete-coursesOffered')
-  console.log(req.body)
+  console.log('entered delete-coursesOffered');
+  console.log(req.body);
   if (Object.prototype.hasOwnProperty.call(req.body.data, 'officialCourseId')
     && Object.prototype.hasOwnProperty.call(req.body.data, 'departmentId')) {
     const info = {};
@@ -203,9 +203,9 @@ router.delete('/', (req, res) => {
 
     methods.Academics.coursesOfferedMethods.deleteCoursesOffered(info)
       .then((noOfRowsDeleted) => {
-        console.log(noOfRowsDeleted)
+        console.log(noOfRowsDeleted);
         res.status(200).json({
-          message: `courses_offered deleted`,
+          message: 'courses_offered deleted',
         });
       })
       .catch((err) => {

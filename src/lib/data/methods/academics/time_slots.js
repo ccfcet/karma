@@ -4,17 +4,15 @@ const models = require('../../models');
 
 const timeSlotsMethods = {};
 
-timeSlotsMethods.addTimeSlots = (info) => {
-  return new Promise((resolve, reject) => {
-    models.academics.time_slots.create(info)
-      .then((newTimeSlot) => {
-        resolve(newTimeSlot);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-};
+timeSlotsMethods.addTimeSlots = info => new Promise((resolve, reject) => {
+  models.academics.time_slots.create(info)
+    .then((newTimeSlot) => {
+      resolve(newTimeSlot);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 timeSlotsMethods.getAllTimeSlots = () => new Promise((resolve, reject) => {
   models.academics.time_slots.findAll()
     .then((timeSlots) => {

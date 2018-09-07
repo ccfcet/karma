@@ -25,7 +25,7 @@ peopleInfoMethods.getAllPeopleInfo = () => new Promise((resolve, reject) => {
     });
 });
 
-peopleInfoMethods.updatePeopleInfo = (info, data) => new Promise((resolve,reject) => {
+peopleInfoMethods.updatePeopleInfo = (info, data) => new Promise((resolve, reject) => {
   models.people.people_information.update(data, {
     where: {
       id: info.id,
@@ -43,7 +43,7 @@ peopleInfoMethods.updatePeopleInfo = (info, data) => new Promise((resolve,reject
     });
 });
 
-peopleInfoMethods.deleteAllPeopleInfo = () => new Promise((resolve,reject) => {
+peopleInfoMethods.deleteAllPeopleInfo = () => new Promise((resolve, reject) => {
   models.people.people_information.destroy({
     where: {},
   })
@@ -55,7 +55,7 @@ peopleInfoMethods.deleteAllPeopleInfo = () => new Promise((resolve,reject) => {
     });
 });
 
-peopleInfoMethods.deletePeopleInfo = info => new Promise((resolve,reject) => {
+peopleInfoMethods.deletePeopleInfo = info => new Promise((resolve, reject) => {
   models.people.people_information.destroy({
     where: {
       id: info.id,

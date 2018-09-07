@@ -59,25 +59,23 @@ classesTimeTablesMethods.updateClassesTimeTablesWithClassNameAndDivision = (
   });
 });
 
-classesTimeTablesMethods.updateClassesTimeTables = (info, data) => {
-  return new Promise((resolve, reject) => {
-    models.academics.classes_time_tables.update(data, {
-      where: {
-        id: info.id,
-      },
-    })
-      .then((updated) => {
-        if (updated > 0) {
-          resolve(updated);
-        } else {
-          reject(new Error());
-          // throw ('err')
-        }
-      }).catch((error) => {
-        reject(error);
-      });
-  });
-};
+classesTimeTablesMethods.updateClassesTimeTables = (info, data) => new Promise((resolve, reject) => {
+  models.academics.classes_time_tables.update(data, {
+    where: {
+      id: info.id,
+    },
+  })
+    .then((updated) => {
+      if (updated > 0) {
+        resolve(updated);
+      } else {
+        reject(new Error());
+        // throw ('err')
+      }
+    }).catch((error) => {
+      reject(error);
+    });
+});
 
 classesTimeTablesMethods.deleteAllClassesTimeTables = () => new Promise((
   resolve,

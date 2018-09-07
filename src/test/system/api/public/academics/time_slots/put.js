@@ -26,7 +26,7 @@ describe('/PUT/:timeslotid ', () => {
 
     methods.Academics.timeSlotsMethods.addTimeSlots(classes)
       .then((model) => {
-        console.log('added time slots')
+        console.log('added time slots');
         done();
       })
       .catch(err => console.log(err));
@@ -35,9 +35,9 @@ describe('/PUT/:timeslotid ', () => {
     methods.Academics.timeSlotsMethods.getAllTimeSlots()
       .then((res) => {
         let timeSlotId = {};
-        console.log(res)
+        console.log(res);
         timeSlotId = res[0].dataValues.id;
-        console.log("timeslotid : ", timeSlotId)
+        console.log('timeslotid : ', timeSlotId);
         let datetime = {};
         datetime = '2000-01-01 01:00:00 UTC';
         const classes = {
@@ -61,14 +61,14 @@ describe('/PUT/:timeslotid ', () => {
         console.log(err);
       });
   });
-  afterEach((done) =>{
+  afterEach((done) => {
     methods.Academics.timeSlotsMethods.deleteAllTimeSlots()
-    .then(() =>{
-      console.log('deleted time slots');
-      done();
-    })
-    .catch((err) =>{
-      console.log(err);
-    })
+      .then(() => {
+        console.log('deleted time slots');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 });

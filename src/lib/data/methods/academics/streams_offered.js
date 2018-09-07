@@ -4,17 +4,15 @@ const models = require('../../models');
 
 const streamsOfferedMethods = {};
 
-streamsOfferedMethods.addStreamsOffered = (info) => {
-  return new Promise((resolve, reject) => {
-    models.academics.streams_offered.create(info)
-      .then((newStreamOffered) => {
-        resolve(newStreamOffered);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-};
+streamsOfferedMethods.addStreamsOffered = info => new Promise((resolve, reject) => {
+  models.academics.streams_offered.create(info)
+    .then((newStreamOffered) => {
+      resolve(newStreamOffered);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 
 streamsOfferedMethods.getAllStreamsOffered = () => new Promise((
   resolve,

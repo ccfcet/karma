@@ -23,7 +23,7 @@ require('data/methods');
 
 router.get('/', (req, res) => {
   res.send({ status: 200 });
-  console.log('private')
+  console.log('private');
 });
 
 router.use('/media', require('./media'));
@@ -32,4 +32,5 @@ router.use('/entities', require('./entities'));
 router.use('/student', require('./student'));
 router.use('/event', require('./event'));
 router.use('/faculty', require('./faculty'));
+
 module.exports = router;

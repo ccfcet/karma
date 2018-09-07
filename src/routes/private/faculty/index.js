@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   res.send({ status: 200 });
-  console.log("entered faculty index")
+  console.log('entered faculty index');
 });
 
 router.use('/faculty_academic_enrolment_activity',

@@ -18,101 +18,101 @@ const { expect } = chai;
 const newPeople = [];
 const newEntity = [];
 const newEntityType = [];
-const newCoursesOffered = []
+const newCoursesOffered = [];
 const FAEA = [];
 const newFAEA = [];
 
 describe('/DELETE faculty with id ', () => {
-    beforeEach((done) => {
-        const newpeople = {
-            first_name: 'John',
-            middle_name: 'M',
-            last_name: 'Doe',
-            gender: 'M',
-            date_of_birth: '1987-01-01',
-            nationality: 'Indian',
+  beforeEach((done) => {
+    const newpeople = {
+      first_name: 'John',
+      middle_name: 'M',
+      last_name: 'Doe',
+      gender: 'M',
+      date_of_birth: '1987-01-01',
+      nationality: 'Indian',
+    };
+
+    methods.People.peopleMethods.addPeople(newpeople)
+      .then((PEOPLE) => {
+        newPeople.push(PEOPLE.dataValues);
+
+        const entitytype = {
+          entity_type: 'people',
+          entity_type_slug: 'about',
         };
-      
-        methods.People.peopleMethods.addPeople(newpeople)
-        .then((PEOPLE) => {
-            newPeople.push(PEOPLE.dataValues);
-
-            const entitytype = {
-                entity_type : 'people',
-                entity_type_slug : 'about',    
+        methods.Entities.entityTypeMethods.addEntityType(entitytype)
+          .then((EntityType) => {
+            newEntityType.push(EntityType.dataValues);
+            const entity = {
+              entity_name: 'cse',
+              entity_slug: 'about',
+              entity_type_id: newEntityType[0].id,
             };
-            methods.Entities.entityTypeMethods.addEntityType(entitytype)
-            .then((EntityType) => {
-                newEntityType.push(EntityType.dataValues);
-                const entity = {
-                    entity_name:'cse',
-                    entity_slug: 'about',
-                    entity_type_id: newEntityType[0].id,
+            methods.Entities.entityMethods.addEntity(entity)
+              .then((Entity) => {
+                newEntity.push(Entity.dataValues);
+
+                const coursesoffered = {
+                  official_course_id: 'Course ID',
+                  name: 'Name',
+                  department_id: newEntity[0].id,
+                  credits: 4,
+                  valid_start_date: '2012-12-07',
+                  valid_end_date: '2014-04-08',
+                  duration_in_days: 5,
                 };
-                methods.Entities.entityMethods.addEntity(entity)
-                .then((Entity) => {
-                    newEntity.push(Entity.dataValues);
+                methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
+                  .then((CoursesOffered) => {
+                    newCoursesOffered.push(CoursesOffered.dataValues);
 
-                    const coursesoffered = {
-                        official_course_id: 'Course ID',
-                        name: 'Name',
-                        department_id: newEntity[0].id,
-                        credits:4,
-                        valid_start_date: '2012-12-07',
-                        valid_end_date: '2014-04-08',
-                        duration_in_days: 5,
+                    const faea = {
+                      people_id: newPeople[0].id,
+                      course_id: newCoursesOffered[0].id,
+                      activity: 'X',
+                      date_time: '2012-12-09 11:55:55',
                     };
-                    methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
-                    .then((CoursesOffered) => {
-                        newCoursesOffered.push(CoursesOffered.dataValues);
+                    methods.Faculty.facultyEAMethods.addFacultyAcademicEnrolmentActivity(faea)
+                      .then((Faea) => {
+                        FAEA.push(Faea.dataValues);
 
-                        const faea = {
-                            people_id: newPeople[0].id, 
-                            course_id: newCoursesOffered[0].id,
-                            activity: 'X',
-                            date_time: '2012-12-09 11:55:55',
-                        };
-                        methods.Faculty.facultyEAMethods.addFacultyAcademicEnrolmentActivity(faea)
-                        .then((Faea) => {
-                            FAEA.push(Faea.dataValues);
-
-                            var ret = FAEA.map((values) => {
-                                var val = values;
-                                delete val.created_at;
-                                delete val.updated_at;
-                                return val;
-                            });
-                            newFAEA.push(ret[0]);
-                            done();
-                        })
-                        .catch((err) => {
-                            console.log(err);
+                        const ret = FAEA.map((values) => {
+                          const val = values;
+                          delete val.created_at;
+                          delete val.updated_at;
+                          return val;
                         });
-                    })
-                    .catch((err) => {
+                        newFAEA.push(ret[0]);
+                        done();
+                      })
+                      .catch((err) => {
                         console.log(err);
-                    });
-                })
-                .catch((err) => {
+                      });
+                  })
+                  .catch((err) => {
                     console.log(err);
-                });
-            })
-            .catch((err) => {
+                  });
+              })
+              .catch((err) => {
                 console.log(err);
-            });
-        })
-        .catch((err) => {
+              });
+          })
+          .catch((err) => {
             console.log(err);
-        });
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
   it('it should DELETE faculty with faculty id', (done) => {
     methods.Faculty.facultyEAMethods.getAllFacultyAcademicEnrolmentActivity()
       .then((res) => {
-        let data = {};
+        const data = {};
         data.peopleId = res[0].dataValues.people_id;
         data.courseId = res[0].dataValues.course_id;
         data.activity = res[0].dataValues.activity;
-        console.log(data)
+        console.log(data);
         chai.request(app)
           .delete('/private/faculty/faculty_academic_enrolment_activity/')
           .send({ data })
@@ -129,45 +129,44 @@ describe('/DELETE faculty with id ', () => {
   });
   afterEach((done) => {
     methods.People.peopleMethods.deleteAllPeople()
-    .then(() => {
+      .then(() => {
         console.log('deleted people');
 
         methods.Entities.entityTypeMethods.deleteAllEntityTypes()
-        .then(() => {
+          .then(() => {
             console.log('deleted entitytypes');
 
-           methods.Entities.entityMethods.deleteAllEntity()
-           .then(() => {
+            methods.Entities.entityMethods.deleteAllEntity()
+              .then(() => {
                 console.log('deleted entities');
 
                 methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
-                .then(() => {
+                  .then(() => {
                     console.log('deleted coursesoffered');
 
                     methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
-                    .then(() => {
+                      .then(() => {
                         console.log('deleted faculty_academic_enrolment_activity');
                         done();
-                    })
-                    .catch((err) => {
+                      })
+                      .catch((err) => {
                         console.log(err);
-                    });
-                })
-                .catch((err) => {
+                      });
+                  })
+                  .catch((err) => {
                     console.log(err);
-                });
-            })
-            .catch((err) => {
+                  });
+              })
+              .catch((err) => {
                 console.log(err);
-            });
-        })
-        .catch((err) => {
+              });
+          })
+          .catch((err) => {
             console.log(err);
-        });
-    })
-    .catch((err) => {
+          });
+      })
+      .catch((err) => {
         console.log(err);
-    });
-});
-
+      });
+  });
 });

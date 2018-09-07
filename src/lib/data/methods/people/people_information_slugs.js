@@ -198,7 +198,7 @@ peopleInfoSlugsMethods.getAllPeopleInfoSlugs = () => new Promise((resolve, rejec
     });
 });
 
-peopleInfoSlugsMethods.updatePeopleInfoSlugs = (info, data) => new Promise((resolve,reject) => {
+peopleInfoSlugsMethods.updatePeopleInfoSlugs = (info, data) => new Promise((resolve, reject) => {
   models.people.people_information_slugs.update(data, {
     where: {
       id: info.id,
@@ -216,7 +216,7 @@ peopleInfoSlugsMethods.updatePeopleInfoSlugs = (info, data) => new Promise((reso
     });
 });
 
-peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs = () => new Promise((resolve,reject) => {
+peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs = () => new Promise((resolve, reject) => {
   models.people.people_information_slugs.destroy({
     where: {},
   })
@@ -228,7 +228,7 @@ peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs = () => new Promise((resolve,rej
     });
 });
 
-peopleInfoSlugsMethods.deletePeopleInfoSlugs = info => new Promise((resolve,reject) => {
+peopleInfoSlugsMethods.deletePeopleInfoSlugs = info => new Promise((resolve, reject) => {
   models.people.people_information_slugs.destroy({
     where: {
       id: info.id,

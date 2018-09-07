@@ -4,7 +4,7 @@ const router = express.Router();
 const methods = require('data/methods');
 
 router.get('/', (req, res) => {
-  console.log("inside faculty activity")
+  console.log('inside faculty activity');
   methods.Faculty.facultyEAMethods.getAllFacultyAcademicEnrolmentActivity()
     .then((classes) => {
       console.log('people');
@@ -46,10 +46,10 @@ router.put('/:enrolmentId', (req, res) => {
   const data = {};
 
   info.id = req.params.enrolmentId; // key values for finding row
-  console.log(req.body)
-  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'courseId') 
-   && Object.prototype.hasOwnProperty.call(req.body, 'activity') 
+  console.log(req.body);
+  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId')
+   && Object.prototype.hasOwnProperty.call(req.body, 'courseId')
+   && Object.prototype.hasOwnProperty.call(req.body, 'activity')
    && Object.prototype.hasOwnProperty.call(req.body, 'dateTime')) {
     data.people_id = req.body.peopleId;
     data.course_id = req.body.courseId;

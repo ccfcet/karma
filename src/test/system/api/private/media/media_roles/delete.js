@@ -44,7 +44,7 @@ describe('/DELETE media roles with id ', () => {
   it('it should DELETE media given the id', (done) => {
     methods.Media.mediaRolesMethods.getAllMediaRoles()
       .then((res) => {
-        console.log(res)
+        console.log(res);
         let Id = {};
         Id = res[0].dataValues.id;
 

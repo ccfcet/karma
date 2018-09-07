@@ -23,114 +23,113 @@ const newCoursesOffered = [];
 describe('Post faculty_enrolment - POST', () => {
   beforeEach((done) => {
     methods.People.peopleMethods.deleteAllPeople()
-        .then(() => {
-            console.log('deleted people');
- 
-            methods.Entities.entityTypeMethods.deleteAllEntityTypes()
-            .then(() => {
-                console.log('deleted entitytypes');
+      .then(() => {
+        console.log('deleted people');
 
-               methods.Entities.entityMethods.deleteAllEntity()
-               .then(() => {
-                    console.log('deleted entities');
+        methods.Entities.entityTypeMethods.deleteAllEntityTypes()
+          .then(() => {
+            console.log('deleted entitytypes');
 
-                    methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
-                    .then(() => {
-                        console.log('deleted coursesoffered');
+            methods.Entities.entityMethods.deleteAllEntity()
+              .then(() => {
+                console.log('deleted entities');
 
-                        methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
-                        .then(() => {
-                            console.log('deleted faculty academic activity')
-                            const newpeople = {
-                                first_name: 'John',
-                                middle_name: 'M',
-                                last_name: 'Doe',
-                                gender: 'M',
-                                date_of_birth: '1987-01-01',
-                                nationality: 'Indian',
+                methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                  .then(() => {
+                    console.log('deleted coursesoffered');
+
+                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                      .then(() => {
+                        console.log('deleted faculty academic activity');
+                        const newpeople = {
+                          first_name: 'John',
+                          middle_name: 'M',
+                          last_name: 'Doe',
+                          gender: 'M',
+                          date_of_birth: '1987-01-01',
+                          nationality: 'Indian',
+                        };
+
+                        methods.People.peopleMethods.addPeople(newpeople)
+                          .then((PEOPLE) => {
+                            console.log('added people');
+                            newPeople.push(PEOPLE.dataValues);
+                            console.log(newPeople);
+                            const entitytype = {
+                              entity_type: 'people',
+                              entity_type_slug: 'about',
                             };
-                          
-                            methods.People.peopleMethods.addPeople(newpeople)
-                            .then((PEOPLE) => {
-                                console.log("added people")
-                                newPeople.push(PEOPLE.dataValues);
-                                console.log(newPeople);  
-                                const entitytype = {
-                                    entity_type : 'people',
-                                    entity_type_slug : 'about',    
+                            methods.Entities.entityTypeMethods.addEntityType(entitytype)
+                              .then((EntityType) => {
+                                console.log('added entitytypes');
+                                newEntityType.push(EntityType.dataValues);
+                                const entity = {
+                                  entity_name: 'cse',
+                                  entity_slug: 'about',
+                                  entity_type_id: newEntityType[0].id,
                                 };
-                                methods.Entities.entityTypeMethods.addEntityType(entitytype)
-                                .then((EntityType) => {
-                                    console.log("added entitytypes")
-                                    newEntityType.push(EntityType.dataValues);
-                                    const entity = {
-                                        entity_name:'cse',
-                                        entity_slug: 'about',
-                                        entity_type_id: newEntityType[0].id,
+                                methods.Entities.entityMethods.addEntity(entity)
+                                  .then((Entity) => {
+                                    console.log('added entity');
+                                    newEntity.push(Entity.dataValues);
+
+                                    const coursesoffered = {
+                                      official_course_id: 'Course ID',
+                                      name: 'Name',
+                                      department_id: newEntity[0].id,
+                                      credits: 4,
+                                      valid_start_date: '2012-12-07',
+                                      valid_end_date: '2014-04-08',
+                                      duration_in_days: 5,
                                     };
-                                    methods.Entities.entityMethods.addEntity(entity)
-                                    .then((Entity) => {
-                                        console.log("added entity")
-                                        newEntity.push(Entity.dataValues);
-                    
-                                        const coursesoffered = {
-                                            official_course_id: 'Course ID',
-                                            name: 'Name',
-                                            department_id: newEntity[0].id,
-                                            credits:4,
-                                            valid_start_date: '2012-12-07',
-                                            valid_end_date: '2014-04-08',
-                                            duration_in_days: 5,
-                                        };
-                                        methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
-                                        .then((CoursesOffered) => {
-                                            newCoursesOffered.push(CoursesOffered.dataValues);
-                                            done();
-                                        })
-                                        .catch((err) => {
-                                            console.log(err);
-                                        });
-                                    })
-                                    .catch((err) => {
+                                    methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
+                                      .then((CoursesOffered) => {
+                                        newCoursesOffered.push(CoursesOffered.dataValues);
+                                        done();
+                                      })
+                                      .catch((err) => {
                                         console.log(err);
-                                    });
-                                })
-                                .catch((err) => {
+                                      });
+                                  })
+                                  .catch((err) => {
                                     console.log(err);
-                                });
-                            })
-                            .catch((err) => {
+                                  });
+                              })
+                              .catch((err) => {
                                 console.log(err);
-                            });
-                            
-                        })
-                        .catch((err) => {
+                              });
+                          })
+                          .catch((err) => {
                             console.log(err);
-                        });
-                    })
-                    .catch((err) => {
+                          });
+                      })
+                      .catch((err) => {
                         console.log(err);
-                    });
-                })
-                .catch((err) => {
+                      });
+                  })
+                  .catch((err) => {
                     console.log(err);
-                });
-            })
-            .catch((err) => {
+                  });
+              })
+              .catch((err) => {
                 console.log(err);
-            });
-        })
-        .catch((err) => {
+              });
+          })
+          .catch((err) => {
             console.log(err);
-        });
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
   it('POST /private/faculty/faculty_academic_enrolment_activity/', (done) => {
-    console.log(newPeople)
+    console.log(newPeople);
     const faea = {
-        people_id: newPeople[0].id, 
-        course_id: newCoursesOffered[0].id,
-        activity: 'X',
-        date_time: '2012-12-09 11:55:55',
+      people_id: newPeople[0].id,
+      course_id: newCoursesOffered[0].id,
+      activity: 'X',
+      date_time: '2012-12-09 11:55:55',
     };
 
     chai.request(app)
@@ -144,45 +143,44 @@ describe('Post faculty_enrolment - POST', () => {
   });
   afterEach((done) => {
     methods.People.peopleMethods.deleteAllPeople()
-    .then(() => {
+      .then(() => {
         console.log('deleted people');
 
         methods.Entities.entityTypeMethods.deleteAllEntityTypes()
-        .then(() => {
+          .then(() => {
             console.log('deleted entitytypes');
 
-           methods.Entities.entityMethods.deleteAllEntity()
-           .then(() => {
+            methods.Entities.entityMethods.deleteAllEntity()
+              .then(() => {
                 console.log('deleted entities');
 
                 methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
-                .then(() => {
+                  .then(() => {
                     console.log('deleted coursesoffered');
 
                     methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
-                    .then(() => {
+                      .then(() => {
                         console.log('deleted faculty_academic_enrolment_activity');
                         done();
-                    })
-                    .catch((err) => {
+                      })
+                      .catch((err) => {
                         console.log(err);
-                    });
-                })
-                .catch((err) => {
+                      });
+                  })
+                  .catch((err) => {
                     console.log(err);
-                });
-            })
-            .catch((err) => {
+                  });
+              })
+              .catch((err) => {
                 console.log(err);
-            });
-        })
-        .catch((err) => {
+              });
+          })
+          .catch((err) => {
             console.log(err);
-        });
-    })
-    .catch((err) => {
+          });
+      })
+      .catch((err) => {
         console.log(err);
-    });
-});
-
+      });
+  });
 });

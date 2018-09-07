@@ -47,7 +47,7 @@ describe('People - GetPeople - GET', () => {
       .catch((err) => {
         console.log(err);
       });
-    });
+  });
 
 
   it('GET /private/people/people/', (done) => {
@@ -59,7 +59,7 @@ describe('People - GetPeople - GET', () => {
         let re = [];
         re = res.body.classes;
         expect(re)
-        .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
+          .excluding(['created_at', 'updated_at']).to.deep.equal(tempVar);
 
         done();
       })

@@ -9,18 +9,18 @@ const methods = require('data/methods');
 */
 
 router.get('/', (req, res) => {
-    methods.Entities.entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol()
+  methods.Entities.entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol()
     .then((entities) => {
-        res.status(200).json({
-          status: 'success',
-          entities,
-        });
+      res.status(200).json({
+        status: 'success',
+        entities,
+      });
     })
     .catch((err) => {
-        res.status(500).json({
-          message: 'Error',
-          Error: err.message,
-        });
+      res.status(500).json({
+        message: 'Error',
+        Error: err.message,
+      });
     });
 });
 
@@ -29,31 +29,30 @@ router.get('/', (req, res) => {
 */
 
 router.post('/', (req, res, next) => {
-    if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId')
+  if (Object.prototype.hasOwnProperty.call(req.body, 'peopleId')
      && Object.prototype.hasOwnProperty.call(req.body, 'EntPosAssociationId')
      && Object.prototype.hasOwnProperty.call(req.body, 'Activity')) {
-      const New = {};
-      New.people_id = req.body.peopleId;
-      New.entity_position_association_id = req.body.EntPosAssociationId;
-      New.activity = req.body.Activity;
-      methods.Entities.entityPeoplePosEnrolMethods.addEntityPeoplePosEnrol(New)
-        .then((entity) => {
-          res.status(200).json({
-            status: 'success',
-            entity,
-          });
-        })
-        .catch((err) => {
-          res.status(500).json({
-            message: 'Error',
-            Error: err.message,
-          });
+    const New = {};
+    New.people_id = req.body.peopleId;
+    New.entity_position_association_id = req.body.EntPosAssociationId;
+    New.activity = req.body.Activity;
+    methods.Entities.entityPeoplePosEnrolMethods.addEntityPeoplePosEnrol(New)
+      .then((entity) => {
+        res.status(200).json({
+          status: 'success',
+          entity,
         });
-    } 
-    else {
-      console.log('The request doesnot qualify the POST / route');
-      next();
-    }
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: 'Error',
+          Error: err.message,
+        });
+      });
+  } else {
+    console.log('The request doesnot qualify the POST / route');
+    next();
+  }
 });
 
 /*
@@ -93,26 +92,25 @@ router.put('/:entityPPId', (req, res) => {
 */
 
 router.delete('/', (req, res) => {
-    const info = {};
-    info.id = req.body.data.entityPPId;
-    info.people_id = req.body.data.peopleId;
-    info.entity_position_association_id = req.body.data.EntPosAssociationId;
-    info.activity = req.body.data.Activity;
-    console.log(info)
-    methods.Entities.entityPeoplePosEnrolMethods.deleteEntityPeoplePosEnrol(info)
-      .then((model) => {
-        res.status(200).json({
-          status: 'deleted EntityPeoplePositionEnrolment',
-          state: model,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          status: 'Not able to delete.The row may not exist.',
-          state: err,
-        });
+  const info = {};
+  info.id = req.body.data.entityPPId;
+  info.people_id = req.body.data.peopleId;
+  info.entity_position_association_id = req.body.data.EntPosAssociationId;
+  info.activity = req.body.data.Activity;
+  console.log(info);
+  methods.Entities.entityPeoplePosEnrolMethods.deleteEntityPeoplePosEnrol(info)
+    .then((model) => {
+      res.status(200).json({
+        status: 'deleted EntityPeoplePositionEnrolment',
+        state: model,
       });
-  });
-  
-  module.exports = router;
-  
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'Not able to delete.The row may not exist.',
+        state: err,
+      });
+    });
+});
+
+module.exports = router;
