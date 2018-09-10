@@ -45,32 +45,42 @@ describe('/PUT:/cttid', () => {
                 methods.Entities.entityMethods.deleteAllEntity()
                   .then(() => {
                     console.log('deleted entities');
-                    methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                    methods.Academics.streamsOfferedMethods
+                      .deleteAllStreamsOffered()
                       .then(() => {
                         console.log('deleted StreamsOffered');
                         methods.Academics.classesMethods.deleteAllClasses()
                           .then(() => {
                             console.log('deleted Classes');
-                            methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                            methods.Academics.coursesOfferedMethods
+                              .deleteAllCoursesOffered()
                               .then(() => {
                                 console.log('deleted CoursesOffered');
                                 methods.People.peopleMethods.deleteAllPeople()
                                   .then(() => {
                                     console.log('delete People');
-                                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                                    methods.Faculty.facultyEAMethods
+                                    // eslint-disable-next-line max-len
+                                      .deleteAllFacultyAcademicEnrolmentActivity()
                                       .then(() => {
-                                        console.log('deleted EnrolmentActivity');
-                                        methods.Academics.classesTimeTablesMethods.deleteAllClassesTimeTables()
+                                        console
+                                          .log('deleted EnrolmentActivity');
+                                        methods.Academics
+                                          .classesTimeTablesMethods
+                                          .deleteAllClassesTimeTables()
                                           .then(() => {
-                                            console.log('deleted ClassesTimeTables');
+                                            console
+                                              .log('deleted ClassesTimeTables');
 
                                             const timeslot = {
                                               start_timestamp: '09:12:56',
                                               end_timestamp: '11:56:45',
                                             };
-                                            methods.Academics.timeSlotsMethods.addTimeSlots(timeslot)
+                                            methods.Academics.timeSlotsMethods
+                                              .addTimeSlots(timeslot)
                                               .then((TimeSlot) => {
-                                                newTimeSlot.push(TimeSlot.dataValues);
+                                                newTimeSlot
+                                                  .push(TimeSlot.dataValues);
 
                                                 const streamtype = {
                                                   stream_type_long: '5',
@@ -78,15 +88,25 @@ describe('/PUT:/cttid', () => {
                                                   start_date: '2018-07-25',
                                                   end_date: '2018-07-29',
                                                 };
-                                                methods.Academics.streamTypesMethods.addStreamType(streamtype)
+                                                methods.Academics
+                                                  .streamTypesMethods
+                                                  .addStreamType(streamtype)
                                                   .then((StreamType) => {
-                                                    newStreamType.push(StreamType.dataValues);
+                                                    newStreamType
+                                                      .push(
+                                                        StreamType.dataValues,
+                                                      );
 
                                                     const entitytypes = {
                                                       entity_type: 'people',
                                                       entity_type_slug: 'about',
                                                     };
-                                                    methods.Entities.entityTypeMethods.addEntityType(entitytypes)
+                                                    methods.Entities
+                                                      .entityTypeMethods
+                                                      .addEntityType(
+                                                        entitytypes,
+                                                      )
+                                                    /* eslint-disable */
                                                       .then((EntityTypes) => {
                                                         newEntityType.push(EntityTypes.dataValues);
 
@@ -271,6 +291,7 @@ describe('/PUT:/cttid', () => {
                                                             console.log(err);
                                                           });
                                                       })
+                                                      /* eslint-enable */
                                                       .catch((err) => {
                                                         console.log(err);
                                                       });
@@ -320,6 +341,7 @@ describe('/PUT:/cttid', () => {
           });
       })
       .catch((err) => {
+        console.log(err);
       });
   });
 
@@ -365,24 +387,32 @@ describe('/PUT:/cttid', () => {
                 methods.Entities.entityMethods.deleteAllEntity()
                   .then(() => {
                     console.log('deleted entities');
-                    methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                    methods.Academics.streamsOfferedMethods
+                      .deleteAllStreamsOffered()
                       .then(() => {
                         console.log('deleted StreamsOffered');
                         methods.Academics.classesMethods.deleteAllClasses()
                           .then(() => {
                             console.log('deleted Classes');
-                            methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                            methods.Academics.coursesOfferedMethods
+                              .deleteAllCoursesOffered()
                               .then(() => {
                                 console.log('deleted CoursesOffered');
                                 methods.People.peopleMethods.deleteAllPeople()
                                   .then(() => {
                                     console.log('delete People');
-                                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                                    methods.Faculty.facultyEAMethods
+                                      // eslint-disable-next-line max-len
+                                      .deleteAllFacultyAcademicEnrolmentActivity()
                                       .then(() => {
-                                        console.log('deleted EnrolmentActivity');
-                                        methods.Academics.classesTimeTablesMethods.deleteAllClassesTimeTables()
+                                        console.log('deleted'
+                                        + 'EnrolmentActivity');
+                                        methods.Academics
+                                          .classesTimeTablesMethods
+                                          .deleteAllClassesTimeTables()
                                           .then(() => {
-                                            console.log('deleted ClassesTimeTables');
+                                            console.log('deleted '
+                                            + 'ClassesTimeTables');
                                             done();
                                           })
                                           .catch((err) => {
@@ -422,6 +452,7 @@ describe('/PUT:/cttid', () => {
           });
       })
       .catch((err) => {
+        console.log(err);
       });
   });
 });

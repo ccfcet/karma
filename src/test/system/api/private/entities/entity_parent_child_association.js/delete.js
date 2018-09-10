@@ -6,14 +6,12 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 const newEntity = [];
 const newEntityType = [];
@@ -22,6 +20,7 @@ const newEntityType1 = [];
 const newEPC = [];
 const tempVar = [];
 
+// eslint-disable-next-line max-len
 describe('/DELETE EntityParentChild_Association with entityParentChildId', () => {
   beforeEach((done) => {
     const entitytype = {
@@ -66,7 +65,8 @@ describe('/DELETE EntityParentChild_Association with entityParentChildId', () =>
                       parent_id: newEntity[0].id,
                       child_id: newEntity1[0].id,
                     };
-                    methods.Entities.entityParentChildMethods.addEntityParentChild(epc)
+                    methods.Entities.entityParentChildMethods
+                      .addEntityParentChild(epc)
                       .then((EPC) => {
                         console.log('added entity_parentchild_association');
                         newEPC.push(EPC.dataValues);
@@ -101,6 +101,7 @@ describe('/DELETE EntityParentChild_Association with entityParentChildId', () =>
       });
   });
 
+  // eslint-disable-next-line max-len
   it('it should DELETE EntityParentChild_Association given the entityParentChildId', (done) => {
     methods.Entities.entityParentChildMethods.getAllEntityParentChild()
       .then((res) => {
@@ -115,7 +116,8 @@ describe('/DELETE EntityParentChild_Association with entityParentChildId', () =>
             console.log(err);
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('deleted Entity_ParentChild_Association');
+            expect(result.body.status).to
+              .eql('deleted Entity_ParentChild_Association');
             done();
           });
       })
@@ -131,7 +133,8 @@ describe('/DELETE EntityParentChild_Association with entityParentChildId', () =>
         methods.Entities.entityMethods.deleteAllEntity()
           .then(() => {
             console.log('deleted entities');
-            methods.Entities.entityParentChildMethods.deleteAllEntityParentChild()
+            methods.Entities.entityParentChildMethods
+              .deleteAllEntityParentChild()
               .then(() => {
                 console.log('deleted entity_parentchild_association');
                 done();

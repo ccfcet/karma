@@ -19,8 +19,6 @@ const newStreamType = [];
 const newEntity = [];
 const newEntityType = [];
 const newStreamsOffered = [];
-const newClass = [];
-const New = [];
 
 describe('Post classes - POST', () => {
   beforeEach((done) => {
@@ -33,7 +31,8 @@ describe('Post classes - POST', () => {
             methods.Academics.streamTypesMethods.deleteAllStreamTypes()
               .then(() => {
                 console.log('deleted streamtypes');
-                methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                methods.Academics.streamsOfferedMethods
+                  .deleteAllStreamsOffered()
                   .then(() => {
                     console.log('deleted streamsoffered');
                     methods.Academics.classesMethods.deleteAllClasses()
@@ -44,7 +43,8 @@ describe('Post classes - POST', () => {
                           entity_type: 'people',
                           entity_type_slug: 'about',
                         };
-                        methods.Entities.entityTypeMethods.addEntityType(entityTypes)
+                        methods.Entities.entityTypeMethods
+                          .addEntityType(entityTypes)
                           .then((entitytype) => {
                             newEntityType.push(entitytype.dataValues);
                             console.log(newEntityType);
@@ -63,7 +63,8 @@ describe('Post classes - POST', () => {
                                   start_date: '2020-07-25',
                                   end_date: '2020-08-31',
                                 };
-                                methods.Academics.streamTypesMethods.addStreamType(streamtype)
+                                methods.Academics.streamTypesMethods
+                                  .addStreamType(streamtype)
                                   .then((streams) => {
                                     newStreamType.push(streams.dataValues);
 
@@ -74,10 +75,11 @@ describe('Post classes - POST', () => {
                                       valid_start_date: '2001-12-12',
                                       valid_end_date: '2002-09-09',
                                     };
-                                    methods.Academics.streamsOfferedMethods.addStreamsOffered(streamsoffered)
+                                    methods.Academics.streamsOfferedMethods
+                                      .addStreamsOffered(streamsoffered)
                                       .then((offeredstreams) => {
-                                        newStreamsOffered.push(offeredstreams.dataValues);
-
+                                        newStreamsOffered
+                                          .push(offeredstreams.dataValues);
                                         done();
                                       })
                                       .catch((err) => {
@@ -145,7 +147,8 @@ describe('Post classes - POST', () => {
             methods.Academics.streamTypesMethods.deleteAllStreamTypes()
               .then(() => {
                 console.log('deleted streamtypes');
-                methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                methods.Academics.streamsOfferedMethods
+                  .deleteAllStreamsOffered()
                   .then(() => {
                     console.log('deleted streamsoffered');
                     methods.Academics.classesMethods.deleteAllClasses()

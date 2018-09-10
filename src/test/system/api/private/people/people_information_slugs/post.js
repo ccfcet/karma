@@ -16,9 +16,10 @@ const { expect } = chai;
 
 describe('Post peopleInfoSlugs - POST', () => {
   beforeEach((done) => {
-    methods.People.peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs().then(() => {
-      done();
-    })
+    methods.People.peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs()
+      .then(() => {
+        done();
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -42,10 +43,11 @@ describe('Post peopleInfoSlugs - POST', () => {
   });
 
   afterEach((done) => {
-    methods.People.peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs().then(() => {
-      console.log('done');
-      done();
-    })
+    methods.People.peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs()
+      .then(() => {
+        console.log('done');
+        done();
+      })
       .catch((err) => {
         console.log(err);
       });

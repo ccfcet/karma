@@ -73,7 +73,8 @@ router.put('/:entityPPId', (req, res) => {
     data.activity = req.body.Activity;
   }
 
-  methods.Entities.entityPeoplePosEnrolMethods.updateEntityPeoplePosEnrol(info, data)
+  methods.Entities.entityPeoplePosEnrolMethods
+    .updateEntityPeoplePosEnrol(info, data)
     .then(() => {
       res.status(200).json({
         status: 'updated EntityPeoplePositionEnrolment',

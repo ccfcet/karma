@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -71,7 +70,8 @@ describe('/DELETE EntityPeopleEnrolment with entityPId', () => {
                       entity_position_association_id: newEPA[0].id,
                       activity: 'X',
                     };
-                    methods.Entities.entityPeoplePosEnrolMethods.addEntityPeoplePosEnrol(eppe)
+                    methods.Entities.entityPeoplePosEnrolMethods
+                      .addEntityPeoplePosEnrol(eppe)
                       .then((neweppe) => {
                         newEPPE.push(neweppe.dataValues);
 
@@ -102,29 +102,32 @@ describe('/DELETE EntityPeopleEnrolment with entityPId', () => {
       });
   });
 
-  it('it should DELETE EntityPeoplePositionEnrolment given the entityPPId', (done) => {
-    methods.Entities.entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol()
-      .then((res) => {
-        const data = {};
-        data.entityPPId = res[0].dataValues.id;
-        data.peopleId = res[0].dataValues.entity_id;
-        data.EntPosAssociationId = res[0].dataValues.entity_position_association_id;
-        data.Activity = res[0].dataValues.activity;
-        chai.request(app)
-          .delete('/private/entities/entity_people_position_enrolment/')
-          .send({ data })
-          .end((err, result) => {
-            console.log(err);
-            expect(result).to.have.status(200);
-            expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('deleted EntityPeoplePositionEnrolment');
-            done();
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+  it('it should DELETE EntityPeoplePositionEnrolment given the entityPPId',
+    (done) => {
+      methods.Entities.entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol()
+        .then((res) => {
+          const data = {};
+          data.entityPPId = res[0].dataValues.id;
+          data.peopleId = res[0].dataValues.entity_id;
+          data.EntPosAssociationId = res[0]
+            .dataValues.entity_position_association_id;
+          data.Activity = res[0].dataValues.activity;
+          chai.request(app)
+            .delete('/private/entities/entity_people_position_enrolment/')
+            .send({ data })
+            .end((err, result) => {
+              console.log(err);
+              expect(result).to.have.status(200);
+              expect(result.body).to.be.a('object');
+              expect(result.body.status).to
+                .eql('deleted EntityPeoplePositionEnrolment');
+              done();
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
 
   afterEach((done) => {
     methods.Entities.entityTypeMethods.deleteAllEntityTypes()

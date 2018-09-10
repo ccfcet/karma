@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -14,12 +13,12 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-
 describe('Post EntityInfoSlugs - POST', () => {
   beforeEach((done) => {
-    methods.Entities.entityInfoSlugsMethods.deleteAllEntityInfoSlugs().then(() => {
-      done();
-    })
+    methods.Entities.entityInfoSlugsMethods.deleteAllEntityInfoSlugs()
+      .then(() => {
+        done();
+      })
       .catch((err) => {
         console.log(err);
       });

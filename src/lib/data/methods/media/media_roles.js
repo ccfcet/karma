@@ -15,7 +15,9 @@ mediaRolesMethods.addMediaRoles = (info) => {
       });
   });
 };
-mediaRolesMethods.updateMediaRoles = (info, data) => new Promise((resolve, reject) => {
+mediaRolesMethods.updateMediaRoles = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.media.media_roles.update(data, {
     where: {
       id: info.id,

@@ -88,6 +88,7 @@ describe('/DELETE people_information with peopleInfoId', () => {
           });
       })
       .catch((err) => {
+        console.log(err);
       });
   });
 

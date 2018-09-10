@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -94,7 +93,8 @@ describe('Post - EntityPeopleEnrolment - POST', () => {
             methods.People.peopleMethods.deleteAllPeople()
               .then(() => {
                 console.log('deleted people');
-                methods.Entities.entityPeopleEnrolMethods.deleteAllEntityPeopleEnrol()
+                methods.Entities.entityPeopleEnrolMethods
+                  .deleteAllEntityPeopleEnrol()
                   .then(() => {
                     console.log('deleted EntityPeopleEnrolment');
                     done();

@@ -17,15 +17,17 @@ entityTypeMethods.addEntityType = info => new Promise((resolve, reject) => {
 
 entityTypeMethods.getAllEntityTypes = () => new Promise((resolve, reject) => {
   models.entities.entity_types.findAll()
-    .then((entity_type) => {
-      resolve(entity_type);
+    .then((entityType) => {
+      resolve(entityType);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityTypeMethods.updateEntityTypes = (info, data) => new Promise((resolve, reject) => {
+entityTypeMethods.updateEntityTypes = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_types.update(data, {
     where: {
       id: info.id,

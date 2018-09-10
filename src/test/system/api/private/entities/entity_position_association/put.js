@@ -6,14 +6,12 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 const newEntity = [];
 const newEntityType = [];
@@ -95,7 +93,8 @@ describe('/PUT/:entityPosId', () => {
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('updated EntityPositionAssociation');
+            expect(result.body.status).to
+              .eql('updated EntityPositionAssociation');
 
             done();
           });

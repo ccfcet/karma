@@ -6,14 +6,12 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 const streamType = [];
 const newEntity = [];
@@ -61,8 +59,8 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
                   valid_start_date: '2018-07-25',
                   valid_end_date: '2018-07-25',
                 };
-                methods.Academics.streamsOfferedMethods.addStreamsOffered(newStream)
-                  .then((streams) => {
+                methods.Academics.streamsOfferedMethods
+                  .addStreamsOffered(newStream).then((streams) => {
                     streamsOffered.push(streams.dataValues);
 
                     const returns = streamsOffered.map((values) => {
@@ -83,7 +81,7 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
               });
           })
           .catch((err) => {
-
+            console.log(err);
           });
       })
       .catch(err => console.log(err));
@@ -129,37 +127,41 @@ describe('StreamsOffered - GetStreamsOffered - GET', () => {
               console.log(err);
             });
         })
-          .catch((err) => {
-            afterEach((done) => {
-              methods.Academics.streamTypesMethods.deleteAllStreamTypes().then(() => {
-                console.log('deleted streamtypes');
-                methods.Entities.entityTypeMethods.deleteAllEntityTypes().then(() => {
-                  console.log('deleted entitytypes');
-                  methods.Entities.entityMethods.deleteAllEntity().then(() => {
-                    console.log('deleted entities');
+          .catch((err2) => {
+            afterEach(() => {
+              methods.Academics.streamTypesMethods.deleteAllStreamTypes()
+                .then(() => {
+                  console.log('deleted streamtypes');
+                  methods.Entities.entityTypeMethods.deleteAllEntityTypes()
+                    .then(() => {
+                      console.log('deleted entitytypes');
+                      methods.Entities.entityMethods.deleteAllEntity()
+                        .then(() => {
+                          console.log('deleted entities');
 
-                    methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
-                      .then(() => {
-                        console.log('deleted');
-                        done();
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                  })
+                          methods.Academics.streamsOfferedMethods
+                            .deleteAllStreamsOffered()
+                            .then(() => {
+                              console.log('deleted');
+                              done();
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            });
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+                    })
                     .catch((err) => {
                       console.log(err);
                     });
                 })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              })
                 .catch((err) => {
                   console.log(err);
                 });
             });
-            console.log(err);
+            console.log(err2);
           });
       })
         .catch((err) => {

@@ -6,14 +6,12 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 const newPeople = [];
 const newEntity = [];
@@ -75,7 +73,8 @@ describe('DELETE faculty_advisory_activity', () => {
                       valid_start_date: '2018-07-25',
                       valid_end_date: '2018-07-25',
                     };
-                    methods.Academics.streamsOfferedMethods.addStreamsOffered(newStream)
+                    methods.Academics.streamsOfferedMethods
+                      .addStreamsOffered(newStream)
                       .then((streams) => {
                         streamsOffered.push(streams.dataValues);
 
@@ -93,7 +92,8 @@ describe('DELETE faculty_advisory_activity', () => {
                               entity_type: 'people2',
                               entity_type_slug: 'about2',
                             };
-                            methods.Entities.entityTypeMethods.addEntityType(entitytype2)
+                            methods.Entities.entityTypeMethods
+                              .addEntityType(entitytype2)
                               .then((etype) => {
                                 enttype.push(etype.dataValues);
                                 const entity2 = {
@@ -101,7 +101,8 @@ describe('DELETE faculty_advisory_activity', () => {
                                   entity_slug: 'about2',
                                   entity_type_id: enttype[0].id,
                                 };
-                                methods.Entities.entityMethods.addEntity(entity2)
+                                methods.Entities.entityMethods
+                                  .addEntity(entity2)
                                   .then((ent2) => {
                                     ent.push(ent2.dataValues);
                                     const coursesoffered = {
@@ -113,9 +114,12 @@ describe('DELETE faculty_advisory_activity', () => {
                                       valid_end_date: '2014-04-08',
                                       duration_in_days: 5,
                                     };
-                                    methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
+                                    methods.Academics.coursesOfferedMethods
+                                      .addCoursesOffered(coursesoffered)
                                       .then((CoursesOffered) => {
-                                        newCoursesOffered.push(CoursesOffered.dataValues);
+                                        newCoursesOffered.push(
+                                          CoursesOffered.dataValues,
+                                        );
 
                                         const fcaa = {
                                           people_id: newPeople[0].id,
@@ -125,7 +129,9 @@ describe('DELETE faculty_advisory_activity', () => {
                                           course_id: newCoursesOffered[0].id,
 
                                         };
-                                        methods.Faculty.facultyClassAdvisoryMethods.addFacultyClassAdvisoryActivity(fcaa)
+                                        methods.Faculty
+                                          .facultyClassAdvisoryMethods
+                                          .addFacultyClassAdvisoryActivity(fcaa)
                                           .then((returns) => {
                                             FCAA.push(returns.dataValues);
 
@@ -182,7 +188,8 @@ describe('DELETE faculty_advisory_activity', () => {
   });
 
   it('it should DELETE faculty with advisoryId', (done) => {
-    methods.Faculty.facultyClassAdvisoryMethods.getAllFacultyClassAdvisoryActivity()
+    methods.Faculty.facultyClassAdvisoryMethods
+      .getAllFacultyClassAdvisoryActivity()
       .then((res) => {
         const data = {};
         data.peopleId = res[0].dataValues.people_id;
@@ -219,15 +226,18 @@ describe('DELETE faculty_advisory_activity', () => {
                 methods.Academics.streamTypesMethods.deleteAllStreamTypes()
                   .then(() => {
                     console.log('deleted stream types');
-                    methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                    methods.Academics.streamsOfferedMethods
+                      .deleteAllStreamsOffered()
                       .then(() => {
                         console.log('deleted streams offered');
                         methods.Academics.classesMethods.deleteAllClasses()
                           .then(() => {
                             console.log('deleted classes');
-                            methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                            methods.Academics.coursesOfferedMethods
+                              .deleteAllCoursesOffered()
                               .then(() => {
-                                methods.Faculty.facultyClassAdvisoryMethods.deleteAllFacultyClassAdvisoryActivity()
+                                methods.Faculty.facultyClassAdvisoryMethods
+                                  .deleteAllFacultyClassAdvisoryActivity()
                                   .then(() => {
                                     console.log('deleted faculty_class');
                                     done();

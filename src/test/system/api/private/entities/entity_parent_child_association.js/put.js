@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -66,7 +65,8 @@ describe('/PUT/:entityParentChildId ', () => {
                       parent_id: newEntity[0].id,
                       child_id: newEntity1[0].id,
                     };
-                    methods.Entities.entityParentChildMethods.addEntityParentChild(epc)
+                    methods.Entities.entityParentChildMethods
+                      .addEntityParentChild(epc)
                       .then((EPC) => {
                         console.log('added entity_parentchild_association');
                         newEPC.push(EPC.dataValues);
@@ -112,12 +112,14 @@ describe('/PUT/:entityParentChildId ', () => {
         };
 
         chai.request(app)
+        // eslint-disable-next-line max-len
           .put(`/private/entities/entity_parent_child_association/${entityParentChildId}`)
           .send(New)
           .end((err, result) => {
             expect(result).to.have.status(200);
             expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('updated Entity_ParentChild_Association');
+            expect(result.body.status).to
+              .eql('updated Entity_ParentChild_Association');
 
             done();
           });
@@ -134,7 +136,8 @@ describe('/PUT/:entityParentChildId ', () => {
         methods.Entities.entityMethods.deleteAllEntity()
           .then(() => {
             console.log('deleted entities');
-            methods.Entities.entityParentChildMethods.deleteAllEntityParentChild()
+            methods.Entities.entityParentChildMethods
+              .deleteAllEntityParentChild()
               .then(() => {
                 console.log('deleted entity_parentchild_association');
                 done();

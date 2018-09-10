@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -14,8 +13,6 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-
-const newEntity = [];
 const newEntityType = [];
 const tempVar = [];
 

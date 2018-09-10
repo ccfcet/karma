@@ -6,8 +6,8 @@ const entityInfoMethods = {};
 
 entityInfoMethods.findEntityInfoId = id => new Promise((resolve, reject) => {
   models.entities.entity_information.findById(id)
-    .then((entity_info) => {
-      resolve(entity_info);
+    .then((entityInfo) => {
+      resolve(entityInfo);
     })
     .catch((err) => {
       reject(err);
@@ -16,8 +16,8 @@ entityInfoMethods.findEntityInfoId = id => new Promise((resolve, reject) => {
 
 entityInfoMethods.addEntityInfo = info => new Promise((resolve, reject) => {
   models.entities.entity_information.create(info)
-    .then((entity_info) => {
-      resolve(entity_info);
+    .then((entityInfo) => {
+      resolve(entityInfo);
     })
     .catch((err) => {
       reject(err);
@@ -26,15 +26,17 @@ entityInfoMethods.addEntityInfo = info => new Promise((resolve, reject) => {
 
 entityInfoMethods.getAllEntityInfo = () => new Promise((resolve, reject) => {
   models.entities.entity_information.findAll()
-    .then((entity_info) => {
-      resolve(entity_info);
+    .then((entityInfo) => {
+      resolve(entityInfo);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityInfoMethods.updateEntityInfo = (info, data) => new Promise((resolve, reject) => {
+entityInfoMethods.updateEntityInfo = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_information.update(data, {
     where: {
       id: info.id,
@@ -59,7 +61,7 @@ entityInfoMethods.deleteAllEntityInfo = () => new Promise((
   models.entities.entity_information.destroy({
     where: {},
   })
-    .then((res) => {
+    .then(() => {
       resolve();
     })
     .catch((err) => {

@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -19,6 +18,7 @@ const newEntityType = [];
 const newEPA = [];
 const tempVar = [];
 
+// eslint-disable-next-line max-len
 describe('Entity_Position_Association - Get_Entity_Position_Association GET', () => {
   beforeEach((done) => {
     const entitytype = {

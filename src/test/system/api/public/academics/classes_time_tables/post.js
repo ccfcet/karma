@@ -16,7 +16,6 @@ const { expect } = chai;
 
 const newTimeSlot = [];
 const newClasses = [];
-const newClassesTT = [];
 const newPeople = [];
 const newEntity = [];
 const newEntityType = [];
@@ -29,7 +28,6 @@ const newEnrolmentActivity = [];
 const newStreamType = [];
 const newCoursesOffered = [];
 const newCoursesOffered1 = [];
-const New = [];
 
 describe('POST classes_time_tables - POST', () => {
   beforeEach((done) => {
@@ -45,32 +43,43 @@ describe('POST classes_time_tables - POST', () => {
                 methods.Entities.entityMethods.deleteAllEntity()
                   .then(() => {
                     console.log('deleted entities');
-                    methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                    methods.Academics.streamsOfferedMethods
+                      .deleteAllStreamsOffered()
                       .then(() => {
                         console.log('deleted StreamsOffered');
                         methods.Academics.classesMethods.deleteAllClasses()
                           .then(() => {
                             console.log('deleted Classes');
-                            methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                            methods.Academics.coursesOfferedMethods
+                              .deleteAllCoursesOffered()
                               .then(() => {
                                 console.log('deleted CoursesOffered');
                                 methods.People.peopleMethods.deleteAllPeople()
                                   .then(() => {
                                     console.log('delete People');
-                                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                                    methods.Faculty.facultyEAMethods
+                                    // eslint-disable-next-line max-len
+                                      .deleteAllFacultyAcademicEnrolmentActivity()
                                       .then(() => {
-                                        console.log('deleted EnrolmentActivity');
-                                        methods.Academics.classesTimeTablesMethods.deleteAllClassesTimeTables()
+                                        console
+                                          .log('deleted EnrolmentActivity');
+                                        methods.Academics
+                                          .classesTimeTablesMethods
+                                          .deleteAllClassesTimeTables()
                                           .then(() => {
-                                            console.log('deleted ClassesTimeTables');
+                                            console.log('deleted'
+                                            + 'ClassesTimeTables');
 
                                             const timeslot = {
                                               start_timestamp: '09:12:56',
                                               end_timestamp: '11:56:45',
                                             };
-                                            methods.Academics.timeSlotsMethods.addTimeSlots(timeslot)
+                                            methods.Academics.timeSlotsMethods
+                                              .addTimeSlots(timeslot)
                                               .then((TimeSlot) => {
-                                                newTimeSlot.push(TimeSlot.dataValues);
+                                                newTimeSlot.push(
+                                                  TimeSlot.dataValues,
+                                                );
 
                                                 const streamtype = {
                                                   stream_type_long: '5',
@@ -78,27 +87,47 @@ describe('POST classes_time_tables - POST', () => {
                                                   start_date: '2018-07-25',
                                                   end_date: '2018-07-29',
                                                 };
-                                                methods.Academics.streamTypesMethods.addStreamType(streamtype)
+                                                methods.Academics
+                                                  .streamTypesMethods
+                                                  .addStreamType(streamtype)
                                                   .then((StreamType) => {
-                                                    newStreamType.push(StreamType.dataValues);
+                                                    newStreamType
+                                                      .push(
+                                                        StreamType.dataValues,
+                                                      );
 
                                                     const entitytypes = {
                                                       entity_type: 'people',
                                                       entity_type_slug: 'about',
                                                     };
-                                                    methods.Entities.entityTypeMethods.addEntityType(entitytypes)
+                                                    methods.Entities
+                                                      .entityTypeMethods
+                                                      .addEntityType(
+                                                        entitytypes,
+                                                      )
                                                       .then((EntityTypes) => {
-                                                        newEntityType.push(EntityTypes.dataValues);
+                                                        newEntityType
+                                                          .push(
+                                                            EntityTypes
+                                                              .dataValues,
+                                                          );
 
                                                         const entity = {
                                                           entity_name: 'cse',
                                                           entity_slug: 'about',
-                                                          entity_type_id: newEntityType[0].id,
+                                                          entity_type_id:
+                                                          newEntityType[0].id,
                                                         };
-                                                        methods.Entities.entityMethods.addEntity(entity)
+                                                        methods.Entities
+                                                          .entityMethods
+                                                          .addEntity(entity)
                                                           .then((Entity) => {
-                                                            newEntity.push(Entity.dataValues);
-
+                                                            newEntity
+                                                              .push(
+                                                                Entity
+                                                                  .dataValues,
+                                                              );
+                                                            /* eslint-disable */
                                                             const streamsoffered = {
                                                               stream_type_id: newStreamType[0].id,
                                                               stream_name: 'btech',
@@ -245,6 +274,7 @@ describe('POST classes_time_tables - POST', () => {
                                                                 console.log(err);
                                                               });
                                                           })
+                                                          /* eslint-enable */
                                                           .catch((err) => {
                                                             console.log(err);
                                                           });
@@ -298,6 +328,7 @@ describe('POST classes_time_tables - POST', () => {
           });
       })
       .catch((err) => {
+        console.log(err);
       });
   });
 
@@ -334,24 +365,32 @@ describe('POST classes_time_tables - POST', () => {
                 methods.Entities.entityMethods.deleteAllEntity()
                   .then(() => {
                     console.log('deleted entities');
-                    methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                    methods.Academics.streamsOfferedMethods
+                      .deleteAllStreamsOffered()
                       .then(() => {
                         console.log('deleted StreamsOffered');
                         methods.Academics.classesMethods.deleteAllClasses()
                           .then(() => {
                             console.log('deleted Classes');
-                            methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                            methods.Academics.coursesOfferedMethods
+                              .deleteAllCoursesOffered()
                               .then(() => {
                                 console.log('deleted CoursesOffered');
                                 methods.People.peopleMethods.deleteAllPeople()
                                   .then(() => {
                                     console.log('delete People');
-                                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                                    methods.Faculty.facultyEAMethods
+                                    // eslint-disable-next-line max-len
+                                      .deleteAllFacultyAcademicEnrolmentActivity()
                                       .then(() => {
-                                        console.log('deleted EnrolmentActivity');
-                                        methods.Academics.classesTimeTablesMethods.deleteAllClassesTimeTables()
+                                        console.log('deleted'
+                                        + 'EnrolmentActivity');
+                                        methods
+                                          .Academics.classesTimeTablesMethods
+                                          .deleteAllClassesTimeTables()
                                           .then(() => {
-                                            console.log('deleted ClassesTimeTables');
+                                            console.log('deleted'
+                                            + 'ClassesTimeTables');
                                             done();
                                           })
                                           .catch((err) => {
@@ -391,6 +430,7 @@ describe('POST classes_time_tables - POST', () => {
           });
       })
       .catch((err) => {
+        console.log(err);
       });
   });
 });

@@ -70,7 +70,8 @@ describe('/PUT/:entityPPId ', () => {
                       entity_position_association_id: newEPA[0].id,
                       activity: 'X',
                     };
-                    methods.Entities.entityPeoplePosEnrolMethods.addEntityPeoplePosEnrol(eppe)
+                    methods.Entities.entityPeoplePosEnrolMethods
+                      .addEntityPeoplePosEnrol(eppe)
                       .then((neweppe) => {
                         newEPPE.push(neweppe.dataValues);
 
@@ -101,32 +102,35 @@ describe('/PUT/:entityPPId ', () => {
       });
   });
 
-  it('it should UPDATE EntityPeoplePositionEnrolment given the entityPPId', (done) => {
-    methods.Entities.entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol()
-      .then((res) => {
-        let entityPPId = {};
-        entityPPId = res[0].dataValues.id;
-        const New = {
-          peopleId: newPeople[0].id,
-          EntPosAssociationId: newEPA[0].id,
-          Activity: 'Y',
-        };
+  it('it should UPDATE EntityPeoplePositionEnrolment given the entityPPId',
+    (done) => {
+      methods.Entities.entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol()
+        .then((res) => {
+          let entityPPId = {};
+          entityPPId = res[0].dataValues.id;
+          const New = {
+            peopleId: newPeople[0].id,
+            EntPosAssociationId: newEPA[0].id,
+            Activity: 'Y',
+          };
 
-        chai.request(app)
-          .put(`/private/entities/entity_people_position_enrolment/${entityPPId}`)
-          .send(New)
-          .end((err, result) => {
-            expect(result).to.have.status(200);
-            expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('updated EntityPeoplePositionEnrolment');
+          chai.request(app)
+          // eslint-disable-next-line max-len
+            .put(`/private/entities/entity_people_position_enrolment/${entityPPId}`)
+            .send(New)
+            .end((err, result) => {
+              expect(result).to.have.status(200);
+              expect(result.body).to.be.a('object');
+              expect(result.body.status).to
+                .eql('updated EntityPeoplePositionEnrolment');
 
-            done();
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+              done();
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
 
   afterEach((done) => {
     methods.Entities.entityTypeMethods.deleteAllEntityTypes()

@@ -16,7 +16,9 @@ coursesOfferedMethods.getAllCoursesOffered = () => new Promise((resolve,
     });
 });
 
-coursesOfferedMethods.addCoursesOffered = info => new Promise((resolve, reject) => {
+coursesOfferedMethods.addCoursesOffered = info => new Promise((
+  resolve, reject,
+) => {
   models.academics.courses_offered.create(info)
     .then((model) => {
       resolve(model);
@@ -62,7 +64,9 @@ coursesOfferedMethods.deleteAllCoursesOffered = () => new Promise((
     });
 });
 
-coursesOfferedMethods.deleteCoursesOffered = info => new Promise((resolve, reject) => {
+coursesOfferedMethods.deleteCoursesOffered = info => new Promise((
+  resolve, reject,
+) => {
   models.academics.courses_offered.destroy({
     where: {
       department_id: info.department_id,
@@ -79,4 +83,5 @@ coursesOfferedMethods.deleteCoursesOffered = info => new Promise((resolve, rejec
     reject(err);
   });
 });
+
 module.exports = coursesOfferedMethods;

@@ -4,37 +4,45 @@ const models = require('../../models');
 
 const entityParentChildMethods = {};
 
-entityParentChildMethods.findEntityParentChildById = id => new Promise((resolve, reject) => {
+entityParentChildMethods.findEntityParentChildById = id => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_parent_child_association.findById(id)
-    .then((entity_pca) => {
-      resolve(entity_pca);
+    .then((entityPca) => {
+      resolve(entityPca);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityParentChildMethods.addEntityParentChild = info => new Promise((resolve, reject) => {
+entityParentChildMethods.addEntityParentChild = info => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_parent_child_association.create(info)
-    .then((entity_pca) => {
-      resolve(entity_pca);
+    .then((entityPca) => {
+      resolve(entityPca);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityParentChildMethods.getAllEntityParentChild = () => new Promise((resolve, reject) => {
+entityParentChildMethods.getAllEntityParentChild = () => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_parent_child_association.findAll()
-    .then((entity_pca) => {
-      resolve(entity_pca);
+    .then((entityPca) => {
+      resolve(entityPca);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityParentChildMethods.updateEntityParentChild = (info, data) => new Promise((resolve, reject) => {
+entityParentChildMethods.updateEntityParentChild = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_parent_child_association.update(data, {
     where: {
       id: info.id,
@@ -59,7 +67,7 @@ entityParentChildMethods.deleteAllEntityParentChild = () => new Promise((
   models.entities.entity_parent_child_association.destroy({
     where: {},
   })
-    .then((res) => {
+    .then(() => {
       resolve();
     })
     .catch((err) => {

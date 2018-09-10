@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -17,14 +16,13 @@ const { expect } = chai;
 const newVar = [];
 const tempVar = [];
 
-
 describe('/DELETE EntityInfoSlugs with entityInfoSlugsId ', () => {
   beforeEach((done) => {
-    const new_eis = {
+    const newEis = {
       slug_name: 'NewSlug',
     };
 
-    methods.Entities.entityInfoSlugsMethods.addEntityInfoSlugs(new_eis)
+    methods.Entities.entityInfoSlugsMethods.addEntityInfoSlugs(newEis)
       .then((model) => {
         newVar.push(model.dataValues);
         const ret = newVar.map((datum) => {

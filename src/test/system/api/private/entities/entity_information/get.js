@@ -6,14 +6,12 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 const newEntity = [];
 const newEntityType = [];
@@ -42,10 +40,10 @@ describe('EntityInfo - Get_EntityInfo GET', () => {
             console.log('added entity');
             newEntity.push(Entity.dataValues);
 
-            const new_eis = {
+            const newEis = {
               slug_name: 'NewSlug',
             };
-            methods.Entities.entityInfoSlugsMethods.addEntityInfoSlugs(new_eis)
+            methods.Entities.entityInfoSlugsMethods.addEntityInfoSlugs(newEis)
               .then((NewEIS) => {
                 newEIS.push(NewEIS.dataValues);
 

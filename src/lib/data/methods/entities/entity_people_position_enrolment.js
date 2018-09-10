@@ -4,37 +4,47 @@ const models = require('../../models');
 
 const entityPeoplePosEnrolMethods = {};
 
-entityPeoplePosEnrolMethods.findEntityPeoplePosEnrolById = id => new Promise((resolve, reject) => {
+entityPeoplePosEnrolMethods.findEntityPeoplePosEnrolById = id => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_people_position_enrolment.findById(id)
-    .then((entity_ppe) => {
-      resolve(entity_ppe);
+    .then((entityPpe) => {
+      resolve(entityPpe);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityPeoplePosEnrolMethods.addEntityPeoplePosEnrol = info => new Promise((resolve, reject) => {
+entityPeoplePosEnrolMethods.addEntityPeoplePosEnrol = info => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_people_position_enrolment.create(info)
-    .then((entity_ppe) => {
-      resolve(entity_ppe);
+    .then((entityPpe) => {
+      resolve(entityPpe);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol = () => new Promise((resolve, reject) => {
+entityPeoplePosEnrolMethods.getAllEntityPeoplePosEnrol = () => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_people_position_enrolment.findAll()
-    .then((entity_ppe) => {
-      resolve(entity_ppe);
+    .then((entityPpe) => {
+      resolve(entityPpe);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityPeoplePosEnrolMethods.updateEntityPeoplePosEnrol = (info, data) => new Promise((resolve, reject) => {
+entityPeoplePosEnrolMethods.updateEntityPeoplePosEnrol = (
+  info, data,
+) => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_people_position_enrolment.update(data, {
     where: {
       id: info.id,
@@ -59,7 +69,7 @@ entityPeoplePosEnrolMethods.deleteAllEntityPeoplePosEnrol = () => new Promise((
   models.entities.entity_people_position_enrolment.destroy({
     where: {},
   })
-    .then((res) => {
+    .then(() => {
       resolve();
     })
     .catch((err) => {

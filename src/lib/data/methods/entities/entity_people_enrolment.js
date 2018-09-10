@@ -4,37 +4,45 @@ const models = require('../../models');
 
 const entityPeopleEnrolMethods = {};
 
-entityPeopleEnrolMethods.findEntityPeopleEnrolById = id => new Promise((resolve, reject) => {
+entityPeopleEnrolMethods.findEntityPeopleEnrolById = id => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_people_enrollment.findById(id)
-    .then((entity_pe) => {
-      resolve(entity_pe);
+    .then((entityPe) => {
+      resolve(entityPe);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityPeopleEnrolMethods.addEntityPeopleEnrol = info => new Promise((resolve, reject) => {
+entityPeopleEnrolMethods.addEntityPeopleEnrol = info => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_people_enrollment.create(info)
-    .then((entity_pe) => {
-      resolve(entity_pe);
+    .then((entityPe) => {
+      resolve(entityPe);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityPeopleEnrolMethods.getAllEntityPeopleEnrol = () => new Promise((resolve, reject) => {
+entityPeopleEnrolMethods.getAllEntityPeopleEnrol = () => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_people_enrollment.findAll()
-    .then((entity_pe) => {
-      resolve(entity_pe);
+    .then((entityPe) => {
+      resolve(entityPe);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityPeopleEnrolMethods.updateEntityPeopleEnrol = (info, data) => new Promise((resolve, reject) => {
+entityPeopleEnrolMethods.updateEntityPeopleEnrol = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_people_enrollment.update(data, {
     where: {
       id: info.id,
@@ -59,7 +67,7 @@ entityPeopleEnrolMethods.deleteAllEntityPeopleEnrol = () => new Promise((
   models.entities.entity_people_enrollment.destroy({
     where: {},
   })
-    .then((res) => {
+    .then(() => {
       resolve();
     })
     .catch((err) => {

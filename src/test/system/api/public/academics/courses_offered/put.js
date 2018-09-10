@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -59,7 +58,8 @@ describe('/PUT/:courseid', () => {
                           valid_end_date: '2014-04-08',
                           duration_in_days: 5,
                         };
-                        methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
+                        methods.Academics.coursesOfferedMethods
+                          .addCoursesOffered(coursesoffered)
                           .then((CoursesOffered) => {
                             newCoursesOffered.push(CoursesOffered.dataValues);
 

@@ -67,10 +67,11 @@ describe('/PUT/:peopleInfoSlugId', () => {
   });
 
   afterEach((done) => {
-    methods.People.peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs().then(() => {
-      console.log('done');
-      done();
-    })
+    methods.People.peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs()
+      .then(() => {
+        console.log('done');
+        done();
+      })
       .catch((err) => {
         console.log(err);
       });

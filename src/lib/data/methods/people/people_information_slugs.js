@@ -100,7 +100,7 @@
 //       if (slug !== null) {
 //         let existingData;
 
-//         // eslint-disable-next-line max-len
+// eslint-disable-next-line max-len
 //         const existingDataSql = `select data from people_informations where people_id = ${peopleId} and slug_id = ${slug.id}`;
 
 //         models.sequelize.query(existingDataSql,
@@ -109,7 +109,7 @@
 //             // The value which the user asked to insert to database should be
 //             // converted to an array as the function JSON_MERGE_PRESERVE
 //             // provided by MySQL takes two arrays as input.
-
+// eslint-disable-next-line max-len
 //             // Remove escape charector '\n' if it is present in slugValue before
 //             // pushing it to the array
 //             const slugValueTrimmed = slugValue.replace(/^\s+|\s+$/g, '');
@@ -131,7 +131,7 @@
 //                     + 'present in the database'));
 //               }
 //               existingData = resultsOne.data;
-//               // eslint-disable-next-line max-len
+// eslint-disable-next-line max-len
 //               models.sequelize.query(`insert into people_informations (people_id, slug_id, data, createdAt, updatedAt) values (${peopleId}, ${slug.id}, JSON_MERGE_PRESERVE('${JSON.stringify(existingData)}','${JSON.stringify(newData)}'), NOW(), NOW()) ON DUPLICATE KEY UPDATE data = JSON_MERGE_PRESERVE('${JSON.stringify(existingData)}','${JSON.stringify(newData)}')`)
 //                 .spread(() => {
 //                   resolve('Email inserted!');
@@ -144,7 +144,7 @@
 //               // No values for the slug exist.
 //               // console.log('No values for the slug exist.')
 
-//               // eslint-disable-next-line max-len
+// eslint-disable-next-line max-len
 //               models.sequelize.query(`insert into people_informations (people_id, slug_id, data, createdAt, updatedAt) values (${peopleId}, ${slug.id}, '${JSON.stringify(newData)}', NOW(), NOW())`)
 //                 .spread((results) => {
 //                   // console.log(results)
@@ -177,7 +177,9 @@ const models = require('../../models');
 const peopleInfoSlugsMethods = {};
 
 // Method to add peopleinfo_slugs to the database
-peopleInfoSlugsMethods.addPeopleInfoSlugs = info => new Promise((resolve, reject) => {
+peopleInfoSlugsMethods.addPeopleInfoSlugs = info => new Promise((
+  resolve, reject,
+) => {
   models.people.people_information_slugs.create(info)
     .then((model) => {
       resolve(model);
@@ -188,7 +190,9 @@ peopleInfoSlugsMethods.addPeopleInfoSlugs = info => new Promise((resolve, reject
     });
 });
 
-peopleInfoSlugsMethods.getAllPeopleInfoSlugs = () => new Promise((resolve, reject) => {
+peopleInfoSlugsMethods.getAllPeopleInfoSlugs = () => new Promise((
+  resolve, reject,
+) => {
   models.people.people_information_slugs.findAll()
     .then((people) => {
       resolve(people);
@@ -198,7 +202,9 @@ peopleInfoSlugsMethods.getAllPeopleInfoSlugs = () => new Promise((resolve, rejec
     });
 });
 
-peopleInfoSlugsMethods.updatePeopleInfoSlugs = (info, data) => new Promise((resolve, reject) => {
+peopleInfoSlugsMethods.updatePeopleInfoSlugs = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.people.people_information_slugs.update(data, {
     where: {
       id: info.id,
@@ -216,7 +222,9 @@ peopleInfoSlugsMethods.updatePeopleInfoSlugs = (info, data) => new Promise((reso
     });
 });
 
-peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs = () => new Promise((resolve, reject) => {
+peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs = () => new Promise((
+  resolve, reject,
+) => {
   models.people.people_information_slugs.destroy({
     where: {},
   })
@@ -228,7 +236,9 @@ peopleInfoSlugsMethods.deleteAllPeopleInfoSlugs = () => new Promise((resolve, re
     });
 });
 
-peopleInfoSlugsMethods.deletePeopleInfoSlugs = info => new Promise((resolve, reject) => {
+peopleInfoSlugsMethods.deletePeopleInfoSlugs = info => new Promise((
+  resolve, reject,
+) => {
   models.people.people_information_slugs.destroy({
     where: {
       id: info.id,

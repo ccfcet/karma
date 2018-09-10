@@ -75,31 +75,33 @@ describe('/DELETE Entity_Position_Association with entityPosId', () => {
       });
   });
 
-  it('it should DELETE Entity_Position_Association given the entityPosId', (done) => {
-    methods.Entities.entityPositionMethods.getAllEntityPosition()
-      .then((res) => {
-        const data = {};
-        data.entityPosId = res[0].dataValues.id;
-        data.entityId = res[0].dataValues.entity_id;
-        data.Status = res[0].dataValues.status;
-        data.positionDescription = res[0].dataValues.position_description;
-        data.positionName = res[0].dataValues.position_name;
-        data.positionSlug = res[0].dataValues.position_slug;
-        chai.request(app)
-          .delete('/private/entities/entity_position_association/')
-          .send({ data })
-          .end((err, result) => {
-            console.log(err);
-            expect(result).to.have.status(200);
-            expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('deleted EntityPositionAssociation');
-            done();
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+  it('it should DELETE Entity_Position_Association given the entityPosId',
+    (done) => {
+      methods.Entities.entityPositionMethods.getAllEntityPosition()
+        .then((res) => {
+          const data = {};
+          data.entityPosId = res[0].dataValues.id;
+          data.entityId = res[0].dataValues.entity_id;
+          data.Status = res[0].dataValues.status;
+          data.positionDescription = res[0].dataValues.position_description;
+          data.positionName = res[0].dataValues.position_name;
+          data.positionSlug = res[0].dataValues.position_slug;
+          chai.request(app)
+            .delete('/private/entities/entity_position_association/')
+            .send({ data })
+            .end((err, result) => {
+              console.log(err);
+              expect(result).to.have.status(200);
+              expect(result.body).to.be.a('object');
+              expect(result.body.status).to
+                .eql('deleted EntityPositionAssociation');
+              done();
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
 
   afterEach((done) => {
     methods.Entities.entityTypeMethods.deleteAllEntityTypes()

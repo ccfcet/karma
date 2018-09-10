@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -14,17 +13,16 @@ process.nextTick(() => {
 chai.use(chaiHttp);
 const { expect } = chai;
 
-
 const newVar = [];
 const tempVar = [];
 
 describe('/PUT/:entityInfoSlugsId', () => {
   beforeEach((done) => {
-    const new_eis = {
+    const newEis = {
       slug_name: 'NewSlug',
     };
 
-    methods.Entities.entityInfoSlugsMethods.addEntityInfoSlugs(new_eis)
+    methods.Entities.entityInfoSlugsMethods.addEntityInfoSlugs(newEis)
       .then((model) => {
         newVar.push(model.dataValues);
 
@@ -53,6 +51,7 @@ describe('/PUT/:entityInfoSlugsId', () => {
         };
 
         chai.request(app)
+        // eslint-disable-next-line max-len
           .put(`/private/entities/entity_information_slugs/${entityInfoSlugsId}`)
           .send(New)
           .end((err, result) => {

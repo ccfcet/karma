@@ -1,4 +1,3 @@
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const chaiExclude = require('chai-exclude');
@@ -6,7 +5,6 @@ const chaiExclude = require('chai-exclude');
 chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
-
 
 process.nextTick(() => {
   app.callback = run;
@@ -22,7 +20,6 @@ const newStreamsOffered = [];
 const newClass = [];
 const New = [];
 
-
 describe('/PUT/:streamid ', () => {
   beforeEach((done) => {
     methods.Entities.entityTypeMethods.deleteAllEntityTypes()
@@ -34,7 +31,8 @@ describe('/PUT/:streamid ', () => {
             methods.Academics.streamTypesMethods.deleteAllStreamTypes()
               .then(() => {
                 console.log('deleted streamtypes');
-                methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                methods.Academics.streamsOfferedMethods
+                  .deleteAllStreamsOffered()
                   .then(() => {
                     console.log('deleted streamsoffered');
                     methods.Academics.classesMethods.deleteAllClasses()
@@ -45,7 +43,8 @@ describe('/PUT/:streamid ', () => {
                           entity_type: 'people',
                           entity_type_slug: 'about',
                         };
-                        methods.Entities.entityTypeMethods.addEntityType(entityTypes)
+                        methods.Entities.entityTypeMethods
+                          .addEntityType(entityTypes)
                           .then((entitytype) => {
                             newEntityType.push(entitytype.dataValues);
                             console.log(newEntityType);
@@ -64,7 +63,8 @@ describe('/PUT/:streamid ', () => {
                                   start_date: '2020-07-25',
                                   end_date: '2020-08-31',
                                 };
-                                methods.Academics.streamTypesMethods.addStreamType(streamtype)
+                                methods.Academics.streamTypesMethods
+                                  .addStreamType(streamtype)
                                   .then((streams) => {
                                     newStreamType.push(streams.dataValues);
 
@@ -75,9 +75,11 @@ describe('/PUT/:streamid ', () => {
                                       valid_start_date: '2001-12-12',
                                       valid_end_date: '2002-09-09',
                                     };
-                                    methods.Academics.streamsOfferedMethods.addStreamsOffered(streamsoffered)
+                                    methods.Academics.streamsOfferedMethods
+                                      .addStreamsOffered(streamsoffered)
                                       .then((offeredstreams) => {
-                                        newStreamsOffered.push(offeredstreams.dataValues);
+                                        newStreamsOffered
+                                          .push(offeredstreams.dataValues);
                                         const classes = {
                                           current_class_slug: 'Class Slug',
                                           stream_id: newStreamsOffered[0].id,
@@ -85,15 +87,16 @@ describe('/PUT/:streamid ', () => {
                                           division: 6,
                                           end_date: '2013-06-03',
                                         };
-                                        methods.Academics.classesMethods.addClasses(classes)
-                                          .then((Class) => {
+                                        methods.Academics.classesMethods
+                                          .addClasses(classes).then((Class) => {
                                             newClass.push(Class.dataValues);
-                                            const ret = newClass.map((values) => {
-                                              const val = values;
-                                              delete val.created_at;
-                                              delete val.updated_at;
-                                              return val;
-                                            });
+                                            const ret = newClass
+                                              .map((values) => {
+                                                const val = values;
+                                                delete val.created_at;
+                                                delete val.updated_at;
+                                                return val;
+                                              });
                                             New.push(ret[0]);
                                             done();
                                           })
@@ -174,7 +177,8 @@ describe('/PUT/:streamid ', () => {
             methods.Academics.streamTypesMethods.deleteAllStreamTypes()
               .then(() => {
                 console.log('deleted streamtypes');
-                methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                methods.Academics.streamsOfferedMethods
+                  .deleteAllStreamsOffered()
                   .then(() => {
                     console.log('deleted streamsoffered');
                     methods.Academics.classesMethods.deleteAllClasses()

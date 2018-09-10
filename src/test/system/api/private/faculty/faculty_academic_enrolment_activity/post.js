@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -18,7 +17,6 @@ const newPeople = [];
 const newEntity = [];
 const newEntityType = [];
 const newCoursesOffered = [];
-
 
 describe('Post faculty_enrolment - POST', () => {
   beforeEach((done) => {
@@ -34,11 +32,13 @@ describe('Post faculty_enrolment - POST', () => {
               .then(() => {
                 console.log('deleted entities');
 
-                methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                methods.Academics.coursesOfferedMethods
+                  .deleteAllCoursesOffered()
                   .then(() => {
                     console.log('deleted coursesoffered');
 
-                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                    methods.Faculty.facultyEAMethods
+                      .deleteAllFacultyAcademicEnrolmentActivity()
                       .then(() => {
                         console.log('deleted faculty academic activity');
                         const newpeople = {
@@ -59,7 +59,8 @@ describe('Post faculty_enrolment - POST', () => {
                               entity_type: 'people',
                               entity_type_slug: 'about',
                             };
-                            methods.Entities.entityTypeMethods.addEntityType(entitytype)
+                            methods.Entities.entityTypeMethods
+                              .addEntityType(entitytype)
                               .then((EntityType) => {
                                 console.log('added entitytypes');
                                 newEntityType.push(EntityType.dataValues);
@@ -68,7 +69,8 @@ describe('Post faculty_enrolment - POST', () => {
                                   entity_slug: 'about',
                                   entity_type_id: newEntityType[0].id,
                                 };
-                                methods.Entities.entityMethods.addEntity(entity)
+                                methods.Entities.entityMethods
+                                  .addEntity(entity)
                                   .then((Entity) => {
                                     console.log('added entity');
                                     newEntity.push(Entity.dataValues);
@@ -82,9 +84,12 @@ describe('Post faculty_enrolment - POST', () => {
                                       valid_end_date: '2014-04-08',
                                       duration_in_days: 5,
                                     };
-                                    methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
+                                    methods.Academics.coursesOfferedMethods
+                                      .addCoursesOffered(coursesoffered)
                                       .then((CoursesOffered) => {
-                                        newCoursesOffered.push(CoursesOffered.dataValues);
+                                        newCoursesOffered.push(
+                                          CoursesOffered.dataValues,
+                                        );
                                         done();
                                       })
                                       .catch((err) => {
@@ -154,13 +159,16 @@ describe('Post faculty_enrolment - POST', () => {
               .then(() => {
                 console.log('deleted entities');
 
-                methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                methods.Academics.coursesOfferedMethods
+                  .deleteAllCoursesOffered()
                   .then(() => {
                     console.log('deleted coursesoffered');
 
-                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                    methods.Faculty.facultyEAMethods
+                      .deleteAllFacultyAcademicEnrolmentActivity()
                       .then(() => {
-                        console.log('deleted faculty_academic_enrolment_activity');
+                        console
+                          .log('deleted faculty_academic_enrolment_activity');
                         done();
                       })
                       .catch((err) => {

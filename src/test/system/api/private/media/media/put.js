@@ -19,7 +19,7 @@ describe('/PUT/:id ', () => {
   it('it should UPDATE media given the id', (done) => {
     methods.Media.mediaMethods.getAllMedia()
       .then((res) => {
-        const id = res[0].dataValues.id;
+        const { id } = res[0].dataValues;
         const classes = {
           mediaTitle: 'Hello ',
           mediaFileName: 'Hey ',

@@ -59,7 +59,9 @@ classesTimeTablesMethods.updateClassesTimeTablesWithClassNameAndDivision = (
   });
 });
 
-classesTimeTablesMethods.updateClassesTimeTables = (info, data) => new Promise((resolve, reject) => {
+classesTimeTablesMethods.updateClassesTimeTables = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.academics.classes_time_tables.update(data, {
     where: {
       id: info.id,

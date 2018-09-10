@@ -47,8 +47,7 @@ describe('/PUT/:id ', () => {
   it('it should UPDATE mediaroles given the id', (done) => {
     methods.Media.mediaRolesMethods.getAllMediaRoles()
       .then((res) => {
-        let id = {};
-        id = res[0].dataValues.id;
+        const { id } = res[0].dataValues;
         const Types = {
           roleName: 'newName',
           roleSlug: 'newSlug',

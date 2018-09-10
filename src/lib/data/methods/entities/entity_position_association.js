@@ -4,37 +4,45 @@ const models = require('../../models');
 
 const entityPositionMethods = {};
 
-entityPositionMethods.findEntityPositionById = id => new Promise((resolve, reject) => {
+entityPositionMethods.findEntityPositionById = id => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_position_association.findById(id)
-    .then((entity_pa) => {
-      resolve(entity_pa);
+    .then((entityPa) => {
+      resolve(entityPa);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityPositionMethods.addEntityPosition = info => new Promise((resolve, reject) => {
+entityPositionMethods.addEntityPosition = info => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_position_association.create(info)
-    .then((entity_pa) => {
-      resolve(entity_pa);
+    .then((entityPa) => {
+      resolve(entityPa);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityPositionMethods.getAllEntityPosition = () => new Promise((resolve, reject) => {
+entityPositionMethods.getAllEntityPosition = () => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_position_association.findAll()
-    .then((entity_pa) => {
-      resolve(entity_pa);
+    .then((entityPa) => {
+      resolve(entityPa);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityPositionMethods.updateEntityPosition = (info, data) => new Promise((resolve, reject) => {
+entityPositionMethods.updateEntityPosition = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_position_association.update(data, {
     where: {
       id: info.id,
@@ -59,7 +67,7 @@ entityPositionMethods.deleteAllEntityPosition = () => new Promise((
   models.entities.entity_position_association.destroy({
     where: {},
   })
-    .then((res) => {
+    .then(() => {
       resolve();
     })
     .catch((err) => {

@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -75,7 +74,8 @@ describe('ClassesTimeTables - GetClassesTimeTables - GET', () => {
                       valid_start_date: '2018-07-25',
                       valid_end_date: '2018-07-25',
                     };
-                    methods.Academics.streamsOfferedMethods.addStreamsOffered(streamsoffered)
+                    methods.Academics.streamsOfferedMethods
+                      .addStreamsOffered(streamsoffered)
                       .then((StreamsOffered) => {
                         newStreamsOffered.push(StreamsOffered.dataValues);
 
@@ -94,7 +94,8 @@ describe('ClassesTimeTables - GetClassesTimeTables - GET', () => {
                               entity_type: 'people1',
                               entity_type_slug: 'about1',
                             };
-                            methods.Entities.entityTypeMethods.addEntityType(entitytypes1)
+                            methods.Entities.entityTypeMethods
+                              .addEntityType(entitytypes1)
                               .then((EntityTypes1) => {
                                 newEntityType1.push(EntityTypes1.dataValues);
 
@@ -103,7 +104,8 @@ describe('ClassesTimeTables - GetClassesTimeTables - GET', () => {
                                   entity_slug: 'about1',
                                   entity_type_id: newEntityType1[0].id,
                                 };
-                                methods.Entities.entityMethods.addEntity(entity1)
+                                methods.Entities.entityMethods
+                                  .addEntity(entity1)
                                   .then((Entity1) => {
                                     newEntity1.push(Entity1.dataValues);
 
@@ -116,9 +118,11 @@ describe('ClassesTimeTables - GetClassesTimeTables - GET', () => {
                                       valid_end_date: '2014-04-08',
                                       duration_in_days: 5,
                                     };
-                                    methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
+                                    methods.Academics.coursesOfferedMethods
+                                      .addCoursesOffered(coursesoffered)
                                       .then((CoursesOffered) => {
-                                        newCoursesOffered.push(CoursesOffered.dataValues);
+                                        newCoursesOffered
+                                          .push(CoursesOffered.dataValues);
 
                                         const people = {
                                           first_name: 'Firstname',
@@ -128,7 +132,8 @@ describe('ClassesTimeTables - GetClassesTimeTables - GET', () => {
                                           date_of_birth: '2000-12-01',
                                           nationality: 'Indian',
                                         };
-                                        methods.People.peopleMethods.addPeople(people)
+                                        methods.People.peopleMethods
+                                          .addPeople(people)
                                           .then((PEOPLE) => {
                                             newPeople.push(PEOPLE.dataValues);
 
@@ -136,32 +141,52 @@ describe('ClassesTimeTables - GetClassesTimeTables - GET', () => {
                                               entity_type: 'people2',
                                               entity_type_slug: 'about2',
                                             };
-                                            methods.Entities.entityTypeMethods.addEntityType(entitytypes2)
+                                            methods.Entities.entityTypeMethods
+                                              .addEntityType(entitytypes2)
                                               .then((EntityTypes2) => {
-                                                newEntityType2.push(EntityTypes2.dataValues);
+                                                newEntityType2.push(
+                                                  EntityTypes2.dataValues,
+                                                );
 
                                                 const entity2 = {
                                                   entity_name: 'cse2',
                                                   entity_slug: 'about2',
-                                                  entity_type_id: newEntityType2[0].id,
+                                                  entity_type_id:
+                                                  newEntityType2[0].id,
                                                 };
-                                                methods.Entities.entityMethods.addEntity(entity2)
+                                                methods.Entities.entityMethods
+                                                  .addEntity(entity2)
                                                   .then((Entity2) => {
-                                                    newEntity2.push(Entity2.dataValues);
+                                                    newEntity2.push(
+                                                      Entity2.dataValues,
+                                                    );
 
                                                     const coursesoffered1 = {
-                                                      official_course_id: 'Course ID1',
+                                                      official_course_id:
+                                                      'Course ID1',
                                                       name: 'Name1',
-                                                      department_id: newEntity2[0].id,
+                                                      department_id:
+                                                      newEntity2[0].id,
                                                       credits: 3,
-                                                      valid_start_date: '2010-11-07',
-                                                      valid_end_date: '2011-07-08',
+                                                      valid_start_date:
+                                                      '2010-11-07',
+                                                      valid_end_date:
+                                                      '2011-07-08',
                                                       duration_in_days: 4,
                                                     };
-                                                    methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered1)
-                                                      .then((CoursesOffered1) => {
-                                                        newCoursesOffered1.push(CoursesOffered1.dataValues);
-
+                                                    methods.Academics
+                                                      .coursesOfferedMethods
+                                                      .addCoursesOffered(
+                                                        coursesoffered1,
+                                                      )
+                                                      .then(
+                                                        (CoursesOffered1) => {
+                                                          newCoursesOffered1
+                                                            .push(
+                                                              CoursesOffered1
+                                                                .dataValues,
+                                                            );
+                                                          /* eslint-disable */
                                                         const enrolmentactivity = {
                                                           people_id: newPeople[0].id,
                                                           course_id: newCoursesOffered1[0].id,
@@ -196,10 +221,12 @@ describe('ClassesTimeTables - GetClassesTimeTables - GET', () => {
                                                                 console.log(err);
                                                               });
                                                           })
-                                                          .catch((err) => {
-                                                            console.log(err);
-                                                          });
-                                                      })
+                                                          /* eslint-enable */
+                                                            .catch((err) => {
+                                                              console.log(err);
+                                                            });
+                                                        },
+                                                      )
                                                       .catch((err) => {
                                                         console.log(err);
                                                       });
@@ -284,24 +311,32 @@ describe('ClassesTimeTables - GetClassesTimeTables - GET', () => {
                 methods.Entities.entityMethods.deleteAllEntity()
                   .then(() => {
                     console.log('deleted entities');
-                    methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                    methods.Academics.streamsOfferedMethods
+                      .deleteAllStreamsOffered()
                       .then(() => {
                         console.log('deleted StreamsOffered');
                         methods.Academics.classesMethods.deleteAllClasses()
                           .then(() => {
                             console.log('deleted Classes');
-                            methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                            methods.Academics.coursesOfferedMethods
+                              .deleteAllCoursesOffered()
                               .then(() => {
                                 console.log('deleted CoursesOffered');
                                 methods.People.peopleMethods.deleteAllPeople()
                                   .then(() => {
                                     console.log('delete People');
-                                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                                    methods.Faculty.facultyEAMethods
+                                      // eslint-disable-next-line max-len
+                                      .deleteAllFacultyAcademicEnrolmentActivity()
                                       .then(() => {
-                                        console.log('deleted EnrolmentActivity');
-                                        methods.Academics.classesTimeTablesMethods.deleteAllClassesTimeTables()
+                                        console
+                                          .log('deleted EnrolmentActivity');
+                                        methods.Academics
+                                          .classesTimeTablesMethods
+                                          .deleteAllClassesTimeTables()
                                           .then(() => {
-                                            console.log('deleted ClassesTimeTables');
+                                            console
+                                              .log('deleted ClassesTimeTables');
                                             done();
                                           })
                                           .catch((err) => {
@@ -341,6 +376,7 @@ describe('ClassesTimeTables - GetClassesTimeTables - GET', () => {
           });
       })
       .catch((err) => {
+        console.log(err);
       });
   });
 });

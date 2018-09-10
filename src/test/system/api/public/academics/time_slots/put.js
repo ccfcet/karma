@@ -1,4 +1,3 @@
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const chaiExclude = require('chai-exclude');
@@ -7,14 +6,12 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 describe('/PUT/:timeslotid ', () => {
   beforeEach((done) => {
@@ -25,12 +22,13 @@ describe('/PUT/:timeslotid ', () => {
     };
 
     methods.Academics.timeSlotsMethods.addTimeSlots(classes)
-      .then((model) => {
+      .then(() => {
         console.log('added time slots');
         done();
       })
       .catch(err => console.log(err));
   });
+
   it('it should UPDATE timeslots given the slotid', (done) => {
     methods.Academics.timeSlotsMethods.getAllTimeSlots()
       .then((res) => {
@@ -44,7 +42,6 @@ describe('/PUT/:timeslotid ', () => {
           startTimestamp: datetime.substr(11, 8),
           endTimestamp: datetime.substr(11, 8),
         };
-
 
         chai.request(app)
           .put(`/public/academics/time_slots/${timeSlotId}`)

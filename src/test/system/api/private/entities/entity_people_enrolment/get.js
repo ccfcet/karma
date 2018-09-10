@@ -59,7 +59,8 @@ describe('EntityPeopleEnrolment - Get_EntityPeopleEnrolment GET', () => {
                   date_time: '1999-09-08 11:11:11',
                   activity: 'X',
                 };
-                methods.Entities.entityPeopleEnrolMethods.addEntityPeopleEnrol(epe)
+                methods.Entities.entityPeopleEnrolMethods
+                  .addEntityPeopleEnrol(epe)
                   .then((EPE) => {
                     console.log('added EntityPeopleEnrolment');
                     newEPE.push(EPE.dataValues);
@@ -119,7 +120,8 @@ describe('EntityPeopleEnrolment - Get_EntityPeopleEnrolment GET', () => {
             methods.People.peopleMethods.deleteAllPeople()
               .then(() => {
                 console.log('deleted people');
-                methods.Entities.entityPeopleEnrolMethods.deleteAllEntityPeopleEnrol()
+                methods.Entities.entityPeopleEnrolMethods
+                  .deleteAllEntityPeopleEnrol()
                   .then(() => {
                     console.log('deleted EntityPeopleEnrolment');
                     done();

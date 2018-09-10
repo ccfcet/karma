@@ -6,7 +6,6 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
@@ -20,7 +19,6 @@ const newEntityType = [];
 const newStreamsOffered = [];
 const newClass = [];
 const New = [];
-
 
 describe('Classes - GetClasses - GET', () => {
   beforeEach((done) => {
@@ -58,7 +56,8 @@ describe('Classes - GetClasses - GET', () => {
                   valid_start_date: '2001-12-12',
                   valid_end_date: '2002-09-09',
                 };
-                methods.Academics.streamsOfferedMethods.addStreamsOffered(streamsoffered)
+                methods.Academics.streamsOfferedMethods
+                  .addStreamsOffered(streamsoffered)
                   .then((offeredstreams) => {
                     newStreamsOffered.push(offeredstreams.dataValues);
 
@@ -132,7 +131,8 @@ describe('Classes - GetClasses - GET', () => {
             methods.Academics.streamTypesMethods.deleteAllStreamTypes()
               .then(() => {
                 console.log('deleted streamtypes');
-                methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                methods.Academics.streamsOfferedMethods
+                  .deleteAllStreamsOffered()
                   .then(() => {
                     console.log('deleted streamsoffered');
                     methods.Academics.classesMethods.deleteAllClasses()

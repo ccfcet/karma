@@ -6,14 +6,12 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 const newEntity = [];
 const newEntityType = [];
@@ -102,7 +100,8 @@ describe('Post - EntityParentChild_Association - POST', () => {
         methods.Entities.entityMethods.deleteAllEntity()
           .then(() => {
             console.log('deleted entities');
-            methods.Entities.entityParentChildMethods.deleteAllEntityParentChild()
+            methods.Entities.entityParentChildMethods
+              .deleteAllEntityParentChild()
               .then(() => {
                 console.log('deleted entity_parentchild_association');
                 done();

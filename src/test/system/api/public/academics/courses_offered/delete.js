@@ -47,7 +47,8 @@ describe('/DELETE courses_offered', () => {
               valid_end_date: '2014-04-08',
               duration_in_days: 5,
             };
-            methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
+            methods.Academics.coursesOfferedMethods
+              .addCoursesOffered(coursesoffered)
               .then((CoursesOffered) => {
                 newCoursesOffered.push(CoursesOffered.dataValues);
 

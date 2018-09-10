@@ -6,14 +6,12 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 const newPeople = [];
 const newEntity = [];
@@ -75,7 +73,8 @@ describe('/PUT/:advisoryId', () => {
                       valid_start_date: '2018-07-25',
                       valid_end_date: '2018-07-25',
                     };
-                    methods.Academics.streamsOfferedMethods.addStreamsOffered(newStream)
+                    methods.Academics.streamsOfferedMethods
+                      .addStreamsOffered(newStream)
                       .then((streams) => {
                         streamsOffered.push(streams.dataValues);
 
@@ -93,7 +92,8 @@ describe('/PUT/:advisoryId', () => {
                               entity_type: 'people2',
                               entity_type_slug: 'about2',
                             };
-                            methods.Entities.entityTypeMethods.addEntityType(entitytype2)
+                            methods.Entities.entityTypeMethods
+                              .addEntityType(entitytype2)
                               .then((etype) => {
                                 enttype.push(etype.dataValues);
                                 const entity2 = {
@@ -101,7 +101,8 @@ describe('/PUT/:advisoryId', () => {
                                   entity_slug: 'about2',
                                   entity_type_id: enttype[0].id,
                                 };
-                                methods.Entities.entityMethods.addEntity(entity2)
+                                methods.Entities.entityMethods
+                                  .addEntity(entity2)
                                   .then((ent2) => {
                                     ent.push(ent2.dataValues);
                                     const coursesoffered = {
@@ -113,9 +114,11 @@ describe('/PUT/:advisoryId', () => {
                                       valid_end_date: '2014-04-08',
                                       duration_in_days: 5,
                                     };
-                                    methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
+                                    methods.Academics.coursesOfferedMethods
+                                      .addCoursesOffered(coursesoffered)
                                       .then((CoursesOffered) => {
-                                        newCoursesOffered.push(CoursesOffered.dataValues);
+                                        newCoursesOffered
+                                          .push(CoursesOffered.dataValues);
 
                                         const fcaa = {
                                           people_id: newPeople[0].id,
@@ -124,7 +127,9 @@ describe('/PUT/:advisoryId', () => {
                                           date_time: '2012-12-09 11:55:55',
                                           course_id: newCoursesOffered[0].id,
                                         };
-                                        methods.Faculty.facultyClassAdvisoryMethods.addFacultyClassAdvisoryActivity(fcaa)
+                                        methods.Faculty
+                                          .facultyClassAdvisoryMethods
+                                          .addFacultyClassAdvisoryActivity(fcaa)
                                           .then((returns) => {
                                             FCAA.push(returns.dataValues);
 
@@ -180,33 +185,36 @@ describe('/PUT/:advisoryId', () => {
       });
   });
 
-  it('it should UPDATE faculty_advisory_activity given the advisoryId', (done) => {
-    methods.Faculty.facultyClassAdvisoryMethods.getAllFacultyClassAdvisoryActivity()
-      .then((res) => {
-        const advisoryId = res[0].dataValues.id;
-        const fcaa = {
-          peopleId: newPeople[0].id,
-          classId: newClass[0].id,
-          activity: 'B',
-          dateTime: '2012-12-04 08:23:46',
-          courseId: newCoursesOffered[0].id,
-        };
-        console.log('entered faculty_activity');
-        chai.request(app)
-          .put(`/private/faculty/faculty_class_advisory_activity/${advisoryId}`)
-          .send(fcaa)
-          .end((err, result) => {
-            expect(result).to.have.status(200);
-            expect(result.body).to.be.a('object');
-            expect(result.body.status).to.eql('updated faculty_activity');
+  it('it should UPDATE faculty_advisory_activity given the advisoryId',
+    (done) => {
+      methods.Faculty.facultyClassAdvisoryMethods
+        .getAllFacultyClassAdvisoryActivity()
+        .then((res) => {
+          const advisoryId = res[0].dataValues.id;
+          const fcaa = {
+            peopleId: newPeople[0].id,
+            classId: newClass[0].id,
+            activity: 'B',
+            dateTime: '2012-12-04 08:23:46',
+            courseId: newCoursesOffered[0].id,
+          };
+          console.log('entered faculty_activity');
+          chai.request(app)
+          // eslint-disable-next-line max-len
+            .put(`/private/faculty/faculty_class_advisory_activity/${advisoryId}`)
+            .send(fcaa)
+            .end((err, result) => {
+              expect(result).to.have.status(200);
+              expect(result.body).to.be.a('object');
+              expect(result.body.status).to.eql('updated faculty_activity');
 
-            done();
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+              done();
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
 
   afterEach((done) => {
     methods.People.peopleMethods.deleteAllPeople()
@@ -223,15 +231,18 @@ describe('/PUT/:advisoryId', () => {
                 methods.Academics.streamTypesMethods.deleteAllStreamTypes()
                   .then(() => {
                     console.log('deleted stream types');
-                    methods.Academics.streamsOfferedMethods.deleteAllStreamsOffered()
+                    methods.Academics.streamsOfferedMethods
+                      .deleteAllStreamsOffered()
                       .then(() => {
                         console.log('deleted streams offered');
                         methods.Academics.classesMethods.deleteAllClasses()
                           .then(() => {
                             console.log('deleted classes');
-                            methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                            methods.Academics.coursesOfferedMethods
+                              .deleteAllCoursesOffered()
                               .then(() => {
-                                methods.Faculty.facultyClassAdvisoryMethods.deleteAllFacultyClassAdvisoryActivity()
+                                methods.Faculty.facultyClassAdvisoryMethods
+                                  .deleteAllFacultyClassAdvisoryActivity()
                                   .then(() => {
                                     console.log('deleted faculty_class');
                                     done();

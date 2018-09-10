@@ -70,8 +70,8 @@ describe('/PUT/:streamid ', () => {
                             valid_start_date: '2018-07-25',
                             valid_end_date: '2018-07-25',
                           };
-                          methods.Academics.streamsOfferedMethods.addStreamsOffered(newStream)
-                            .then((streams) => {
+                          methods.Academics.streamsOfferedMethods
+                            .addStreamsOffered(newStream).then((streams) => {
                               streamsOffered.push(streams.dataValues);
 
                               const returns = streamsOffered.map((values) => {
@@ -92,7 +92,7 @@ describe('/PUT/:streamid ', () => {
                         });
                     })
                     .catch((err) => {
-
+                      console.log(err);
                     });
                 })
                 .catch(err => console.log(err));

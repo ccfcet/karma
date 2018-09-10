@@ -6,14 +6,12 @@ chai.use(chaiExclude);
 const app = require('../../../../../../bin/www');
 const methods = require('../../../../../../lib/data/methods');
 
-
 process.nextTick(() => {
   app.callback = run;
 });
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 const newPeople = [];
 const newEntity = [];
@@ -22,6 +20,7 @@ const newCoursesOffered = [];
 const FAEA = [];
 const newFAEA = [];
 
+// eslint-disable-next-line
 describe('Faculty_academic_enrolment_activity - GetFacultyAcademicEnrolmentActivity - GET', () => {
   beforeEach((done) => {
     const newpeople = {
@@ -62,7 +61,8 @@ describe('Faculty_academic_enrolment_activity - GetFacultyAcademicEnrolmentActiv
                   valid_end_date: '2014-04-08',
                   duration_in_days: 5,
                 };
-                methods.Academics.coursesOfferedMethods.addCoursesOffered(coursesoffered)
+                methods.Academics.coursesOfferedMethods
+                  .addCoursesOffered(coursesoffered)
                   .then((CoursesOffered) => {
                     newCoursesOffered.push(CoursesOffered.dataValues);
 
@@ -72,7 +72,8 @@ describe('Faculty_academic_enrolment_activity - GetFacultyAcademicEnrolmentActiv
                       activity: 'X',
                       date_time: '2012-12-09 11:55:55',
                     };
-                    methods.Faculty.facultyEAMethods.addFacultyAcademicEnrolmentActivity(faea)
+                    methods.Faculty.facultyEAMethods
+                      .addFacultyAcademicEnrolmentActivity(faea)
                       .then((Faea) => {
                         FAEA.push(Faea.dataValues);
 
@@ -138,13 +139,16 @@ describe('Faculty_academic_enrolment_activity - GetFacultyAcademicEnrolmentActiv
               .then(() => {
                 console.log('deleted entities');
 
-                methods.Academics.coursesOfferedMethods.deleteAllCoursesOffered()
+                methods.Academics.coursesOfferedMethods
+                  .deleteAllCoursesOffered()
                   .then(() => {
                     console.log('deleted coursesoffered');
 
-                    methods.Faculty.facultyEAMethods.deleteAllFacultyAcademicEnrolmentActivity()
+                    methods.Faculty.facultyEAMethods
+                      .deleteAllFacultyAcademicEnrolmentActivity()
                       .then(() => {
-                        console.log('deleted faculty_academic_enrolment_activity');
+                        console
+                          .log('deleted faculty_academic_enrolment_activity');
                         done();
                       })
                       .catch((err) => {

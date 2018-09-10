@@ -20,6 +20,7 @@ const tempVar = [];
 const newPeople = [];
 const newEPPE = [];
 
+// eslint-disable-next-line max-len
 describe('EntityPeoplePositionEnrolment - Get_EntityPeoplePositionEnrolment GET', () => {
   beforeEach((done) => {
     const entitytype = {
@@ -70,7 +71,8 @@ describe('EntityPeoplePositionEnrolment - Get_EntityPeoplePositionEnrolment GET'
                       entity_position_association_id: newEPA[0].id,
                       activity: 'X',
                     };
-                    methods.Entities.entityPeoplePosEnrolMethods.addEntityPeoplePosEnrol(eppe)
+                    methods.Entities.entityPeoplePosEnrolMethods
+                      .addEntityPeoplePosEnrol(eppe)
                       .then((neweppe) => {
                         newEPPE.push(neweppe.dataValues);
 

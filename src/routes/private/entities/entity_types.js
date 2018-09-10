@@ -6,10 +6,10 @@ const methods = require('data/methods');
 
 router.get('/', (req, res) => {
   methods.Entities.entityTypeMethods.getAllEntityTypes()
-    .then((entity_type) => {
+    .then((entityType) => {
       res.status(200).json({
         message: 'success',
-        entity_type,
+        entityType,
       });
     })
     .catch((err) => {
@@ -152,4 +152,5 @@ router.delete('/', (req, res) => {
       });
     });
 });
+
 module.exports = router;

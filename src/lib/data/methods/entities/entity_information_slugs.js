@@ -4,37 +4,45 @@ const models = require('../../models');
 
 const entityInfoSlugsMethods = {};
 
-entityInfoSlugsMethods.getAllEntityInfoSlugs = () => new Promise((resolve, reject) => {
+entityInfoSlugsMethods.getAllEntityInfoSlugs = () => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_information_slugs.findAll()
-    .then((entity_info_slugs) => {
-      resolve(entity_info_slugs);
+    .then((entityInfoSlugs) => {
+      resolve(entityInfoSlugs);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityInfoSlugsMethods.findEntityInfoSlugsById = id => new Promise((resolve, reject) => {
+entityInfoSlugsMethods.findEntityInfoSlugsById = id => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_information_slugs.findById(id)
-    .then((entity_info_slugs) => {
-      resolve(entity_info_slugs);
+    .then((entityInfoSlugs) => {
+      resolve(entityInfoSlugs);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityInfoSlugsMethods.addEntityInfoSlugs = newEntity => new Promise((resolve, reject) => {
+entityInfoSlugsMethods.addEntityInfoSlugs = newEntity => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_information_slugs.create(newEntity)
-    .then((entity_info_slugs) => {
-      resolve(entity_info_slugs);
+    .then((entityInfoSlugs) => {
+      resolve(entityInfoSlugs);
     })
     .catch((err) => {
       reject(err);
     });
 });
 
-entityInfoSlugsMethods.updateEntityInfoSlugs = (info, data) => new Promise((resolve, reject) => {
+entityInfoSlugsMethods.updateEntityInfoSlugs = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_information_slugs.update(data, {
     where: {
       id: info.id,
@@ -52,7 +60,9 @@ entityInfoSlugsMethods.updateEntityInfoSlugs = (info, data) => new Promise((reso
     });
 });
 
-entityInfoSlugsMethods.deleteEntityInfoSlugs = info => new Promise((resolve, reject) => {
+entityInfoSlugsMethods.deleteEntityInfoSlugs = info => new Promise((
+  resolve, reject,
+) => {
   models.entities.entity_information_slugs.destroy({
     where: {
       id: info.id,
@@ -80,4 +90,5 @@ entityInfoSlugsMethods.deleteAllEntityInfoSlugs = () => new Promise((
       reject(err);
     });
 });
+
 module.exports = entityInfoSlugsMethods;

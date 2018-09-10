@@ -34,7 +34,8 @@ describe('/PUT/:peopleInfoId', () => {
                 const peopleinfoslugs = {
                   slug_name: 'SlugName',
                 };
-                methods.People.peopleInfoSlugsMethods.addPeopleInfoSlugs(peopleinfoslugs)
+                methods.People.peopleInfoSlugsMethods
+                  .addPeopleInfoSlugs(peopleinfoslugs)
                   .then((PeopleIS) => {
                     newPIS.push(PeopleIS.dataValues);
 
@@ -55,7 +56,8 @@ describe('/PUT/:peopleInfoId', () => {
                           slug_id: newPIS[0].id,
                           data: '{ "page": "/" }',
                         };
-                        methods.People.peopleInfoMethods.addPeopleInfo(peopleinfo)
+                        methods.People.peopleInfoMethods
+                          .addPeopleInfo(peopleinfo)
                           .then((PeopleInfo) => {
                             newPeopleInfo.push(PeopleInfo.dataValues);
 

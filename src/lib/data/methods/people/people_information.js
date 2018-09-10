@@ -25,7 +25,9 @@ peopleInfoMethods.getAllPeopleInfo = () => new Promise((resolve, reject) => {
     });
 });
 
-peopleInfoMethods.updatePeopleInfo = (info, data) => new Promise((resolve, reject) => {
+peopleInfoMethods.updatePeopleInfo = (info, data) => new Promise((
+  resolve, reject,
+) => {
   models.people.people_information.update(data, {
     where: {
       id: info.id,

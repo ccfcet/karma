@@ -15,7 +15,9 @@ facultyEAMethods.addFacultyAcademicEnrolmentActivity = (info) => {
   });
 };
 
-facultyEAMethods.getAllFacultyAcademicEnrolmentActivity = () => new Promise((resolve, reject) => {
+facultyEAMethods.getAllFacultyAcademicEnrolmentActivity = () => new Promise((
+  resolve, reject,
+) => {
   models.faculty.faculty_academic_enrolment_activity.findAll()
     .then((people) => {
       resolve(people);

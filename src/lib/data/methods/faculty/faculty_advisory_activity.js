@@ -28,7 +28,9 @@ facultyClassAdvisoryMethods
 
 
 facultyClassAdvisoryMethods
-  .updateFacultyClassAdvisoryActivity = (info, data) => new Promise((resolve, reject) => {
+  .updateFacultyClassAdvisoryActivity = (info, data) => new Promise((
+    resolve, reject,
+  ) => {
     models.faculty.faculty_class_advisory_activity.update(data, {
       where: {
         id: info.id,
@@ -56,7 +58,6 @@ facultyClassAdvisoryMethods
         people_id: info.people_id,
         class_id: info.class_id,
         activity: info.activity,
-
       },
     }).then((deleted) => {
       if (deleted === 0) {

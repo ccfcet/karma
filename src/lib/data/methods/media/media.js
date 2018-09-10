@@ -51,7 +51,7 @@ mediaMethods.deleteAllMedia = () => new Promise((
   models.media.media.destroy({
     where: {},
   })
-    .then((res) => {
+    .then(() => {
       resolve();
     })
     .catch((err) => {

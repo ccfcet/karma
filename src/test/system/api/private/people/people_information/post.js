@@ -32,7 +32,8 @@ describe('Post peopleInfo - POST', () => {
                 const peopleinfoslugs = {
                   slug_name: 'SlugName',
                 };
-                methods.People.peopleInfoSlugsMethods.addPeopleInfoSlugs(peopleinfoslugs)
+                methods.People.peopleInfoSlugsMethods
+                  .addPeopleInfoSlugs(peopleinfoslugs)
                   .then((PeopleIS) => {
                     newPIS.push(PeopleIS.dataValues);
 

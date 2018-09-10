@@ -60,8 +60,8 @@ describe('/DELETE stream_types with id ', () => {
                   valid_start_date: '2018-07-25',
                   valid_end_date: '2018-07-25',
                 };
-                methods.Academics.streamsOfferedMethods.addStreamsOffered(newStream)
-                  .then((streams) => {
+                methods.Academics.streamsOfferedMethods
+                  .addStreamsOffered(newStream).then((streams) => {
                     streamsOffered.push(streams.dataValues);
 
                     const returns = streamsOffered.map((values) => {
@@ -82,7 +82,7 @@ describe('/DELETE stream_types with id ', () => {
               });
           })
           .catch((err) => {
-
+            console.log(err);
           });
       })
       .catch(err => console.log(err));
@@ -90,8 +90,7 @@ describe('/DELETE stream_types with id ', () => {
   it('it should DELETE streamsoffered given the streamid', (done) => {
     methods.Academics.streamsOfferedMethods.getAllStreamsOffered()
       .then((res) => {
-        let id = {};
-        id = res[0].dataValues.id;
+        const { id } = res[0].dataValues;
 
         chai.request(app)
           .delete('/public/academics/streams_offered/')
