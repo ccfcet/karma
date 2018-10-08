@@ -38,7 +38,7 @@ You may feel free to contact us in our mail us at <ccf@cet.ac.in>
 
 ### Code of Conduct
 
-See CODE_OF_CONDUCT.md
+See [Code of Conduct](CODE_OF_CONDUCT.md)
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage],
 version 1.4, available at
