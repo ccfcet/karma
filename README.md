@@ -15,7 +15,7 @@ There does not exist a free, open and powerful tool for colleges (specifically h
 ## Directory Structure
 
 ### Design
-Details regarding the design and principles followed is available in [doc/design](/docs/design/)
+Details regarding the design and principles followed is available in [docs/design](/docs/design/)
 folder.
 
 ### Source Code
