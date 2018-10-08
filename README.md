@@ -15,11 +15,11 @@ There does not exist a free, open and powerful tool for colleges (specifically h
 ## Directory Structure
 
 ### Design
-Details regarding the design and principles followed is available in ./design
+Details regarding the design and principles followed is available in [design](/design/)
 folder.
 
 ### Source Code
-Source code available in ./src folder.
+Source code available in [src](/src/) folder.
 
 ## Contributing
 
