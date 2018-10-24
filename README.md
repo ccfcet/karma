@@ -23,6 +23,8 @@ Source code available in [src](/src/) folder.
 
 ## Contributing
 
+> Everything is perfect and there is always room for improvement.
+
 Contributions are always welcome and appreciated. Before contributing to this
 work, kindly ensure that you are aware of the standards and principles that we
 currently follow. You may fork this repository and add a pull request when you
