@@ -226,7 +226,7 @@ router.delete('/', (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        status: 'Not able to delete.The row may not exist.',
+        status: 'Deletion unsuccessful. The selected row may not exist.',
         state: err,
       });
     });

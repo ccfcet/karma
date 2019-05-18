@@ -63,7 +63,7 @@ router.put('/:entityInfoId', (req, res) => {
   const info = {};
   const data = {};
 
-  info.id = req.params.entityInfoId; // key values for finding row
+  info.id = req.params.entityInfoId; // Key values for finding the selected row
 
   if (Object.prototype.hasOwnProperty.call(req.body, 'entityId')
    && Object.prototype.hasOwnProperty.call(req.body, 'slugId')

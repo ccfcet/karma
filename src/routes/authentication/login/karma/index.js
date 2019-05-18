@@ -15,21 +15,21 @@ router.get('/', (req, res) => {
 
 router.post('/', celebrate({
   body: Joi.object().keys({
-    // needs more precise validation including check for allowed charset
+    // Need a more precise form of validation, also checking if the input is in the allowed charset
     password: Joi.string().min(12).max(30).required(),
     email: Joi.string().email(),
-    // needs a better way of validation
+    // Need to formulate a better method of validation
     mobilenumber: Joi.number().integer(),
   }).xor('email', 'mobilenumber'),
 }), (req, res) => {
   if (req.headers['content-type'] === 'application/json') {
     if (Object.prototype.hasOwnProperty.call(req.body, 'password')) {
-      // is https really secure?
+      // Is https really secure?
       if (Object.prototype.hasOwnProperty.call(req.body, 'email') && !Object
         .prototype.hasOwnProperty.call(req.body, 'mobileNumber')) {
-        // assumption: user has an email
+        // On the assumption that the user has an email - feasible
 
-        // verify the email password combo
+        // Verify the email password combination
         authenticationAuthenticateKarma.emailPassword(
           req.body.email, req.body.password,
         )
@@ -45,7 +45,7 @@ router.post('/', celebrate({
           });
       } else if (!Object.prototype.hasOwnProperty.call(req.body, 'email')
       && Object.prototype.hasOwnProperty.call(req.body, 'mobileNumber')) {
-        // assumption: user has a mobileNumber
+        // Based on the assumption that user has a mobileNumber - again, feasible
         res.status(501).json({
           status: 501,
         });
