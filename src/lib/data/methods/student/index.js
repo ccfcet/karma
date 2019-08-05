@@ -1,6 +1,7 @@
 const studentMethods = {};
 
 studentMethods.CourseGrades = require('./student_course_grades');
+studentMethods.AttendanceData = require('./student_attendance_data');
 studentMethods.CourseGradingStandard = require(
   './student_course_grading_standards',
 );

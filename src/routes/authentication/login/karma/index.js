@@ -15,7 +15,8 @@ router.get('/', (req, res) => {
 
 router.post('/', celebrate({
   body: Joi.object().keys({
-    // Need a more precise form of validation, also checking if the input is in the allowed charset
+    // Need a more precise form of validation, also checking if the input is
+    // in the allowed charset
     password: Joi.string().min(12).max(30).required(),
     email: Joi.string().email(),
     // Need to formulate a better method of validation
@@ -45,7 +46,8 @@ router.post('/', celebrate({
           });
       } else if (!Object.prototype.hasOwnProperty.call(req.body, 'email')
       && Object.prototype.hasOwnProperty.call(req.body, 'mobileNumber')) {
-        // Based on the assumption that user has a mobileNumber - again, feasible
+        // Based on the assumption that user
+        // has a mobileNumber - again, feasible
         res.status(501).json({
           status: 501,
         });
