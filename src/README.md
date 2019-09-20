@@ -13,7 +13,7 @@ npm install
 ```
 4. Rename ```config.example.json``` file inside ```./lib/data/config/``` to ```config.json``` and fill the database information whilst creating the necessary databases on your MySQL server.
 
-5. In case you get an error like '''npm ERR! Failed at the argon2@0.19.3 install script```, install ```build-tools``` for your system.
+5. In case you get an error like ```npm ERR! Failed at the argon2@0.19.3 install script```, install ```build-tools``` for your system.
 ### Usage
 ```bash
 # install dependencies (development)
