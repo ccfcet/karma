@@ -19,6 +19,9 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.JSON(),
       allowNull: false,
     },
+  }, {
+
+    freezeTableName: true,
   });
 
   PeopleInformation.associate = function (models) {

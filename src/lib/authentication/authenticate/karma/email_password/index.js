@@ -12,9 +12,10 @@ const emailPassword = function (email, password) {
       console.log(userId);
       methodsAuthentication.getPasswordHashIfExists(userId)
         .then((passwordHash) => {
-        // verify the password
+          // verify the password
           passwordVerifier(password, passwordHash).then((result) => {
             if (result === true) {
+              console.log(result);
               generateAccessToken(userId).then((token) => {
                 resolve(token);
               }).catch((err) => {

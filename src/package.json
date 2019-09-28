@@ -37,9 +37,9 @@
   },
   "devDependencies": {
     "apidoc": "^0.17.6",
-    "chai": "^4.1.2",
-    "chai-exclude": "^1.0.8",
-    "chai-http": "^4.0.0",
+    "chai": "^4.2.0",
+    "chai-exclude": "^1.0.12",
+    "chai-http": "^4.3.0",
     "coveralls": "^3.0.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
