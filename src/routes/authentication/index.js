@@ -9,6 +9,6 @@ router.get('/', (req, res) => {
 });
 
 router.use('/login', require('./login'));
-// router.use('/register', require('./register'));
+router.use('/register', require('./register'));
 
 module.exports = router;

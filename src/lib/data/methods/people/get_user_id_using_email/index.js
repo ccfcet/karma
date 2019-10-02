@@ -18,7 +18,6 @@ const getUserIdUsingEmail = function (email) {
           // user with email exists
           resolve(result[0].people_id);
         } else {
-          console.log('LOL');
           reject(new Error('User with email not found.'));
         }
       }).catch((err) => {
