@@ -3,7 +3,7 @@ const argon2 = require('argon2');
 
 const passwordVerifier = function (password, passwordHash) {
   return new Promise(((resolve, reject) => {
-    argon2.verify(password, passwordHash).then((match) => {
+    argon2.verify(passwordHash, password).then((match) => {
       if (match) {
         // password match
         resolve(true);
