@@ -23,14 +23,14 @@ router.post('/', celebrate({
     mobilenumber: Joi.number().integer(),
   }).xor('email', 'mobilenumber'),
 }), (req, res) => {
-  console.log(req.body);
+  console.log(`login/karma: ${req.body}`);
   if (req.headers['content-type'] === 'application/json') {
     if (Object.prototype.hasOwnProperty.call(req.body, 'password')) {
       // Is https really secure?
       if (Object.prototype.hasOwnProperty.call(req.body, 'email') && !Object
         .prototype.hasOwnProperty.call(req.body, 'mobileNumber')) {
         // On the assumption that the user has an email - feasible
-        console.log(req.body.email);
+        console.log(`login/karma: ${req.body.email}`);
 
         // Verify the email password combination
         authenticationAuthenticateKarma.emailPassword(

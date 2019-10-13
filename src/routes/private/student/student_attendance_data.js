@@ -32,6 +32,27 @@ router.get('/:faculty_id/:course_id', (req, res) => {
     });
 });
 
+router.get('/:people_id', (req, res) => {
+  // res.send(200);
+  const data = {};
+
+  data.people_id = req.params.people_id;
+
+  methods.students.AttendanceData.getAttendanceSingle(data)
+    .then((classes) => {
+      console.log('people');
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
+});
 
 router.get('/', (req, res) => {
   res.send(200);

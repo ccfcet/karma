@@ -30,6 +30,21 @@ attendanceDataMethods
   });
 
 attendanceDataMethods
+  .getAttendanceSingle = data => new Promise((resolve, reject) => {
+    console.log(data);
+    models.student.student_attendance_data.findAll({
+      where: {
+        people_id: data.people_id,
+      },
+    }).then((courses) => {
+      resolve(courses);
+    })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+attendanceDataMethods
   .updateAttendance = (info, data) => new Promise((resolve, reject) => {
     console.log(data, info);
     models.student.student_attendance_data.update(info, {
