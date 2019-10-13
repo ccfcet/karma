@@ -36,6 +36,27 @@ router.get('/', (req, res) => {
     });
 });
 
+
+router.get('/:course_id', (req, res) => {
+  const data = {};
+  data.course_id = req.params.course_id;
+  methods.Academics.coursesOfferedMethods.getCourseData(data)
+    .then((model) => {
+      console.log('course data');
+      res.status(200).json({
+        message: 'success',
+        course: model,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: 'error',
+        err,
+      });
+    });
+});
+
+
 /**
  * @api {post} /private/academics/courses_offered AddCoursesOffered
  * @apiVersion 1.0.0-alpha-1
