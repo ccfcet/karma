@@ -16,6 +16,25 @@ coursesOfferedMethods.getAllCoursesOffered = () => new Promise((resolve,
     });
 });
 
+coursesOfferedMethods.getCourseData = data => new Promise((
+  resolve, reject,
+) => {
+  course_id = data.course_id;
+  console.log('getCourseData');
+  models.academics.courses_offered.find({
+    where: {
+      id: course_id,
+    },
+  }).then((course) => {
+    console.log(course);
+    resolve(course);
+  })
+    .catch((err) => {
+      console.log(err);
+      reject(err);
+    });
+});
+
 coursesOfferedMethods.addCoursesOffered = info => new Promise((
   resolve, reject,
 ) => {

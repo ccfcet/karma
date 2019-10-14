@@ -32,15 +32,14 @@
     "grunt": "^1.0.4",
     "helmet": "^3.12.1",
     "http-errors": "~1.6.2",
-    "lodash": "^4.17.10",
-    "morgan": "~1.9.0",
-    "nodemon": "^1.19.3"
+    "lodash": "^4.17.13",
+    "morgan": "~1.9.0"
   },
   "devDependencies": {
     "apidoc": "^0.17.6",
-    "chai": "^4.1.2",
-    "chai-exclude": "^1.0.8",
-    "chai-http": "^4.0.0",
+    "chai": "^4.2.0",
+    "chai-exclude": "^1.0.12",
+    "chai-http": "^4.3.0",
     "coveralls": "^3.0.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",

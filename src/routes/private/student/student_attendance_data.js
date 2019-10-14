@@ -3,6 +3,57 @@ const express = require('express');
 const router = express.Router();
 const methods = require('data/methods');
 
+
+const today = new Date();
+const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+const dateTime = `${date} ${time}`;
+
+router.get('/:faculty_id/:course_id', (req, res) => {
+  // res.send(200);
+  const data = {};
+
+  data.faculty_id = req.params.faculty_id;
+  data.course_id = req.params.course_id;
+
+  methods.students.AttendanceData.getAttendance(data)
+    .then((classes) => {
+      console.log('people');
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
+});
+
+router.get('/:people_id', (req, res) => {
+  // res.send(200);
+  const data = {};
+
+  data.people_id = req.params.people_id;
+
+  methods.students.AttendanceData.getAttendanceSingle(data)
+    .then((classes) => {
+      console.log('people');
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
+});
+
 router.get('/', (req, res) => {
   res.send(200);
 });
@@ -39,11 +90,14 @@ router.put('/:people_id/:course_id', (req, res) => {
 
   const info = {};
 
-  if (Object.prototype.hasOwnProperty.call(req.body, 'dateTime') && Object
-    .prototype.hasOwnProperty.call(req.body, 'activity')) {
-    info.date_time = req.body.dateTime;
-    info.activity = req.body.activity;
-  }
+  // if (Object.prototype.hasOwnProperty.call(req.body, 'dateTime') && Object
+  //   .prototype.hasOwnProperty.call(req.body, 'activity')) {
+  info.date_time = dateTime;
+  info.value = req.body.value;
+
+  // This will be changed in future updates if required for dateTime to be sent from front end
+
+  // }
   methods.students.AttendanceData.updateAttendance(info, data)
     .then((updated) => {
       res.json({

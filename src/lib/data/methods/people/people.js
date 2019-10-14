@@ -24,6 +24,22 @@ peopleMethods.getAllPeople = () => new Promise((resolve, reject) => {
       reject(err);
     });
 });
+
+
+peopleMethods.getPeople = data => new Promise((resolve, reject) => {
+  console.log(data);
+  models.people.people.findOne({
+    where: {
+      id: data.id,
+    },
+  })
+    .then((people) => {
+      resolve(people);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 // Method to find people given their people_id
 // peopleMethods.findPeopleById = peopleId => new Promise((resolve, reject) => {
 //   models.people.people.findById(peopleId)

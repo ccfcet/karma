@@ -35,6 +35,25 @@ router.get('/', (req, res) => {
     });
 });
 
+
+router.post('/details', (req, res) => {
+  console.log(req);
+  methods.People.peopleMethods.getPeople(req.body)
+    .then((classes) => {
+      console.log(classes);
+      res.json({
+        status: 'success',
+        classes,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: 'error',
+        error: err.message,
+      });
+    });
+});
+
 /**
  * @api {post} /private/people/people AddPeople
  * @apiVersion 1.0.0-alpha-1
