@@ -7,6 +7,24 @@ router.get('/', (req, res) => {
   res.send(200);
 });
 
+router.get('/:people_id', (req, res) => {
+  data = {};
+  data.people_id = req.params.people_id;
+  methods.students.CourseInternalAssessment.getInternalAssessment(data)
+    .then((result) => {
+      res.json({
+        status: 'success',
+        data: result,
+      });
+    })
+    .catch((err) => {
+      res.json({
+        status: 'failure',
+        error: err,
+      })
+    });
+});
+
 router.post('/', (req, res) => {
   const info = {};
   info.people_id = req.body.peopleId;
