@@ -21,7 +21,7 @@ router.post('/', celebrate({
     email: Joi.string().email(),
     dob: Joi.string(),
     firstname: Joi.string(),
-    middlename: Joi.string(),
+    middlename: Joi.string().allow(''),
     lastname: Joi.string(),
     gender: Joi.string(),
     nationality: Joi.string(),

@@ -30,7 +30,7 @@ router.post('/', celebrate({
       if (Object.prototype.hasOwnProperty.call(req.body, 'email') && !Object
         .prototype.hasOwnProperty.call(req.body, 'mobileNumber')) {
         // On the assumption that the user has an email - feasible
-        console.log(`login/karma: ${req.body.email}`);
+        // console.log(`login/karma: ${req.body.email}`);
 
         // Verify the email password combination
         authenticationAuthenticateKarma.emailPassword(
