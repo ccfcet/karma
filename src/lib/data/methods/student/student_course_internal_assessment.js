@@ -44,4 +44,26 @@ internalAssessmentMethods
       });
   });
 
+internalAssessmentMethods
+  .getInternalAssessment = data => new Promise((
+    resolve, reject
+    ) => {
+    student_id = data.people_id;
+    console.log(student_id);
+    models.student.student_course_internal_assessment.findAll({
+      where: {
+        people_id: student_id,
+      }
+    })
+      .then((result) => {
+        console.log(result);
+        resolve(result);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  }
+);
+
 module.exports = internalAssessmentMethods;
