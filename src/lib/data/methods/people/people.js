@@ -113,5 +113,21 @@ peopleMethods.deletePeople = info => new Promise((
   });
 });
 
+peopleMethods.userIdExists = Id => new Promise((resolve, reject) => {
+  models.people.people.findOne({
+    where: {
+      userId: Id,
+    },
+  }).then((doc) => {
+    if (doc) {
+      resolve(true);
+    } else {
+      reject(false);
+    }
+  }).catch((err) => {
+    reject(err);
+  });
+});
+
 
 module.exports = peopleMethods;
