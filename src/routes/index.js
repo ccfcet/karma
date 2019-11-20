@@ -2,6 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
+const { secret } = require('../lib/authentication/access_token/secrets.json');
+const methodsPeople = require('../lib/data/methods/people');
+
 /**
  * @api {get} / Main Entry Gate
  * @apiVersion 1.0.0-alpha-1
@@ -28,6 +31,8 @@ router.get('/', (req, res) => {
 
 router.use('/authentication', require('./authentication'));
 router.use('/public', require('./public'));
+
+
 router.use('/private', require('./private'));
 
 module.exports = router;

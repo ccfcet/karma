@@ -1,10 +1,53 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
+const secret = require('../../lib/authentication/access_token/secrets.json');
+const methodsPeople = require('../../lib/data/methods/people').peopleMethods;
 require('data/methods');
 
-// var methods = require('_/data/methods')
+//For securing private routes
+
+router.use((req, res, next) => {
+  const token = req.headers['x-access-token'];
+  if (!token) {
+    return res.status(401).send({
+      auth: false,
+      message: 'No token provided.',
+    });
+  }
+  // console.log('ROUTE SECRET', secret);
+  jwt.verify(token, secret.secretKey, (err, decoded) => {
+    if (err) {
+      return res.status(500).send({
+        auth: false,
+        message: 'Failed to authenticate token.',
+      });
+    }
+    // console.log('DECODED', decoded);
+    methodsPeople.userIdExists(decoded.id).then((flag) => {
+      if (flag) {
+        next();
+      } else {
+        res.status(500).send({
+          auth: false,
+          message: 'Token Invalid',
+        });
+      }
+    })
+      .catch((err) => {
+        if (err) {
+          console.error(err);
+          res.status(401).send({
+            auth: false,
+            message: 'Token Invalid',
+          });
+        }
+      });
+  });
+});
+
 
 /**
  * @api {get} /private Private Entry Gate
@@ -20,7 +63,6 @@ require('data/methods');
  *       'status': 200
  *     }
  */
-
 router.get('/', (req, res) => {
   res.send({ status: 200 });
   console.log('private');
