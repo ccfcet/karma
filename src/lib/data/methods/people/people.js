@@ -116,7 +116,7 @@ peopleMethods.deletePeople = info => new Promise((
 peopleMethods.userIdExists = Id => new Promise((resolve, reject) => {
   models.people.people.findOne({
     where: {
-      userId: Id,
+      id: Id,
     },
   }).then((doc) => {
     if (doc) {

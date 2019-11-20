@@ -6,7 +6,8 @@ const { secretKey } = require('./secrets.json');
 
 accessTokenHandlers.generateAccessToken = function (userId) {
   return new Promise(((resolve, reject) => {
-    jwt.sign({ id: userId }, secretKey, { algorithm: 'HS256' }, (err, token) => {
+    console.log('aUth', secretKey);
+    jwt.sign({ id: userId }, secretKey, /* { algorithm: 'RS256' }, */ (err, token) => {
       if (!err) {
         if (token) {
           console.log(token);
