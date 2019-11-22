@@ -7,7 +7,7 @@ const secret = require('../../lib/authentication/access_token/secrets.json');
 const methodsPeople = require('../../lib/data/methods/people').peopleMethods;
 require('data/methods');
 
-//For securing private routes
+// For securing private routes
 
 router.use((req, res, next) => {
   const token = req.headers['x-access-token'];
