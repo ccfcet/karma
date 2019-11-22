@@ -1,5 +1,3 @@
-// node binding to argon2 reference implementation
-// const argon2 = require('argon2');
 const bcrypt = require('bcrypt');
 
 const saltRound = 10;
@@ -10,8 +8,6 @@ const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
 const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
 const dateTime = `${date} ${time}`;
 let id = 0;
-
-
 
 
 const setAuthentication = function (userID, password, firstname, middlename, lastname, gender, nationality, dob) {
