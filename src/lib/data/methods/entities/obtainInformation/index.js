@@ -11,6 +11,7 @@ const returnObject = {};
 // entityInformationSlug respectively
 
 returnObject.obtainInformation = function (entitySlug, entityInformationSlug) {
+  console.log("MODEL",models.entities.entities);
   return new Promise((resolve, reject) => {
     if (_.includes(_.keys(models.entities.entities.attributes),
       entityInformationSlug)) {
@@ -24,6 +25,7 @@ returnObject.obtainInformation = function (entitySlug, entityInformationSlug) {
         reject(err);
       });
     } else {
+      console.log('NOT ALLOWED');
       models.entities.entity_information.findOne({
         include:
           [
