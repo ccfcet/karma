@@ -11,7 +11,6 @@ const returnObject = {};
 // entityInformationSlug respectively
 
 returnObject.obtainInformation = function (entitySlug, entityInformationSlug) {
-  console.log("MODEL",models.entities.entities);
   return new Promise((resolve, reject) => {
     if (_.includes(_.keys(models.entities.entities.attributes),
       entityInformationSlug)) {
