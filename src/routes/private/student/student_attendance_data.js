@@ -32,7 +32,7 @@ router.get('/:faculty_id/:course_id', (req, res) => {
     });
 });
 
-router.post('/:people_id', (req, res) => {
+router.post('/student', (req, res) => {
   const data = {};
   data.people_id = req.body.id;
 
