@@ -27,7 +27,7 @@ router.use((req, res, next) => {
     }
     methodsPeople.userIdExists(decoded.id).then((flag) => {
       if (flag) {
-        req.userId = decoded.id;
+        req.body = { id: decoded.id };
         next();
       } else {
         res.status(500).send({
