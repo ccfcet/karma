@@ -1,5 +1,6 @@
-// node binding to argon2 reference implementation
-const argon2 = require('argon2');
+const bcrypt = require('bcrypt');
+
+const saltRound = 10;
 const models = require('../../data/models');
 
 const today = new Date();
@@ -8,15 +9,12 @@ const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
 const dateTime = `${date} ${time}`;
 let id = 0;
 
+
 const setAuthentication = function (userID, password, firstname, middlename, lastname, gender, nationality, dob) {
   // parameters to argon2 hashing function (strictly for password.length >= 12)
   // added safety factor 256
   return new Promise(((resolve, reject) => {
-    const options = {
-      timeCost: 30, memoryCost: 2 ** 19, parallelism: 16, type: argon2.argon2i,
-    };
-
-    argon2.hash(password, options).then((hash) => {
+    bcrypt.hash(password, saltRound).then((hash) => {
       models.sequelize.query(`INSERT INTO people (first_name, middle_name, last_name, gender, date_of_birth, nationality, created_at, updated_at) VALUES ("${firstname}","${middlename}","${lastname}","${gender}","${dob}","${nationality}","${dateTime}","${dateTime}")`,
       // eslint-disable-next-line max-len
       // models.sequelize.query('SELECT JSON_CONTAINS((SELECT data FROM people_informations WHERE people_id = 1 AND slug_id = 1), \'["' + email + '"]\') as check_flag;',
