@@ -37,8 +37,10 @@ router.get('/', (req, res) => {
 
 
 router.post('/details', (req, res) => {
-  console.log(req);
-  methods.People.peopleMethods.getPeople(req.body)
+  var data = {
+    id : req.userId
+  }
+  methods.People.peopleMethods.getPeople(data)
     .then((classes) => {
       console.log(classes);
       res.json({
