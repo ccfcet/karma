@@ -21,7 +21,7 @@ router.get('/:people_id', (req, res) => {
       res.json({
         status: 'failure',
         error: err,
-      })
+      });
     });
 });
 
