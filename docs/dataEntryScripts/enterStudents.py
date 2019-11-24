@@ -2,20 +2,35 @@ import xlrd
 import datetime
 import time
 import mysql.connector
+import json
 
+#inport database configuration from the config file
+with open("../../src/lib/data/config/config.json","r") as configFile:
+	configDataJSON = json.load(configFile)
+
+# Establish a connection with the database
 db_connection = mysql.connector.connect(
   	host="localhost",
-  	user="root",
-  	passwd="password",
-  	database="karma"
+  	user=configDataJSON['sequelize']['development']['username'],
+  	passwd=configDataJSON['sequelize']['development']['password'],
+  	database=configDataJSON['sequelize']['development']['database']
   	)
+db_cursor = db_connection.cursor()
 
+#Create tables and relations if they already dont exist
+tableCreationScript = open("executeTableCreationScript.sql","r")
+for query in tableCreationScript:
+	db_cursor.execute(query)
+	db_connection.commit()
+tableCreationScript.close()
+
+#taking file from the location
 loc = ("Karma Data-10.xlsx")
 studentsData = xlrd.open_workbook(loc)
 basicDataSheet = studentsData.sheet_by_index(0)
 outputFileStudentsData = open("studentsDataSQLfile.txt","w+")
-# print(basicDataSheet.cell_value(0,0))
-# print(basicDataSheet.ncols)
+
+#adding columns of the table as specified in the excelsheet
 colNameList = []
 for colName in range(basicDataSheet.ncols):
 	colNameList.append(basicDataSheet.cell_value(0,colName))
@@ -32,16 +47,14 @@ for i in range(1,basicDataSheet.nrows):
 	format_list.append(st)
 	format_list.append(st)
 	list = xlrd.xldate_as_tuple(format_list[4], 0)
-	# print(list)
 	year = list[0]
 	month = list[1]
 	date = list[2]
 	format_list[4]="{0}-{1}-{2}".format(year,month,date)
 	finalListToQuery = colNameList+format_list
-	# print(finalListToQuery)
 	outputFileStudentsData.write("INSERT INTO `people`(`{}`, `{}`, `{}`, `{}`, `{}`, `{}`, `{}`, `{}`) VALUES ('{}','{}','{}','{}','{}','{}','{}','{}')\n".format(*finalListToQuery))
-db_cursor = db_connection.cursor()
 studentsDataFileSQL = open("studentsDataSQLFile.txt","r")
 for query in studentsDataFileSQL:
 	db_cursor.execute(query)
 	db_connection.commit()
+studentsDataFileSQL.close()
