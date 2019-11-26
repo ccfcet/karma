@@ -1,0 +1,501 @@
+[
+{
+    "type": "table",
+    "name": "authentication_information_local",
+    "database": "karma",
+    "data": 
+["people_id","password_hash"
+]
+
+}
+,{
+    "type": "table",
+    "name": "blogs",
+    "database": "karma",
+    "data": 
+[
+	"blog_name","blog_alias_name"
+]
+
+}
+,{
+    "type": "table",
+    "name": "blog_enrollment",
+    "database": "karma",
+    "data": 
+[
+	"blog_id","activity"
+]
+
+}
+,{
+    "type": "table",
+    "name": "blog_entities_association",
+    "database": "karma",
+    "data": 
+[
+	"blog_id","entity_id","status"
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "blog_people_association",
+    "database": "karma",
+    "data": 
+[
+	"blog_id","people_id","status"
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "blog_roles",
+    "database": "karma",
+    "data": 
+[
+	"role_name","role_slug","role_description"
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "blog_role_people_association",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "classes",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "classes_time_tables",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "entities",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "entity_information",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "entity_information_slugs",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "entity_parent_child_association",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "entity_people_enrollment",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "entity_people_position_enrolment",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "entity_position_association",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "entity_types",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "events",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "event_information",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "event_information_slugs",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "event_parent_child_association",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "faculty_academic_enrolment_activity",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "faculty_class_advisory_activity",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "media",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "media_roles",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "media_role_entity_association",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "media_role_people_association",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "menu_data",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "menu_elements",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "menu_parent_child_associations",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "news",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "news_data",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "people",
+    "database": "karma",
+    "data": 
+[
+"first_name",
+"middle_name",
+"last_name",
+"gender",
+"date_of_birth",
+"nationality",
+"created_at",
+"updated_at"
+]
+
+}
+,{
+    "type": "table",
+    "name": "people_activities",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "people_activity_log",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "people_information",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "people_information_slugs",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "posts",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "post_data",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "streams_offered",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "stream_types",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "student_attendance_data",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "student_class_enrolment_activity",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "student_course_enrolment_activity",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "student_course_grades",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "student_course_grading_standards",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+
+,{
+    "type": "table",
+    "name": "student_course_internal_assessment",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "student_stream_enrolment_activity",
+    "database": "karma",
+    "data": 
+[
+
+]
+
+}
+,{
+    "type": "table",
+    "name": "time_slots",
+    "database": "karma",
+    "data": 
+[
+]
+
+}
+]

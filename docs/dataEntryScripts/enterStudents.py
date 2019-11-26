@@ -25,7 +25,8 @@ for query in tableCreationScript:
 tableCreationScript.close()
 
 #taking file from the location
-loc = ("Karma Data-10.xlsx")
+#to be changed to fileLocation = ("./addExcelSheetsHere/tableName")
+loc = ("karmaData.xls")
 studentsData = xlrd.open_workbook(loc)
 basicDataSheet = studentsData.sheet_by_index(0)
 outputFileStudentsData = open("studentsDataSQLfile.txt","w+")
