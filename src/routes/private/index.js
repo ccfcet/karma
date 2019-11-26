@@ -25,9 +25,9 @@ router.use((req, res, next) => {
         message: 'Failed to authenticate token.',
       });
     }
-    // console.log('DECODED', decoded);
     methodsPeople.userIdExists(decoded.id).then((flag) => {
       if (flag) {
+        req.body = { id: decoded.id };
         next();
       } else {
         res.status(500).send({

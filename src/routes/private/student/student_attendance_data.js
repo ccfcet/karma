@@ -32,11 +32,9 @@ router.get('/:faculty_id/:course_id', (req, res) => {
     });
 });
 
-router.get('/:people_id', (req, res) => {
-  // res.send(200);
+router.post('/student', (req, res) => {
   const data = {};
-
-  data.people_id = req.params.people_id;
+  data.people_id = req.body.id;
 
   methods.students.AttendanceData.getAttendanceSingle(data)
     .then((classes) => {
