@@ -68,14 +68,36 @@ module.exports = setAuthentication;
 
 // const passwordVerifier = function (password, passwordHash) {
 //   return new Promise(((resolve, reject) => {
+//
+//     /* Note on the Options Used with Argon2
+//     *
+//     * Me(@jilvin) and @santhisenan arrived at these values to ensure that brute
+//     * forcing within the current hardware landscape will take at least 100 years
+//     * on average to break the hash. Moreover it was considered as an experiment
+//     * to be run within the college servers to see how it goes and to provide an
+//     * active academic opportunity in the area.(ie. the options was set from an
+//     * academic perspective rather than a production perspective, to move to
+//     * better config as it rolls out).
+//     *
+//     * I strongly suggest that use of argon2 over bcrypt should be strongly
+//     * considered. Argon2 was designed to be secure against a wider range of
+//     * attack vectors. This should be considered only as a pointer towards usage
+//     * consideration but not advisory since I have very little knowledge in the
+//     * area. Moreover the algorithm is new within the cryptographic community and
+//     * there might be vulnerabilities waiting to be discovered(publicly).
+//     *
+//     * PS: I don't exactly remember at the moment whether such a huge allocation
+//     * of memory to each individual thread was intentional or a mistake from our
+//     * part. Future use of argon2 should be carried out after proper evaluation
+//     * of the options.
+//     */
 //     const options = {
 //       timeCost: 30, memoryCost: 2 ** 19, parallelism: 16, type: argon2.argon2i,
 //     };
 //     argon2.hash(password, options).then((hash) => {
 //       console.log(hash);
-
-//   })
-// }
+//     })
+//   }
 // ));
 // };
 
