@@ -4,17 +4,17 @@ const helmet = require('helmet');
 
 const app = express();
 
-//Middlewares
+// Middlewares
 app.use(morgan('dev'));
 app.use(helmet());
 
-//Routes
+// Routes
 app.get('/secret-page', (req, res) => {
-  res.status(200).send("You found the secret page. Whaaaa?");
+  res.status(200).send('You found the secret page. Whaaaa?');
 });
 
 app.get('/', (req, res) => {
-  res.status(200).send("It is what it is.");
+  res.status(200).send('It is what it is.');
 });
 
 // Server start-up configuration
