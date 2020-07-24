@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback"
   },
   "author": "Central Computing Facility, College of Engineering Trivandrum",
   "license": "ISC",
