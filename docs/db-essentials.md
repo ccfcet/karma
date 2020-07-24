@@ -1,0 +1,12 @@
+- People
+  - Student
+    - Attendance
+    - Marks
+  - Faculty
+    - Courses
+- Departments
+  - Classes
+- Academics
+  -Courses
+  -Streams
+- Authentication
