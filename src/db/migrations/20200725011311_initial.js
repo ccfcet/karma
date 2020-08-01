@@ -51,7 +51,7 @@ exports.up = async (knex) => {
   await knex.schema.createTable(tableNames.address, (table) => {
     table.increments().notNullable();
     table.string('line_1').notNullable();
-    table.string('line_2').notNullable();
+    table.string('line_2');
     table.string('city').notNullable();
     createReference(table, tableNames.country).notNullable();
     createReference(table, tableNames.state).notNullable();
@@ -96,6 +96,7 @@ exports.up = async (knex) => {
     table.increments().notNullable();
     createReference(table, tableNames.people).notNullable();
     table.string('email').notNullable().unique();
+    createReference(table, tableNames.data_type).notNullable();
     addDefaultColumns(table);
   });
 
@@ -159,7 +160,7 @@ exports.up = async (knex) => {
   // TABLE_NAME: entity_address
   await knex.schema.createTable(tableNames.entity_address, (table) => {
     table.increments().notNullable();
-    createReference(table, tableNames.field);
+    createReference(table, tableNames.address);
     createReference(table, tableNames.entity);
     addDefaultColumns(table);
   });
@@ -185,7 +186,8 @@ exports.up = async (knex) => {
   await knex.schema.createTable(tableNames.academic_duration, (table) => {
     table.increments().notNullable();
     table.string('name').notNullable();
-    table.date('date').notNullable().unique();
+    table.date('start_date').notNullable().unique();
+    table.date('end_date').notNullable().unique();
     addDefaultColumns(table);
   });
 
@@ -215,11 +217,10 @@ exports.up = async (knex) => {
   // TABLE_NAME: attendance_data
   await knex.schema.createTable(tableNames.attendance_data, (table) => {
     table.increments().notNullable();
-    createReference(
-      table,
-      tableNames.course_instance_association
-    ).notNullable();
+    createReference(table, tableNames.course_instance).notNullable();
     createReference(table, tableNames.people).notNullable();
+    // TODO: Finalise the attendance decision.
+    table.datetime('time').notNullable();
     table.integer('value', 1).notNullable();
     addDefaultColumns(table);
   });

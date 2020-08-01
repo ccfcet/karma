@@ -1,0 +1,27 @@
+const tableNames = require('./tableNames');
+
+module.exports = [
+  tableNames.attendance_data,
+  tableNames.course_instance_association,
+  tableNames.course_instance,
+  tableNames.academic_duration,
+  tableNames.course,
+  tableNames.entity_parent_child,
+  tableNames.entity_address,
+  tableNames.entity_field_value,
+  tableNames.entity_type_field,
+  tableNames.entity,
+  tableNames.entity_type,
+  tableNames.people_field_value,
+  tableNames.field,
+  tableNames.auth,
+  tableNames.email,
+  tableNames.people_address,
+  tableNames.identifier,
+  tableNames.people,
+  tableNames.data_type,
+  tableNames.address,
+  tableNames.state,
+  tableNames.country,
+  tableNames.nationality,
+];
