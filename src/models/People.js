@@ -8,6 +8,7 @@ class People extends Model {
 
   static get relationMappings() {
     const Nationality = require('./Nationality');
+    const Identifier = require('./Identifier');
 
     return {
       nationality: {
@@ -16,6 +17,14 @@ class People extends Model {
         join: {
           from: `${tableNames.people}.${tableNames.nationality}_id`,
           to: `${tableNames.nationality}.id`,
+        },
+      },
+      identifier: {
+        relation: Model.HasManyRelation,
+        modelClass: Identifier,
+        join: {
+          from: `${tableNames.people}.id`,
+          to: `${tableNames.identifier}.${tableNames.people}_id`,
         },
       },
     };
