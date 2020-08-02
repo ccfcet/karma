@@ -6,8 +6,10 @@ const app = express();
 
 const routes = require('./routes');
 
+require('./db/db');
+
 // Middlewares
-app.use(morgan('dev'));
+app.use(morgan('tiny'));
 app.use(helmet());
 
 // Routes

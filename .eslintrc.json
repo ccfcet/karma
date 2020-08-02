@@ -1,9 +1,11 @@
 {
+  "parser": "babel-eslint",
   "extends": ["airbnb-base/legacy", "prettier", "plugin:node/recommended"],
   "plugins": ["prettier"],
   "rules": {
     "strict": "off",
     "prettier/prettier": "error",
-    "no-console": "off"
+    "no-console": "off",
+    "global-require": "off"
   }
 }

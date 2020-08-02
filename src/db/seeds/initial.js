@@ -70,7 +70,6 @@ exports.seed = async (knex) => {
         last_name: 'Thufayil',
         gender: 'M',
         date_of_birth: new Date(1999, 0, 29),
-        country_id: createdCountry.id,
         nationality_id: createdNationality.id,
       },
     ])

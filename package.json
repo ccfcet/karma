@@ -28,9 +28,11 @@
     "helmet": "^3.23.3",
     "knex": "^0.21.2",
     "morgan": "^1.10.0",
+    "objection": "^2.2.2",
     "pg": "^8.3.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "7.2.0",
     "eslint-config-airbnb-base": "14.2.0",
     "eslint-config-node": "^4.1.0",

@@ -31,7 +31,7 @@ exports.up = async (knex) => {
   await knex.schema.createTable(tableNames.country, (table) => {
     table.increments().notNullable();
     table.string('name', 50).notNullable().unique();
-    table.specificType('code', 'CHAR(3)');
+    table.string('code', 3).notNullable().unique();
     addDefaultColumns(table);
   });
 
@@ -42,7 +42,7 @@ exports.up = async (knex) => {
   await knex.schema.createTable(tableNames.state, (table) => {
     table.increments().notNullable();
     table.string('name').notNullable();
-    table.specificType('code', 'CHAR(4)').unique();
+    table.string('code', 4).unique();
     createReference(table, tableNames.country).notNullable();
     addDefaultColumns(table);
   });
@@ -69,7 +69,6 @@ exports.up = async (knex) => {
     table.string('last_name').notNullable();
     table.specificType('gender', 'CHAR(1)').notNullable();
     table.date('date_of_birth').notNullable();
-    createReference(table, tableNames.country).notNullable();
     createReference(table, tableNames.nationality).notNullable();
     addDefaultColumns(table);
   });
