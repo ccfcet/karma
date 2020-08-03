@@ -4,8 +4,8 @@
   "description": "Information Management Framework(HTTP API Service) for Educational Institutions.",
   "main": "app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "lint": "eslint . --fix",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback"
