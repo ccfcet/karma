@@ -201,6 +201,23 @@ exports.up = async (knex) => {
     addDefaultColumns(table);
   });
 
+  // TABLE_NAME: role
+  await knex.schema.createTable(tableNames.role, (table) => {
+    table.increments().notNullable();
+    table.string('name').notNullable();
+    table.string('tag').notNullable().unique();
+    addDefaultColumns(table);
+  });
+
+  // TABLE_NAME: role_people_entity
+  await knex.schema.createTable(tableNames.role_people_entity, (table) => {
+    table.increments().notNullable();
+    createReference(table, tableNames.role);
+    createReference(table, tableNames.people);
+    createReference(table, tableNames.entity);
+    addDefaultColumns(table);
+  });
+
   // TABLE_NAME: course_instance_association
   await knex.schema.createTable(
     tableNames.course_instance_association,
@@ -208,8 +225,7 @@ exports.up = async (knex) => {
       table.increments().notNullable();
       createReference(table, tableNames.course_instance).notNullable();
       createReference(table, tableNames.people);
-      // Change role to FK. For now, use 0/1 for Student/Faculty
-      table.integer('role_id', 1).notNullable();
+      createReference(table, tableNames.role);
       addDefaultColumns(table);
     }
   );
@@ -232,6 +248,8 @@ exports.down = async (knex) => {
     [
       tableNames.attendance_data,
       tableNames.course_instance_association,
+      tableNames.role_people_entity,
+      tableNames.role,
       tableNames.course_instance,
       tableNames.academic_duration,
       tableNames.course,

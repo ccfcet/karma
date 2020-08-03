@@ -98,7 +98,12 @@ exports.seed = async (knex) => {
     },
   ]);
 
-  // SEED AUTH TABLE
+  await knex(tableNames.auth).insert([
+    {
+      people_id: createdPeople.id,
+      password_hash: 'wOWmUChSeCUrEPaSSworD',
+    },
+  ]);
 
   const createdField = await knex(tableNames.field)
     .insert([
@@ -210,12 +215,35 @@ exports.seed = async (knex) => {
     ])
     .returning('*');
 
+  const createdRole = await knex(tableNames.role)
+    .insert([
+      {
+        name: 'Student',
+        tag: 'student-default',
+      },
+      {
+        name: 'Principal',
+        tag: 'principal-default',
+      },
+    ])
+    .returning('*');
+
+  await knex(tableNames.role_people_entity)
+    .insert([
+      {
+        role_id: createdRole[1].id,
+        people_id: createdPeople.id,
+        entity_id: createdEntity[0].id,
+      },
+    ])
+    .returning('*');
+
   await knex(tableNames.course_instance_association)
     .insert([
       {
         course_instance_id: createdCourseInstance.id,
         people_id: createdPeople.id,
-        role_id: 0,
+        role_id: createdRole[0].id,
       },
     ])
     .returning('*');

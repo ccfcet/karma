@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const PeopleAddress = require('../models/PeopleAddress');
+const People = require('../models/People');
 
 router.get('/', (req, res) => {
   res.status(200).send('It is what it is.');
@@ -13,7 +13,7 @@ router.get('/secret-page', (req, res) => {
 });
 
 router.get('/test-route', async (req, res) => {
-  res.status(200).send(await PeopleAddress.query());
+  res.status(200).send(await People.query());
 });
 
 module.exports = router;

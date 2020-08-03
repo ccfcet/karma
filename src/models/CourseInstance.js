@@ -11,6 +11,7 @@ class CourseInstance extends Model {
     const Entity = require('./Entity');
     const AcademicDuration = require('./AcademicDuration');
     const CourseInstanceAssociation = require('./CourseInstanceAssociation');
+    const AttendanceData = require('./CourseInstanceAssociation');
 
     return {
       course: {
@@ -43,6 +44,14 @@ class CourseInstance extends Model {
         join: {
           from: `${tableNames.course_instance}.id`,
           to: `${tableNames.course_instance_association}.${tableNames.course_instance}_id`,
+        },
+      },
+      attendance_data: {
+        relation: Model.HasManyRelation,
+        modelClass: AttendanceData,
+        join: {
+          from: `${tableNames.course_instance}.id`,
+          to: `${tableNames.attendance_data}.${tableNames.course_instance}_id`,
         },
       },
     };

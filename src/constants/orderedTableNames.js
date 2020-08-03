@@ -3,6 +3,8 @@ const tableNames = require('./tableNames');
 module.exports = [
   tableNames.attendance_data,
   tableNames.course_instance_association,
+  tableNames.role_people_entity,
+  tableNames.role,
   tableNames.course_instance,
   tableNames.academic_duration,
   tableNames.course,

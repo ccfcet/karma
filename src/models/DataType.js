@@ -16,8 +16,8 @@ class DataType extends Model {
         relation: Model.HasManyRelation,
         modelClass: Email,
         join: {
-          from: `${tableNames.people}.id`,
-          to: `${tableNames.email}.${tableNames.people}_id`,
+          from: `${tableNames.data_type}.id`,
+          to: `${tableNames.email}.${tableNames.data_type}_id`,
         },
       },
       people_address: {

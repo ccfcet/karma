@@ -15,6 +15,7 @@ class People extends Model {
     const Field = require('./Field');
     const PeopleFieldValue = require('./PeopleFieldValue');
     const CourseInstanceAssociation = require('./CourseInstanceAssociation');
+    const Role = require('./Role');
 
     return {
       nationality: {
@@ -87,6 +88,18 @@ class People extends Model {
         join: {
           from: `${tableNames.people}.id`,
           to: `${tableNames.course_instance_association}.${tableNames.people}_id`,
+        },
+      },
+      role: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Role,
+        join: {
+          from: `${tableNames.people}.id`,
+          through: {
+            from: `${tableNames.role_people_entity}.${tableNames.people}_id`,
+            to: `${tableNames.role_people_entity}.${tableNames.role}_id`,
+          },
+          to: `${tableNames.role}.id`,
         },
       },
     };

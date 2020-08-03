@@ -20,6 +20,8 @@ module.exports = {
   course: 'course',
   academic_duration: 'academic_duration',
   course_instance: 'course_instance',
+  role: 'role',
+  role_people_entity: 'role_people_entity',
   course_instance_association: 'course_instance_association',
   attendance_data: 'attendance_data',
 };

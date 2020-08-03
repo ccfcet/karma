@@ -26,7 +26,7 @@ class Entity extends Model {
         modelClass: EntityFieldValue,
         join: {
           from: `${tableNames.entity}.id`,
-          to: `${tableNames.entity_entity_value}.${tableNames.field}_id`,
+          to: `${tableNames.entity_field_value}.${tableNames.entity}_id`,
         },
       },
       address: {

@@ -9,6 +9,7 @@ class CourseInstanceAssociation extends Model {
   static get relationMappings() {
     const CourseInstance = require('./CourseInstance');
     const People = require('./People');
+    const Role = require('./Role');
 
     return {
       course_instance: {
@@ -25,6 +26,14 @@ class CourseInstanceAssociation extends Model {
         join: {
           from: `${tableNames.course_instance_association}.${tableNames.people}_id`,
           to: `${tableNames.people}.id`,
+        },
+      },
+      role: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Role,
+        join: {
+          from: `${tableNames.course_instance_association}.${tableNames.role}_id`,
+          to: `${tableNames.role}.id`,
         },
       },
     };
