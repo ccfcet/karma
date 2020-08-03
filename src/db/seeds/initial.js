@@ -168,6 +168,7 @@ exports.seed = async (knex) => {
     {
       entity_id: createdEntity[0].id,
       address_id: createdAddress[1].id,
+      data_type_id: createdDataType.id,
     },
   ]);
 

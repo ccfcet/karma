@@ -23,8 +23,8 @@ class State extends Model {
         relation: Model.HasManyRelation,
         modelClass: Address,
         join: {
-          from: `${tableNames.country}.id`,
-          to: `${tableNames.address}.${tableNames.country}_id`,
+          from: `${tableNames.state}.id`,
+          to: `${tableNames.address}.${tableNames.state}_id`,
         },
       },
     };

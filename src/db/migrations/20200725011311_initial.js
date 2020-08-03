@@ -161,6 +161,7 @@ exports.up = async (knex) => {
     table.increments().notNullable();
     createReference(table, tableNames.address);
     createReference(table, tableNames.entity);
+    createReference(table, tableNames.data_type).notNullable();
     addDefaultColumns(table);
   });
 
