@@ -11,6 +11,12 @@ exports.seed = async (knex) => {
       {
         value: 'Indian',
       },
+      {
+        value: 'African',
+      },
+      {
+        value: 'American',
+      },
     ])
     .returning('*');
 

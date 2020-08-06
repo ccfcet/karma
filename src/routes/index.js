@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const People = require('../models/People');
+const { People } = require('../models');
 
 router.get('/', (req, res) => {
   res.status(200).send('It is what it is.');
