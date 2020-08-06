@@ -1,30 +1,32 @@
-const { Nationality } = require('../models');
+const { Country } = require('../models');
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   extend type Query {
-    nationality(id: ID): [Nationality!]
+    country(id: ID): [Country!]
   }
 
-  type Nationality {
+  type Country {
     id: ID!
-    value: String!
+    name: String!
+    code: String!
   }
 `;
 
 const resolvers = {
   Query: {
-    nationality: async (_, { id }) => {
+    country: async (_, { id }) => {
       let result;
       if (id) {
-        result = await Nationality.query().where('id', id);
+        result = await Country.query().where('id', id);
       } else {
-        result = await Nationality.query();
+        result = await Country.query();
       }
       const newResult = result.map((element) => {
         return {
           id: element.id,
-          value: element.value,
+          name: element.name,
+          code: element.code,
         };
       });
       return newResult;

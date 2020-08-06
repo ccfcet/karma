@@ -2,9 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
-const { graphqlHTTP } = require('express-graphql');
+const { ApolloServer } = require('apollo-server-express');
 
-const { rootSchema, rootResolver } = require('./graphql');
+const { rootTypeDef, rootResolver } = require('./graphql');
 
 const app = express();
 
@@ -19,13 +19,12 @@ app.use(helmet());
 // Routes
 app.use('/', routes);
 
-app.use(
-  '/graphql',
-  graphqlHTTP({
-    schema: rootSchema,
-    rootValue: rootResolver,
-    graphiql: true,
-  })
-);
+const server = new ApolloServer({
+  typeDefs: rootTypeDef,
+  resolvers: rootResolver,
+});
+
+server.applyMiddleware({ app });
+console.log(server.graphqlPath);
 
 module.exports = app;
