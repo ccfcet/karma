@@ -1,5 +1,6 @@
 const { State } = require('../models');
 const { gql } = require('apollo-server-express');
+const DataLoader = require('dataloader');
 
 const typeDefs = gql`
   extend type Query {
@@ -40,14 +41,28 @@ const resolvers = {
     },
   },
   State: {
-    country: async (parent) => {
-      const [result] = await State.relatedQuery('country').for(parent.id);
-      return result;
+    country: async (parent, _, ctx) => {
+      return ctx.stateCountryLoader.load(parent.id);
     },
   },
+};
+
+const loaders = {
+  stateCountryLoader: new DataLoader(async (stateIds) => {
+    const results = await State.query()
+      .select('state.id as state_id')
+      .join('country', 'state.country_id', '=', 'country.id')
+      .select('country.*');
+    let countryMap = {};
+    results.forEach((result) => {
+      countryMap[result.state_id] = result;
+    });
+    return stateIds.map((stateId) => countryMap[stateId]);
+  }),
 };
 
 module.exports = {
   typeDefs,
   resolvers,
+  loaders,
 };

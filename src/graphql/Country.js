@@ -40,7 +40,10 @@ const resolvers = {
   },
 };
 
+const loaders = {};
+
 module.exports = {
   typeDefs,
   resolvers,
+  loaders,
 };

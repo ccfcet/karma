@@ -52,17 +52,17 @@ const resolvers = {
     },
   },
   Address: {
-    country: async (parent, _, ctx) => {
-      return ctx.countryLoader.load(parent.id);
-    },
     state: async (parent, _, ctx) => {
-      return ctx.stateLoader.load(parent.id);
+      return ctx.addressStateLoader.load(parent.id);
+    },
+    country: async (parent, _, ctx) => {
+      return ctx.addressCountryLoader.load(parent.id);
     },
   },
 };
 
 const loaders = {
-  stateLoader: new DataLoader(async (addressIds) => {
+  addressStateLoader: new DataLoader(async (addressIds) => {
     const results = await Address.query()
       .select('address.id as address_id')
       .join('state', 'address.state_id', '=', 'state.id')
@@ -73,7 +73,8 @@ const loaders = {
     });
     return addressIds.map((addressId) => stateMap[addressId]);
   }),
-  countryLoader: new DataLoader(async (addressIds) => {
+
+  addressCountryLoader: new DataLoader(async (addressIds) => {
     const results = await Address.query()
       .select('address.id as address_id')
       .join('country', 'address.country_id', '=', 'country.id')
