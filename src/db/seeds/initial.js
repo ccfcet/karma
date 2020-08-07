@@ -20,11 +20,15 @@ exports.seed = async (knex) => {
     ])
     .returning('*');
 
-  const [createdCountry] = await knex(tableNames.country)
+  const createdCountry = await knex(tableNames.country)
     .insert([
       {
         name: 'India',
         code: 'IND',
+      },
+      {
+        name: 'United Arab Emirates',
+        code: 'AE',
       },
     ])
     .returning('*');
@@ -34,6 +38,9 @@ exports.seed = async (knex) => {
       {
         value: 'Primary',
       },
+      {
+        value: 'Alternate',
+      },
     ])
     .returning('*');
 
@@ -42,7 +49,12 @@ exports.seed = async (knex) => {
       {
         name: 'Kerala',
         code: 'KL',
-        country_id: createdCountry.id,
+        country_id: createdCountry[0].id,
+      },
+      {
+        name: 'Dubai',
+        code: 'DB',
+        country_id: createdCountry[1].id,
       },
     ])
     .returning('*');
@@ -53,7 +65,7 @@ exports.seed = async (knex) => {
         line_1: '"Jameelas", TKN WARD',
         line_2: 'Opp. United Tourist Home, Thalikkavu',
         city: 'Kannur',
-        country_id: createdCountry.id,
+        country_id: createdCountry[0].id,
         state_id: createdState.id,
         zipcode: '670001',
       },
@@ -61,7 +73,7 @@ exports.seed = async (knex) => {
         line_1: 'Engineering College, Sreekaryam - Kulathoor Rd',
         line_2: 'P.O, Sreekariyam',
         city: 'Thiruvananthapuram',
-        country_id: createdCountry.id,
+        country_id: createdCountry[0].id,
         state_id: createdState.id,
         zipcode: '670001',
       },

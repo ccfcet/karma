@@ -9,6 +9,9 @@ const typeDefs = gql`
   type Nationality {
     id: ID!
     value: String!
+    createdAt: String!
+    updatedAt: String!
+    deletedAt: String
   }
 `;
 
@@ -25,6 +28,9 @@ const resolvers = {
         return {
           id: element.id,
           value: element.value,
+          createdAt: element.created_at,
+          updatedAt: element.updated_at,
+          deletedAt: element.deleted_at,
         };
       });
       return newResult;

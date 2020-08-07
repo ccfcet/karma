@@ -5,17 +5,16 @@ const { readFiles } = require('../lib/utils');
 const loadModules = () => {
   let loadedSchema = [];
   let loadedResolvers = {};
+  let loadedLoaders = {};
   const modules = readFiles(__dirname);
   modules.forEach((_module) => {
     const loadedModule = require(`./${_module}`);
     loadedSchema.push(loadedModule.typeDefs);
     loadedResolvers = merge(loadedResolvers, loadedModule.resolvers);
+    loadedLoaders = merge(loadedLoaders, loadedModule.loaders);
   });
-  return { loadedSchema, loadedResolvers };
+  return { loadedSchema, loadedResolvers, loadedLoaders };
 };
-
-// const Nationality = require('./Nationality');
-// const Country = require('./Country');
 
 const Query = gql`
   type Query {
@@ -23,16 +22,17 @@ const Query = gql`
   }
 `;
 
-const { loadedSchema, loadedResolvers } = loadModules();
+const { loadedSchema, loadedResolvers, loadedLoaders } = loadModules();
 
 const rootTypeDef = loadedSchema;
 rootTypeDef.push(Query);
 
 const rootResolver = loadedResolvers;
-// const rootTypeDef = [Query, Nationality.typeDefs, Country.typeDefs];
-// const rootResolver = merge(Nationality.resolvers, Country.resolvers);
+
+const rootLoader = loadedLoaders;
 
 module.exports = {
   rootTypeDef,
   rootResolver,
+  rootLoader,
 };

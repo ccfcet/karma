@@ -1,35 +1,30 @@
-const { Country } = require('../models');
+const { DataType } = require('../models');
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   extend type Query {
-    country(id: ID): [Country!]
+    dataType(id: ID): [DataType!]
   }
 
-  type Country {
+  type DataType {
     id: ID!
-    name: String!
-    code: String!
-    createdAt: String!
-    updatedAt: String!
-    deletedAt: String
+    value: String!
   }
 `;
 
 const resolvers = {
   Query: {
-    country: async (_, { id }) => {
+    dataType: async (_, { id }) => {
       let result;
       if (id) {
-        result = await Country.query().where('id', id);
+        result = await DataType.query().where('id', id);
       } else {
-        result = await Country.query();
+        result = await DataType.query();
       }
       const newResult = result.map((element) => {
         return {
           id: element.id,
-          name: element.name,
-          code: element.code,
+          value: element.value,
           createdAt: element.created_at,
           updatedAt: element.updated_at,
           deletedAt: element.deleted_at,

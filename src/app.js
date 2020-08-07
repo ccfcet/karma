@@ -3,8 +3,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 
 const { ApolloServer } = require('apollo-server-express');
-
-const { rootTypeDef, rootResolver } = require('./graphql');
+const { rootTypeDef, rootResolver, rootLoader } = require('./graphql');
 
 const app = express();
 
@@ -22,9 +21,13 @@ app.use('/', routes);
 const server = new ApolloServer({
   typeDefs: rootTypeDef,
   resolvers: rootResolver,
+  context: () => {
+    return {
+      ...rootLoader,
+    };
+  },
 });
 
 server.applyMiddleware({ app });
-console.log(server.graphqlPath);
 
 module.exports = app;

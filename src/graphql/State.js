@@ -10,6 +10,10 @@ const typeDefs = gql`
     id: ID!
     name: String!
     code: String!
+    country: Country!
+    createdAt: String!
+    updatedAt: String!
+    deletedAt: String
   }
 `;
 
@@ -27,9 +31,18 @@ const resolvers = {
           id: element.id,
           name: element.name,
           code: element.code,
+          createdAt: element.created_at,
+          updatedAt: element.updated_at,
+          deletedAt: element.deleted_at,
         };
       });
       return newResult;
+    },
+  },
+  State: {
+    country: async (parent) => {
+      const [result] = await State.relatedQuery('country').for(parent.id);
+      return result;
     },
   },
 };
