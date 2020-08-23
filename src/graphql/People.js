@@ -1,6 +1,6 @@
 const { People } = require('../models');
 const { gql } = require('apollo-server-express');
-const DataLoader = require('dataloader');
+const { generateLoader } = require('../lib/utils');
 
 const typeDefs = gql`
   extend type Query {
@@ -15,6 +15,7 @@ const typeDefs = gql`
     gender: String!
     dateOfBirth: String!
     nationality: Nationality!
+    address: [Address]!
     createdAt: String!
     updatedAt: String!
     deletedAt: String
@@ -50,21 +51,47 @@ const resolvers = {
     nationality: async (parent, _, ctx) => {
       return ctx.peopleNationalityLoader.load(parent.id);
     },
+    address: async (parent, _, ctx) => {
+      return ctx.peopleAddressLoader.load(parent.id);
+    },
   },
 };
 
+const nationalityOptions = {
+  loaderName: 'peopleNationalityLoader',
+  type: 'one-to-many',
+  from: {
+    table: 'people',
+    column: 'people.nationality_id',
+  },
+  to: {
+    table: 'nationality',
+    column: 'nationality.id',
+  },
+};
+
+const addressOptions = {
+  loaderName: 'peopleAddressLoader',
+  type: 'many-to-many',
+  from: {
+    table: 'people',
+    column: 'people.id',
+  },
+  via: {
+    table: 'people_address',
+    column1: 'people_address.people_id',
+    column2: 'people_address.address_id',
+  },
+  to: {
+    table: 'address',
+    column: 'address.id',
+  },
+  cache: false,
+};
+
 const loaders = {
-  peopleNationalityLoader: new DataLoader(async (peopleIds) => {
-    const results = await People.query()
-      .select('people.id as people_id')
-      .join('nationality', 'people.nationality_id', '=', 'nationality.id')
-      .select('nationality.*');
-    let nationalityMap = {};
-    results.forEach((result) => {
-      nationalityMap[result.people_id] = result;
-    });
-    return peopleIds.map((peopleId) => nationalityMap[peopleId]);
-  }),
+  peopleNationalityLoader: generateLoader(nationalityOptions),
+  peopleAddressLoader: generateLoader(addressOptions),
 };
 
 module.exports = {

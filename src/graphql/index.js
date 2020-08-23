@@ -8,6 +8,7 @@ const loadModules = () => {
   let loadedLoaders = {};
   const modules = readFiles(__dirname);
   modules.forEach((_module) => {
+    if (_module === 'peopleNew') return;
     const loadedModule = require(`./${_module}`);
     loadedSchema.push(loadedModule.typeDefs);
     loadedResolvers = merge(loadedResolvers, loadedModule.resolvers);

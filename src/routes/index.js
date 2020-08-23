@@ -2,7 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-const { Address } = require('../models');
+// const { Address } = require('../models');
+const connection = require('../db/db');
 
 router.get('/', (req, res) => {
   res.status(200).send('It is what it is.');
@@ -16,10 +17,10 @@ router.get('/test-route', async (req, res) => {
   res
     .status(200)
     .send(
-      await Address.query()
-        .select('address.id as address_id')
-        .join('state', 'address.state_id', '=', 'state.id')
-        .select('state.*')
+      await connection('people')
+        .select(['people.id AS people_id', 'address.*', 'people_address.*'])
+        .join('people_address', 'people.id', 'people_address.people_id')
+        .join('address', 'address.id', 'people_address.address_id')
     );
 });
 

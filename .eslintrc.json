@@ -6,6 +6,7 @@
     "strict": "off",
     "prettier/prettier": "error",
     "no-console": "off",
-    "global-require": "off"
+    "global-require": "off",
+    "no-case-declarations": "off"
   }
 }

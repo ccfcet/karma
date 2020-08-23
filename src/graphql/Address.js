@@ -1,6 +1,6 @@
 const { Address } = require('../models');
 const { gql } = require('apollo-server-express');
-const DataLoader = require('dataloader');
+const { generateLoader } = require('../lib/utils');
 
 const typeDefs = gql`
   extend type Query {
@@ -61,30 +61,35 @@ const resolvers = {
   },
 };
 
-const loaders = {
-  addressStateLoader: new DataLoader(async (addressIds) => {
-    const results = await Address.query()
-      .select('address.id as address_id')
-      .join('state', 'address.state_id', '=', 'state.id')
-      .select('state.*');
-    let stateMap = {};
-    results.forEach((result) => {
-      stateMap[result.address_id] = result;
-    });
-    return addressIds.map((addressId) => stateMap[addressId]);
-  }),
+const countryOptions = {
+  loaderName: 'addressCountry',
+  from: {
+    table: 'address',
+    column: 'address.country_id',
+  },
+  to: {
+    table: 'country',
+    column: 'country.id',
+  },
+  type: 'one-to-many',
+};
 
-  addressCountryLoader: new DataLoader(async (addressIds) => {
-    const results = await Address.query()
-      .select('address.id as address_id')
-      .join('country', 'address.country_id', '=', 'country.id')
-      .select('country.*');
-    let countryMap = {};
-    results.forEach((result) => {
-      countryMap[result.address_id] = result;
-    });
-    return addressIds.map((addressId) => countryMap[addressId]);
-  }),
+const stateOptions = {
+  loaderName: 'addressState',
+  from: {
+    table: 'address',
+    column: 'address.state_id',
+  },
+  to: {
+    table: 'state',
+    column: 'state.id',
+  },
+  type: 'one-to-many',
+};
+
+const loaders = {
+  addressCountryLoader: generateLoader(countryOptions),
+  addressStateLoader: generateLoader(stateOptions),
 };
 
 module.exports = {
