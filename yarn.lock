@@ -407,7 +407,7 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.0:
+ajv@^6.10.0, ajv@^6.10.2:
   version "6.12.3"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.3.tgz#18c5af38a111ddeb4f2697bd78d68abc1cabd706"
   integrity sha512-4K0cK3L1hsqk9xIb2z9vs/XU+PGJZ9PNpJRDS9YLzmNdX6jmVPfamLvTJr0aDAusnHyCHO6MjzlkAsgtqp9teA==
@@ -1191,11 +1191,6 @@ dataloader@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-2.0.0.tgz#41eaf123db115987e21ca93c005cd7753c55fe6f"
   integrity sha512-YzhyDAwA4TaQIhM5go+vCLmU0UikghC/t9DTQYZR2M/UvZ1MdOhPezSDZcjj9uqQJOMqjLcpWtyW2iNINdlatQ==
-
-db-errors@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/db-errors/-/db-errors-0.2.3.tgz#a6a38952e00b20e790f2695a6446b3c65497ffa2"
-  integrity sha512-OOgqgDuCavHXjYSJoV2yGhv6SeG8nk42aoCSoyXLZUH7VwFG27rxbavU1z+VrZbZjphw5UkDQwUlD21MwZpUng==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   version "2.6.9"
@@ -3332,14 +3327,6 @@ object.values@^1.1.1:
     es-abstract "^1.17.0-next.1"
     function-bind "^1.1.1"
     has "^1.0.3"
-
-objection@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/objection/-/objection-2.2.2.tgz#1a3c9010270e3677940d2bc91aeaeb3c0f103800"
-  integrity sha512-+1Ap7u9NQRochzDW5/BggUlKi94JfZGTJwQJuNXo8DwmAb8czEirvxcWBcX91/MmQq0BQUJjM4RPSiZhnkkWQw==
-  dependencies:
-    ajv "^6.12.0"
-    db-errors "^0.2.3"
 
 on-finished@~2.3.0:
   version "2.3.0"

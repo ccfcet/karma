@@ -32,7 +32,6 @@
     "knex": "^0.21.2",
     "lodash": "^4.17.19",
     "morgan": "^1.10.0",
-    "objection": "^2.2.2",
     "pg": "^8.3.0"
   },
   "devDependencies": {

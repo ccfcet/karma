@@ -2,7 +2,6 @@ const express = require('express');
 
 const router = express.Router();
 
-// const { Address } = require('../models');
 const connection = require('../db/db');
 
 router.get('/', (req, res) => {
