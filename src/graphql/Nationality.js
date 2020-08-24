@@ -1,5 +1,6 @@
-const { Nationality } = require('../models');
 const { gql } = require('apollo-server-express');
+
+const connection = require('../db/db');
 
 const typeDefs = gql`
   extend type Query {
@@ -9,9 +10,9 @@ const typeDefs = gql`
   type Nationality {
     id: ID!
     value: String!
-    createdAt: String!
-    updatedAt: String!
-    deletedAt: String
+    created_at: String!
+    updated_at: String!
+    deleted_at: String
   }
 `;
 
@@ -20,20 +21,11 @@ const resolvers = {
     nationality: async (_, { id }) => {
       let result;
       if (id) {
-        result = await Nationality.query().where('id', id);
+        result = await connection('nationality').select().where('id', id);
       } else {
-        result = await Nationality.query();
+        result = await connection('nationality').select();
       }
-      const newResult = result.map((element) => {
-        return {
-          id: element.id,
-          value: element.value,
-          createdAt: element.created_at,
-          updatedAt: element.updated_at,
-          deletedAt: element.deleted_at,
-        };
-      });
-      return newResult;
+      return result;
     },
   },
 };

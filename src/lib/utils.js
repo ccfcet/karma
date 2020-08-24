@@ -67,7 +67,19 @@ const generateLoader = ({ loaderName, type, from, via, to, cache = true }) => {
   );
 };
 
+const generateLoaders = (options) => {
+  let loaders = {};
+  options.forEach((option) => {
+    loaders = {
+      ...loaders,
+      [option.loaderName]: generateLoader(option),
+    };
+  });
+  return loaders;
+};
+
 module.exports = {
   readFiles,
   generateLoader,
+  generateLoaders,
 };

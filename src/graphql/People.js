@@ -1,6 +1,6 @@
 const { People } = require('../models');
 const { gql } = require('apollo-server-express');
-const { generateLoader } = require('../lib/utils');
+const { generateLoaders } = require('../lib/utils');
 
 const typeDefs = gql`
   extend type Query {
@@ -9,16 +9,16 @@ const typeDefs = gql`
 
   type People {
     id: ID!
-    firstName: String!
-    middleName: String
-    lastName: String!
+    first_name: String!
+    middle_name: String
+    last_name: String!
     gender: String!
-    dateOfBirth: String!
+    date_of_birth: String!
     nationality: Nationality!
     address: [Address]!
-    createdAt: String!
-    updatedAt: String!
-    deletedAt: String
+    created_at: String!
+    updated_at: String!
+    deleted_at: String
   }
 `;
 
@@ -31,20 +31,7 @@ const resolvers = {
       } else {
         result = await People.query();
       }
-      const newResult = result.map((element) => {
-        return {
-          id: element.id,
-          firstName: element.first_name,
-          middleName: element.middle_name,
-          lastName: element.last_name,
-          gender: element.gender,
-          dateOfBirth: element.date_of_birth,
-          createdAt: element.created_at,
-          updatedAt: element.updated_at,
-          deletedAt: element.deleted_at,
-        };
-      });
-      return newResult;
+      return result;
     },
   },
   People: {
@@ -57,42 +44,40 @@ const resolvers = {
   },
 };
 
-const nationalityOptions = {
-  loaderName: 'peopleNationalityLoader',
-  type: 'one-to-many',
-  from: {
-    table: 'people',
-    column: 'people.nationality_id',
+const relations = [
+  {
+    loaderName: 'peopleNationalityLoader',
+    type: 'one-to-many',
+    from: {
+      table: 'people',
+      column: 'people.nationality_id',
+    },
+    to: {
+      table: 'nationality',
+      column: 'nationality.id',
+    },
   },
-  to: {
-    table: 'nationality',
-    column: 'nationality.id',
+  {
+    loaderName: 'peopleAddressLoader',
+    type: 'many-to-many',
+    from: {
+      table: 'people',
+      column: 'people.id',
+    },
+    via: {
+      table: 'people_address',
+      column1: 'people_address.people_id',
+      column2: 'people_address.address_id',
+    },
+    to: {
+      table: 'address',
+      column: 'address.id',
+    },
+    cache: false,
   },
-};
+];
 
-const addressOptions = {
-  loaderName: 'peopleAddressLoader',
-  type: 'many-to-many',
-  from: {
-    table: 'people',
-    column: 'people.id',
-  },
-  via: {
-    table: 'people_address',
-    column1: 'people_address.people_id',
-    column2: 'people_address.address_id',
-  },
-  to: {
-    table: 'address',
-    column: 'address.id',
-  },
-  cache: false,
-};
-
-const loaders = {
-  peopleNationalityLoader: generateLoader(nationalityOptions),
-  peopleAddressLoader: generateLoader(addressOptions),
-};
+const loaders = generateLoaders(relations);
 
 module.exports = {
   typeDefs,

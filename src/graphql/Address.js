@@ -1,6 +1,7 @@
-const { Address } = require('../models');
 const { gql } = require('apollo-server-express');
-const { generateLoader } = require('../lib/utils');
+const { generateLoaders } = require('../lib/utils');
+
+const connection = require('../db/db');
 
 const typeDefs = gql`
   extend type Query {
@@ -9,17 +10,17 @@ const typeDefs = gql`
 
   type Address {
     id: ID!
-    line1: String!
-    line2: String
+    line_1: String!
+    line_2: String
     city: String!
     country: Country!
     state: State!
     zipcode: String!
     latitude: Float
     longtiude: Float
-    createdAt: String!
-    updatedAt: String!
-    deletedAt: String
+    created_at: String!
+    updated_at: String!
+    deleted_at: String
   }
 `;
 
@@ -28,27 +29,11 @@ const resolvers = {
     address: async (_, { id }) => {
       let result;
       if (id) {
-        result = await Address.query().where('id', id);
+        result = await connection('address').select().where('id', id);
       } else {
-        result = await Address.query();
+        result = await connection('address').select();
       }
-      const newResult = result.map((element) => {
-        return {
-          id: element.id,
-          line1: element.line_1,
-          line2: element.line_2,
-          city: element.city,
-          country: element.country,
-          state: element.state,
-          zipcode: element.zipcode,
-          latitude: element.latitude,
-          longtiude: element.longtiude,
-          createdAt: element.created_at,
-          updatedAt: element.updated_at,
-          deletedAt: element.deleted_at,
-        };
-      });
-      return newResult;
+      return result;
     },
   },
   Address: {
@@ -61,36 +46,34 @@ const resolvers = {
   },
 };
 
-const countryOptions = {
-  loaderName: 'addressCountry',
-  from: {
-    table: 'address',
-    column: 'address.country_id',
+const relations = [
+  {
+    loaderName: 'addressState',
+    from: {
+      table: 'address',
+      column: 'address.state_id',
+    },
+    to: {
+      table: 'state',
+      column: 'state.id',
+    },
+    type: 'one-to-many',
   },
-  to: {
-    table: 'country',
-    column: 'country.id',
+  {
+    loaderName: 'addressCountry',
+    from: {
+      table: 'address',
+      column: 'address.country_id',
+    },
+    to: {
+      table: 'country',
+      column: 'country.id',
+    },
+    type: 'one-to-many',
   },
-  type: 'one-to-many',
-};
+];
 
-const stateOptions = {
-  loaderName: 'addressState',
-  from: {
-    table: 'address',
-    column: 'address.state_id',
-  },
-  to: {
-    table: 'state',
-    column: 'state.id',
-  },
-  type: 'one-to-many',
-};
-
-const loaders = {
-  addressCountryLoader: generateLoader(countryOptions),
-  addressStateLoader: generateLoader(stateOptions),
-};
+const loaders = generateLoaders(relations);
 
 module.exports = {
   typeDefs,

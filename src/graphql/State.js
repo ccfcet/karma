@@ -1,6 +1,7 @@
-const { State } = require('../models');
 const { gql } = require('apollo-server-express');
-const DataLoader = require('dataloader');
+const { generateLoaders } = require('../lib/utils');
+
+const connection = require('../db/db');
 
 const typeDefs = gql`
   extend type Query {
@@ -12,9 +13,9 @@ const typeDefs = gql`
     name: String!
     code: String!
     country: Country!
-    createdAt: String!
-    updatedAt: String!
-    deletedAt: String
+    created_at: String!
+    updated_at: String!
+    deleted_at: String
   }
 `;
 
@@ -23,21 +24,11 @@ const resolvers = {
     state: async (_, { id }) => {
       let result;
       if (id) {
-        result = await State.query().where('id', id);
+        result = await connection('state').select().where('id', id);
       } else {
-        result = await State.query();
+        result = await connection('state').select();
       }
-      const newResult = result.map((element) => {
-        return {
-          id: element.id,
-          name: element.name,
-          code: element.code,
-          createdAt: element.created_at,
-          updatedAt: element.updated_at,
-          deletedAt: element.deleted_at,
-        };
-      });
-      return newResult;
+      return result;
     },
   },
   State: {
@@ -47,19 +38,22 @@ const resolvers = {
   },
 };
 
-const loaders = {
-  stateCountryLoader: new DataLoader(async (stateIds) => {
-    const results = await State.query()
-      .select('state.id as state_id')
-      .join('country', 'state.country_id', '=', 'country.id')
-      .select('country.*');
-    let countryMap = {};
-    results.forEach((result) => {
-      countryMap[result.state_id] = result;
-    });
-    return stateIds.map((stateId) => countryMap[stateId]);
-  }),
-};
+const relations = [
+  {
+    loaderName: 'stateCountry',
+    from: {
+      table: 'state',
+      column: 'state.country_id',
+    },
+    to: {
+      table: 'country',
+      column: 'country.id',
+    },
+    type: 'one-to-many',
+  },
+];
+
+const loaders = generateLoaders(relations);
 
 module.exports = {
   typeDefs,
