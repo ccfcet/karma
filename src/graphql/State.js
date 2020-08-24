@@ -40,7 +40,7 @@ const resolvers = {
 
 const relations = [
   {
-    loaderName: 'stateCountry',
+    loaderName: 'stateCountryLoader',
     from: {
       table: 'state',
       column: 'state.country_id',

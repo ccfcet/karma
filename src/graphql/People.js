@@ -1,6 +1,7 @@
-const { People } = require('../models');
 const { gql } = require('apollo-server-express');
 const { generateLoaders } = require('../lib/utils');
+
+const connection = require('../db/db');
 
 const typeDefs = gql`
   extend type Query {
@@ -27,9 +28,9 @@ const resolvers = {
     people: async (_, { id }) => {
       let result;
       if (id) {
-        result = await People.query().where('id', id);
+        result = await connection('people').select().where('id', id);
       } else {
-        result = await People.query();
+        result = await connection('people').select();
       }
       return result;
     },

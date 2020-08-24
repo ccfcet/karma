@@ -48,7 +48,7 @@ const resolvers = {
 
 const relations = [
   {
-    loaderName: 'addressState',
+    loaderName: 'addressStateLoader',
     from: {
       table: 'address',
       column: 'address.state_id',
@@ -60,7 +60,7 @@ const relations = [
     type: 'one-to-many',
   },
   {
-    loaderName: 'addressCountry',
+    loaderName: 'addressCountryLoader',
     from: {
       table: 'address',
       column: 'address.country_id',
