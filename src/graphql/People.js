@@ -74,7 +74,6 @@ const relations = [
       table: 'address',
       column: 'address.id',
     },
-    cache: false,
   },
 ];
 

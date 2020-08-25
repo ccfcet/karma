@@ -32,7 +32,14 @@
   }
 }
 ```
-
+Should Be
+```json
+{
+  people(roleID) {
+    name
+  }
+}
+```
 
 
 ## Faculties in DEP
@@ -45,6 +52,16 @@
         name
       }
     }
+  }
+}
+```
+
+Should Be
+
+```json
+{
+  people(entityID, roleID) {
+    name
   }
 }
 ```

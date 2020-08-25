@@ -16,10 +16,9 @@ router.get('/test-route', async (req, res) => {
   res
     .status(200)
     .send(
-      await connection('people')
-        .select(['people.id AS people_id', 'address.*', 'people_address.*'])
-        .join('people_address', 'people.id', 'people_address.people_id')
-        .join('address', 'address.id', 'people_address.address_id')
+      await connection.raw(
+        'SELECT * FROM entity A, entity B, entity_parent_child EPC WHERE A.id=EPC.parent_id AND B.id=EPC.child_id'
+      )
     );
 });
 
