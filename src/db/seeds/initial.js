@@ -207,6 +207,7 @@ exports.seed = async (knex) => {
       {
         code: 'CS204',
         name: 'Operating Systems',
+        entity_id: createdEntity[1].id,
         credits: 4,
       },
     ])
@@ -227,7 +228,6 @@ exports.seed = async (knex) => {
       {
         course_id: createdCourse.id,
         tag: '2020-semester-4-os',
-        entity_id: createdEntity[1].id,
         academic_duration_id: createdAcademicDuration.id,
       },
     ])

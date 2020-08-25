@@ -178,6 +178,7 @@ exports.up = async (knex) => {
     table.increments().notNullable();
     table.string('code', 5).unique();
     table.string('name').notNullable();
+    createReference(table, tableNames.entity);
     table.float('credits');
     addDefaultColumns(table);
   });
@@ -196,7 +197,6 @@ exports.up = async (knex) => {
     table.increments().notNullable();
     createReference(table, tableNames.course).notNullable();
     table.string('tag').notNullable();
-    createReference(table, tableNames.entity);
     createReference(table, tableNames.academic_duration);
     addDefaultColumns(table);
   });
