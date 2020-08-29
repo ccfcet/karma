@@ -1,26 +1,13 @@
-// const express = require('express');
-// const morgan = require('morgan');
-// const helmet = require('helmet');
 const Fastify = require('fastify');
 const GQL = require('fastify-gql');
-
-// const { ApolloServer } = require('apollo-server-express');
-const { rootTypeDef, rootResolver } = require('./graphql2');
-const { peopleOfEntityLoader } = require('./dataLoaders.js');
 const { makeExecutableSchema } = require('graphql-tools');
+
+const { typeDefs, resolvers } = require('./graphql2');
+const { peopleOfEntityLoader } = require('./dataLoaders.js');
 
 const app = Fastify();
 
-// const routes = require('./routes');
-
-require('./db/db');
-
-// Middlewares
-// app.use(morgan('tiny'));
-// app.use(helmet());
-
-// Routes
-// app.use('/', );
+// console.log(rootTypeDef);
 
 // const server = new ApolloServer({
 //   typeDefs: rootTypeDef,
@@ -37,8 +24,8 @@ require('./db/db');
 
 app.register(GQL, {
   schema: makeExecutableSchema({
-    typeDefs: rootTypeDef,
-    resolvers: rootResolver,
+    typeDefs,
+    resolvers,
   }),
   jit: 1,
   graphiql: 'playground',
@@ -48,7 +35,5 @@ app.register(GQL, {
     };
   },
 });
-
-// server.applyMiddleware({ app });
 
 module.exports = app;

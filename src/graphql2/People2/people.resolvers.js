@@ -1,35 +1,8 @@
-const { gql } = require('apollo-server-express');
+const connection = require('../../db/db');
 
-const connection = require('../db/db');
-
-const typeDefs = gql`
-  extend type Query {
-    people(id: ID, entityID: ID): [People!]
-    peopleByEnitity(entityID: ID!): PeopleByEnitity!
-  }
-
-  type People {
-    id: ID!
-    first_name: String!
-    middle_name: String
-    last_name: String!
-    gender: String!
-    date_of_birth: String!
-    created_at: String!
-    updated_at: String!
-    deleted_at: String
-  }
-
-  type PeopleByEnitity {
-    id: ID!
-    people_id: ID!
-    people: [People]
-  }
-`;
-
-const resolvers = {
+module.exports = {
   Query: {
-    peopleByEnitity: async (_, { entityID }) => {
+    peopleByEnitity2: async (_, { entityID }) => {
       let result;
       if (entityID) {
         result = await connection('role_people_entity')
@@ -41,7 +14,7 @@ const resolvers = {
       console.log(result);
       return result;
     },
-    people: async (_, { id, entityID }) => {
+    people2: async (_, { id, entityID }) => {
       let result;
       if (id) {
         result = await connection('people').select().where('id', id);
@@ -61,14 +34,10 @@ const resolvers = {
       return result;
     },
   },
-  PeopleByEnitity: {
-    people: async (parent, _, ctx) => {
+  PeopleByEnitity2: {
+    people2: async (parent, _, ctx) => {
       console.log(parent);
       return ctx.peopleOfEntityLoader.load(parent.map((k) => k.people_id));
     },
   },
-};
-module.exports = {
-  typeDefs,
-  resolvers,
 };

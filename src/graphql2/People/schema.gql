@@ -1,0 +1,20 @@
+type Query {
+  people(id: ID, entityID: ID): [People!]
+  peopleByEnitity(entityID: ID!): PeopleByEnitity!
+}
+
+type People {
+  id: ID!
+  first_name: String!
+  middle_name: String
+  last_name: String!
+  gender: String!
+  date_of_birth: String!
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}
+
+type PeopleByEnitity {
+  people: [People]
+}
