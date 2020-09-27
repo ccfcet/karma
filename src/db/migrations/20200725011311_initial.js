@@ -215,6 +215,7 @@ exports.up = async (knex) => {
     createReference(table, tableNames.role);
     createReference(table, tableNames.people);
     createReference(table, tableNames.entity);
+    table.boolean('is_superuser').defaultTo(false);
     addDefaultColumns(table);
   });
 
@@ -240,12 +241,61 @@ exports.up = async (knex) => {
     table.integer('value', 1).notNullable();
     addDefaultColumns(table);
   });
+
+  // TABLE_NAME: superuser
+  await knex.schema.createTable(tableNames.superuser, (table) => {
+    table.increments().notNullable();
+    createReference(table, tableNames.people).notNullable();
+    addDefaultColumns(table);
+  });
+
+  // TABLE_NAME: people_entity_permission
+  await knex.schema.createTable(
+    tableNames.people_entity_permission,
+    (table) => {
+      table.increments().notNullable();
+      createReference(table, tableNames.people).notNullable();
+      createReference(table, tableNames.entity).notNullable();
+    }
+  );
+
+  // TABLE_NAME: role_entity_permission
+  await knex.schema.createTable(tableNames.role_entity_permission, (table) => {
+    table.increments().notNullable();
+    createReference(table, tableNames.role).notNullable();
+    createReference(table, tableNames.entity).notNullable();
+  });
+
+  // TABLE_NAME: people_course_instance_permission
+  await knex.schema.createTable(
+    tableNames.people_course_instance_permission,
+    (table) => {
+      table.increments().notNullable();
+      createReference(table, tableNames.people).notNullable();
+      createReference(table, tableNames.course_instance).notNullable();
+    }
+  );
+
+  // TABLE_NAME: role_course_instance_permission
+  await knex.schema.createTable(
+    tableNames.role_course_instance_permission,
+    (table) => {
+      table.increments().notNullable();
+      createReference(table, tableNames.role).notNullable();
+      createReference(table, tableNames.course_instance).notNullable();
+    }
+  );
 };
 
 // Add data to the array in reverse order.
 exports.down = async (knex) => {
   await Promise.all(
     [
+      tableNames.people_entity_permission,
+      tableNames.role_entity_permission,
+      tableNames.people_course_instance_permission,
+      tableNames.role_course_instance_permission,
+      tableNames.superuser,
       tableNames.attendance_data,
       tableNames.course_instance_association,
       tableNames.role_people_entity,
