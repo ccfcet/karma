@@ -1,6 +1,5 @@
 type Query {
   people(id: ID, entityID: ID): [People!]
-  peopleByEnitity(entityID: ID!): PeopleByEnitity!
 }
 
 type People {
@@ -15,6 +14,3 @@ type People {
   deleted_at: String
 }
 
-type PeopleByEnitity {
-  people: [People]
-}

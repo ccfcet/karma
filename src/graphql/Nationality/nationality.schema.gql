@@ -1,0 +1,11 @@
+extend type Query {
+  nationality(id: ID): [Nationality!]
+}
+
+type Nationality {
+  id: ID!
+  value: String!
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}

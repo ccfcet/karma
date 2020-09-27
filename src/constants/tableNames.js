@@ -24,4 +24,9 @@ module.exports = {
   role_people_entity: 'role_people_entity',
   course_instance_association: 'course_instance_association',
   attendance_data: 'attendance_data',
+  superuser: 'superuser',
+  people_entity_permission: 'people_entity_permission',
+  role_entity_permission: 'role_entity_permission',
+  people_course_instance_permission: 'people_course_instance_permission',
+  role_course_instance_permission: 'role_course_instance_permission',
 };
