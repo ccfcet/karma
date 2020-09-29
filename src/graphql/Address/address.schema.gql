@@ -1,0 +1,16 @@
+extend type Query {
+  address(id: ID): [Address!]
+}
+
+type Address {
+  id: ID!
+  line_1: String!
+  line_2: String
+  city: String!
+  zipcode: String!
+  latitude: Float
+  longtiude: Float
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}

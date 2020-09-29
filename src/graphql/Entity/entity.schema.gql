@@ -1,0 +1,20 @@
+extend type Query {
+  entity_type(id: ID): [EntityType!]
+  entity(id: ID): [Entity!]
+}
+
+type EntityType {
+  id: ID!
+  value: String!
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}
+
+type Entity {
+  id: ID!
+  name: String!
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}
