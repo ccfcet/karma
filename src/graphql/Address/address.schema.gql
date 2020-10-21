@@ -8,6 +8,8 @@ type Address {
   line_2: String
   city: String!
   zipcode: String!
+  state: State!
+  country: Country!
   latitude: Float
   longtiude: Float
   created_at: String!

@@ -18,6 +18,7 @@ const resolversArray = loadFilesSync(
 
 // Load Loaders
 const loadersArray = loadFilesSync(path.join(__dirname, './**/*.loaders.*'));
+console.log(loadersArray);
 
 module.exports = {
   typeDefs: mergeTypeDefs(typesArray, { all: true }),

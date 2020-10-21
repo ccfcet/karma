@@ -3,3 +3,4 @@ node_modules/
 docker-data/
 .env
 package-lock.json
+TODO.md

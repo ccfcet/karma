@@ -5,7 +5,7 @@
   "rules": {
     "strict": "off",
     "prettier/prettier": "error",
-    "no-console": "off",
+    "no-console": "warn",
     "global-require": "off",
     "no-case-declarations": "off"
   }

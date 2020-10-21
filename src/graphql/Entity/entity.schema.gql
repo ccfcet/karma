@@ -14,6 +14,8 @@ type EntityType {
 type Entity {
   id: ID!
   name: String!
+  entity_type: EntityType!
+  children: [Entity!]
   created_at: String!
   updated_at: String!
   deleted_at: String

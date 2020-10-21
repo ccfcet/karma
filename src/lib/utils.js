@@ -2,7 +2,6 @@ const path = require('path');
 const fs = require('fs');
 const DataLoader = require('dataloader');
 const connection = require('../db/db');
-
 const { groupBy } = require('lodash');
 
 const readFiles = (dir) => {
@@ -35,13 +34,6 @@ const generateLoader = ({ type, from, via, to }) => {
         returnResult = batchIds.map((batchId) => objectMap[batchId]);
         break;
 
-      case 'many-to-many-children':
-        qb.select([
-          `${from.table}.id AS ${from.table}_id`,
-          `${via.table}.*`,
-        ]).join(via.table, from.column, via.column1);
-        returnResult = batchIds.map((batchId) => objectMap[batchId]);
-        break;
       case 'many-to-one':
         qb.select([
           `${from.table}.id AS ${from.table}_id`,
@@ -51,6 +43,7 @@ const generateLoader = ({ type, from, via, to }) => {
         objectMap = groupBy(results, `${from.table}_id`);
         returnResult = batchIds.map((batchId) => objectMap[batchId][0]);
         break;
+
       default:
         throw new Error('Wrong relation type!');
     }
