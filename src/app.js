@@ -2,8 +2,7 @@ const Fastify = require('fastify');
 const GQL = require('fastify-gql');
 const { makeExecutableSchema } = require('graphql-tools');
 
-const { typeDefs, resolvers } = require('./graphql');
-const { peopleOfEntityLoader } = require('./dataLoaders.js');
+const { typeDefs, resolvers, loaders } = require('./graphql');
 
 const app = Fastify();
 
@@ -15,9 +14,7 @@ app.register(GQL, {
   jit: 1,
   graphiql: 'playground',
   context: () => {
-    return {
-      peopleOfEntityLoader,
-    };
+    return loaders;
   },
 });
 

@@ -42,16 +42,17 @@ const generateLoader = ({ type, from, via, to }) => {
         ]).join(via.table, from.column, via.column1);
         returnResult = batchIds.map((batchId) => objectMap[batchId]);
         break;
-
-      default:
+      case 'many-to-one':
         qb.select([
           `${from.table}.id AS ${from.table}_id`,
           `${to.table}.*`,
         ]).join(to.table, from.column, to.column);
         results = await qb;
-        objectMap = {};
         objectMap = groupBy(results, `${from.table}_id`);
-        returnResult = batchIds.map((batchId) => objectMap[batchId]);
+        returnResult = batchIds.map((batchId) => objectMap[batchId][0]);
+        break;
+      default:
+        throw new Error('Wrong relation type!');
     }
     return returnResult;
   };

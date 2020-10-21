@@ -6,6 +6,7 @@ type State {
   id: ID!
   name: String!
   code: String!
+  country: Country!
   created_at: String!
   updated_at: String!
   deleted_at: String

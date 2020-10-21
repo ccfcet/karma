@@ -1,25 +1,36 @@
 const connection = require('../../db/db');
+const tableNames = require('../../constants/tableNames');
 
 module.exports = {
   Query: {
     people: async (_, { id, entityID }) => {
       let result;
       if (id) {
-        result = await connection('people').select().where('id', id);
+        result = await connection(tableNames.people).select().where('id', id);
       } else if (entityID) {
-        result = await connection('people')
-          .select(['role_people_entity.id as b_id', 'people.*'])
+        result = await connection(tableNames.people)
+          .select([`${tableNames.people}.*`])
           .join(
-            'role_people_entity',
-            'people.id',
-            'role_people_entity.people_id'
+            tableNames.role_people_entity,
+            `${tableNames.people}.id`,
+            `${tableNames.role_people_entity}.${tableNames.people}_id`
           )
-          .where('role_people_entity.entity_id', entityID);
+          .where(
+            `${tableNames.role_people_entity}.${tableNames.entity}_id`,
+            entityID
+          );
       } else {
         result = await connection('people').select();
       }
-      console.log(result);
       return result;
+    },
+  },
+  People: {
+    nationality: async (parent, _, ctx) => {
+      return ctx.peopleNationalityLoader.load(parent.id);
+    },
+    address: async (parent, _, ctx) => {
+      return ctx.peopleAddressLoader.load(parent.id);
     },
   },
 };
