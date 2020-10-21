@@ -36,9 +36,6 @@ exports.up = async (knex) => {
     addDefaultColumns(table);
   });
 
-  // TABLE_NAME: data_type
-  await createIdValueTable(knex, tableNames.data_type);
-
   // TABLE_NAME: state
   await knex.schema.createTable(tableNames.state, (table) => {
     table.increments().notNullable();
@@ -87,7 +84,6 @@ exports.up = async (knex) => {
     table.increments().notNullable();
     createReference(table, tableNames.people).notNullable();
     createReference(table, tableNames.address).notNullable();
-    createReference(table, tableNames.data_type).notNullable();
     addDefaultColumns(table);
   });
 
@@ -96,7 +92,6 @@ exports.up = async (knex) => {
     table.increments().notNullable();
     createReference(table, tableNames.people).notNullable();
     table.string('email').notNullable().unique();
-    createReference(table, tableNames.data_type).notNullable();
     addDefaultColumns(table);
   });
 
@@ -124,7 +119,6 @@ exports.up = async (knex) => {
     table.increments().notNullable();
     createReference(table, tableNames.address);
     createReference(table, tableNames.entity);
-    createReference(table, tableNames.data_type).notNullable();
     addDefaultColumns(table);
   });
 

@@ -22,7 +22,6 @@ module.exports = [
   tableNames.people_address,
   tableNames.identifier,
   tableNames.people,
-  tableNames.data_type,
   tableNames.address,
   tableNames.state,
   tableNames.country,

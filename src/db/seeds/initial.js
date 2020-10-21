@@ -33,17 +33,6 @@ exports.seed = async (knex) => {
     ])
     .returning('*');
 
-  const [createdDataType] = await knex(tableNames.data_type)
-    .insert([
-      {
-        value: 'Primary',
-      },
-      {
-        value: 'Alternate',
-      },
-    ])
-    .returning('*');
-
   const [createdState] = await knex(tableNames.state)
     .insert([
       {
@@ -104,7 +93,6 @@ exports.seed = async (knex) => {
     {
       people_id: createdPeople.id,
       address_id: createdAddress[0].id,
-      data_type_id: createdDataType.id,
     },
   ]);
 
@@ -112,7 +100,6 @@ exports.seed = async (knex) => {
     {
       people_id: createdPeople.id,
       email: 'rabeeh@cet.ac.in',
-      data_type_id: createdDataType.id,
     },
   ]);
 
@@ -151,7 +138,6 @@ exports.seed = async (knex) => {
     {
       entity_id: createdEntity[0].id,
       address_id: createdAddress[1].id,
-      data_type_id: createdDataType.id,
     },
   ]);
 

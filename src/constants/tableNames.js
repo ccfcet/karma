@@ -1,7 +1,6 @@
 module.exports = {
   nationality: 'nationality',
   country: 'country',
-  data_type: 'data_type',
   state: 'state',
   address: 'address',
   people: 'people',

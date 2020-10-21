@@ -31,5 +31,8 @@ module.exports = {
     children: async (parent, _, ctx) => {
       return ctx.entityChildrenLoader.load(parent.id);
     },
+    address: async (parent, _, ctx) => {
+      return ctx.entityAddressLoader.load(parent.id);
+    },
   },
 };

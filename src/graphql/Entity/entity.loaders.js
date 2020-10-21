@@ -17,6 +17,23 @@ const relations = [
       column: `${tableNames.entity_type}.id`,
     },
   },
+  {
+    loaderName: 'entityAddressLoader',
+    type: 'many-to-many',
+    from: {
+      table: tableNames.entity,
+      column: `${tableNames.entity}.id`,
+    },
+    via: {
+      table: tableNames.entity_address,
+      column1: `${tableNames.entity_address}.${tableNames.entity}_id`,
+      column2: `${tableNames.entity_address}.${tableNames.address}_id`,
+    },
+    to: {
+      table: tableNames.address,
+      column: `${tableNames.address}.id`,
+    },
+  },
 ];
 
 let loaders = generateLoaders(relations);
