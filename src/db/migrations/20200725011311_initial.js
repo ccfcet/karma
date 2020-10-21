@@ -1,4 +1,5 @@
 const tableNames = require('../../constants/tableNames');
+const orderedTableNames = require('../../constants/orderedTableNames');
 
 const addDefaultColumns = async (table) => {
   table.timestamps(false, true);
@@ -107,27 +108,6 @@ exports.up = async (knex) => {
     addDefaultColumns(table);
   });
 
-  // TABLE_NAME: field
-  await knex.schema.createTable(tableNames.field, (table) => {
-    table.increments().notNullable();
-    table.string('name').notNullable().unique();
-    table.string('label').notNullable();
-    table.boolean('required').notNullable();
-    table.json('allowed_values');
-    createReference(table, tableNames.data_type);
-    table.text('regex');
-    addDefaultColumns(table);
-  });
-
-  // TABLE_NAME: people_field_value
-  await knex.schema.createTable(tableNames.people_field_value, (table) => {
-    table.increments().notNullable();
-    createReference(table, tableNames.people);
-    createReference(table, tableNames.field);
-    table.string('value').notNullable();
-    addDefaultColumns(table);
-  });
-
   // TABLE_NAME: entity_type
   await createIdValueTable(knex, tableNames.entity_type);
 
@@ -136,23 +116,6 @@ exports.up = async (knex) => {
     table.increments().notNullable();
     table.string('name').notNullable();
     createReference(table, tableNames.entity_type);
-    addDefaultColumns(table);
-  });
-
-  // TABLE_NAME: entity_type_field
-  await knex.schema.createTable(tableNames.entity_type_field, (table) => {
-    table.increments().notNullable();
-    createReference(table, tableNames.field);
-    createReference(table, tableNames.entity_type);
-    addDefaultColumns(table);
-  });
-
-  // TABLE_NAME: entity_field_value
-  await knex.schema.createTable(tableNames.entity_field_value, (table) => {
-    table.increments().notNullable();
-    createReference(table, tableNames.field);
-    createReference(table, tableNames.entity);
-    table.text('value').notNullable();
     addDefaultColumns(table);
   });
 
@@ -290,37 +253,6 @@ exports.up = async (knex) => {
 // Add data to the array in reverse order.
 exports.down = async (knex) => {
   await Promise.all(
-    [
-      tableNames.people_entity_permission,
-      tableNames.role_entity_permission,
-      tableNames.people_course_instance_permission,
-      tableNames.role_course_instance_permission,
-      tableNames.superuser,
-      tableNames.attendance_data,
-      tableNames.course_instance_association,
-      tableNames.role_people_entity,
-      tableNames.role,
-      tableNames.course_instance,
-      tableNames.academic_duration,
-      tableNames.course,
-      tableNames.entity_parent_child,
-      tableNames.entity_address,
-      tableNames.entity_field_value,
-      tableNames.entity_type_field,
-      tableNames.entity,
-      tableNames.entity_type,
-      tableNames.people_field_value,
-      tableNames.field,
-      tableNames.auth,
-      tableNames.email,
-      tableNames.people_address,
-      tableNames.identifier,
-      tableNames.people,
-      tableNames.data_type,
-      tableNames.address,
-      tableNames.state,
-      tableNames.country,
-      tableNames.nationality,
-    ].map((tableName) => knex.schema.dropTable(tableName))
+    orderedTableNames.map((tableName) => knex.schema.dropTable(tableName))
   );
 };

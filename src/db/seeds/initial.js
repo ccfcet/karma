@@ -123,31 +123,6 @@ exports.seed = async (knex) => {
     },
   ]);
 
-  const createdField = await knex(tableNames.field)
-    .insert([
-      {
-        name: 'religion',
-        label: 'Religion',
-        required: false,
-        data_type_id: createdDataType.id,
-      },
-      {
-        name: 'entity_email',
-        label: 'Email',
-        required: false,
-        data_type_id: createdDataType.id,
-      },
-    ])
-    .returning('*');
-
-  await knex(tableNames.people_field_value).insert([
-    {
-      people_id: createdPeople.id,
-      field_id: createdField[0].id,
-      value: 'Islam',
-    },
-  ]);
-
   const createdEntityType = await knex(tableNames.entity_type)
     .insert([
       {
@@ -171,21 +146,6 @@ exports.seed = async (knex) => {
       },
     ])
     .returning('*');
-
-  await knex(tableNames.entity_type_field).insert([
-    {
-      entity_type_id: createdEntityType[0].id,
-      field_id: createdField[1].id,
-    },
-  ]);
-
-  await knex(tableNames.entity_field_value).insert([
-    {
-      field_id: createdField[1].id,
-      entity_id: createdEntity[0].id,
-      value: 'admin@cet.ac.in',
-    },
-  ]);
 
   await knex(tableNames.entity_address).insert([
     {

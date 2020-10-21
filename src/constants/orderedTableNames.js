@@ -1,6 +1,11 @@
 const tableNames = require('./tableNames');
 
 module.exports = [
+  tableNames.people_entity_permission,
+  tableNames.role_entity_permission,
+  tableNames.people_course_instance_permission,
+  tableNames.role_course_instance_permission,
+  tableNames.superuser,
   tableNames.attendance_data,
   tableNames.course_instance_association,
   tableNames.role_people_entity,
@@ -10,12 +15,8 @@ module.exports = [
   tableNames.course,
   tableNames.entity_parent_child,
   tableNames.entity_address,
-  tableNames.entity_field_value,
-  tableNames.entity_type_field,
   tableNames.entity,
   tableNames.entity_type,
-  tableNames.people_field_value,
-  tableNames.field,
   tableNames.auth,
   tableNames.email,
   tableNames.people_address,
