@@ -4,7 +4,7 @@ const tableNames = require('../../constants/tableNames');
 const relations = [
   {
     loaderName: 'peopleNationalityLoader',
-    type: 'one-to-many',
+    type: 'many-to-one',
     from: {
       table: tableNames.people,
       column: `${tableNames.people}.${tableNames.nationality}_id`,
@@ -29,6 +29,18 @@ const relations = [
     to: {
       table: tableNames.address,
       column: `${tableNames.address}.id`,
+    },
+  },
+  {
+    loaderName: 'peopleEmailLoader',
+    type: 'one-to-many',
+    from: {
+      table: tableNames.email,
+      column: `${tableNames.email}.${tableNames.people}_id`,
+    },
+    to: {
+      table: tableNames.people,
+      column: `${tableNames.people}.id`,
     },
   },
 ];

@@ -47,6 +47,7 @@ const generateLoader = ({ type, from, via, to }) => {
       case 'one-to-many':
         results = await qb;
         objectMap = groupBy(results, `${to.table}_id`);
+        console.log(objectMap);
         returnResult = batchIds.map((batchId) => objectMap[batchId]);
         break;
 

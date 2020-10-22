@@ -32,5 +32,8 @@ module.exports = {
     address: async (parent, _, ctx) => {
       return ctx.peopleAddressLoader.load(parent.id);
     },
+    email: async (parent, _, ctx) => {
+      return ctx.peopleEmailLoader.load(parent.id);
+    },
   },
 };

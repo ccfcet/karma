@@ -99,7 +99,7 @@ exports.seed = async (knex) => {
   await knex(tableNames.email).insert([
     {
       people_id: createdPeople.id,
-      email: 'rabeeh@cet.ac.in',
+      email_id: 'rabeeh@cet.ac.in',
     },
   ]);
 

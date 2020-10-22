@@ -9,8 +9,17 @@ type People {
   last_name: String!
   gender: String!
   date_of_birth: String!
+  email: [Email!]
   nationality: Nationality!
   address: [Address!]
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}
+
+type Email {
+  id: ID!
+  email_id: String!
   created_at: String!
   updated_at: String!
   deleted_at: String

@@ -91,7 +91,7 @@ exports.up = async (knex) => {
   await knex.schema.createTable(tableNames.email, (table) => {
     table.increments().notNullable();
     createReference(table, tableNames.people).notNullable();
-    table.string('email').notNullable().unique();
+    table.string('email_id').notNullable().unique();
     addDefaultColumns(table);
   });
 
