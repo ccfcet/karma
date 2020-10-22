@@ -6,9 +6,9 @@ module.exports = {
     country: async (_, { id }) => {
       let result;
       if (id) {
-        result = await connection(tableNames.country).select().where('id', id);
+        result = await connection(tableNames.role).select().where('id', id);
       } else {
-        result = await connection(tableNames.country).select();
+        result = await connection(tableNames.role).select();
       }
       return result;
     },
