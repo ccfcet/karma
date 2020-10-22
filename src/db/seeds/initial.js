@@ -207,7 +207,17 @@ exports.seed = async (knex) => {
       {
         course_instance_id: createdCourseInstance.id,
         people_id: createdPeople.id,
-        role_id: createdRole[0].id,
+        type: 0,
+      },
+    ])
+    .returning('*');
+
+  const [createdTimeSlot] = await knex(tableNames.time_slot)
+    .insert([
+      {
+        course_instance_id: createdCourseInstance.id,
+        start_time: knex.fn.now(),
+        end_time: knex.fn.now(),
       },
     ])
     .returning('*');
@@ -215,15 +225,13 @@ exports.seed = async (knex) => {
   const [createdAttendanceData] = await knex(tableNames.attendance_data)
     .insert([
       {
-        course_instance_id: createdCourseInstance.id,
+        time_slot_id: createdTimeSlot.id,
         people_id: createdPeople.id,
-        time: knex.fn.now(),
         value: 0,
       },
       {
-        course_instance_id: createdCourseInstance.id,
+        time_slot_id: createdTimeSlot.id,
         people_id: createdPeople.id,
-        time: knex.fn.now(),
         value: 1,
       },
     ])

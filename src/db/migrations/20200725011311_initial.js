@@ -144,8 +144,8 @@ exports.up = async (knex) => {
   await knex.schema.createTable(tableNames.academic_duration, (table) => {
     table.increments().notNullable();
     table.string('name').notNullable();
-    table.date('start_date').notNullable().unique();
-    table.date('end_date').notNullable().unique();
+    table.date('start_date').notNullable();
+    table.date('end_date').notNullable();
     addDefaultColumns(table);
   });
 
@@ -183,18 +183,25 @@ exports.up = async (knex) => {
       table.increments().notNullable();
       createReference(table, tableNames.course_instance).notNullable();
       createReference(table, tableNames.people);
-      createReference(table, tableNames.role);
+      table.integer('type', 1).notNullable();
       addDefaultColumns(table);
     }
   );
 
+  // TABLE_NAME: time_slot
+  await knex.schema.createTable(tableNames.time_slot, (table) => {
+    table.increments().notNullable();
+    createReference(table, tableNames.course_instance).notNullable();
+    table.datetime('start_time').notNullable();
+    table.datetime('end_time').notNullable();
+    addDefaultColumns(table);
+  });
+
   // TABLE_NAME: attendance_data
   await knex.schema.createTable(tableNames.attendance_data, (table) => {
     table.increments().notNullable();
-    createReference(table, tableNames.course_instance).notNullable();
     createReference(table, tableNames.people).notNullable();
-    // TODO: Finalise the attendance decision.
-    table.datetime('time').notNullable();
+    createReference(table, tableNames.time_slot).notNullable();
     table.integer('value', 1).notNullable();
     addDefaultColumns(table);
   });

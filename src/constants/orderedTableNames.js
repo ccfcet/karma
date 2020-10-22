@@ -7,6 +7,7 @@ module.exports = [
   tableNames.role_course_instance_permission,
   tableNames.superuser,
   tableNames.attendance_data,
+  tableNames.time_slot,
   tableNames.course_instance_association,
   tableNames.role_people_entity,
   tableNames.role,

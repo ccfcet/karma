@@ -7,7 +7,7 @@ const relations = [
     type: 'many-to-one',
     from: {
       table: tableNames.address,
-      column: `${tableNames.address}.${tableNames.state}`,
+      column: `${tableNames.address}.${tableNames.state}_id`,
     },
     to: {
       table: `${tableNames.state}`,
@@ -19,7 +19,7 @@ const relations = [
     type: 'many-to-one',
     from: {
       table: tableNames.address,
-      column: `${tableNames.address}.${tableNames.country}`,
+      column: `${tableNames.address}.${tableNames.country}_id`,
     },
     to: {
       table: `${tableNames.country}`,

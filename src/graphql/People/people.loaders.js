@@ -7,7 +7,7 @@ const relations = [
     type: 'one-to-many',
     from: {
       table: tableNames.people,
-      column: `${tableNames.people}.${tableNames.nationality}`,
+      column: `${tableNames.people}.${tableNames.nationality}_id`,
     },
     to: {
       table: tableNames.nationality,

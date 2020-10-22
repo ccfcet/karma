@@ -1,0 +1,66 @@
+extend type Query {
+  course(id: ID): [Course!]
+  course_instance(id: ID): [CourseInstance!]
+  academic_duration(id: ID): [AcademicDuration!]
+}
+
+type Course {
+  id: ID!
+  code: String
+  name: String!
+  entity: Entity!
+  credits: Float
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}
+
+type CourseInstance {
+  id: ID!
+  course: Course!
+  tag: String!
+  academic_duration: AcademicDuration!
+  members: [CourseInstanceMember!]
+  time_slots: [TimeSlot!]
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}
+
+type CourseInstanceMember {
+  id: ID!
+  people: People!
+  type: String!
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}
+
+type TimeSlot {
+  id: ID!
+  start_time: String!
+  end_time: String!
+  attendance: [AttendanceData!]
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}
+
+type AttendanceData {
+  id: ID!
+  people: People!
+  value: Int!
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}
+
+type AcademicDuration {
+  id: ID!
+  name: String!
+  start_date: String!
+  end_date: String!
+  created_at: String!
+  updated_at: String!
+  deleted_at: String
+}

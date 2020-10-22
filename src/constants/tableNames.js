@@ -24,4 +24,5 @@ module.exports = {
   role_entity_permission: 'role_entity_permission',
   people_course_instance_permission: 'people_course_instance_permission',
   role_course_instance_permission: 'role_course_instance_permission',
+  time_slot: 'time_slot',
 };
