@@ -1,12 +1,12 @@
 const Fastify = require('fastify');
-const GQL = require('fastify-gql');
+const mercurius = require('mercurius');
 const { makeExecutableSchema } = require('graphql-tools');
 
 const { typeDefs, resolvers, loaders } = require('./graphql');
 
 const app = Fastify();
 
-app.register(GQL, {
+app.register(mercurius, {
   schema: makeExecutableSchema({
     typeDefs,
     resolvers,

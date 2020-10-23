@@ -26,10 +26,10 @@
     "dataloader": "^2.0.0",
     "dotenv": "^8.2.0",
     "fastify": "^3.3.0",
-    "fastify-gql": "^5.4.0",
     "graphql-tools": "^6.1.0",
     "knex": "^0.21.2",
     "lodash": "^4.17.19",
+    "mercurius": "^6.3.0",
     "pg": "^8.3.0"
   },
   "devDependencies": {
