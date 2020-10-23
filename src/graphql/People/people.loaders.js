@@ -1,5 +1,8 @@
 const { generateLoaders } = require('../../lib/utils');
+const { groupBy } = require('lodash');
 const tableNames = require('../../constants/tableNames');
+const DataLoader = require('dataloader');
+const connection = require('../../db/db');
 
 const relations = [
   {
@@ -46,5 +49,26 @@ const relations = [
 ];
 
 const loaders = generateLoaders(relations);
+
+// Custom loader for People-CourseInstance
+loaders.peopleCourseInstanceLoader = new DataLoader(async (peopleIDs) => {
+  const result = await connection(tableNames.course_instance_association)
+    .select(
+      `${tableNames.course_instance_association}.*`,
+      `${tableNames.course_instance_association}.id AS b_id`,
+      `${tableNames.course_instance}.*`
+    )
+    .join(
+      tableNames.course_instance,
+      `${tableNames.course_instance_association}.${tableNames.course_instance}_id`,
+      `${tableNames.course_instance}.id`
+    )
+    .whereIn(
+      `${tableNames.course_instance_association}.${tableNames.people}_id`,
+      peopleIDs
+    );
+  let objectMap = groupBy(result, 'people_id');
+  return peopleIDs.map((peopleID) => objectMap[peopleID]);
+});
 
 module.exports = loaders;

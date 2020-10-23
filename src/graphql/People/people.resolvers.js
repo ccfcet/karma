@@ -35,5 +35,8 @@ module.exports = {
     email: async (parent, _, ctx) => {
       return ctx.peopleEmailLoader.load(parent.id);
     },
+    course_instance: async (parent, _, ctx) => {
+      return ctx.peopleCourseInstanceLoader.load(parent.id);
+    },
   },
 };
