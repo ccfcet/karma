@@ -2,6 +2,7 @@ const tableNames = require('../../constants/tableNames');
 const orderedTableNames = require('../../constants/orderedTableNames');
 /* eslint-disable node/no-unpublished-require */
 const faker = require('faker');
+const argon2 = require('argon2');
 
 const probability = (n) => {
   return Math.random() < n;
@@ -97,7 +98,7 @@ exports.seed = async (knex) => {
   await knex(tableNames.auth).insert([
     {
       people_id: createdPeople.id,
-      password_hash: 'wOWmUChSeCUrEPaSSworD',
+      password_hash: await argon2.hash('pokemon123'),
     },
   ]);
 

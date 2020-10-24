@@ -1,0 +1,3 @@
+extend type Query {
+  login(identifier: String!, password: String!): String!
+}
