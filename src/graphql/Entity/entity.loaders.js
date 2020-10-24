@@ -17,23 +17,6 @@ const relations = [
       column: `${tableNames.entity_type}.id`,
     },
   },
-  {
-    loaderName: 'entityAddressLoader',
-    type: 'many-to-many',
-    from: {
-      table: tableNames.entity,
-      column: `${tableNames.entity}.id`,
-    },
-    via: {
-      table: tableNames.entity_address,
-      column1: `${tableNames.entity_address}.${tableNames.entity}_id`,
-      column2: `${tableNames.entity_address}.${tableNames.address}_id`,
-    },
-    to: {
-      table: tableNames.address,
-      column: `${tableNames.address}.id`,
-    },
-  },
 ];
 
 let loaders = generateLoaders(relations);
@@ -53,6 +36,25 @@ loaders.entityChildrenLoader = new DataLoader(async (entityIDs) => {
     )
     .whereIn(`${tableNames.entity_parent_child}.parent_id`, entityIDs);
   let objectMap = groupBy(result, 'parent_id');
+  return entityIDs.map((entityID) => objectMap[entityID]);
+});
+
+// Custom loader for Entity-Address.
+loaders.entityAddressLoader = new DataLoader(async (entityIDs) => {
+  const result = await connection(tableNames.entity_address)
+    .select(
+      `${tableNames.entity_address}.id AS a_id`,
+      `${tableNames.entity_address}.${tableNames.entity}_id`,
+      `${tableNames.address}.*`
+    )
+    .join(
+      tableNames.address,
+      `${tableNames.entity_address}.${tableNames.address}_id`,
+      `${tableNames.address}.id`
+    )
+    .whereIn(`${tableNames.entity_address}.${tableNames.entity}_id`, entityIDs);
+
+  let objectMap = groupBy(result, 'entity_id');
   return entityIDs.map((entityID) => objectMap[entityID]);
 });
 

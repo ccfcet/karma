@@ -11,7 +11,7 @@ type Address {
   state: State!
   country: Country!
   latitude: Float
-  longtiude: Float
+  longitude: Float
   created_at: String!
   updated_at: String!
   deleted_at: String

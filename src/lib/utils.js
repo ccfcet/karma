@@ -14,40 +14,26 @@ const readFiles = (dir) => {
   return outputFiles;
 };
 
-const generateLoader = ({ type, from, via, to }) => {
+const generateLoader = ({ type, from, to }) => {
   return async (batchIds) => {
     const qb = connection(from.table);
     let results;
     let objectMap;
     let returnResult;
     switch (type) {
-      case 'many-to-many':
-        qb.select([
-          `${from.table}.id AS ${from.table}_id`,
-          `${to.table}.*`,
-          `${via.table}.*`,
-        ])
-          .join(via.table, from.column, via.column1)
-          .join(to.table, to.column, via.column2);
-        results = await qb;
-        objectMap = groupBy(results, `${from.table}_id`);
-        returnResult = batchIds.map((batchId) => objectMap[batchId]);
-        break;
-
       case 'many-to-one':
-        qb.select([
-          `${from.table}.id AS ${from.table}_id`,
-          `${to.table}.*`,
-        ]).join(to.table, from.column, to.column);
+        qb.select([`${from.table}.id AS ${from.table}_id`, `${to.table}.*`])
+          .join(to.table, from.column, to.column)
+          .whereIn(`${from.table}.id`, batchIds);
         results = await qb;
         objectMap = groupBy(results, `${from.table}_id`);
+
         returnResult = batchIds.map((batchId) => objectMap[batchId][0]);
         break;
 
       case 'one-to-many':
         results = await qb;
         objectMap = groupBy(results, `${to.table}_id`);
-        console.log(objectMap);
         returnResult = batchIds.map((batchId) => objectMap[batchId]);
         break;
 

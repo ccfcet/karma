@@ -15,10 +15,10 @@ module.exports = {
   },
   Address: {
     state: async (parent, _, ctx) => {
-      return ctx.stateCountryLoader.load(parent.id);
+      return ctx.addressStateLoader.load(parent.id);
     },
     country: async (parent, _, ctx) => {
-      return ctx.stateCountryLoader.load(parent.id);
+      return ctx.addressCountryLoader.load(parent.id);
     },
   },
 };

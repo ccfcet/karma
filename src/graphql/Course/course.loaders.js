@@ -42,6 +42,18 @@ const relations = [
     },
   },
   {
+    loaderName: 'courseInstanceCourseLoader',
+    type: 'many-to-one',
+    from: {
+      table: tableNames.course_instance,
+      column: `${tableNames.course_instance}.${tableNames.course}_id`,
+    },
+    to: {
+      table: `${tableNames.course}`,
+      column: `${tableNames.course}.id`,
+    },
+  },
+  {
     loaderName: 'courseInstanceTimeSlotLoader',
     type: 'one-to-many',
     from: {

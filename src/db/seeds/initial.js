@@ -1,5 +1,11 @@
 const tableNames = require('../../constants/tableNames');
 const orderedTableNames = require('../../constants/orderedTableNames');
+/* eslint-disable node/no-unpublished-require */
+const faker = require('faker');
+
+const probability = (n) => {
+  return Math.random() < n;
+};
 
 exports.seed = async (knex) => {
   await Promise.all(
@@ -11,12 +17,6 @@ exports.seed = async (knex) => {
       {
         value: 'Indian',
       },
-      {
-        value: 'African',
-      },
-      {
-        value: 'American',
-      },
     ])
     .returning('*');
 
@@ -25,10 +25,6 @@ exports.seed = async (knex) => {
       {
         name: 'India',
         code: 'IND',
-      },
-      {
-        name: 'United Arab Emirates',
-        code: 'AE',
       },
     ])
     .returning('*');
@@ -39,11 +35,6 @@ exports.seed = async (knex) => {
         name: 'Kerala',
         code: 'KL',
         country_id: createdCountry[0].id,
-      },
-      {
-        name: 'Dubai',
-        code: 'DB',
-        country_id: createdCountry[1].id,
       },
     ])
     .returning('*');
@@ -118,6 +109,9 @@ exports.seed = async (knex) => {
       {
         value: 'Department',
       },
+      {
+        value: 'Class',
+      },
     ])
     .returning('*');
 
@@ -130,6 +124,14 @@ exports.seed = async (knex) => {
       {
         name: 'Computer Science and Engineering',
         entity_type_id: createdEntityType[1].id,
+      },
+      {
+        name: 'S3 CS',
+        entity_type_id: createdEntityType[2].id,
+      },
+      {
+        name: 'S5 CS',
+        entity_type_id: createdEntityType[2].id,
       },
     ])
     .returning('*');
@@ -146,13 +148,69 @@ exports.seed = async (knex) => {
       parent_id: createdEntity[0].id,
       child_id: createdEntity[1].id,
     },
+    {
+      parent_id: createdEntity[1].id,
+      child_id: createdEntity[2].id,
+    },
+    {
+      parent_id: createdEntity[1].id,
+      child_id: createdEntity[3].id,
+    },
   ]);
 
-  const [createdCourse] = await knex(tableNames.course)
+  const createdCourse = await knex(tableNames.course)
     .insert([
       {
-        code: 'CS204',
-        name: 'Operating Systems',
+        code: 'CS301',
+        name: 'Theory of Computation',
+        entity_id: createdEntity[1].id,
+        credits: 4,
+      },
+      {
+        code: 'CS303',
+        name: 'System Software',
+        entity_id: createdEntity[1].id,
+        credits: 4,
+      },
+      {
+        code: 'CS331',
+        name: 'System Software Lab',
+        entity_id: createdEntity[1].id,
+        credits: 4,
+      },
+      {
+        code: 'CS305',
+        name: 'Microprocessors and Microcontrollers',
+        entity_id: createdEntity[1].id,
+        credits: 4,
+      },
+      {
+        code: 'CS307',
+        name: 'Data Communication',
+        entity_id: createdEntity[1].id,
+        credits: 4,
+      },
+      {
+        code: 'CS309',
+        name: 'Graph Theory and Combinatorics',
+        entity_id: createdEntity[1].id,
+        credits: 4,
+      },
+      {
+        code: 'CS361',
+        name: 'Soft Computing',
+        entity_id: createdEntity[1].id,
+        credits: 4,
+      },
+      {
+        code: 'CS333',
+        name: 'Application Software Development Lab',
+        entity_id: createdEntity[1].id,
+        credits: 4,
+      },
+      {
+        code: 'CS341',
+        name: 'Design Project',
         entity_id: createdEntity[1].id,
         credits: 4,
       },
@@ -169,11 +227,51 @@ exports.seed = async (knex) => {
     ])
     .returning('*');
 
-  const [createdCourseInstance] = await knex(tableNames.course_instance)
+  const createdCourseInstance = await knex(tableNames.course_instance)
     .insert([
       {
-        course_id: createdCourse.id,
-        tag: '2020-semester-4-os',
+        course_id: createdCourse[0].id,
+        tag: '2020-semester-5-toc',
+        academic_duration_id: createdAcademicDuration.id,
+      },
+      {
+        course_id: createdCourse[1].id,
+        tag: '2020-semester-5-ss',
+        academic_duration_id: createdAcademicDuration.id,
+      },
+      {
+        course_id: createdCourse[2].id,
+        tag: '2020-semester-5-sslab',
+        academic_duration_id: createdAcademicDuration.id,
+      },
+      {
+        course_id: createdCourse[3].id,
+        tag: '2020-semester-5-mp',
+        academic_duration_id: createdAcademicDuration.id,
+      },
+      {
+        course_id: createdCourse[4].id,
+        tag: '2020-semester-5-dc',
+        academic_duration_id: createdAcademicDuration.id,
+      },
+      {
+        course_id: createdCourse[5].id,
+        tag: '2020-semester-5-gt',
+        academic_duration_id: createdAcademicDuration.id,
+      },
+      {
+        course_id: createdCourse[6].id,
+        tag: '2020-semester-5-sc',
+        academic_duration_id: createdAcademicDuration.id,
+      },
+      {
+        course_id: createdCourse[7].id,
+        tag: '2020-semester-5-asdlab',
+        academic_duration_id: createdAcademicDuration.id,
+      },
+      {
+        course_id: createdCourse[8].id,
+        tag: '2020-semester-5-dp',
         academic_duration_id: createdAcademicDuration.id,
       },
     ])
@@ -205,7 +303,7 @@ exports.seed = async (knex) => {
   await knex(tableNames.course_instance_association)
     .insert([
       {
-        course_instance_id: createdCourseInstance.id,
+        course_instance_id: createdCourseInstance[0].id,
         people_id: createdPeople.id,
         type: 0,
       },
@@ -215,14 +313,14 @@ exports.seed = async (knex) => {
   const [createdTimeSlot] = await knex(tableNames.time_slot)
     .insert([
       {
-        course_instance_id: createdCourseInstance.id,
+        course_instance_id: createdCourseInstance[0].id,
         start_time: knex.fn.now(),
         end_time: knex.fn.now(),
       },
     ])
     .returning('*');
 
-  const [createdAttendanceData] = await knex(tableNames.attendance_data)
+  await knex(tableNames.attendance_data)
     .insert([
       {
         time_slot_id: createdTimeSlot.id,
@@ -237,5 +335,68 @@ exports.seed = async (knex) => {
     ])
     .returning('*');
 
-  console.log(createdAttendanceData);
+  for (let i = 0; i < 10; i += 1) {
+    /* eslint-disable no-await-in-loop */
+    const [Person] = await knex(tableNames.people)
+      .insert([
+        {
+          first_name: faker.name.firstName(),
+          middle_name: faker.name.firstName(),
+          last_name: faker.name.lastName(),
+          gender: probability(0.5) ? 'M' : 'F',
+          date_of_birth: faker.date.past(),
+          nationality_id: createdNationality.id,
+        },
+      ])
+      .returning('*');
+    let k = probability(0.75) ? 1 : 2;
+    for (let j = 0; j < k; j += 1) {
+      const [Address] = await knex(tableNames.address)
+        .insert([
+          {
+            line_1: faker.address.streetName(),
+            line_2: faker.address.streetAddress(),
+            city: faker.address.city(),
+            country_id: createdCountry[0].id,
+            state_id: createdState.id,
+            zipcode: faker.address.zipCode(),
+            latitude: faker.address.latitude(),
+            longitude: faker.address.longitude(),
+          },
+        ])
+        .returning('*');
+
+      await knex(tableNames.people_address).insert([
+        {
+          people_id: Person.id,
+          address_id: Address.id,
+        },
+      ]);
+      await knex(tableNames.email).insert([
+        {
+          people_id: Person.id,
+          email_id: faker.internet.email(),
+        },
+      ]);
+    }
+
+    await knex(tableNames.identifier).insert([
+      {
+        people_id: Person.id,
+        identifier: 'TVE18CS' + i,
+      },
+    ]);
+
+    for (let j = 0; j < 9; j += 1) {
+      await knex(tableNames.course_instance_association)
+        .insert([
+          {
+            course_instance_id: createdCourseInstance[j].id,
+            people_id: Person.id,
+            type: probability(0.9) ? 0 : 1,
+          },
+        ])
+        .returning('*');
+    }
+  }
 };

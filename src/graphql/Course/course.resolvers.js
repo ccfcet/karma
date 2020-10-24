@@ -50,6 +50,9 @@ module.exports = {
     time_slots: async (parent, _, ctx) => {
       return ctx.courseInstanceTimeSlotLoader.load(parent.id);
     },
+    course: async (parent, _, ctx) => {
+      return ctx.courseInstanceCourseLoader.load(parent.id);
+    },
   },
   CourseInstanceMember: {
     people: async (parent, _, ctx) => {
