@@ -20,7 +20,7 @@ module.exports = {
             entityID
           );
       } else {
-        result = await connection('people').select();
+        result = await connection(tableNames.people).select();
       }
       return result;
     },
