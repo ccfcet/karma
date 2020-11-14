@@ -2,7 +2,6 @@ const { generateLoaders } = require('../../lib/utils');
 const connection = require('../../db/db');
 const { groupBy } = require('lodash');
 const tableNames = require('../../constants/tableNames');
-const DataLoader = require('dataloader');
 
 const relations = [
   {
@@ -94,27 +93,25 @@ const relations = [
 let loaders = generateLoaders(relations);
 
 // Custom loader for CourseInstanceMember
-loaders.courseInstanceMemberLoader = new DataLoader(
-  async (courseInstanceIDs) => {
-    const types = ['Student', 'Professor', 'Teaching Assistant'];
-    const result = await connection(
-      tableNames.course_instance_association
-    ).whereIn(
-      `${tableNames.course_instance_association}.${tableNames.course_instance}_id`,
-      courseInstanceIDs
-    );
+loaders.courseInstanceMemberLoader = () => async (courseInstanceIDs) => {
+  const types = ['Student', 'Professor', 'Teaching Assistant'];
+  const result = await connection(
+    tableNames.course_instance_association
+  ).whereIn(
+    `${tableNames.course_instance_association}.${tableNames.course_instance}_id`,
+    courseInstanceIDs
+  );
 
-    const hydratedResult = result.map((member) => ({
-      ...member,
-      type: types[member.type],
-    }));
+  const hydratedResult = result.map((member) => ({
+    ...member,
+    type: types[member.type],
+  }));
 
-    let objectMap = groupBy(hydratedResult, `${tableNames.course_instance}_id`);
+  let objectMap = groupBy(hydratedResult, `${tableNames.course_instance}_id`);
 
-    return courseInstanceIDs.map(
-      (courseInstanceID) => objectMap[courseInstanceID]
-    );
-  }
-);
+  return courseInstanceIDs.map(
+    (courseInstanceID) => objectMap[courseInstanceID]
+  );
+};
 
 module.exports = loaders;

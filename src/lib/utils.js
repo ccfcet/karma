@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const DataLoader = require('dataloader');
 const connection = require('../db/db');
 const { groupBy } = require('lodash');
 
@@ -47,10 +46,11 @@ const generateLoader = ({ type, from, to }) => {
 const generateLoaders = (options) => {
   let loaders = {};
   options.forEach((option) => {
-    loaders = {
-      ...loaders,
-      [option.loaderName]: new DataLoader(generateLoader(option)),
-    };
+    // loaders = {
+    //   ...loaders,
+    //   [option.loaderName]: new DataLoader(generateLoader(option)),
+    // };
+    loaders[option.loaderName] = generateLoader(option);
   });
   return loaders;
 };

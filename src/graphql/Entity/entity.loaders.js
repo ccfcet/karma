@@ -1,7 +1,6 @@
 const { generateLoaders } = require('../../lib/utils');
 const { groupBy } = require('lodash');
 const tableNames = require('../../constants/tableNames');
-const DataLoader = require('dataloader');
 const connection = require('../../db/db');
 
 const relations = [
@@ -22,7 +21,7 @@ const relations = [
 let loaders = generateLoaders(relations);
 
 // Custom loader for Entity-Children.
-loaders.entityChildrenLoader = new DataLoader(async (entityIDs) => {
+loaders.entityChildrenLoader = () => async (entityIDs) => {
   const result = await connection(tableNames.entity_parent_child)
     .select(
       `${tableNames.entity_parent_child}.id AS b_id`,
@@ -37,10 +36,10 @@ loaders.entityChildrenLoader = new DataLoader(async (entityIDs) => {
     .whereIn(`${tableNames.entity_parent_child}.parent_id`, entityIDs);
   let objectMap = groupBy(result, 'parent_id');
   return entityIDs.map((entityID) => objectMap[entityID]);
-});
+};
 
 // Custom loader for Entity-Address.
-loaders.entityAddressLoader = new DataLoader(async (entityIDs) => {
+loaders.entityAddressLoader = () => async (entityIDs) => {
   const result = await connection(tableNames.entity_address)
     .select(
       `${tableNames.entity_address}.id AS a_id`,
@@ -56,6 +55,6 @@ loaders.entityAddressLoader = new DataLoader(async (entityIDs) => {
 
   let objectMap = groupBy(result, 'entity_id');
   return entityIDs.map((entityID) => objectMap[entityID]);
-});
+};
 
 module.exports = loaders;
