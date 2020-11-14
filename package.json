@@ -28,6 +28,7 @@
     "dotenv": "^8.2.0",
     "fastify": "^3.3.0",
     "graphql-tools": "^6.1.0",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.2",
     "lodash": "^4.17.19",
     "mercurius": "^6.3.0",

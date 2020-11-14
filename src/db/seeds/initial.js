@@ -388,6 +388,13 @@ exports.seed = async (knex) => {
       },
     ]);
 
+    await knex(tableNames.auth).insert([
+      {
+        people_id: Person.id,
+        password_hash: await argon2.hash(Person.first_name + '123'),
+      },
+    ]);
+
     for (let j = 0; j < 9; j += 1) {
       await knex(tableNames.course_instance_association)
         .insert([

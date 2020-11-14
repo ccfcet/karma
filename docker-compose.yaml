@@ -12,7 +12,6 @@ services:
   #     - 8000:8000
   db:
     image: postgres
-    restart: always
     volumes:
       - ./docker-data/db-data:/var/lib/postgresql/data
     environment:
@@ -26,6 +25,5 @@ services:
     depends_on:
       - db
     image: adminer
-    restart: always
     ports:
       - 8080:8080

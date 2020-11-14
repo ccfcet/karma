@@ -1,20 +1,31 @@
 const tableNames = require('../../constants/tableNames');
 const connection = require('../../db/db');
 const argon2 = require('argon2');
+const { createAccessToken } = require('./jwt');
 
 module.exports = {
   Query: {
     login: async (_, { identifier, password }) => {
-      const hash = await argon2.hash(password);
-      const result = await connection(tableNames.identifier).join(
-        tableNames.auth,
-        `${tableNames.identifier}.people_id`,
-        `${tableNames.auth}.people_id`
+      const result = await connection(tableNames.email)
+        .join(
+          tableNames.auth,
+          `${tableNames.email}.${tableNames.people}_id`,
+          `${tableNames.auth}.${tableNames.people}_id`
+        )
+        .where({
+          email_id: identifier,
+        });
+
+      const verificationStatus = await argon2.verify(
+        result[0].password_hash,
+        password
       );
-      console.log(identifier, hash);
-      return (await argon2.verify(result[0].password_hash, password))
-        ? 'PASS'
-        : 'FAIL';
+      if (verificationStatus) {
+        return createAccessToken({
+          id: result[0].people_id,
+        });
+      }
+      return 'FAIL';
     },
   },
 };
