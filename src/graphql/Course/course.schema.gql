@@ -12,7 +12,6 @@ type Course {
   credits: Float
   created_at: String!
   updated_at: String!
-  deleted_at: String
 }
 
 type CourseInstance {
@@ -24,7 +23,6 @@ type CourseInstance {
   time_slots: [TimeSlot!]
   created_at: String!
   updated_at: String!
-  deleted_at: String
 }
 
 type CourseInstanceMember {
@@ -33,7 +31,6 @@ type CourseInstanceMember {
   type: String!
   created_at: String!
   updated_at: String!
-  deleted_at: String
 }
 
 type TimeSlot {
@@ -43,7 +40,6 @@ type TimeSlot {
   attendance: [AttendanceData!]
   created_at: String!
   updated_at: String!
-  deleted_at: String
 }
 
 type AttendanceData {
@@ -52,7 +48,6 @@ type AttendanceData {
   value: Int!
   created_at: String!
   updated_at: String!
-  deleted_at: String
 }
 
 type AcademicDuration {
@@ -62,5 +57,4 @@ type AcademicDuration {
   end_date: String!
   created_at: String!
   updated_at: String!
-  deleted_at: String
 }

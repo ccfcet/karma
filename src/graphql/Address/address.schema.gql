@@ -14,5 +14,4 @@ type Address {
   longitude: Float
   created_at: String!
   updated_at: String!
-  deleted_at: String
 }

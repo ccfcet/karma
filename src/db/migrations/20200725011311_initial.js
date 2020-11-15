@@ -3,7 +3,6 @@ const orderedTableNames = require('../../constants/orderedTableNames');
 
 const addDefaultColumns = async (table) => {
   table.timestamps(false, true);
-  table.datetime('deleted_at');
 };
 
 const createIdValueTable = async (knex, tableName) => {

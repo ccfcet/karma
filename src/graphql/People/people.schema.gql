@@ -20,7 +20,6 @@ type People {
   course_instance: [CourseInstance!]
   created_at: String!
   updated_at: String!
-  deleted_at: String
 }
 
 type Email {
@@ -28,7 +27,6 @@ type Email {
   email_id: String!
   created_at: String!
   updated_at: String!
-  deleted_at: String
 }
 
 input CreatePeopleInput {
