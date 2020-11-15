@@ -3,6 +3,7 @@ const tableNames = require('../../constants/tableNames');
 const {
   createPeopleSchema,
   updatePeopleSchema,
+  deletePeopleSchema,
 } = require('./people.validation');
 const { handleError } = require('../../lib/utils');
 
@@ -72,10 +73,22 @@ module.exports = {
           .where({ id: peopleID })
           .update(people)
           .returning('*');
-        console.log(peopleResult);
         return peopleResult;
       } catch (err) {
         let errorCode = 'UPDATE_PEOPLE_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    deletePeople: async (_, { id }) => {
+      try {
+        console.log(id);
+        await deletePeopleSchema.validate({ id }, { abortEarly: false });
+        await connection(tableNames.people).where({ id }).delete();
+        return {
+          message: 'OK',
+        };
+      } catch (err) {
+        let errorCode = 'DELETE_PEOPLE_ERROR';
         return handleError(err, errorCode);
       }
     },
@@ -84,6 +97,17 @@ module.exports = {
     __resolveType: (obj) => {
       if (obj.id) {
         return 'People';
+      }
+      if (obj.fields) {
+        return 'ValidationError';
+      }
+      return 'BaseError';
+    },
+  },
+  DeletePeopleResult: {
+    __resolveType: (obj) => {
+      if (obj.message) {
+        return 'Success';
       }
       if (obj.fields) {
         return 'ValidationError';

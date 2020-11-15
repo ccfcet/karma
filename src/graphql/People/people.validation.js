@@ -5,6 +5,15 @@ const tableNames = require('../../constants/tableNames');
 // TODO: Validate date using moment
 // TODO: Change Nationality to use Cache
 // TODO: Code Cleanup
+yup.addMethod(yup.number, 'peopleExist', function () {
+  return this.test('idExist', "${path} doesn't exist", async function (value) {
+    const result = await connection(tableNames.people)
+      .select()
+      .where(`${tableNames.people}.id`, value);
+    return typeof result !== 'undefined' && result.length === 1;
+  });
+});
+
 const createPeopleSchema = yup.object().shape({
   first_name: yup.string().max(128).required().label('First Name'),
   middle_name: yup.string().max(128).label('Middle Name'),
@@ -35,16 +44,7 @@ const createPeopleSchema = yup.object().shape({
 });
 
 const updatePeopleSchema = yup.object().shape({
-  id: yup
-    .number()
-    .required()
-    .test('idExist', "${path} doesn't exist", async function (value) {
-      const result = await connection(tableNames.people)
-        .select()
-        .where(`${tableNames.people}.id`, value);
-      return typeof result !== 'undefined' && result.length === 1;
-    })
-    .label('ID'),
+  id: yup.number().required().peopleExist().label('ID'),
   first_name: yup.string().max(128).label('First Name'),
   middle_name: yup.string().max(128).label('Middle Name'),
   last_name: yup.string().max(128).label('Last Name'),
@@ -62,7 +62,12 @@ const updatePeopleSchema = yup.object().shape({
     .label('Nationality'),
 });
 
+const deletePeopleSchema = yup.object().shape({
+  id: yup.number().required().peopleExist().label('ID'),
+});
+
 module.exports = {
   createPeopleSchema,
   updatePeopleSchema,
+  deletePeopleSchema,
 };

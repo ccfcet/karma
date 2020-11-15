@@ -13,3 +13,7 @@ type BaseError {
   error_code: String!
   error_id: String!
 }
+
+type Success {
+  message: String!
+}
