@@ -93,7 +93,7 @@ const relations = [
 let loaders = generateLoaders(relations);
 
 // Custom loader for CourseInstanceMember
-loaders.courseInstanceMemberLoader = () => async (courseInstanceIDs) => {
+loaders.courseInstanceMemberLoader = async (courseInstanceIDs) => {
   const types = ['Student', 'Professor', 'Teaching Assistant'];
   const result = await connection(
     tableNames.course_instance_association

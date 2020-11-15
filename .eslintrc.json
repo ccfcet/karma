@@ -5,8 +5,11 @@
   "rules": {
     "strict": "off",
     "prettier/prettier": "error",
-    "no-console": "warn",
     "global-require": "off",
-    "no-case-declarations": "off"
+    "no-case-declarations": "off",
+    "no-template-curly-in-string": "off",
+    "func-names": "off",
+    "no-console": "off",
+    "no-param-reassign": "off"
   }
 }

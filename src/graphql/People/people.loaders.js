@@ -33,7 +33,7 @@ const relations = [
 const loaders = generateLoaders(relations);
 
 // Custom loader for People-CourseInstance
-loaders.peopleCourseInstanceLoader = () => async (peopleIDs) => {
+loaders.peopleCourseInstanceLoader = async (peopleIDs) => {
   const result = await connection(tableNames.course_instance_association)
     .select(
       `${tableNames.course_instance_association}.*`,
@@ -54,7 +54,7 @@ loaders.peopleCourseInstanceLoader = () => async (peopleIDs) => {
 };
 
 // Custom loader for People-Address
-loaders.peopleAddressLoader = () => async (peopleIDs) => {
+loaders.peopleAddressLoader = async (peopleIDs) => {
   const result = await connection(tableNames.people_address)
     .select(
       `${tableNames.people_address}.id AS a_id`,

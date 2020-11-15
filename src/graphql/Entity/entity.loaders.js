@@ -21,7 +21,7 @@ const relations = [
 let loaders = generateLoaders(relations);
 
 // Custom loader for Entity-Children.
-loaders.entityChildrenLoader = () => async (entityIDs) => {
+loaders.entityChildrenLoader = async (entityIDs) => {
   const result = await connection(tableNames.entity_parent_child)
     .select(
       `${tableNames.entity_parent_child}.id AS b_id`,
@@ -39,7 +39,7 @@ loaders.entityChildrenLoader = () => async (entityIDs) => {
 };
 
 // Custom loader for Entity-Address.
-loaders.entityAddressLoader = () => async (entityIDs) => {
+loaders.entityAddressLoader = async (entityIDs) => {
   const result = await connection(tableNames.entity_address)
     .select(
       `${tableNames.entity_address}.id AS a_id`,

@@ -2,6 +2,8 @@ const path = require('path');
 const fs = require('fs');
 const connection = require('../db/db');
 const { groupBy } = require('lodash');
+const { v4 } = require('uuid');
+const { ValidationError } = require('yup');
 
 const readFiles = (dir) => {
   const directoryPath = path.join(dir, '.');
@@ -55,8 +57,47 @@ const generateLoaders = (options) => {
   return loaders;
 };
 
+const formatValidationError = (err, errorCode, errorId) => {
+  let fieldErrors = [];
+  let errorMessages = {};
+  err.inner.forEach((e) => {
+    if (errorMessages[e.path] === undefined) {
+      errorMessages[e.path] = [e.message];
+    } else {
+      errorMessages[e.path].push(e.message);
+    }
+  });
+  const fieldEntries = Object.entries(errorMessages);
+  fieldEntries.forEach(([field, errors]) => {
+    fieldErrors.push({
+      field,
+      errors,
+    });
+  });
+  return {
+    error_code: errorCode + '_VALIDATION',
+    error_id: errorId,
+    fields: fieldErrors,
+  };
+};
+
+const handleError = (err, errorCode) => {
+  let errorId = v4();
+  err.errorId = errorId;
+  console.log(err);
+  if (err instanceof ValidationError) {
+    return formatValidationError(err, errorCode, errorId);
+  }
+  return {
+    error_code: errorCode + '_UNKNOWN',
+    error_id: errorId,
+  };
+};
+
 module.exports = {
   readFiles,
   generateLoader,
   generateLoaders,
+  formatValidationError,
+  handleError,
 };

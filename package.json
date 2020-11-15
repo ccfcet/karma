@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon src/server.js",
-    "dev": "nodemon src/server.js",
+    "dev": "nodemon -e js,gql src/server.js",
     "lint": "eslint . --fix",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback"
@@ -32,7 +32,9 @@
     "knex": "^0.21.2",
     "lodash": "^4.17.19",
     "mercurius": "^6.3.0",
-    "pg": "^8.3.0"
+    "pg": "^8.3.0",
+    "uuid": "^8.3.1",
+    "yup": "^0.29.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

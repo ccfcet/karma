@@ -2,6 +2,11 @@ type Query {
   people(id: ID, entityID: ID): [People!]
 }
 
+type Mutation {
+  createPeople(people: CreatePeopleInput!): MutatePeopleResult
+  updatePeople(people: UpdatePeopleInput!): MutatePeopleResult
+}
+
 type People {
   id: ID!
   first_name: String!
@@ -25,3 +30,25 @@ type Email {
   updated_at: String!
   deleted_at: String
 }
+
+input CreatePeopleInput {
+  first_name: String!
+  middle_name: String
+  last_name: String
+  gender: String!
+  date_of_birth: String!
+  email: String!
+  nationality_id: Int!
+}
+
+input UpdatePeopleInput {
+  id: ID!
+  first_name: String
+  middle_name: String
+  last_name: String
+  gender: String
+  date_of_birth: String
+  nationality_id: Int
+}
+
+union MutatePeopleResult = People | ValidationError | BaseError

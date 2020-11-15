@@ -1,5 +1,10 @@
 const connection = require('../../db/db');
 const tableNames = require('../../constants/tableNames');
+const {
+  createPeopleSchema,
+  updatePeopleSchema,
+} = require('./people.validation');
+const { handleError } = require('../../lib/utils');
 
 module.exports = {
   Query: {
@@ -37,6 +42,53 @@ module.exports = {
     },
     course_instance: async (parent, _, ctx) => {
       return ctx.peopleCourseInstanceLoader.load(parent.id);
+    },
+  },
+  Mutation: {
+    createPeople: async (_, { people }) => {
+      try {
+        await createPeopleSchema.validate(people, { abortEarly: false });
+        const email = people.email;
+        delete people.email;
+        const [peopleResult] = await connection(tableNames.people)
+          .insert(people)
+          .returning('*');
+        await connection(tableNames.email).insert({
+          email_id: email,
+          people_id: peopleResult.id,
+        });
+        return peopleResult;
+      } catch (err) {
+        let errorCode = 'CREATE_PEOPLE_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    updatePeople: async (_, { people }) => {
+      try {
+        await updatePeopleSchema.validate(people, { abortEarly: false });
+        const peopleID = people.id;
+        delete people.id;
+        const [peopleResult] = await connection(tableNames.people)
+          .where({ id: peopleID })
+          .update(people)
+          .returning('*');
+        console.log(peopleResult);
+        return peopleResult;
+      } catch (err) {
+        let errorCode = 'UPDATE_PEOPLE_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+  },
+  MutatePeopleResult: {
+    __resolveType: (obj) => {
+      if (obj.id) {
+        return 'People';
+      }
+      if (obj.fields) {
+        return 'ValidationError';
+      }
+      return 'BaseError';
     },
   },
 };

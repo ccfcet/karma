@@ -1,0 +1,15 @@
+type ValidationError {
+  error_code: String!
+  error_id: String!
+  fields: [FieldError!]
+}
+
+type FieldError {
+  field: String!
+  errors: [String!]
+}
+
+type BaseError {
+  error_code: String!
+  error_id: String!
+}
