@@ -3,6 +3,12 @@ extend type Query {
   entity(id: ID): [Entity!]
 }
 
+# extend type Mutation {
+#   createEntityType(entity_type: CreateEntityTypeInput!): MutateEntityTypeResult
+#   updateEntityType(entity_type: UpdateEntityTypeInput!): MutateEntityTypeResult
+#   deleteEntityType(id: ID!): DeleteEntityTypeResult
+# }
+
 type EntityType {
   id: ID!
   value: String!
@@ -19,3 +25,15 @@ type Entity {
   created_at: String!
   updated_at: String!
 }
+
+# input CreateEntityTypeInput {
+#   value
+# }
+
+# input UpdateEntityTypeInput {
+#   id
+#   value
+# }
+
+# union MutateEntityTypeResult = EntityType | ValidationError | BaseError
+# union DeleteEntityTypeResult = Success | ValidationError | BaseError

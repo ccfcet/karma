@@ -94,10 +94,23 @@ const handleError = (err, errorCode) => {
   };
 };
 
+const checkExist = (validator, name, table, invert = false, column = 'id') => {
+  const message = invert ? ' already exists.' : " doesn't exist";
+  return validator.test(name, '${path}' + message, async function (value) {
+    if (value === undefined) return true;
+    const result = await connection(table)
+      .select()
+      .where(`${table}.${column}`, value);
+    const expectedValue = invert ? 0 : 1;
+    return typeof result !== 'undefined' && result.length === expectedValue;
+  });
+};
+
 module.exports = {
   readFiles,
   generateLoader,
   generateLoaders,
   formatValidationError,
   handleError,
+  checkExist,
 };
