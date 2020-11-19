@@ -5,5 +5,13 @@
   "trailingComma": "es5",
   "bracketSpacing": true,
   "jsxBracketSameLine": false,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": "*.gql",
+      "options": {
+        "printWidth": 120
+      }
+    }
+  ]
 }

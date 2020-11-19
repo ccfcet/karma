@@ -5,7 +5,7 @@ type Query {
 type Mutation {
   createPeople(people: CreatePeopleInput!): MutatePeopleResult
   updatePeople(people: UpdatePeopleInput!): MutatePeopleResult
-  deletePeople(id: ID!): DeletePeopleResult
+  deletePeople(id: ID!): DeleteResult
 }
 
 type People {
@@ -51,4 +51,3 @@ input UpdatePeopleInput {
 }
 
 union MutatePeopleResult = People | ValidationError | BaseError
-union DeletePeopleResult = Success | ValidationError | BaseError

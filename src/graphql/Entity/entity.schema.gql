@@ -3,11 +3,14 @@ extend type Query {
   entity(id: ID): [Entity!]
 }
 
-# extend type Mutation {
-#   createEntityType(entity_type: CreateEntityTypeInput!): MutateEntityTypeResult
-#   updateEntityType(entity_type: UpdateEntityTypeInput!): MutateEntityTypeResult
-#   deleteEntityType(id: ID!): DeleteEntityTypeResult
-# }
+extend type Mutation {
+  createEntityType(entity_type: CreateEntityTypeInput!): MutateEntityTypeResult
+  updateEntityType(entity_type: UpdateEntityTypeInput!): MutateEntityTypeResult
+  deleteEntityType(id: ID!): DeleteResult
+  createEntity(entity: CreateEntityInput!): MutateEntityResult
+  updateEntity(entity: UpdateEntityInput!): MutateEntityResult
+  deleteEntity(id: ID!): DeleteResult
+}
 
 type EntityType {
   id: ID!
@@ -26,14 +29,26 @@ type Entity {
   updated_at: String!
 }
 
-# input CreateEntityTypeInput {
-#   value
-# }
+input CreateEntityTypeInput {
+  value: String!
+}
 
-# input UpdateEntityTypeInput {
-#   id
-#   value
-# }
+input UpdateEntityTypeInput {
+  id: ID!
+  value: String!
+}
 
-# union MutateEntityTypeResult = EntityType | ValidationError | BaseError
-# union DeleteEntityTypeResult = Success | ValidationError | BaseError
+union MutateEntityTypeResult = EntityType | ValidationError | BaseError
+
+input CreateEntityInput {
+  name: String!
+  entity_type_id: Int!
+}
+
+input UpdateEntityInput {
+  id: ID!
+  name: String
+  entity_type_id: Int
+}
+
+union MutateEntityResult = Entity | ValidationError | BaseError

@@ -17,3 +17,5 @@ type BaseError {
 type Success {
   message: String!
 }
+
+union DeleteResult = Success | ValidationError | BaseError

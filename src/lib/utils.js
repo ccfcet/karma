@@ -95,7 +95,7 @@ const handleError = (err, errorCode) => {
 };
 
 const checkExist = (validator, name, table, invert = false, column = 'id') => {
-  const message = invert ? ' already exists.' : " doesn't exist";
+  const message = invert ? ' already exists.' : ' does not exist';
   return validator.test(name, '${path}' + message, async function (value) {
     if (value === undefined) return true;
     const result = await connection(table)

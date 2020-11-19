@@ -81,7 +81,6 @@ module.exports = {
     },
     deletePeople: async (_, { id }) => {
       try {
-        console.log(id);
         await deletePeopleSchema.validate({ id }, { abortEarly: false });
         await connection(tableNames.people).where({ id }).delete();
         return {
@@ -97,17 +96,6 @@ module.exports = {
     __resolveType: (obj) => {
       if (obj.id) {
         return 'People';
-      }
-      if (obj.fields) {
-        return 'ValidationError';
-      }
-      return 'BaseError';
-    },
-  },
-  DeletePeopleResult: {
-    __resolveType: (obj) => {
-      if (obj.message) {
-        return 'Success';
       }
       if (obj.fields) {
         return 'ValidationError';

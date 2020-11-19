@@ -32,7 +32,7 @@ const createPeopleSchema = yup.object().shape({
 });
 
 const updatePeopleSchema = yup.object().shape({
-  id: yup.number().required().peopleExist().label('ID'),
+  id: yup.number().required().peopleExist().label('People ID'),
   first_name: yup.string().max(128).label('First Name'),
   middle_name: yup.string().max(128).label('Middle Name'),
   last_name: yup.string().max(128).label('Last Name'),
@@ -42,7 +42,7 @@ const updatePeopleSchema = yup.object().shape({
 });
 
 const deletePeopleSchema = yup.object().shape({
-  id: yup.number().required().peopleExist().label('ID'),
+  id: yup.number().required().peopleExist().label('People ID'),
 });
 
 module.exports = {

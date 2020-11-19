@@ -1,5 +1,14 @@
 const connection = require('../../db/db');
 const tableNames = require('../../constants/tableNames');
+const {
+  createCourseSchema,
+  updateCourseSchema,
+  deleteCourseSchema,
+  // createCourseInstanceSchema,
+  // updateCourseInstanceSchema,
+  // deleteCourseInstanceSchema,
+} = require('./course.validation');
+const { handleError } = require('../../lib/utils');
 
 module.exports = {
   Query: {
@@ -69,4 +78,114 @@ module.exports = {
       return ctx.attendancePeopleLoader.load(parent.id);
     },
   },
+  Mutation: {
+    createCourse: async (_, { course }) => {
+      try {
+        await createCourseSchema.validate(course, {
+          abortEarly: false,
+        });
+        const [courseResult] = await connection(tableNames.course)
+          .insert(course)
+          .returning('*');
+        return courseResult;
+      } catch (err) {
+        let errorCode = 'CREATE_COURSE_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    updateCourse: async (_, { course }) => {
+      try {
+        await updateCourseSchema.validate(course, {
+          abortEarly: false,
+        });
+        const courseID = course.id;
+        delete course.id;
+        const [courseResult] = await connection(tableNames.course)
+          .where({ id: courseID })
+          .update(course)
+          .returning('*');
+        return courseResult;
+      } catch (err) {
+        let errorCode = 'UPDATE_COURSE_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    deleteCourse: async (_, { id }) => {
+      try {
+        await deleteCourseSchema.validate({ id }, { abortEarly: false });
+        await connection(tableNames.course).where({ id }).delete();
+        return {
+          message: 'OK',
+        };
+      } catch (err) {
+        let errorCode = 'DELETE_COURSE_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    // createEntity: async (_, { entity }) => {
+    //   try {
+    //     await createEntitySchema.validate(entity, {
+    //       abortEarly: false,
+    //     });
+    //     const [entityResult] = await connection(tableNames.entity)
+    //       .insert(entity)
+    //       .returning('*');
+    //     return entityResult;
+    //   } catch (err) {
+    //     let errorCode = 'CREATE_ENTITY_ERROR';
+    //     return handleError(err, errorCode);
+    //   }
+    // },
+    // updateEntity: async (_, { entity }) => {
+    //   try {
+    //     await updateEntitySchema.validate(entity, {
+    //       abortEarly: false,
+    //     });
+    //     const entityID = entity.id;
+    //     delete entity.id;
+    //     const [entityResult] = await connection(tableNames.entity)
+    //       .where({ id: entityID })
+    //       .update(entity)
+    //       .returning('*');
+    //     return entityResult;
+    //   } catch (err) {
+    //     let errorCode = 'UPDATE_ENTITY_ERROR';
+    //     return handleError(err, errorCode);
+    //   }
+    // },
+    // deleteEntity: async (_, { id }) => {
+    //   try {
+    //     await deleteEntitySchema.validate({ id }, { abortEarly: false });
+    //     await connection(tableNames.entity).where({ id }).delete();
+    //     return {
+    //       message: 'OK',
+    //     };
+    //   } catch (err) {
+    //     let errorCode = 'DELETE_ENTITY_ERROR';
+    //     return handleError(err, errorCode);
+    //   }
+    // },
+  },
+  MutateCourseResult: {
+    __resolveType: (obj) => {
+      if (obj.id) {
+        return 'Course';
+      }
+      if (obj.fields) {
+        return 'ValidationError';
+      }
+      return 'BaseError';
+    },
+  },
+  // MutateCourseInstanceResult: {
+  //   __resolveType: (obj) => {
+  //     if (obj.id) {
+  //       return 'CourseInstance';
+  //     }
+  //     if (obj.fields) {
+  //       return 'ValidationError';
+  //     }
+  //     return 'BaseError';
+  //   },
+  // },
 };

@@ -1,65 +1,55 @@
 const yup = require('yup');
-const connection = require('../../db/db');
 const tableNames = require('../../constants/tableNames');
+const { checkExist } = require('../../lib/utils');
 
 // TODO: Validate date using moment
 // TODO: Change Nationality to use Cache
 // TODO: Code Cleanup
-
-const createPeopleSchema = yup.object().shape({
-  first_name: yup.string().max(128).required().label('First Name'),
-  middle_name: yup.string().max(128).label('Middle Name'),
-  last_name: yup.string().max(128).required().label('Last Name'),
-  gender: yup.mixed().oneOf(['M', 'F', 'N']).required().label('Gender'),
-  date_of_birth: yup.date().required().label('Date of Birth'),
-  email: yup
-    .string()
-    .email()
-    .required()
-    .test('uniqueEmail', '${path} already exists.', async function (value) {
-      const result = await connection(tableNames.email)
-        .select()
-        .where(`${tableNames.email}.email_id`, value);
-      return typeof result !== 'undefined' && result.length === 0;
-    })
-    .label('Email'),
-  nationality_id: yup
-    .number()
-    .required()
-    .test('nationalityExist', "${path} doesn't exist", async function (value) {
-      const result = await connection(tableNames.nationality)
-        .select()
-        .where(`${tableNames.nationality}.id`, value);
-      return typeof result !== 'undefined' && result.length === 1;
-    })
-    .label('Nationality'),
+yup.addMethod(yup.number, 'entityTypeExist', function () {
+  return checkExist(this, 'entityTypeIdExist', tableNames.entity_type);
 });
 
-const updatePeopleSchema = yup.object().shape({
-  id: yup.number().required().peopleExist().label('ID'),
-  first_name: yup.string().max(128).label('First Name'),
-  middle_name: yup.string().max(128).label('Middle Name'),
-  last_name: yup.string().max(128).label('Last Name'),
-  gender: yup.mixed().oneOf(['M', 'F', 'N']).label('Gender'),
-  date_of_birth: yup.date().label('Date of Birth'),
-  nationality_id: yup
-    .number()
-    .test('nationalityExist', "${path} doesn't exist", async function (value) {
-      if (value === undefined) return true;
-      const result = await connection(tableNames.nationality)
-        .select()
-        .where(`${tableNames.nationality}.id`, value);
-      return typeof result !== 'undefined' && result.length === 1;
-    })
-    .label('Nationality'),
+yup.addMethod(yup.number, 'entityExist', function () {
+  return checkExist(this, 'entityIdExist', tableNames.entity);
 });
 
-const deletePeopleSchema = yup.object().shape({
-  id: yup.number().required().peopleExist().label('ID'),
+const createEntityTypeSchema = yup.object().shape({
+  value: yup.string().max(128).required().label('Value'),
+});
+
+const updateEntityTypeSchema = yup.object().shape({
+  id: yup.number().required().entityTypeExist().label('Entity Type ID'),
+  value: yup.string().max(128).required().label('Value'),
+});
+
+const deleteEntityTypeSchema = yup.object().shape({
+  id: yup.number().required().entityTypeExist().label('Entity Type ID'),
+});
+
+const createEntitySchema = yup.object().shape({
+  name: yup.string().max(128).required().label('Entity'),
+  entity_type_id: yup
+    .number()
+    .required()
+    .entityTypeExist()
+    .label('Entity Type'),
+});
+
+const updateEntitySchema = yup.object().shape({
+  id: yup.number().required().entityExist().label('Entity ID'),
+  name: yup.string().max(128).label('Name'),
+  entity_type_id: yup.number().entityTypeExist().label('Entity Type'),
+});
+
+const deleteEntitySchema = yup.object().shape({
+  id: yup.number().required().entityExist().label('Entity ID'),
 });
 
 module.exports = {
-  createPeopleSchema,
-  updatePeopleSchema,
-  deletePeopleSchema,
+  createEntityTypeSchema,
+  updateEntityTypeSchema,
+  deleteEntityTypeSchema,
+  createEntitySchema,
+  updateEntitySchema,
+  deleteEntitySchema,
 };

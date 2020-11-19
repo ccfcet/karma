@@ -4,6 +4,15 @@ extend type Query {
   academic_duration(id: ID): [AcademicDuration!]
 }
 
+extend type Mutation {
+  createCourse(course: CreateCourseInput!): MutateCourseResult
+  updateCourse(course: UpdateCourseInput!): MutateCourseResult
+  deleteCourse(id: ID!): DeleteResult
+  # createCourseInstance(entity: CreateCourseInstanceInput!): MutateCourseInstanceResult
+  # updateCourseInstance(entity: UpdateCourseInstanceInput!): MutateCourseInstanceResult
+  # deleteCourseInstance(id: ID!): DeleteResult
+}
+
 type Course {
   id: ID!
   code: String
@@ -58,3 +67,33 @@ type AcademicDuration {
   created_at: String!
   updated_at: String!
 }
+
+input CreateCourseInput {
+  code: String!
+  name: String!
+  entity_id: Int!
+  credits: Float!
+}
+
+input UpdateCourseInput {
+  id: ID!
+  code: String!
+  name: String
+  entity_id: Int
+  credits: Float
+}
+
+union MutateCourseResult = Course | ValidationError | BaseError
+
+input CreateCourseInstanceInput {
+  name: String!
+  entity_type_id: Int!
+}
+
+input UpdateCourseInstanceInput {
+  id: ID!
+  name: String!
+  entity_type_id: Int!
+}
+
+union MutateCourseInstanceResult = CourseInstance | ValidationError | BaseError
