@@ -4,6 +4,9 @@ const {
   createCourseSchema,
   updateCourseSchema,
   deleteCourseSchema,
+  createAcademicDurationSchema,
+  updateAcademicDurationSchema,
+  deleteAcademicDurationSchema,
   // createCourseInstanceSchema,
   // updateCourseInstanceSchema,
   // deleteCourseInstanceSchema,
@@ -122,6 +125,56 @@ module.exports = {
         return handleError(err, errorCode);
       }
     },
+    createAcademicDuration: async (_, { academic_duration }) => {
+      try {
+        await createAcademicDurationSchema.validate(academic_duration, {
+          abortEarly: false,
+        });
+        const [academicDurationResult] = await connection(
+          tableNames.academic_duration
+        )
+          .insert(academic_duration)
+          .returning('*');
+        return academicDurationResult;
+      } catch (err) {
+        let errorCode = 'CREATE_ACADEMIC_DURATION_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    updateAcademicDuration: async (_, { academic_duration }) => {
+      try {
+        await updateAcademicDurationSchema.validate(academic_duration, {
+          abortEarly: false,
+        });
+        const academicDurationID = academic_duration.id;
+        delete academic_duration.id;
+        const [academicDurationResult] = await connection(
+          tableNames.academic_duration
+        )
+          .where({ id: academicDurationID })
+          .update(academic_duration)
+          .returning('*');
+        return academicDurationResult;
+      } catch (err) {
+        let errorCode = 'UPDATE_ACADEMIC_DURATION_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    deleteAcademicDuration: async (_, { id }) => {
+      try {
+        await deleteAcademicDurationSchema.validate(
+          { id },
+          { abortEarly: false }
+        );
+        await connection(tableNames.academic_duration).where({ id }).delete();
+        return {
+          message: 'OK',
+        };
+      } catch (err) {
+        let errorCode = 'DELETE_ACADEMIC_DURATION_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
     // createEntity: async (_, { entity }) => {
     //   try {
     //     await createEntitySchema.validate(entity, {
@@ -170,6 +223,17 @@ module.exports = {
     __resolveType: (obj) => {
       if (obj.id) {
         return 'Course';
+      }
+      if (obj.fields) {
+        return 'ValidationError';
+      }
+      return 'BaseError';
+    },
+  },
+  MutateAcademicDurationResult: {
+    __resolveType: (obj) => {
+      if (obj.id) {
+        return 'AcademicDuration';
       }
       if (obj.fields) {
         return 'ValidationError';
