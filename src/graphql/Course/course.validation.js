@@ -22,6 +22,10 @@ yup.addMethod(yup.number, 'academicDurationExist', function () {
   );
 });
 
+yup.addMethod(yup.string, 'uniqueTag', function () {
+  return checkExist(this, 'emailIdExist', tableNames.email, true, 'email_id');
+});
+
 // Add Yup validation methods globally
 yup.addMethod(yup.number, 'entityExist', function () {
   return checkExist(this, 'entityIdExist', tableNames.entity);
@@ -59,8 +63,8 @@ const updateAcademicDurationSchema = yup.object().shape({
     .academicDurationExist()
     .label('Academic Duration ID'),
   name: yup.string().max(128).label('Name'),
-  start_date: yup.date().required().label('Start Date'),
-  end_date: yup.date().required().label('End Date'),
+  start_date: yup.date().label('Start Date'),
+  end_date: yup.date().label('End Date'),
 });
 
 const deleteAcademicDurationSchema = yup.object().shape({
@@ -71,28 +75,29 @@ const deleteAcademicDurationSchema = yup.object().shape({
     .label('Academic Duration ID'),
 });
 
-// const createCourseInstanceSchema = yup.object().shape({
-//   name: yup.string().max(128).required().label('CourseInstance'),
-//   entity_type_id: yup
-//     .number()
-//     .required()
-//     .entityTypeExist()
-//     .label('Entity Type'),
-// });
+const createCourseInstanceSchema = yup.object().shape({
+  course_id: yup.number().required().courseExist().label('Course ID'),
+  tag: yup.string().max(64).uniqueTag().required().label('Tag'),
+  academic_duration_id: yup
+    .number()
+    .required()
+    .academicDurationExist()
+    .label('Academic Duration ID'),
+});
 
-// const updateEntitySchema = yup.object().shape({
-//   id: yup.number().required().entityExist().label('ID'),
-//   name: yup.string().max(128).required().label('Name'),
-//   entity_type_id: yup
-//     .number()
-//     .required()
-//     .entityTypeExist()
-//     .label('Entity Type'),
-// });
+const updateCourseInstanceSchema = yup.object().shape({
+  id: yup.number().required().courseInstanceExist().label('Course Instance ID'),
+  course_id: yup.number().required().courseExist().label('Course ID'),
+  tag: yup.string().max(64).uniqueTag().required().label('Tag'),
+  academic_duration_id: yup
+    .number()
+    .academicDurationExist()
+    .label('Academic Duration ID'),
+});
 
-// const deleteEntitySchema = yup.object().shape({
-//   id: yup.number().required().entityExist().label('ID'),
-// });
+const deleteCourseInstanceSchema = yup.object().shape({
+  id: yup.number().required().courseInstanceExist().label('ID'),
+});
 
 module.exports = {
   createCourseSchema,
@@ -101,7 +106,7 @@ module.exports = {
   createAcademicDurationSchema,
   updateAcademicDurationSchema,
   deleteAcademicDurationSchema,
-  // createCourseInstanceSchema,
-  // updateCourseInstanceSchema,
-  // deleteCourseInstanceSchema,
+  createCourseInstanceSchema,
+  updateCourseInstanceSchema,
+  deleteCourseInstanceSchema,
 };

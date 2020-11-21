@@ -7,9 +7,9 @@ const {
   createAcademicDurationSchema,
   updateAcademicDurationSchema,
   deleteAcademicDurationSchema,
-  // createCourseInstanceSchema,
-  // updateCourseInstanceSchema,
-  // deleteCourseInstanceSchema,
+  createCourseInstanceSchema,
+  updateCourseInstanceSchema,
+  deleteCourseInstanceSchema,
 } = require('./course.validation');
 const { handleError } = require('../../lib/utils');
 
@@ -175,49 +175,56 @@ module.exports = {
         return handleError(err, errorCode);
       }
     },
-    // createEntity: async (_, { entity }) => {
-    //   try {
-    //     await createEntitySchema.validate(entity, {
-    //       abortEarly: false,
-    //     });
-    //     const [entityResult] = await connection(tableNames.entity)
-    //       .insert(entity)
-    //       .returning('*');
-    //     return entityResult;
-    //   } catch (err) {
-    //     let errorCode = 'CREATE_ENTITY_ERROR';
-    //     return handleError(err, errorCode);
-    //   }
-    // },
-    // updateEntity: async (_, { entity }) => {
-    //   try {
-    //     await updateEntitySchema.validate(entity, {
-    //       abortEarly: false,
-    //     });
-    //     const entityID = entity.id;
-    //     delete entity.id;
-    //     const [entityResult] = await connection(tableNames.entity)
-    //       .where({ id: entityID })
-    //       .update(entity)
-    //       .returning('*');
-    //     return entityResult;
-    //   } catch (err) {
-    //     let errorCode = 'UPDATE_ENTITY_ERROR';
-    //     return handleError(err, errorCode);
-    //   }
-    // },
-    // deleteEntity: async (_, { id }) => {
-    //   try {
-    //     await deleteEntitySchema.validate({ id }, { abortEarly: false });
-    //     await connection(tableNames.entity).where({ id }).delete();
-    //     return {
-    //       message: 'OK',
-    //     };
-    //   } catch (err) {
-    //     let errorCode = 'DELETE_ENTITY_ERROR';
-    //     return handleError(err, errorCode);
-    //   }
-    // },
+    createCourseInstance: async (_, { course_instance }) => {
+      try {
+        await createCourseInstanceSchema.validate(course_instance, {
+          abortEarly: false,
+        });
+        const [courseInstanceResult] = await connection(
+          tableNames.course_instance
+        )
+          .insert(course_instance)
+          .returning('*');
+        return courseInstanceResult;
+      } catch (err) {
+        let errorCode = 'CREATE_COURSE_INSTANCE_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    updateCourseInstance: async (_, { course_instance }) => {
+      try {
+        await updateCourseInstanceSchema.validate(course_instance, {
+          abortEarly: false,
+        });
+        const courseInstanceID = course_instance.id;
+        delete course_instance.id;
+        const [courseInstanceResult] = await connection(
+          tableNames.course_instance
+        )
+          .where({ id: courseInstanceID })
+          .update(course_instance)
+          .returning('*');
+        return courseInstanceResult;
+      } catch (err) {
+        let errorCode = 'UPDATE_COURSE_INSTANCE_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    deleteCourseInstance: async (_, { id }) => {
+      try {
+        await deleteCourseInstanceSchema.validate(
+          { id },
+          { abortEarly: false }
+        );
+        await connection(tableNames.course_instance).where({ id }).delete();
+        return {
+          message: 'OK',
+        };
+      } catch (err) {
+        let errorCode = 'DELETE_COURSE_INSTANCE_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
   },
   MutateCourseResult: {
     __resolveType: (obj) => {
@@ -241,15 +248,15 @@ module.exports = {
       return 'BaseError';
     },
   },
-  // MutateCourseInstanceResult: {
-  //   __resolveType: (obj) => {
-  //     if (obj.id) {
-  //       return 'CourseInstance';
-  //     }
-  //     if (obj.fields) {
-  //       return 'ValidationError';
-  //     }
-  //     return 'BaseError';
-  //   },
-  // },
+  MutateCourseInstanceResult: {
+    __resolveType: (obj) => {
+      if (obj.id) {
+        return 'CourseInstance';
+      }
+      if (obj.fields) {
+        return 'ValidationError';
+      }
+      return 'BaseError';
+    },
+  },
 };

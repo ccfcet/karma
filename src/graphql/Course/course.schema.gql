@@ -11,9 +11,9 @@ extend type Mutation {
   createAcademicDuration(academic_duration: CreateAcademicDurationInput!): MutateAcademicDurationResult
   updateAcademicDuration(academic_duration: UpdateAcademicDurationInput!): MutateAcademicDurationResult
   deleteAcademicDuration(id: ID!): DeleteResult
-  # createCourseInstance(entity: CreateCourseInstanceInput!): MutateCourseInstanceResult
-  # updateCourseInstance(entity: UpdateCourseInstanceInput!): MutateCourseInstanceResult
-  # deleteCourseInstance(id: ID!): DeleteResult
+  createCourseInstance(course_instance: CreateCourseInstanceInput!): MutateCourseInstanceResult
+  updateCourseInstance(course_instance: UpdateCourseInstanceInput!): MutateCourseInstanceResult
+  deleteCourseInstance(id: ID!): DeleteResult
 }
 
 type Course {
@@ -89,14 +89,16 @@ input UpdateCourseInput {
 union MutateCourseResult = Course | ValidationError | BaseError
 
 input CreateCourseInstanceInput {
-  name: String!
-  entity_type_id: Int!
+  course_id: Int!
+  tag: String!
+  academic_duration_id: Int!
 }
 
 input UpdateCourseInstanceInput {
   id: ID!
-  name: String!
-  entity_type_id: Int!
+  course_id: Int
+  tag: String
+  academic_duration_id: Int
 }
 
 union MutateCourseInstanceResult = CourseInstance | ValidationError | BaseError
@@ -109,9 +111,9 @@ input CreateAcademicDurationInput {
 
 input UpdateAcademicDurationInput {
   id: ID!
-  name: String!
-  start_date: String!
-  end_date: String!
+  name: String
+  start_date: String
+  end_date: String
 }
 
 union MutateAcademicDurationResult = AcademicDuration | ValidationError | BaseError
