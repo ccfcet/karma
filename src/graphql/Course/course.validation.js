@@ -22,6 +22,10 @@ yup.addMethod(yup.number, 'academicDurationExist', function () {
   );
 });
 
+yup.addMethod(yup.number, 'timeSlotExist', function () {
+  return checkExist(this, 'timeSlotIdExist', tableNames.time_slot);
+});
+
 yup.addMethod(yup.string, 'uniqueTag', function () {
   return checkExist(this, 'emailIdExist', tableNames.email, true, 'email_id');
 });
@@ -99,6 +103,31 @@ const deleteCourseInstanceSchema = yup.object().shape({
   id: yup.number().required().courseInstanceExist().label('ID'),
 });
 
+// Todo: Add validation for Time
+const createTimeSlotSchema = yup.object().shape({
+  course_instance_id: yup
+    .number()
+    .required()
+    .courseInstanceExist()
+    .label('Course Instance ID'),
+  start_time: yup.string().max(64).required().label('Start Time'),
+  end_time: yup.string().max(64).required().label('End Time'),
+});
+
+const updateTimeSlotSchema = yup.object().shape({
+  id: yup.number().required().timeSlotExist().label('Time Slot ID'),
+  course_instance_id: yup
+    .number()
+    .courseInstanceExist()
+    .label('Course Instance ID'),
+  start_time: yup.string().max(64).label('Start Time'),
+  end_time: yup.string().max(64).label('End Time'),
+});
+
+const deleteTimeSlotSchema = yup.object().shape({
+  id: yup.number().required().timeSlotExist().label('ID'),
+});
+
 module.exports = {
   createCourseSchema,
   updateCourseSchema,
@@ -109,4 +138,7 @@ module.exports = {
   createCourseInstanceSchema,
   updateCourseInstanceSchema,
   deleteCourseInstanceSchema,
+  createTimeSlotSchema,
+  updateTimeSlotSchema,
+  deleteTimeSlotSchema,
 };

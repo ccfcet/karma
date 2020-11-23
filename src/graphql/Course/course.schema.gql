@@ -14,6 +14,9 @@ extend type Mutation {
   createCourseInstance(course_instance: CreateCourseInstanceInput!): MutateCourseInstanceResult
   updateCourseInstance(course_instance: UpdateCourseInstanceInput!): MutateCourseInstanceResult
   deleteCourseInstance(id: ID!): DeleteResult
+  createTimeSlot(time_slot: CreateTimeSlotInput!): MutateTimeSlotResult
+  updateTimeSlot(time_slot: UpdateTimeSlotInput!): MutateTimeSlotResult
+  deleteTimeSlot(id: ID!): DeleteResult
 }
 
 type Course {
@@ -117,3 +120,18 @@ input UpdateAcademicDurationInput {
 }
 
 union MutateAcademicDurationResult = AcademicDuration | ValidationError | BaseError
+
+input CreateTimeSlotInput {
+  course_instance_id: Int!
+  start_time: String!
+  end_time: String!
+}
+
+input UpdateTimeSlotInput {
+  id: ID!
+  course_instance_id: Int
+  start_time: String
+  end_time: String
+}
+
+union MutateTimeSlotResult = TimeSlot | ValidationError | BaseError

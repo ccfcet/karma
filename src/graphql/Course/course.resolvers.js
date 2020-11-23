@@ -10,6 +10,9 @@ const {
   createCourseInstanceSchema,
   updateCourseInstanceSchema,
   deleteCourseInstanceSchema,
+  createTimeSlotSchema,
+  updateTimeSlotSchema,
+  deleteTimeSlotSchema,
 } = require('./course.validation');
 const { handleError } = require('../../lib/utils');
 
@@ -225,6 +228,49 @@ module.exports = {
         return handleError(err, errorCode);
       }
     },
+    createTimeSlot: async (_, { time_slot }) => {
+      try {
+        await createTimeSlotSchema.validate(time_slot, {
+          abortEarly: false,
+        });
+        const [timeSlotResult] = await connection(tableNames.time_slot)
+          .insert(time_slot)
+          .returning('*');
+        return timeSlotResult;
+      } catch (err) {
+        let errorCode = 'CREATE_TIME_SLOT_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    updateTimeSlot: async (_, { time_slot }) => {
+      try {
+        await updateTimeSlotSchema.validate(time_slot, {
+          abortEarly: false,
+        });
+        const timeSlotID = time_slot.id;
+        delete time_slot.id;
+        const [timeSlotResult] = await connection(tableNames.time_slot)
+          .where({ id: timeSlotID })
+          .update(time_slot)
+          .returning('*');
+        return timeSlotResult;
+      } catch (err) {
+        let errorCode = 'UPDATE_TIME_SLOT_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
+    deleteTimeSlot: async (_, { id }) => {
+      try {
+        await deleteTimeSlotSchema.validate({ id }, { abortEarly: false });
+        await connection(tableNames.time_slot).where({ id }).delete();
+        return {
+          message: 'OK',
+        };
+      } catch (err) {
+        let errorCode = 'DELETE_TIME_SLOT_ERROR';
+        return handleError(err, errorCode);
+      }
+    },
   },
   MutateCourseResult: {
     __resolveType: (obj) => {
@@ -252,6 +298,17 @@ module.exports = {
     __resolveType: (obj) => {
       if (obj.id) {
         return 'CourseInstance';
+      }
+      if (obj.fields) {
+        return 'ValidationError';
+      }
+      return 'BaseError';
+    },
+  },
+  MutateTimeSlotResult: {
+    __resolveType: (obj) => {
+      if (obj.id) {
+        return 'TimeSlot';
       }
       if (obj.fields) {
         return 'ValidationError';

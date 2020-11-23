@@ -336,7 +336,7 @@ exports.seed = async (knex) => {
     ])
     .returning('*');
 
-  for (let i = 0; i < 10; i += 1) {
+  for (let i = 0; i < 1000; i += 1) {
     /* eslint-disable no-await-in-loop */
     const [Person] = await knex(tableNames.people)
       .insert([
