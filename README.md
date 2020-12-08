@@ -19,6 +19,11 @@
   docker-compose up
   ```
 
+  If you plan to run tests use the following instead,
+  ```bash
+  docker-compose -f docker-compose.yaml -f db-test-service.yaml up
+  ```
+
 - Migrate and seed the database
 
   ```bash
