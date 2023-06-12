@@ -12,7 +12,7 @@ Back-end API framework for colleges.
 
 There does not exist a free, open and powerful tool for colleges (specifically higher educational institutes) to enhance and improve processes through the effective management of data. The project aims to provide RESTful API services alone.
 
-> Check out [School Tool](https://launchpad.net/schooltool) and see if it meets our needs.
+> Check out [Moodle](https://moodle.org/), [SchoolTool](https://launchpad.net/schooltool) and see if any of them meet our needs.
 
 ## Directory Structure
 
