@@ -18,11 +18,12 @@ There does not exist a free, open and powerful tool for colleges (specifically h
 > * [SchoolTool](https://launchpad.net/schooltool)
 > * [RosarioSIS](https://www.rosariosis.org/)
 > * [Openadmin](http://richtech.ca/)
+> 
 > and see if any of them meet our needs.
 
 > Useful Links
-> https://openschoolsolutions.org/
-> https://www.schooleducationgateway.eu/en/pub/resources/tutorials/open-source-software.htm
+> * https://openschoolsolutions.org/
+> * https://www.schooleducationgateway.eu/en/pub/resources/tutorials/open-source-software.htm
 
 ## Directory Structure
 
