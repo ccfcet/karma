@@ -10,9 +10,19 @@ Back-end API framework for colleges.
 
 ## Motivation
 
-There does not exist a free, open and powerful tool for colleges (specifically higher educational institutes) to enhance and improve processes through the effective management of data. The project aims to provide RESTful API services alone.
+There does not exist a free, open and powerful tool for colleges (specifically higher educational institutes) to enhance and improve processes through the effective management of data. The project aims to provide RESTful HTTP API services alone.
 
-> Check out [Moodle](https://moodle.org/), [SchoolTool](https://launchpad.net/schooltool) and see if any of them meet our needs.
+> Check out
+> * [Gibbon](https://gibbonedu.org/)
+> * [Moodle](https://moodle.org/)
+> * [SchoolTool](https://launchpad.net/schooltool)
+> * [RosarioSIS](https://www.rosariosis.org/)
+> * [Openadmin](http://richtech.ca/)
+> and see if any of them meet our needs.
+
+> Useful Links
+> https://openschoolsolutions.org/
+> https://www.schooleducationgateway.eu/en/pub/resources/tutorials/open-source-software.htm
 
 ## Directory Structure
 
