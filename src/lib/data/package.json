@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.21",
     "mysql2": "^1.5.3",
     "sequelize": "^5.15.1",
     "walk": "^2.3.13"
