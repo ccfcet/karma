@@ -6,6 +6,6 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "data": "file:../data",
-    "jsonwebtoken": "^8.2.2"
+    "jsonwebtoken": "^9.0.0"
   }
 }
